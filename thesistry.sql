@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 09, 2018 at 03:55 AM
+-- Generation Time: Sep 10, 2018 at 06:34 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -43,14 +43,14 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `time` time NOT NULL,
   `plateNumber` varchar(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
 --
 
 INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `serviceType`, `vehicleProblem`, `created`, `modified`, `status`, `specialOffer`, `date`, `time`, `plateNumber`) VALUES
-(1, 0, NULL, 'Mechanical', 'Farting ', '2018-09-06 07:44:20', '2018-09-06 07:44:20', '', 'Premium', '2018-09-06', '07:44:00', 'AYZ-123');
+(1, 0, NULL, 'Mechanical', 'Farting ', '2018-09-06 07:44:20', '2018-09-06 07:44:20', 'Pending', 'Premium', '2018-09-06', '07:44:00', 'AYZ-123');
 
 -- --------------------------------------------------------
 
@@ -66,16 +66,16 @@ CREATE TABLE IF NOT EXISTS `services` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`serviceId`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -90,10 +90,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `complete_name`, `type`, `status`, `date_created`, `date_modified`, `plate`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`, `complete_name`, `type`, `status`, `date_created`, `date_modified`, `plate`) VALUES
 (1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Master Admin', 'Admin', 'active', '2018-09-03 14:25:08', '2018-09-03 00:00:00', ''),
 (2, 'charm', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Charmaine Mendoza', 'Admin', 'active', '2018-09-03 15:10:47', '2018-09-03 00:00:00', ''),
 (3, 'aybebe', 'aybebe', 'Ivy Mae J. Palma', 'user', 'active', '2018-09-06 06:34:00', '2018-09-06 06:34:00', 'ayb 123');
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `engineDisplacement` varchar(255) DEFAULT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
