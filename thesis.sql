@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Sep 10, 2018 at 07:18 AM
+-- Generation Time: Sep 11, 2018 at 09:34 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `specialOffer` varchar(255) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
-  `plateNumber` varchar(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `vehicleId` (`vehicleId`),
   KEY `serviceId` (`serviceId`)
@@ -92,12 +91,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `complete_name` varchar(255) NOT NULL,
+  `firstName` varchar(255) NOT NULL,
+  `middleName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'active',
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime NOT NULL,
-  `plate` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
@@ -106,10 +106,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `complete_name`, `type`, `status`, `date_created`, `date_modified`, `plate`) VALUES
-(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Master Admin', 'Admin', 'active', '2018-09-03 14:25:08', '2018-09-03 00:00:00', ''),
-(2, 'charm', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Charmaine Mendoza', 'Admin', 'active', '2018-09-03 15:10:47', '2018-09-03 00:00:00', ''),
-(3, 'aybebe', 'aybebe', 'Ivy Mae J. Palma', 'user', 'active', '2018-09-06 06:34:00', '2018-09-06 06:34:00', 'ayb 123');
+INSERT INTO `user` (`id`, `username`, `password`, `firstName`, `middleName`, `lastName`, `type`, `status`, `date_created`, `date_modified`) VALUES
+(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', '', '', 'Admin', 'active', '2018-09-03 14:25:08', '2018-09-03 00:00:00'),
+(2, 'charm', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', '', '', 'Admin', 'active', '2018-09-03 15:10:47', '2018-09-03 00:00:00'),
+(3, 'aybebe', 'aybebe', '', '', '', 'user', 'active', '2018-09-06 06:34:00', '2018-09-06 06:34:00');
 
 -- --------------------------------------------------------
 
