@@ -2,8 +2,8 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Sep 11, 2018 at 09:34 AM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Sep 12, 2018 at 06:41 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -83,11 +83,11 @@ INSERT INTO `services` (`serviceId`, `serviceName`, `serviceType`, `created`, `m
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -100,16 +100,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `firstName`, `middleName`, `lastName`, `type`, `status`, `date_created`, `date_modified`) VALUES
-(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', '', '', 'Admin', 'active', '2018-09-03 14:25:08', '2018-09-03 00:00:00'),
-(2, 'charm', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', '', '', 'Admin', 'active', '2018-09-03 15:10:47', '2018-09-03 00:00:00'),
-(3, 'aybebe', 'aybebe', '', '', '', 'user', 'active', '2018-09-06 06:34:00', '2018-09-06 06:34:00');
+INSERT INTO `users` (`id`, `username`, `password`, `firstName`, `middleName`, `lastName`, `type`, `status`, `date_created`, `date_modified`) VALUES
+(4, 'admin', '$2y$10$fj.Nu5fnFsaubJ3.J63zAeejs0PqJDsoWZslqsNZNnQkIpzNGX556', 'admin', 'admin', 'admin', 'admin', 'active', '2018-09-12 06:35:00', '2018-09-12 06:35:00'),
+(5, 'admin2', '$2y$10$c0IcNYdDviMHorF.fHvwxe2qPVF6BFoZPVYp/EfN5C0owr0jnthNq', 'admin2', 'admin2', 'admin2', 'admin', 'active', '2018-09-12 06:38:00', '2018-09-12 06:38:00');
 
 -- --------------------------------------------------------
 
@@ -155,7 +154,7 @@ ALTER TABLE `appointments`
 -- Constraints for table `vehicles`
 --
 ALTER TABLE `vehicles`
-  ADD CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
