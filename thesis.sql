@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 12, 2018 at 06:41 AM
+-- Generation Time: Sep 12, 2018 at 07:31 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -21,6 +21,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `thesis`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `firstName` varchar(255) NOT NULL,
+  `middleName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`, `firstName`, `middleName`, `lastName`, `date_created`, `date_modified`) VALUES
+(2, 'admin', '$2y$10$umkamcqTd00tzQHGBcgFVugU7Bjsm28CVRoRUA5ujVtWv6jc7RsEW', 'admin', 'admin', 'admin', '2018-09-12 07:26:00', '2018-09-12 07:26:00');
 
 -- --------------------------------------------------------
 
@@ -45,6 +71,27 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   KEY `vehicleId` (`vehicleId`),
   KEY `serviceId` (`serviceId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client`
+--
+
+DROP TABLE IF EXISTS `client`;
+CREATE TABLE IF NOT EXISTS `client` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(255) NOT NULL,
+  `middleName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `plateNumber` varchar(255) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -100,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -108,7 +155,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `firstName`, `middleName`, `lastName`, `type`, `status`, `date_created`, `date_modified`) VALUES
 (4, 'admin', '$2y$10$fj.Nu5fnFsaubJ3.J63zAeejs0PqJDsoWZslqsNZNnQkIpzNGX556', 'admin', 'admin', 'admin', 'admin', 'active', '2018-09-12 06:35:00', '2018-09-12 06:35:00'),
-(5, 'admin2', '$2y$10$c0IcNYdDviMHorF.fHvwxe2qPVF6BFoZPVYp/EfN5C0owr0jnthNq', 'admin2', 'admin2', 'admin2', 'admin', 'active', '2018-09-12 06:38:00', '2018-09-12 06:38:00');
+(5, 'admin2', '$2y$10$c0IcNYdDviMHorF.fHvwxe2qPVF6BFoZPVYp/EfN5C0owr0jnthNq', 'admin2', 'admin2', 'admin2', 'admin', 'active', '2018-09-12 06:38:00', '2018-09-12 06:38:00'),
+(6, 'ayve', '$2y$10$NTYapdo2qn/4VvTwVWQpC.HMpEiekjYDDIqc/KHeAKty/TkrZaIpm', 'ayve', 'ayve', 'ayve', 'admin', 'active', '2018-09-12 06:56:00', '2018-09-12 06:56:00');
 
 -- --------------------------------------------------------
 
