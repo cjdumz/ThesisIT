@@ -1,0 +1,65 @@
+<?php
+namespace App\Test\Fixture;
+
+use Cake\TestSuite\Fixture\TestFixture;
+
+/**
+ * UsersFixture
+ *
+ */
+class UsersFixture extends TestFixture
+{
+
+    /**
+     * Fields
+     *
+     * @var array
+     */
+    // @codingStandardsIgnoreStart
+    public $fields = [
+        'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'username' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'firstName' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'lastName' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'middleName' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'email' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'password' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'phone' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'plateNumber' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        '_constraints' => [
+            'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
+        ],
+        '_options' => [
+            'engine' => 'MyISAM',
+            'collation' => 'latin1_swedish_ci'
+        ],
+    ];
+    // @codingStandardsIgnoreEnd
+
+    /**
+     * Init method
+     *
+     * @return void
+     */
+    public function init()
+    {
+        $this->records = [
+            [
+                'id' => 1,
+                'username' => 'Lorem ipsum dolor sit amet',
+                'firstName' => 'Lorem ipsum dolor sit amet',
+                'lastName' => 'Lorem ipsum dolor sit amet',
+                'middleName' => 'Lorem ipsum dolor sit amet',
+                'email' => 'Lorem ipsum dolor sit amet',
+                'password' => 'Lorem ipsum dolor sit amet',
+                'phone' => 'Lorem ipsum dolor sit amet',
+                'plateNumber' => 'Lorem ipsum dolor sit amet',
+                'created' => '2018-09-12 18:12:08',
+                'modified' => '2018-09-12 18:12:08'
+            ],
+        ];
+        parent::init();
+    }
+}
