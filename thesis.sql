@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 12, 2018 at 07:31 AM
+-- Generation Time: Sep 18, 2018 at 02:49 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -107,56 +107,35 @@ CREATE TABLE IF NOT EXISTS `services` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`serviceId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `services`
 --
 
 INSERT INTO `services` (`serviceId`, `serviceName`, `serviceType`, `created`, `modified`) VALUES
-(1, 'Mechanical', 'Repair', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(2, 'Mechanical', 'Replacement', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(3, 'Electrical', 'Repair', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(4, 'Electrical', 'Replacement', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(5, 'Customize', 'Repair', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(6, 'Customize', 'Replacement', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(7, 'Body Repair', 'Repair', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(8, 'Body Repair', 'Replacement', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(9, 'Body Paint', 'Repair', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(10, 'Body Paint', 'Replacement', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(11, 'Maintenance', 'Repair', '2018-09-10 00:00:00', '2018-09-10 00:00:00'),
-(12, 'Maintenance', 'Replacement', '2018-09-10 00:00:00', '2018-09-10 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `middleName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL DEFAULT 'active',
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `firstName`, `middleName`, `lastName`, `type`, `status`, `date_created`, `date_modified`) VALUES
-(4, 'admin', '$2y$10$fj.Nu5fnFsaubJ3.J63zAeejs0PqJDsoWZslqsNZNnQkIpzNGX556', 'admin', 'admin', 'admin', 'admin', 'active', '2018-09-12 06:35:00', '2018-09-12 06:35:00'),
-(5, 'admin2', '$2y$10$c0IcNYdDviMHorF.fHvwxe2qPVF6BFoZPVYp/EfN5C0owr0jnthNq', 'admin2', 'admin2', 'admin2', 'admin', 'active', '2018-09-12 06:38:00', '2018-09-12 06:38:00'),
-(6, 'ayve', '$2y$10$NTYapdo2qn/4VvTwVWQpC.HMpEiekjYDDIqc/KHeAKty/TkrZaIpm', 'ayve', 'ayve', 'ayve', 'admin', 'active', '2018-09-12 06:56:00', '2018-09-12 06:56:00');
+(1, 'Change Oil', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(2, 'Check brakes', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(3, 'Check Air filter', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(4, 'Check fuel filter', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(5, 'Check Cabin Filter', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(6, 'Check Suspensions', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(7, 'Change Brake Pads', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(8, 'Change Air Filter', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(9, 'Change Fuel Filter', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(10, 'Change Cabin Filter', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(11, 'Change wiper blades', 'Mechanical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(12, 'Check headlights', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(13, 'Check Front and rear signal lights', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(14, 'Check tail lights', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(15, 'Check park lights', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(16, 'Check Brake lights', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(17, 'Check reverse light', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(18, 'Check plate light', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(19, 'Check dome light', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(20, 'check horn', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(21, 'check battery', 'Electrical', '2018-09-18 00:00:00', '2018-09-18 00:00:00'),
+(22, 'simple retouch', 'Painting', '2018-09-18 00:00:00', '2018-09-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -186,23 +165,6 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `appointments`
---
-ALTER TABLE `appointments`
-  ADD CONSTRAINT `serviceId` FOREIGN KEY (`serviceId`) REFERENCES `services` (`serviceId`),
-  ADD CONSTRAINT `vehicleId` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `vehicles`
---
-ALTER TABLE `vehicles`
-  ADD CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
