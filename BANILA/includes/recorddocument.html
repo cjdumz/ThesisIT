@@ -1,0 +1,71 @@
+   <!-- Start of Record Document-->
+   <div class="modal fade" id="RecordDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Record New Document</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <form method="POST" enctype="multipart/form-data" action="process/recdoc.php" class="form-horizontal" autocomplete="off">
+            <div class="modal-body">
+
+              <div class="form-group">
+                  <label for="docname">Document Name</label>
+                    <input class="form-control" id="docname" name="docname" type="text" placeholder="Enter document name" required>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-6">
+                      <label for="status">Status</label>
+                      <select class="form-control" id="status" type="text" name="status" required>
+                          <option selected disabled hidden value="">Select Document Status</option>
+                          <option value="pending">Pending</option>
+                          <option value="ongoing">Ongoing</option>
+                          <option value="done">Done</option>
+                      </select>
+                  </div>
+                  <div class="col-6">
+                      <label for="doctype">Type</label>
+                      <select class="form-control" id="doctype" type="text" name="type" required>
+                          <option selected disabled hidden value="">Select document Type</option>
+                          <option value="urgent">Urgent</option>
+                          <option value="signing">For Signing</option>
+                          <option value="incoming">Incoming</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="descript">Document Description</label>
+                  <textarea class="form-control" rows="3" name="descript"></textarea>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-6">
+                      <label for="received">Date Received</label>
+                      <input class="form-control" type="date" name="date_recieved">
+                  </div>
+                  <div class="col-6">
+                      <label for="modified">Date Modified</label>
+                      <input class="form-control" type="date" name="date_modified" disabled>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" type="submit" name="recdoc">Save</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <!-- End of Record Document -->
