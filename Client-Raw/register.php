@@ -39,11 +39,13 @@ if (empty($_POST['username']) || empty($_POST['password'])) {
 	if (preg_match('/[A-Za-z]+/', $_POST['lastName']) == 0) {
     	die ('Last Name is not valid!<br><a href="register.html">Back</a>');
 	}
-	//invalid contact
-	if (preg_match('/[0-9]+/', $_POST['ContactNumber']) == 0) {
-    	die ('Contact is not valid!<br><a href="register.html">Back</a>');
-	}
-
+if($stmt = $mysqli->prepare('INSERT INTO personalinfo (firstName, middleName, lastName, address, email,  contactNumber) VALUES (?, ?, ?, ?, ?, ?)')) {
+			$stmt->bind_param('ssssss', $_POST['firstName'], $_POST['middleName'], $_POST['lastName'], $_POST['address'], $_POST['email'], $_POST['contactNumber']);
+			$stmt->execute();
+			echo 'Personal Info Saved!<br>';
+		} else {
+			echo 'Could not prepare statement!';
+		}
 // We need to check if the account with that username exists
 if ($stmt = $mysqli->prepare('SELECT id, password FROM users WHERE username = ?')) {
 	// Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
