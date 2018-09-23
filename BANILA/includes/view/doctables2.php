@@ -16,13 +16,12 @@ require "process/require/dataconf.php";
                   <th>Plate Number</th>
                   <th>Status</th>
                   <th>Date</th>
-                  <th>Time</th>
-                  <th width="20%">Action</th>
+                  <th>Time</th> 
                 </tr>
               </thead>
               <tbody>
                 <?php
-                  $data = $connection->prepare("SELECT * FROM `appointments` where status='Pending';");
+                  $data = $connection->prepare("SELECT * FROM `appointments` where status='Accepted';");
                   if($data->execute()){
                     $values = $data->get_result();
                     while($row = $values->fetch_assoc()) {
@@ -36,22 +35,6 @@ require "process/require/dataconf.php";
                           <td>'.$row['status'].'</td>
                           <td>'.$row['date'].'</td>
                           <td>'.$row['time'].'</td>
-                          <td>
-
-                            <form method="POST" enctype="multipart/form-data">
-                              <input type="hidden" name="command" value="accept">
-                              <input type="hidden" name="id" value="'.$row['id'].'">
-                              <button class="btn btn-success" type="submit" name="commands" style="width: 100px">Accept</button>
-                            </form>
-
-                            <form method="POST" enctype="multipart/form-data">
-                              <input type="hidden" name="command" value="deny">
-                              <input type="hidden" name="id" value="'.$row['id'].'">
-                              <button class="btn btn-danger" type="submit" name="commands" style="width: 100px">Deny</button>
-                            </form>
-                                
-                          </td>
-
                         </tr>
                       ';
                     }

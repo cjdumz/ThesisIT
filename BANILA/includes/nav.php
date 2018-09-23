@@ -1,6 +1,6 @@
 <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="dashboard.php">NSTP Document Tracking</a>
+    <a class="navbar-brand" href="dashboard.php">EAS Customs</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,16 +13,24 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-          <a class="nav-link" href="tracking.php">
+          <a class="nav-link" href="schedules.php">
             <i class="fa fa-fw fa-search"></i>
-            <span class="nav-link-text">Tracking</span>
+            <span class="nav-link-text">Schedules</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="documents.php">
-            <i class="fa fa-fw fa-file"></i>
-            <span class="nav-link-text">Documents</span>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-file-text"></i>
+            <span class="nav-link-text">Appointments</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+            <li>
+              <a href="appointments.php">Request</a>
+            </li>
+            <li>
+              <a href="reschedule.php">Reschedule</a>
+            </li>
+          </ul>
         </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
@@ -119,16 +127,6 @@
         <li class="nav-item">
           <a class="nav-link" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-fw fa-user-circle-o"></i> 
-                <?php
-                  require "process/require/dataconf.php";
-                  if(isset($_SESSION["name"])){
-                    $id = $_SESSION['name'];
-                    $type = $_SESSION['type'];
-                    echo  ''.$id.'';
-                  }else{
-                    header("Location:index.php");
-                  }
-                ?>
           </a>
         </li>
         <li class="nav-item">

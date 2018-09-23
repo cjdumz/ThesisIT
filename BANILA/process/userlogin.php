@@ -8,18 +8,16 @@
         
         $data = $connection->query("
         select username, password from 
-        user where username='$username' and password='$password' and status = 'active';
+        admin where username='$username' and password='$password';
         ");
 
         if($data->num_rows == 1){
 
-          $sql = "SELECT * FROM user where username='$username' and password ='$password'";
+          $sql = "SELECT * FROM admin where username='$username' and password ='$password'";
           $result = $connection->query($sql);
           if($result->num_rows == 1){
               $row = $result->fetch_assoc();
-              $_SESSION['name'] = $row['complete_name'];
-              $_SESSION['id'] = $row['user_id'];
-              $_SESSION['type'] = $row['type'];
+              $_SESSION['id'] = $row['id'];
               $_SESSION['username'] = $username;
               $_SESSION['password'] = $password;
           }

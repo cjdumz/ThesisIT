@@ -1,5 +1,22 @@
 <?php 
 require 'process/require/auth.php';
+require "process/require/dataconf.php";
+
+if(isset($_POST['commands'])){
+  $action = $connection->real_escape_string($_POST["command"]);
+  $id = $connection->real_escape_string($_POST["id"]);
+
+  if($action=='accept'){
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted' WHERE `appointments`.`id` = $id ;");
+  }else{
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Declined' WHERE `appointments`.`id` = $id ;");
+  }
+  if($actions_command ->execute()){
+
+  }else{
+    $errMSG = "there was an error while updating the data..";
+  }
+}
 
 ?>
 <!DOCTYPE html>
@@ -31,14 +48,15 @@ require 'process/require/auth.php';
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="documents.php">Documents</a>
+          <a href="appointments.php">Appointments</a>
         </li>
+        <li class="breadcrumb-item active">Request</li>
       </ol>
-
-      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#RecordDocument" style="margin-bottom: 15px;">
+      
+      <!-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#RecordDocument" style="margin-bottom: 15px;">
         <span class="fa fa-plus-circle fa-1x">
         </span> Record Document
-      </a>
+      </a> -->
 
       <div class="row">
         <div class="col-12">
