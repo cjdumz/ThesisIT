@@ -12,7 +12,7 @@ if(isset($_POST['commands'])){
     $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Declined' WHERE `appointments`.`id` = $id ;");
   }
   if($actions_command ->execute()){
-
+    header("Refresh: 0; url=appointments.php");
   }else{
     $errMSG = "there was an error while updating the data..";
   }
