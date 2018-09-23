@@ -2,8 +2,8 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Sep 18, 2018 at 05:01 PM
+-- Host: 127.0.0.1:3308
+-- Generation Time: Sep 23, 2018 at 01:29 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -60,8 +60,6 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `serviceId` int(11) NOT NULL,
   `vehicleId` int(255) DEFAULT NULL,
   `userId` int(11) NOT NULL,
-  `serviceType` varchar(255) NOT NULL,
-  `vehicleProblem` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   `status` varchar(255) NOT NULL,
@@ -70,7 +68,8 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `time` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `vehicleId` (`vehicleId`),
-  KEY `serviceId` (`serviceId`)
+  KEY `serviceId` (`serviceId`),
+  KEY `userId` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -137,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -145,13 +144,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `firstName`, `lastName`, `middleName`, `userEmail`, `password`, `phone`, `plateNumber`, `created`, `modified`) VALUES
 (3, 'albie', 'Albert John', 'Lacap Jr.', 'I', 'albert@yahoo.com', '$2y$10$MuRIxIQq6fkwf/82ZQhfAeH2XpjE9dQ4iRYcqFHisRlI866DZdVeq', '09954250116', 'AYZ-3222', '2018-09-10 07:42:35', '2018-09-18 07:00:32'),
-(14, 'jellythelegendstar', 'Jellystar', 'Grabgrab', 'Llanlan', 'jellythelegendstar@gmail.com', '$2y$10$viavaUet0ezxmx0NaECW8.dy40O8/5XxYp7i0Ifahbv6c1QFyu6tW', '09171559423', 'FAB-998', '2018-09-17 14:18:02', '2018-09-17 14:21:39'),
-(15, 'cornyboy123', 'john corn', 'Sweer', 'irby', 'irbylord@yahoo.com', '$2y$10$1iZczVHnuNKmRRBLuT0Gp.nv4Lsi3Lb2/fipkV0pX12H9Js9T/9ba', '0908123123123', 'GST-123', '2018-09-18 15:27:34', '2018-09-18 15:27:34'),
-(16, 'jr420123', 'albert johnny', 'wahaha', 'wadawjh', 'jdahwj@yahoo.com', '$2y$10$0YZZHP9yEE/bpnbQPIuHlOPI.A3z4nfi5sKAcqJdCYT6QEcnKGTSa', '09810298310', 'AYZ-123', '2018-09-18 16:19:52', '2018-09-18 16:19:52'),
 (10, 'lacapalbert22', 'Albert', 'Lacap', 'Imua', 'albert22@yahoo.com', 'lacap', '090123123', 'AYZ123', '2018-09-12 18:17:59', '2018-09-12 18:17:59'),
 (11, 'admin', 'admines', 'awdawd', 'awdawd', 'ulol@yaho.com', '$2y$10$RFOI2x4cAGpzx9ZzFb0yWOE35ratk/0qzMxT1l5tG/OwiHMSTqpp.', '01023981023', '123AAA', '2018-09-13 13:57:34', '2018-09-13 14:21:52'),
 (12, 'johnnycar', 'Johnny', 'Cruz', 'M', 'johhny@gmail.com', '$2y$10$V2nxORotfBUEaTQXFTZ6qe1pb43IAerHn5EYXjM3yx09x/2lpbywu', '09042088123', 'AYZ-3222', '2018-09-13 17:44:23', '2018-09-13 17:44:23'),
-(13, 'lodipetmalu', 'pet', 'malu', 'wahahah', 'petmalulodi@yahoo.com', '$2y$10$Uk8fz1g5nvzY8PQ4kO9nf.fkaGGqa2dVvn4SrgwtSsOGbhvgbyXUS', '123123123123123', 'AYZ-420', '2018-09-14 13:57:34', '2018-09-14 13:57:34');
+(13, 'lodipetmalu', 'pet', 'malu', 'wahahah', 'petmalulodi@yahoo.com', '$2y$10$Uk8fz1g5nvzY8PQ4kO9nf.fkaGGqa2dVvn4SrgwtSsOGbhvgbyXUS', '123123123123123', 'AYZ-420', '2018-09-14 13:57:34', '2018-09-14 13:57:34'),
+(14, 'jellythelegendstar', 'Jellystar', 'Grabgrab', 'Llanlan', 'jellythelegendstar@gmail.com', '$2y$10$viavaUet0ezxmx0NaECW8.dy40O8/5XxYp7i0Ifahbv6c1QFyu6tW', '09171559423', 'FAB-998', '2018-09-17 14:18:02', '2018-09-17 14:21:39'),
+(15, 'cornyboy123', 'john corn', 'Sweer', 'irby', 'irbylord@yahoo.com', '$2y$10$1iZczVHnuNKmRRBLuT0Gp.nv4Lsi3Lb2/fipkV0pX12H9Js9T/9ba', '0908123123123', 'GST-123', '2018-09-18 15:27:34', '2018-09-18 15:27:34'),
+(16, 'jr420123', 'albert johnny', 'wahaha', 'wadawjh', 'jdahwj@yahoo.com', '$2y$10$0YZZHP9yEE/bpnbQPIuHlOPI.A3z4nfi5sKAcqJdCYT6QEcnKGTSa', '09810298310', 'AYZ-123', '2018-09-18 16:19:52', '2018-09-18 16:19:52');
 
 -- --------------------------------------------------------
 
@@ -181,6 +180,16 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `appointments`
+--
+ALTER TABLE `appointments`
+  ADD CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
