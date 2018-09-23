@@ -23,13 +23,26 @@ if (empty($_POST['username']) || empty($_POST['password'])) {
 //Additional Validators
 	//ivalid characters validator
 	if (preg_match('/[A-Za-z0-9]+/', $_POST['username']) == 0) {
-    die ('Username is not valid!<br><a href="register.html">Back</a>');
+    	die ('Username is not valid!<br><a href="register.html">Back</a>');
 	}
 	//password length validator
 	if (strlen($_POST['password']) > 12 || strlen($_POST['password']) < 6) {
-	die ('Password must be between 6 and 12 characters long.<br><a href="register.html">Back</a>');
+		die ('Password must be between 6 and 12 characters long.<br><a href="register.html">Back</a>');
 	}
-
+	//invalid names validator
+	if (preg_match('/[A-Za-z]+/', $_POST['firstName']) == 0) {
+    	die ('First Name is not valid!<br><a href="register.html">Back</a>');
+	}
+	if (preg_match('/[A-Za-z]+/', $_POST['middleName']) == 0) {
+    	die ('Middle Name is not valid!<br><a href="register.html">Back</a>');
+	}
+	if (preg_match('/[A-Za-z]+/', $_POST['lastName']) == 0) {
+    	die ('Last Name is not valid!<br><a href="register.html">Back</a>');
+	}
+	//invalid contact
+	if (preg_match('/[0-9]+/', $_POST['ContactNumber']) == 0) {
+    	die ('Contact is not valid!<br><a href="register.html">Back</a>');
+	}
 
 // We need to check if the account with that username exists
 if ($stmt = $mysqli->prepare('SELECT id, password FROM users WHERE username = ?')) {
