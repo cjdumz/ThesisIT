@@ -4,7 +4,7 @@ require "process/require/dataconf.php";
 <!-- Start of Document Tables-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i>Schedules</div>
+          <i class="fa fa-table"></i> Appointment Request</div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="doctables" width="100%" cellspacing="0">
@@ -13,18 +13,20 @@ require "process/require/dataconf.php";
                   <th>Customer Name</th>
                   <th>Service</th>
                   <th>Plate Number</th>
-                  <th>Status</th>
-                  <th>Date</th>
+                  <th>Brand</th>
+                  <th>Series</th>
+                  <th>Time</th>
+                  <th>Year Model</th>
+                  <th width="10%">Date</th>
                   <th>Time</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                  $data = $connection->prepare("SELECT services.serviceName as `sername`, vehicles.plateNumber as 'vicid', appointments.id as 
-                  'appointment ID', concat(personalinfo.firstName,' ', personalinfo.middleName,' ', personalinfo.lastName) 
-                  as `Name`, appointments.status, appointments.date, appointments.time from appointments join services join vehicles join personalinfo where services.serviceId 
-                  = appointments.serviceId and vehicles.id = appointments.vehicleId and personalinfo.personalId =
-                   appointments.personalId and status='Accepted' and appointments.vehicleId = vehicles.id;");
+                  $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
+                  yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date,time from appointments join personalinfo on appointments.personalId
+                   = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
+                    = services.serviceId where status = 'Accepted'");
                   if($data->execute()){
                     $values = $data->get_result();
                     while($row = $values->fetch_assoc()) {
@@ -32,7 +34,10 @@ require "process/require/dataconf.php";
                         <tr class="text-center">
                           <td>'.$row['Name'].'</td>
                           <td>'.$row['sername'].'</td>
-                          <td>'.$row['vicid'].'</td>
+                          <td>'.$row['plateNumber'].'</td>
+                          <td>'.$row['make'].'</td>
+                          <td>'.$row['series'].'</td>
+                          <td>'.$row['yearModel'].'</td>
                           <td>'.$row['status'].'</td>
                           <td>'.$row['date'].'</td>
                           <td>'.$row['time'].'</td>
