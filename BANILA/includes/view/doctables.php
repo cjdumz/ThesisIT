@@ -10,9 +10,8 @@ require "process/require/dataconf.php";
             <table class="table table-bordered" id="doctables" width="100%" cellspacing="0">
               <thead>
                 <tr class="text-center">
-                  <th>ID</th>
-                  <th>Service ID</th>
-                  <th>Personal ID</th>
+                  <th>Customer Name</th>
+                  <th>Service</th>
                   <th>Plate Number</th>
                   <th>Status</th>
                   <th>Date</th>
@@ -22,17 +21,19 @@ require "process/require/dataconf.php";
               </thead>
               <tbody>
                 <?php
-                  $data = $connection->prepare("SELECT * FROM `appointments` where status='Pending';");
+                  $data = $connection->prepare("SELECT services.serviceName as `sername`, vehicles.plateNumber as 'vicid', appointments.id as 
+                  'appointment ID', concat(personalinfo.firstName,' ', personalinfo.middleName,' ', personalinfo.lastName) 
+                  as `Name`, appointments.status, appointments.date, appointments.time from appointments join services join vehicles join personalinfo where services.serviceId 
+                  = appointments.serviceId and vehicles.id = appointments.vehicleId and personalinfo.personalId =
+                   appointments.personalId and status='Pending' and appointments.vehicleId = vehicles.id;");
                   if($data->execute()){
                     $values = $data->get_result();
                     while($row = $values->fetch_assoc()) {
                       echo '
                         <tr class="text-center">
-
-                          <td>'.$row['id'].'</td>
-                          <td>'.$row['serviceId'].'</td>
-                          <td>'.$row['vehicleId'].'</td>
-                          <td>'.$row['personalId'].'</td>
+                          <td>'.$row['Name'].'</td>
+                          <td>'.$row['sername'].'</td>
+                          <td>'.$row['vicid'].'</td>
                           <td>'.$row['status'].'</td>
                           <td>'.$row['date'].'</td>
                           <td>'.$row['time'].'</td>
@@ -40,13 +41,13 @@ require "process/require/dataconf.php";
 
                             <form method="POST" enctype="multipart/form-data">
                               <input type="hidden" name="command" value="accept">
-                              <input type="hidden" name="id" value="'.$row['id'].'">
+                              <input type="hidden" name="id" value="'.$row['appointment ID'].'">
                               <button class="btn btn-success" type="submit" name="commands" style="width: 100px">Accept</button>
                             </form>
 
                             <form method="POST" enctype="multipart/form-data">
                               <input type="hidden" name="command" value="deny">
-                              <input type="hidden" name="id" value="'.$row['id'].'">
+                              <input type="hidden" name="id" value="'.$row['appointment ID'].'">
                               <button class="btn btn-danger" type="submit" name="commands" style="width: 100px">Deny</button>
                             </form>
                                 

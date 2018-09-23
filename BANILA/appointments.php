@@ -50,7 +50,7 @@ if(isset($_POST['commands'])){
         <li class="breadcrumb-item">
           <a href="appointments.php">Appointments</a>
         </li>
-        <li class="breadcrumb-item active">Request</li>
+        <li class="breadcrumb-item active">Requests</li>
       </ol>
       
       <!-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#RecordDocument" style="margin-bottom: 15px;">
