@@ -33,7 +33,7 @@ require 'process/require/auth.php';
         <li class="breadcrumb-item">
           <a href="schedules.php">Schedules</a>
         </li>
-        <li class="breadcrumb-item active">Approved</li>
+        <li class="breadcrumb-item active">Accepted</li>
       </ol>
       
       <!-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#RecordDocument" style="margin-bottom: 15px;">
