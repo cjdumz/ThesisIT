@@ -2,8 +2,8 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Sep 23, 2018 at 10:35 PM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Sep 23, 2018 at 11:01 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `date_created`, `date_modified`) VALUES
-(2, 'admin', '$2y$10$umkamcqTd00tzQHGBcgFVugU7Bjsm28CVRoRUA5ujVtWv6jc7RsEW', '2018-09-12 07:26:00', '2018-09-12 07:26:00');
+(2, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2018-09-12 07:26:00', '2018-09-12 07:26:00');
 
 -- --------------------------------------------------------
 
