@@ -3,7 +3,7 @@
 $DB_HOST = 'localhost';
 $DB_USER = 'root';
 $DB_PASS = '';
-$DB_NAME = 'phplogin';
+$DB_NAME = 'thesis';
 // Try and connect using the info above.
 $mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 if ($mysqli->connect_errno) {
@@ -21,7 +21,6 @@ if (empty($_POST['username']) || empty($_POST['password'])) {
 	die ('Please complete the registration form!<br><a href="register.html">Back</a>');
 }
 //Additional Validators
-if ($stmt = $con->prepare('SELECT id, password FROM users WHERE username = ?')) {
 	//ivalid characters validator
 	if (preg_match('/[A-Za-z0-9]+/', $_POST['username']) == 0) {
     die ('Username is not valid!<br><a href="register.html">Back</a>');
@@ -30,7 +29,6 @@ if ($stmt = $con->prepare('SELECT id, password FROM users WHERE username = ?')) 
 	if (strlen($_POST['password']) > 12 || strlen($_POST['password']) < 6) {
 	die ('Password must be between 6 and 12 characters long.<br><a href="register.html">Back</a>');
 	}
-}
 
 
 // We need to check if the account with that username exists
@@ -48,7 +46,7 @@ if ($stmt = $mysqli->prepare('SELECT id, password FROM users WHERE username = ?'
 		if ($stmt = $mysqli->prepare('INSERT INTO users (username, password) VALUES (?, ?)')) {
 			// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
 			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-			$stmt->bind_param('sss', $_POST['username'], $password);
+			$stmt->bind_param('ss', $_POST['username'], $password);
 			$stmt->execute();
 			echo 'You have successfully registered, you can now login!<br><a href="index.html">Login</a>';
 		} else {
