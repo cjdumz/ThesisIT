@@ -38,9 +38,7 @@
           </div>
            
            <span class="alert">Invalid Credentials</span>  
-
-           <a class="link" href="forgot-password.html">Forgot your password?</a>
-
+           <br>
           <button class="log-btn" type="submit" name="login">Login</button>
 
         </form>

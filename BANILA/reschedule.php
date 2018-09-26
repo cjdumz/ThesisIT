@@ -11,6 +11,7 @@ require 'process/require/auth.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  
   <title>EAS Customs</title>
   <link rel="icon" href="images/Logo.png">
   <!-- Bootstrap core CSS-->
