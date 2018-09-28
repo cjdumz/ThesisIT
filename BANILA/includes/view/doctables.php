@@ -52,7 +52,7 @@ require "process/require/dataconf.php";
                               <form method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="command" value="accept">
                                 <input type="hidden" name="id" value="'.$row['ID'].'">
-                                <button class="btn btn-success col-12" type="submit" name="commands" style="margin-top: 5px;">Accept</button>
+                                <button class="btn btn-success col-12" type="submit" name="commands" style="margin-top: 5px;"><i class="fa fa-check-square-o" aria-hidden="true"></i> Accept</button>
                               </form>
                             
                             </div>
@@ -62,7 +62,7 @@ require "process/require/dataconf.php";
                               <form method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="command" value="deny">
                                 <input type="hidden" name="id" value="'.$row['ID'].'">
-                                <button class="btn btn-danger col-12" type="submit" name="commands" style="margin-top: 5px;">Reschedule</button>
+                                <button class="btn btn-danger col-12" type="submit" name="commands" style="margin-top: 5px;"><i class="fa fa-calendar" aria-hidden="true"></i> Reschedule</button>
                               </form>
                               
                             </div>
