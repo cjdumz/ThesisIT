@@ -31,6 +31,9 @@ require "process/require/dataconf.php";
                   if($data->execute()){
                     $values = $data->get_result();
                     while($row = $values->fetch_assoc()) {
+                      $dateTime = $row['date'];
+                      $dateTimeSplit = explode(" ",$dateTime);
+                      $date = $dateTimeSplit[0];
                       echo '
                         <tr class="text-center">
                           <td>'.$row['Name'].'</td>
@@ -40,7 +43,7 @@ require "process/require/dataconf.php";
                           <td>'.$row['series'].'</td>
                           <td>'.$row['yearModel'].'</td>
                           <td>'.$row['status'].'</td>
-                          <td>'.$row['date'].'</td>
+                          <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
                           <td>'.$row['time'].'</td>
                           <td>
 

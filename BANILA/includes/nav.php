@@ -127,6 +127,7 @@
         <li class="nav-item">
           <a class="nav-link" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-fw fa-user-circle-o"></i> 
+
           </a>
         </li>
         <li class="nav-item">
