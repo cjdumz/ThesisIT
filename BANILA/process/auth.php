@@ -1,7 +1,9 @@
 <?php
     session_start();
-    if(!isset($_SESSION["username"]) && !isset($_SESSION["password"])){
-        header("Location:index.php");
+    if(isset($_SESSION["username"]) && isset($_SESSION["password"])){
+        header("Location: ../index.php");
         exit();
     }
+    // session ends in 10 mins
+    header("Refresh: 600; url=process/logout.php");
 ?>
