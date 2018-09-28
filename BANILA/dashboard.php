@@ -42,9 +42,9 @@ require 'process/require/auth.php';
           <div class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
-                <i class="fa fa-fw fa-comments"></i>
+              <i class="fa	fa-fw fa-car"></i>
               </div>
-              <div class="mr-5">26 Ongoing Documents</div>
+              <div class="mr-5">26 Ongoing Schedules</div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <span class="float-left">View Details</span>
@@ -59,9 +59,9 @@ require 'process/require/auth.php';
           <div class="card text-white bg-warning o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
-                <i class="fa fa-fw fa-list"></i>
+                <i class="fa fa-fw fa-cogs"></i>
               </div>
-              <div class="mr-5">11 Urgent Documents</div>
+              <div class="mr-5">11 Appointment Request</div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <span class="float-left">View Details</span>
@@ -76,9 +76,9 @@ require 'process/require/auth.php';
           <div class="card text-white bg-success o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
-                <i class="fa fa-fw fa-shopping-cart"></i>
+              <i class="fa  fa-fw fa-history" aria-hidden="true"></i>
               </div>
-              <div class="mr-5">15 For Signing New Orders!</div>
+              <div class="mr-5">15 Reschedule Request</div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <span class="float-left">View Details</span>

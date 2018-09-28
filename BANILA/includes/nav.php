@@ -37,6 +37,14 @@
             </li>
           </ul>
         </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+          <a class="nav-link" href="users.php">
+            <i class="fa fa-users"></i>
+            <span class="nav-link-text">Account Management</span>
+          </a>
+        </li>
+
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
