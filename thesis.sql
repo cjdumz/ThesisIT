@@ -2,8 +2,8 @@
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Sep 23, 2018 at 04:33 PM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Sep 23, 2018 at 11:01 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `date_created`, `date_modified`) VALUES
-(2, 'admin', '$2y$10$umkamcqTd00tzQHGBcgFVugU7Bjsm28CVRoRUA5ujVtWv6jc7RsEW', '2018-09-12 07:26:00', '2018-09-12 07:26:00');
+(2, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2018-09-12 07:26:00', '2018-09-12 07:26:00');
 
 -- --------------------------------------------------------
 
@@ -85,6 +85,7 @@ INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `statu
 DROP TABLE IF EXISTS `personalinfo`;
 CREATE TABLE IF NOT EXISTS `personalinfo` (
   `personalId` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
   `firstName` varchar(250) NOT NULL,
   `lastName` varchar(250) NOT NULL,
   `middleName` varchar(250) NOT NULL,
@@ -93,16 +94,20 @@ CREATE TABLE IF NOT EXISTS `personalinfo` (
   `email` varchar(250) DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`personalId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`personalId`),
+  KEY `userId` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `personalinfo`
 --
 
-INSERT INTO `personalinfo` (`personalId`, `firstName`, `lastName`, `middleName`, `address`, `contactNumber`, `email`, `created`, `modified`) VALUES
-(1, 'Weng', 'Palpallatoc', 'Ignacio', '#4 St.Ruth Petersville Subdivision Camp 7 Baguio', '09260023544', 'weng.great@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
-(2, 'Jelly', 'Grabanzor', 'Llanes', 'New Lucban Baguio', '09123456789', 'jellygrabanzor@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00');
+INSERT INTO `personalinfo` (`personalId`, `user_id`, `firstName`, `lastName`, `middleName`, `address`, `contactNumber`, `email`, `created`, `modified`) VALUES
+(1, NULL, 'Weng', 'Palpallatoc', 'Ignacio', '#4 St.Ruth Petersville Subdivision Camp 7 Baguio', '09260023544', 'weng.great@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
+(2, NULL, 'Jelly', 'Grabanzor', 'Llanes', 'New Lucban Baguio', '09123456789', 'jellygrabanzor@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
+(3, NULL, 'jeli', 'llanes', 'g', 'Seoul, south korea', '09177771390', 'jellyllanes@yahoo.com', '2018-09-24 03:44:08', NULL),
+(5, NULL, 'be', 'be', 'y', 'New orleans, pangasinan', '09177771234', 'beybe@yahoo.com', '2018-09-24 04:28:46', NULL),
+(6, NULL, 'key', 'key', 'k', 'Manila, California', '09177770000', 'key@yahoo.com', '2018-09-24 05:20:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -157,22 +162,23 @@ INSERT INTO `services` (`serviceId`, `serviceName`, `serviceType`, `created`, `m
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `personalId` int(11) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `personalId` (`personalId`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `personalId`, `username`, `password`, `created`, `modified`) VALUES
-(1, 1, 'wengweng03', 'wengweng', '2018-09-24 00:21:11', NULL),
-(2, 2, 'jelly', 'jelly', '2018-09-24 00:21:11', NULL);
+INSERT INTO `users` (`id`, `username`, `password`, `created`, `modified`) VALUES
+(1, 'wengweng03', 'wengweng', '2018-09-24 00:21:11', NULL),
+(2, 'jelly', 'jelly', '2018-09-24 00:21:11', NULL),
+(17, 'jeli', '$2y$10$WygNZITR4WU/KYP./CX3iOG2dts33j4Hbi1YXJvQ8IAzuTz./z4Oy', '2018-09-24 03:44:08', NULL),
+(18, 'beybe', '$2y$10$7OJ.GPy4LxJ979AWSMPUG.KXmMMfb8p0FpuKuFkSOrJFoPSDumYk.', '2018-09-24 04:28:46', NULL),
+(19, 'key', '$2y$10$TzOL8v8OOqXrdUQSLABm6eC3B7a5Ln5kOem0do1wfcfjUjYeTGwQK', '2018-09-24 05:20:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -224,10 +230,10 @@ ALTER TABLE `appointments`
   ADD CONSTRAINT `vehicleId` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `users`
+-- Constraints for table `personalinfo`
 --
-ALTER TABLE `users`
-  ADD CONSTRAINT `personalId` FOREIGN KEY (`personalId`) REFERENCES `personalinfo` (`personalId`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `personalinfo`
+  ADD CONSTRAINT `userId` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `vehicles`

@@ -15,8 +15,8 @@ require "process/require/dataconf.php";
                   <th>Plate Number</th>
                   <th>Brand</th>
                   <th>Series</th>
-                  <th>Time</th>
                   <th>Year Model</th>
+                  <th>Status</th>
                   <th width="10%">Date</th>
                   <th>Time</th>
                 </tr>
