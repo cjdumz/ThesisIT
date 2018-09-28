@@ -18,14 +18,14 @@
           
         <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
           <a class="nav-link" href="schedules.php">
-            <i class="fa fa-fw fa-search"></i>
+            <i class="fa fa-calendar-check-o"></i>
             <span class="nav-link-text">Schedules</span>
           </a>
         </li>
           
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file-text"></i>
+            <i class="fa fa-calendar-minus-o"></i>
             <span class="nav-link-text">Appointments</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseExamplePages">

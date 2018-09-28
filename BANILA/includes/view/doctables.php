@@ -27,7 +27,7 @@ require "process/require/dataconf.php";
                   $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                   yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date,time from appointments join personalinfo on appointments.personalId
                    = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                    = services.serviceId where status = 'pending'");
+                    = services.serviceId where status = 'pending' ");
                   if($data->execute()){
                     $values = $data->get_result();
                     while($row = $values->fetch_assoc()) {
@@ -45,19 +45,27 @@ require "process/require/dataconf.php";
                           <td>'.$row['status'].'</td>
                           <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
                           <td>'.$row['time'].'</td>
-                          <td>
+                          <td class="row">
 
-                            <form method="POST" enctype="multipart/form-data">
-                              <input type="hidden" name="command" value="accept">
-                              <input type="hidden" name="id" value="'.$row['ID'].'">
-                              <button class="btn btn-success" type="submit" name="commands" style="width: 100px">Accept</button>
-                            </form>
+                            <div class="col-12">
 
-                            <form method="POST" enctype="multipart/form-data">
-                              <input type="hidden" name="command" value="deny">
-                              <input type="hidden" name="id" value="'.$row['ID'].'">
-                              <button class="btn btn-danger" type="submit" name="commands" style="width: 100px">Reschedule</button>
-                            </form>
+                              <form method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="command" value="accept">
+                                <input type="hidden" name="id" value="'.$row['ID'].'">
+                                <button class="btn btn-success col-12" type="submit" name="commands" style="margin-top: 5px;">Accept</button>
+                              </form>
+                            
+                            </div>
+
+                            <div class="col-12">
+
+                              <form method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="command" value="deny">
+                                <input type="hidden" name="id" value="'.$row['ID'].'">
+                                <button class="btn btn-danger col-12" type="submit" name="commands" style="margin-top: 5px;">Reschedule</button>
+                              </form>
+                              
+                            </div>
                                 
                           </td>
 
