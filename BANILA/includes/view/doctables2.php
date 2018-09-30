@@ -2,6 +2,7 @@
 require "process/require/dataconf.php";
 ?>
 <!-- Start of Document Tables-->
+    <div>
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-table"></i> Appointment Request</div>
