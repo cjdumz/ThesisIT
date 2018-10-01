@@ -158,10 +158,10 @@
         <li class="nav-item">
           <div class="btn-group">
             <button class="btn btn-outline-secondary btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px;margin-right: 50px">
-              Settings
+            Account
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Settings</a>
+              <a class="dropdown-item" href="#"><i class="fa fa-fw fa-cog"></i>LogoutSettings</a>
               <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="color:black;">
                 <i class="fa fa-fw fa-sign-out"></i>Logout
               </a>
