@@ -11,7 +11,6 @@ require 'process/require/auth.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  
   <title>EAS Customs</title>
   <link rel="icon" href="images/Logo.png">
   <!-- Bootstrap core CSS-->
@@ -33,9 +32,9 @@ require 'process/require/auth.php';
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="reschedule.php">Client Request</a>
+          <a href="appointments.php">Client Records</a>
         </li>
-        <li class="breadcrumb-item active">Reschedule</li>
+        <li class="breadcrumb-item active">Transactions</li>
       </ol>
       
       <!-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#RecordDocument" style="margin-bottom: 15px;">
@@ -45,9 +44,12 @@ require 'process/require/auth.php';
 
       <div class="row">
         <div class="col-12">
-          <?php include "includes/view/doctables.php";?>
+          <?php include "includes/view/request.php";?>
         </div>
       </div>
+    </div>
+
+      
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->

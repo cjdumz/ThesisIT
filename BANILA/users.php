@@ -32,7 +32,7 @@ require 'process/require/auth.php';
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="dashboard.php">Users</a>
+          <a href="dashboard.php">Client Records</a>
         </li>
         <!-- <li class="breadcrumb-item active">Blank Page</li> -->
       </ol>

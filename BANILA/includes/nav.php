@@ -15,20 +15,16 @@
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
-          
-        <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-          <a class="nav-link" href="schedules.php">
-            <i class="fa fa-calendar-check-o"></i>
-            <span class="nav-link-text">Schedules</span>
-          </a>
-        </li>
-          
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-            <i class="fa fa-calendar-minus-o"></i>
-            <span class="nav-link-text">Appointments</span>
+            <i class="fa fa-inbox"></i>
+            <span class="nav-link-text">Client Request</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+            <!-- <li>
+              <a href="schedules.php">Approved</a>
+            </li> -->
             <li>
               <a href="appointments.php">Request</a>
             </li>
@@ -37,11 +33,32 @@
             </li>
           </ul>
         </li>
-
+          
+        <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+          <a class="nav-link" href="schedules.php">
+            <i class="fa fa-calendar"></i>
+            <span class="nav-link-text">Calendar</span>
+          </a>
+        </li>
+          
         <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
           <a class="nav-link" href="users.php">
+            <i class="fa fa-address-book"></i>
+            <span class="nav-link-text">Client Records</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+          <a class="nav-link" href="accountManagement.php">
             <i class="fa fa-users"></i>
             <span class="nav-link-text">Account Management</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+          <a class="nav-link" href="transcations.php">
+            <i class="fa fa-cog"></i>
+            <span class="nav-link-text">Settings</span>
           </a>
         </li>
 
@@ -137,16 +154,24 @@
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
           </form>
         </li>
+        
         <li class="nav-item">
-          <a class="nav-link" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-user-circle-o"></i> 
-
-          </a>
+          <div class="btn-group">
+            <button class="btn btn-outline-secondary btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 10px;margin-right: 50px">
+              Settings
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Settings</a>
+              <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="color:black;">
+                <i class="fa fa-fw fa-sign-out"></i>Logout
+              </a>
+            </div>
+          </div>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </nav>
