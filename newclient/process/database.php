@@ -1,8 +1,8 @@
 <?php
 class database{
-	public $host="localhost:3308";
+	public $host="localhost";
 	public $username="root";
-	public $pass="root";
+	public $pass="";
 	public $db_name="thesis";
 	public $conn;
 	public $data;

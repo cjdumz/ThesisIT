@@ -13,7 +13,12 @@ http://www.tooplate.com/view/2098-health
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
   }
-
+  
+  .logoo{
+    float: left;
+    width: 55px;
+    height: 55px;
+  }
 
   /*---------------------------------------
      TYPOGRAPHY              
