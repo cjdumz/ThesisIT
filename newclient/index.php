@@ -484,7 +484,7 @@ http://www.tooplate.com/view/2098-health
                          <div class="col-md-4 col-sm-6">
                               <p>Copyright &copy; Abenchers 2018 
                                    
-                                   | Design: <a rel="nofollow" href="https://www.facebook.com/tooplate" target="_parent">IT Project 2</a></p>
+                                   | Design: <a rel="nofollow" target="_parent">IT Project 2</a></p>
                          </div>
                          <div class="col-md-6 col-sm-6">
                               <div class="footer-link"> 
