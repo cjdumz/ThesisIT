@@ -138,7 +138,7 @@
                                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                                         yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date,time from appointments join personalinfo on appointments.personalId
                                         = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                                            = services.serviceId where status = 'pending' AND (NOW() = date OR NOW() < date );");
+                                            = services.serviceId where status = 'pending' AND (NOW() = date OR NOW() < date ) order by 10 ASC;");
                                         if($data->execute()){
                                             $values = $data->get_result();
                                             while($row = $values->fetch_assoc()) {
@@ -248,6 +248,6 @@
     var table = $('#doctables').DataTable({
       // PAGELENGTH OPTIONS
       "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
-      
+
  });
 </script>
