@@ -25,7 +25,7 @@
             header("Location: ../dashboard.php");
             exit();
         }else{
-            header("Location: ../index.php");
+            header("Location: ../index.php?message=0");
             exit();
         } 
     }

@@ -110,12 +110,6 @@
 
         <div class="content">
             <div class="container-fluid">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                     <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -144,7 +138,7 @@
                                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                                         yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date,time from appointments join personalinfo on appointments.personalId
                                         = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                                            = services.serviceId where status = 'pending' OR date = NOW() and date > now();");
+                                            = services.serviceId where status = 'pending' AND (NOW() = date OR NOW() < date );");
                                         if($data->execute()){
                                             $values = $data->get_result();
                                             while($row = $values->fetch_assoc()) {
@@ -245,6 +239,7 @@
     
     <script src="js/jquery.dataTables.js"></script>
     <script src="js/dataTables.bootstrap4.js"></script>
+
 
 
 </html>

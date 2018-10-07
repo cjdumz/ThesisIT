@@ -7,13 +7,13 @@ if(isset($_POST['commands'])){
   $id = $connection->real_escape_string($_POST["id"]);
 
   if($action=='accept'){
-    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted' WHERE `appointments`.`id` = $id ;");
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = NOW() WHERE `appointments`.`id` = $id ;");
   }else{
-    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Declined' WHERE `appointments`.`id` = $id ;");
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Declined', `modified` = NOW() WHERE `appointments`.`id` = $id ;");
   }
   if($actions_command ->execute()){
     $MSG = "succesully approved appointment";
-    header("Refresh: 0; url=../appointment.php?message='.$MSG.'");
+    header("Refresh: 0; url=../calendar.php?message='.$MSG.'");
   }else{
     $MSG = "there was an error while updating the data..";
   }

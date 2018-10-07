@@ -145,7 +145,7 @@
                                                     $date = $dateTimeSplit[0];
                                                 echo '
                                                     <tr class="text-center">
-                                                    <td><a href="transactions.php?id='.$row['ID'].'">'.$row['Name'].'</td>
+                                                    <td><a href="client.php?id='.$row['ID'].'">'.$row['Name'].'</td>
                                                     <td>'.$row['sername'].'</td>
                                                     <td>'.$row['plateNumber'].'</td>
                                                     <td>'.$row['make'].'</td>
