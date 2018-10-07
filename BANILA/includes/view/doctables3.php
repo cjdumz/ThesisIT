@@ -21,7 +21,7 @@ require "process/require/dataconf.php";
               </thead>
               <tbody>
                 <?php
-                  $data = $connection->prepare("SELECT user_id, concat(`firstName`,' ' ,`lastName`,'',`middleName`) as 'Name', `address`, `contactNumber`, `email` FROM `personalinfo`");
+                  $data = $connection->prepare("SELECT user_id, concat(`firstName`,' ' ,`lastName`,'',`middleName`) as 'Name', `address`, `mobileNumber`, `telephoneNumber`, `email` FROM `personalinfo`");
                   if($data->execute()){
                     $values = $data->get_result();
                     while($row = $values->fetch_assoc()) {
@@ -29,7 +29,7 @@ require "process/require/dataconf.php";
                         <tr class="text-left">
                           <td><a href=#>'.$row['Name'].'</a></td>
                           <td>'.$row['address'].'</td>
-                          <td>'.$row['contactNumber'].'</td>
+                          <td>'.$row['mobileNumber'].'</td>
                           <td>'.$row['email'].'</td>
                           <td>Active</td>';
                           if(!$row['user_id']){

@@ -7,10 +7,10 @@ require "process/require/dataconf.php";
         <div class="card-header">
           <i class="fa fa-table"></i> Appointment Request</div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered" id="doctables" width="100%" cellspacing="0">
+          <div class="table-responsive" >
+            <table class="table table-bordered" id="doctables" width="100%" cellspacing="0" style="border: 1px solid: #ddd !important;">
               <thead>
-                <tr class="text-center">
+                <tr class="text-center" style="background-color: #B80011;">
                   <th>Customer Name</th>
                   <th>Service</th>
                   <th>Plate Number</th>

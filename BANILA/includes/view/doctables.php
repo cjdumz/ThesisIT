@@ -10,7 +10,7 @@ require "process/require/dataconf.php";
             <table class="table table-bordered" id="doctables" width="100%" cellspacing="0">
               <thead>
                 <tr class="text-center">
-                   <th>Customer Name</th>
+                  <th>Customer Name</th>
                   <th>Service</th>
                   <th>Plate Number</th>
                   <th>Brand</th>
