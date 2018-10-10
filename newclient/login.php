@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+include('process/server.php'); 
+
+if (isset($_SESSION['username'])) {            
+    header('location: homepage.php');
+          }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +46,7 @@
      <header>
           <div class="container">
                <div class="row">
+                    
 
                     <div class="col-md-4 col-sm-5">
                         <span class="email-icon"><i class="fa fa-sign-in" aria-hidden="true"></i> <a href="login.php">LOGIN</a></span>
@@ -89,10 +100,36 @@
       <section id="appointment-detail" data-stellar-background-ratio="3">
           <div class="container">
                <div class="row">
+                  
+                         
+                 
+
+                  
 			   <div class="col-xs-6 col-sm-6" align="center">
-					<form id="appointment-form" role="form" method="post" action="process/authenticate.php">
+
+					<form id="appointment-form" role="form" method="post" action="login.php">
                         <div class="section-title wow fadeInUp" data-wow-delay="0.2s">
 							<h2>Login</h2>
+                        <?php if (isset($_SESSION['unauthorized_user'])) : ?>
+                         <?php 
+                           echo $_SESSION['unauthorized_user']; 
+                             unset($_SESSION['unauthorized_user']);
+                         ?>
+                         <?php endif ?>
+                         <?php if (isset($_SESSION['logged_out'])) : ?>
+                         <?php 
+                           echo $_SESSION['logged_out']; 
+                             unset($_SESSION['logged_out']);
+                         ?>
+
+                         <?php endif ?>
+                            <?php if (isset($_SESSION['timeout'])) : ?>
+                         <?php 
+                         
+                           echo $_SESSION['timeout']; 
+                             unset($_SESSION['timeout']);
+                         ?>
+                         <?php endif ?>
                         </div>
                             <div class="wow fadeInUp" data-wow-delay="0.4s">
                                 <div class="col-md-12 col-sm-12">
