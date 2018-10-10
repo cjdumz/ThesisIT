@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 10, 2018 at 07:31 AM
+-- Generation Time: Oct 10, 2018 at 08:24 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -61,7 +61,6 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `additionalMessage` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL,
   `date` date NOT NULL,
-  `time` time NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -74,21 +73,21 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `time`, `created`, `modified`) VALUES
-(1, 1, 1, 1, NULL, NULL, 'declined', '2018-09-26', '01:00:00', '2018-09-24 00:33:35', NULL),
-(3, 1, 1, 3, NULL, NULL, 'Pending', '2018-09-05', '01:00:00', '2018-09-24 15:51:21', NULL),
-(5, 1, 1, 3, NULL, NULL, 'Rescheduled', '2018-09-27', '15:59:00', '2018-09-24 16:44:33', NULL),
-(6, 1, 1, 3, NULL, NULL, 'Declined', '2018-09-27', '15:59:00', '2018-09-24 16:44:57', NULL),
-(7, 5, 1, 3, NULL, NULL, 'Declined', '2018-10-05', '17:00:00', '2018-10-03 02:34:14', NULL),
-(8, 1, 1, 3, NULL, NULL, 'Declined', '2018-10-17', '22:59:00', '2018-10-03 14:16:03', NULL),
-(9, 1, 1, 3, NULL, NULL, 'Declined', '2018-10-17', '22:59:00', '2018-10-03 14:16:28', NULL),
-(10, 3, 1, 3, '', '', 'Declined', '2018-10-11', '14:07:00', '2018-10-03 14:25:15', NULL),
-(11, 3, 1, 3, 'Please check my wiper as well', '', 'Declined', '2018-10-11', '14:07:00', '2018-10-03 14:27:36', NULL),
-(12, 3, 1, 3, 'Please check my wiper as well', 'Hello', 'Declined', '2018-10-11', '14:07:00', '2018-10-03 14:28:00', NULL),
-(13, 8, 1, 3, 'Hello', 'hehe', 'Declined', '2018-10-10', '04:05:00', '2018-10-03 15:42:56', NULL),
-(14, 6, 1, 3, '', '', 'Declined', '2018-10-17', '00:33:00', '2018-10-03 16:00:21', NULL),
-(15, 4, 1, 3, '', '', 'Accepted', '2018-10-20', '00:33:00', '2018-10-03 16:01:20', NULL),
-(16, 2, 1, 3, '', '', 'pending', '2018-10-11', '07:00:00', '2018-10-03 17:02:16', NULL);
+INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `created`, `modified`) VALUES
+(1, 1, 1, 1, NULL, NULL, 'declined', '2018-09-26', '2018-09-24 00:33:35', NULL),
+(3, 1, 1, 3, NULL, NULL, 'Pending', '2018-09-05', '2018-09-24 15:51:21', NULL),
+(5, 1, 1, 3, NULL, NULL, 'Rescheduled', '2018-09-27', '2018-09-24 16:44:33', NULL),
+(6, 1, 1, 3, NULL, NULL, 'Declined', '2018-09-27', '2018-09-24 16:44:57', NULL),
+(7, 5, 1, 3, NULL, NULL, 'Declined', '2018-10-05', '2018-10-03 02:34:14', NULL),
+(8, 1, 1, 3, NULL, NULL, 'Declined', '2018-10-17', '2018-10-03 14:16:03', NULL),
+(9, 1, 1, 3, NULL, NULL, 'Declined', '2018-10-17', '2018-10-03 14:16:28', NULL),
+(10, 3, 1, 3, '', '', 'Declined', '2018-10-11', '2018-10-03 14:25:15', NULL),
+(11, 3, 1, 3, 'Please check my wiper as well', '', 'Declined', '2018-10-11', '2018-10-03 14:27:36', NULL),
+(12, 3, 1, 3, 'Please check my wiper as well', 'Hello', 'Declined', '2018-10-11', '2018-10-03 14:28:00', NULL),
+(13, 8, 1, 3, 'Hello', 'hehe', 'Declined', '2018-10-10', '2018-10-03 15:42:56', NULL),
+(14, 6, 1, 3, '', '', 'Declined', '2018-10-17', '2018-10-03 16:00:21', NULL),
+(15, 4, 1, 3, '', '', 'Accepted', '2018-10-20', '2018-10-03 16:01:20', NULL),
+(16, 2, 1, 3, '', '', 'pending', '2018-10-11', '2018-10-03 17:02:16', NULL);
 
 -- --------------------------------------------------------
 

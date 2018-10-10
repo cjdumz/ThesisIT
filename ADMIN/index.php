@@ -38,8 +38,8 @@
 
           <?php
             if(isset($_GET['message'])){
-              $msg = "Incorrect Login Credentials";
-              echo '<div class="log-btn" style="background-color: #B80011; margin-bottom: 20px; text-align: center; font-weight: bold;">'.$msg.'</div>';
+              $msg = "Incorrect Login Credentials !";
+              echo '<div class="log-btn" style="background-color: #B80011; margin-bottom: 15px; padding-top: 12px; text-align: center; font-weight: bold;">'.$msg.'</div>';
             }
           ?>
               
