@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/style.css">
 
   <title>EAS Customs</title>
+  <link rel="icon" href="assets/img/Logo.png">
   
 </head>
 
