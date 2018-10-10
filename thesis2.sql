@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 06, 2018 at 01:43 PM
+-- Generation Time: Oct 10, 2018 at 07:31 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `thesis`
+-- Database: `thesis2`
 --
 
 -- --------------------------------------------------------
@@ -256,6 +256,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `engineNumber` varchar(255) DEFAULT NULL,
   `typeOfEngine` varchar(255) DEFAULT NULL,
   `engineDisplacement` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -266,8 +267,8 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 -- Dumping data for table `vehicles`
 --
 
-INSERT INTO `vehicles` (`id`, `personalId`, `plateNumber`, `bodyType`, `yearModel`, `chasisNumber`, `engineClassification`, `numberOfCylinders`, `typeOfDriveTrain`, `make`, `series`, `color`, `engineNumber`, `typeOfEngine`, `engineDisplacement`, `created`, `modified`) VALUES
-(1, 3, 'ABC-123', 'Cedan', '1997', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'Red', NULL, NULL, NULL, '2018-09-24 00:24:57', NULL);
+INSERT INTO `vehicles` (`id`, `personalId`, `plateNumber`, `bodyType`, `yearModel`, `chasisNumber`, `engineClassification`, `numberOfCylinders`, `typeOfDriveTrain`, `make`, `series`, `color`, `engineNumber`, `typeOfEngine`, `engineDisplacement`, `status`, `created`, `modified`) VALUES
+(1, 3, 'ABC-123', 'Cedan', '1997', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'Red', NULL, NULL, NULL, 'active', '2018-09-24 00:24:57', NULL);
 
 --
 -- Constraints for dumped tables

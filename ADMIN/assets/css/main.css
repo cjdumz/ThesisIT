@@ -19,7 +19,8 @@
 .logoo{
     float: left;
     width: 55px;
-    height: 45px;
+    height: 50px;
+    padding-bottom: 5px;
 }
 
 @keyframes spin {

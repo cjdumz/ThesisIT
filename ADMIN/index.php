@@ -35,12 +35,12 @@
             <input class="form-control" id="password" type="password" name="password" required autocomplete="off"  placeholder="Password">
             <i class="fa fa-lock"></i>
           </div>
+
           <?php
             if(isset($_GET['message'])){
               $msg = "Incorrect Login Credentials";
-              echo '<div class="log-btn" style="background-color: #B80011; margin-bottom: 15px;">'.$msg.'</div>';
+              echo '<div class="log-btn" style="background-color: #B80011; margin-bottom: 20px; text-align: center; font-weight: bold;">'.$msg.'</div>';
             }
-          
           ?>
               
            <br>
