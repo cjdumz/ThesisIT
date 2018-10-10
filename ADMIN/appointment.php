@@ -1,5 +1,7 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
+<?php include "process/check/appointmentcheck.php";?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -60,31 +62,31 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="calendar.php">
+                    <a href="#">
                         <i class="fa fa-calendar"></i>
                         <p>Calendar</p>
                     </a>
                 </li>
                 <li>
-                    <a href="icons.php">
+                    <a href="#">
                         <i class="fa fa-file-text"></i>
                         <p>Client Records</p>
                     </a>
                 </li>
                 <li>
-                    <a href="template.php">
+                    <a href="#">
                         <i class="fa fa-users"></i>
                         <p>Account Management</p>
                     </a>
                 </li>
                 <li>
-                    <a href="typography.php">
+                    <a href="#">
                         <i class="fa fa-cog"></i>
                         <p>Settings</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.php">
+                    <a href="#">
                         <i class="fa fa-bell"></i>
                         <p>Notifications</p>
                     </a>
@@ -120,7 +122,7 @@
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover"  id="doctables" >
                                     <thead>
-                                        <tr class="text-center">
+                                        <tr>
                                             <th>Customer Name</th>
                                             <th>Service</th>
                                             <th>Plate Number</th>
@@ -129,16 +131,15 @@
                                             <th>Year Model</th>
                                             <th>Status</th>
                                             <th>Date</th>
-                                            <th>Time</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
-                                        yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date,time from appointments join personalinfo on appointments.personalId
+                                        yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
                                         = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                                            = services.serviceId where status = 'pending' AND (NOW() = date OR NOW() < date ) order by 10 ASC;");
+                                            = services.serviceId where appointments.status = 'Pending' AND (NOW() = date OR NOW() < date ) order by 10 ASC");
                                         if($data->execute()){
                                             $values = $data->get_result();
                                             while($row = $values->fetch_assoc()) {
@@ -146,7 +147,7 @@
                                             $dateTimeSplit = explode(" ",$dateTime);
                                             $date = $dateTimeSplit[0];
                                             echo '
-                                                <tr class="text-center">
+                                                <tr>
                                                 <td>'.$row['Name'].'</td>
                                                 <td>'.$row['sername'].'</td>
                                                 <td>'.$row['plateNumber'].'</td>
@@ -155,15 +156,14 @@
                                                 <td>'.$row['yearModel'].'</td>
                                                 <td>'.$row['status'].'</td>
                                                 <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
-                                                <td>'.$row['time'].'</td>
-                                                <td class="row">
+                                                <td class="row text-center">
 
                                                     <div class="col-12">
 
                                                     <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                                         <input type="hidden" name="command" value="accept">
                                                         <input type="hidden" name="id" value="'.$row['ID'].'">
-                                                        <button class="btn btn-success col-12" type="submit" name="commands" style="margin-top: 5px;">
+                                                        <button class="btn btn-success col-12" type="submit" name="commands" style="margin-top: 5px; width: 120px;">
                                                         <i class="fa fa-check-square-o" aria-hidden="true"></i> Accept</button>
                                                     </form>
                                                     
@@ -174,7 +174,7 @@
                                                     <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                                         <input type="hidden" name="command" value="deny">
                                                         <input type="hidden" name="id" value="'.$row['ID'].'">
-                                                        <button class="btn btn-danger col-12" type="submit" name="commands" style="margin-top: 5px;">
+                                                        <button class="btn btn-danger col-12" type="submit" name="commands" style="margin-top: 5px; width: 120px;">
                                                         <i class="fa fa-history" aria-hidden="true"></i> Reschedule</button>
                                                     </form>
                                                     

@@ -77,31 +77,31 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="calendar.php">
+                    <a href="#.php">
                         <i class="fa fa-calendar"></i>
                         <p>Calendar</p>
                     </a>
                 </li>
                 <li class="active">
-                    <a href="calendar.php">
+                    <a href="#.php">
                         <i class="fa fa-file-text"></i>
                         <p>Client Records</p>
                     </a>
                 </li>
                 <li>
-                    <a href="template.php">
+                    <a href="#.php">
                         <i class="fa fa-users"></i>
                         <p>Account Management</p>
                     </a>
                 </li>
                 <li>
-                    <a href="typography.php">
+                    <a href="#.php">
                         <i class="fa fa-cog"></i>
                         <p>Settings</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.php">
+                    <a href="#.php">
                         <i class="fa fa-bell"></i>
                         <p>Notifications</p>
                     </a>
@@ -131,103 +131,191 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"> <a href="calender.php">Client Records</a> / Edit Profile</h4>
+                                <h4 class="title"> <a href="calendar.php">Client Records</a> / Edit Profile</h4>
                             </div>
                             <div class="content">
                             <?php
                                 $personalid = $connection->real_escape_string($_GET["id"]);
                                 $data ="SELECT * FROM `personalinfo` join `vehicles` where
                                   personalinfo.personalId = vehicles.personalId and personalinfo.personalId = $personalid";
-                                $result = mysqli_query($connection, $data);
-                                $row = mysqli_fetch_array($result);
+                                if($result = mysqli_query($connection, $data)){
+                                    $row = mysqli_fetch_array($result);
+                                    echo '<form>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label>Plate Number</label>
+                                                        <input type="text" class="form-control" disabled placeholder="Company" value="'.$row['plateNumber'].'">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Username</label>
+                                                        <input type="text" class="form-control" placeholder="Username" value="'.$row['plateNumber'].'">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Email address</label>
+                                                        <input type="email" class="form-control" placeholder="email" value="'.$row['email'].'">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>First Name</label>
+                                                        <input type="text" class="form-control" placeholder="First Name" value="'.$row['firstName'].'">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Middle Name</label>
+                                                        <input type="text" class="form-control" placeholder="Middle Name" value="'.$row['middleName'].'">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Last Name</label>
+                                                        <input type="text" class="form-control" placeholder="Last Name" value="'.$row['lastName'].'">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Address</label>
+                                                        <input type="text" class="form-control" placeholder="Home Address" value="'.$row['address'].'">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Telephone</label>
+                                                        <input type="text" class="form-control" placeholder="Telephone Number" value="'.$row['telephoneNumber'].'">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Mobile</label>
+                                                        <input type="text" class="form-control" placeholder="Mobile Number" value="'.$row['mobileNumber'].'">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Postal Code</label>
+                                                        <input type="number" class="form-control" placeholder="ZIP Code">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>About Me</label>
+                                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I\'m in that two seat Lambo.</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                            <div class="clearfix"></div>
+                                        </form>';
+                                }else{
+                                    echo '<form>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label>Plate Number</label>
+                                                        <input type="text" class="form-control" disabled placeholder="Company" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Username</label>
+                                                        <input type="text" class="form-control" placeholder="Username" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Email address</label>
+                                                        <input type="email" class="form-control" placeholder="email" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>First Name</label>
+                                                        <input type="text" class="form-control" placeholder="First Name" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Middle Name</label>
+                                                        <input type="text" class="form-control" placeholder="Middle Name" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Last Name</label>
+                                                        <input type="text" class="form-control" placeholder="Last Name" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Address</label>
+                                                        <input type="text" class="form-control" placeholder="Home Address" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Telephone</label>
+                                                        <input type="text" class="form-control" placeholder="Telephone Number" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Mobile</label>
+                                                        <input type="text" class="form-control" placeholder="Mobile Number" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Postal Code</label>
+                                                        <input type="number" class="form-control" placeholder="ZIP Code">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>About Me</label>
+                                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I\'m in that two seat Lambo.</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                            <div class="clearfix"></div>
+                                        </form>';
+                                }
+                                
             
                             ?>
 
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label>Plate Number</label>
-                                                <input type="text" class="form-control" disabled placeholder="Company" value="<?php echo $row['plateNumber'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Username</label>
-                                                <input type="text" class="form-control" placeholder="Username" value="<?php echo $row['plateNumber'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" placeholder="email" value="<?php echo $row['email'] ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="First Name" value="<?php echo $row['firstName'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Middle Name</label>
-                                                <input type="text" class="form-control" placeholder="Middle Name" value="<?php echo $row['middleName'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" value="<?php echo $row['lastName'] ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" class="form-control" placeholder="Home Address" value="<?php echo $row['address'] ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Telephone</label>
-                                                <input type="text" class="form-control" placeholder="Telephone Number" value="<?php echo $row['telephoneNumber'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Mobile</label>
-                                                <input type="text" class="form-control" placeholder="Mobile Number" value="<?php echo $row['mobileNumber'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Postal Code</label>
-                                                <input type="number" class="form-control" placeholder="ZIP Code">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>About Me</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                                    <div class="clearfix"></div>
-                                </form>
                             </div>
                         </div>
                     </div>

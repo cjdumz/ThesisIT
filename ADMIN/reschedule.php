@@ -59,31 +59,31 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="calendar.php">
+                    <a href="#">
                         <i class="fa fa-calendar"></i>
                         <p>Calendar</p>
                     </a>
                 </li>
                 <li>
-                    <a href="icons.php">
+                    <a href="#">
                         <i class="fa fa-file-text"></i>
                         <p>Client Records</p>
                     </a>
                 </li>
                 <li>
-                    <a href="template.php">
+                    <a href="#">
                         <i class="fa fa-users"></i>
                         <p>Account Management</p>
                     </a>
                 </li>
                 <li>
-                    <a href="typography.php">
+                    <a href="#">
                         <i class="fa fa-cog"></i>
                         <p>Settings</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.php">
+                    <a href="#">
                         <i class="fa fa-bell"></i>
                         <p>Notifications</p>
                     </a>
@@ -119,7 +119,7 @@
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover"  id="doctables" >
                                     <thead>
-                                        <tr class="text-center">
+                                        <tr>
                                             <th>Customer Name</th>
                                             <th>Service</th>
                                             <th>Plate Number</th>
@@ -127,16 +127,18 @@
                                             <th>Series</th>
                                             <th>Year Model</th>
                                             <th>Status</th>
-                                            <th width="10%">Date</th>
-                                            <th>Time</th>
+                                            <th>Previous Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
-                                            yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date,time from appointments join personalinfo on appointments.personalId
-                                            = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                                                = services.serviceId where status = 'Accepted'");
+                                            $data = $connection->prepare("SELECT appointments.id as 'ID', personalinfo.personalId as 'personID',
+                                             concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series, yearModel,plateNumber,serviceType,serviceName
+                                              as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
+                                               = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on
+                                                appointments.serviceId = services.serviceId where appointments.status = 'Rescheduled' OR appointments.status
+                                                 = 'Declined' OR appointments.status = 'Overdue'");
                                             if($data->execute()){
                                                 $values = $data->get_result();
                                                 while($row = $values->fetch_assoc()) {
@@ -144,17 +146,31 @@
                                                     $dateTimeSplit = explode(" ",$dateTime);
                                                     $date = $dateTimeSplit[0];
                                                 echo '
-                                                    <tr class="text-center">
-                                                    <td><a href="transactions.php?id='.$row['ID'].'">'.$row['Name'].'</td>
-                                                    <td>'.$row['sername'].'</td>
-                                                    <td>'.$row['plateNumber'].'</td>
-                                                    <td>'.$row['make'].'</td>
-                                                    <td>'.$row['series'].'</td>
-                                                    <td>'.$row['yearModel'].'</td>
-                                                    <td>'.$row['status'].'</td>
-                                                    <td>'; echo "".date('M d, Y',strtotime($date)); echo '</td>
-                                                    <td>'.$row['time'].'</td>
+                                                    <tr>
+                                                        
+                                                        <td><a href="user.php?id='.$row['personID'].'" class="rowlink">'.$row['Name'].'</a></td>
+                                                        <td>'.$row['sername'].'</td>
+                                                        <td>'.$row['plateNumber'].'</td>
+                                                        <td>'.$row['make'].'</td>
+                                                        <td>'.$row['series'].'</td>
+                                                        <td>'.$row['yearModel'].'</td>
+                                                        <td>'.$row['status'].'</td>
+                                                        <td>'; echo "".date('M d, Y',strtotime($date)); echo '</td>
+                                                        <td class="row text-center">
 
+                                                            <div class="col-12">
+
+                                                                <form method="POST" action="process/server.php" enctype="multipart/form-data">
+                                                                    <input type="hidden" name="command" value="deny">
+                                                                    <input type="hidden" name="id" value="'.$row['ID'].'">
+                                                                    <button class="btn btn-danger col-12" type="submit" name="commands" disabled style="margin-top: 5px; width: 120px;">
+                                                                    <i class="fa fa-history" aria-hidden="true"></i> Reschedule</button>
+                                                                </form>
+                                                            
+                                                            </div>
+                                                                
+                                                        </td>
+                                                        
                                                     </tr>
                                                 ';
                                                 }

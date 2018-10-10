@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width" />
 
     <?php include "includes/headscripts.php";?>
+
 </head>
 <body>
 
@@ -41,12 +42,12 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
-                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages2" data-parent="#exampleAccordion">
                         <i class="fa fa-inbox"></i>
                         <span class="nav-link-text">Client Request</span>
                     </a>
-                    <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+                    <ul class="sidenav-second-level collapse" id="collapseExamplePages2">
                         <!-- <li>
                         <a href="schedules.php">Approved</a>
                         </li> -->
@@ -59,31 +60,31 @@
                     </ul>
                 </li>
                 <li class="active">
-                    <a href="calendar.php">
+                    <a href="#.php">
                         <i class="fa fa-calendar"></i>
                         <p>Calendar</p>
                     </a>
                 </li>
                 <li>
-                    <a href="icons.php">
+                    <a href="#.php">
                         <i class="fa fa-file-text"></i>
                         <p>Client Records</p>
                     </a>
                 </li>
                 <li>
-                    <a href="template.php">
+                    <a href="#.php">
                         <i class="fa fa-users"></i>
                         <p>Account Management</p>
                     </a>
                 </li>
                 <li>
-                    <a href="typography.php">
+                    <a href="#.php">
                         <i class="fa fa-cog"></i>
                         <p>Settings</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.php">
+                    <a href="#.php">
                         <i class="fa fa-bell"></i>
                         <p>Notifications</p>
                     </a>
@@ -113,13 +114,13 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Reschedule Request</h4>
-                                <p class="category">List of Reschedule Request or Appointments that have already passed</p>
+                                <h4 class="title">Approve Request</h4>
+                                <p class="category">List of ongoing and accepted Appointments</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover"  id="doctables" >
                                     <thead>
-                                        <tr class="text-center">
+                                        <tr>
                                             <th>Customer Name</th>
                                             <th>Service</th>
                                             <th>Plate Number</th>
@@ -127,16 +128,16 @@
                                             <th>Series</th>
                                             <th>Year Model</th>
                                             <th>Status</th>
-                                            <th width="10%">Date</th>
-                                            <th>Time</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
-                                            yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date,time from appointments join personalinfo on appointments.personalId
-                                            = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                                                = services.serviceId where status = 'Accepted'");
+                                            $data = $connection->prepare("SELECT appointments.id as 'ID', personalinfo.personalId as 'personID',
+                                            concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series, yearModel,plateNumber,serviceType,serviceName
+                                             as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
+                                              = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on
+                                               appointments.serviceId = services.serviceId where appointments.status = 'Accepted';");
                                             if($data->execute()){
                                                 $values = $data->get_result();
                                                 while($row = $values->fetch_assoc()) {
@@ -144,7 +145,7 @@
                                                     $dateTimeSplit = explode(" ",$dateTime);
                                                     $date = $dateTimeSplit[0];
                                                 echo '
-                                                    <tr class="text-center">
+                                                    <tr class="">
                                                     <td><a href="user.php?id='.$row['ID'].'">'.$row['Name'].'</td>
                                                     <td>'.$row['sername'].'</td>
                                                     <td>'.$row['plateNumber'].'</td>
@@ -153,7 +154,6 @@
                                                     <td>'.$row['yearModel'].'</td>
                                                     <td>'.$row['status'].'</td>
                                                     <td>'; echo "".date('M d, Y',strtotime($date)); echo '</td>
-                                                    <td>'.$row['time'].'</td>
 
                                                     </tr>
                                                 ';

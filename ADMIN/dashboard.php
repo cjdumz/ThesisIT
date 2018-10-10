@@ -13,24 +13,7 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-
-    <!-- Bootstrap core CSS     -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-
-    <!-- Animation library for notifications   -->
-    <link href="assets/css/animate.min.css" rel="stylesheet"/>
-
-    <!--  Light Bootstrap Table core CSS    -->
-    <link href="assets/css/main.css?v=1.4.0" rel="stylesheet"/>
-
-
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <!--  <link href="assets/css/demo.css" rel="stylesheet" /> -->
-
-    <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <?php include "includes/headscripts.php";?>
 
 </head>
 <body>
@@ -80,31 +63,31 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="calendar.php">
+                    <a href="#">
                         <i class="fa fa-calendar"></i>
                         <p>Calendar</p>
                     </a>
                 </li>
                 <li>
-                    <a href="icons.php">
+                    <a href="#">
                         <i class="fa fa-file-text"></i>
                         <p>Client Records</p>
                     </a>
                 </li>
                 <li>
-                    <a href="template.php">
+                    <a href="#">
                         <i class="fa fa-users"></i>
                         <p>Account Management</p>
                     </a>
                 </li>
                 <li>
-                    <a href="typography.php">
+                    <a href="#">
                         <i class="fa fa-cog"></i>
                         <p>Settings</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.php">
+                    <a href="#">
                         <i class="fa fa-bell"></i>
                         <p>Notifications</p>
                     </a>

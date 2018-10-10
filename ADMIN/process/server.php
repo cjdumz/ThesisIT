@@ -13,10 +13,9 @@ if(isset($_POST['commands'])){
   }
   if($actions_command ->execute()){
     $MSG = "succesully approved appointment";
-    header("Refresh: 0; url=../calendar.php?message='.$MSG.'");
+    header("Refresh: 0; url=../appointment.php");
   }else{
     $MSG = "there was an error while updating the data..";
   }
 }
-
 ?>

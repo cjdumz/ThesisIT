@@ -1,7 +1,7 @@
 <?php  
 //index.php
-$connect = mysqli_connect("localhost", "root", "", "thesis2");
-$query = "SELECT * FROM users ORDER BY id DESC";
+$connect = mysqli_connect("localhost", "root", "", "thesis");
+$query = "SELECT * FROM personalinfo";
 $result = mysqli_query($connect, $query);
  ?>  
 <!DOCTYPE html>  
@@ -29,7 +29,7 @@ $result = mysqli_query($connect, $query);
       {
       ?>
       <tr>
-       <td><?php echo $row["name"]; ?></td>
+       <td><?php echo $row["firstName"]; ?></td>
        <td><input type="button" name="view" value="view" id="<?php echo $row["id"]; ?>" class="btn btn-info btn-xs view_data" /></td>
       </tr>
       <?php
