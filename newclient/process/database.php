@@ -54,8 +54,34 @@ class database{
 		}
 		return $this->electrical_service;
 	}
+
+	public function service_show(){
+		$query=$this->conn->query("Select * from services");
+		while($row=$query->fetch_array(MYSQLI_ASSOC)){
+			$this->service[]=$row;
+		}
+		return $this->service;
+	}
+
 	
-	
+	public function personal_info(){
+		$query=$this->conn->query("SELECT * from personalinfo where user_id= '".$_SESSION['id']."'");
+		while($row=$query->fetch_array(MYSQLI_ASSOC)){
+			$this->personalinfo[]=$row;
+		}
+		return $this->personalinfo;
+	}
+
+	public function vehicle_info(){
+		$query=$this->conn->query("SELECT * from vehicles where now(created) ");
+		while($row=$query->fetch_array(MYSQLI_ASSOC)){
+			$this->vehicleinfo[]=$row;
+		}
+		return $this->vehicleinfo;
+	}
 }
+  
+	
+	
 
 
