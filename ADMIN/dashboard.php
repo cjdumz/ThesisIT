@@ -70,15 +70,12 @@
                         <i class="fa fa-inbox"></i>
                         <span class="nav-link-text">Client Request</span>
                     </a>
-                    <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-                        <!-- <li>
-                        <a href="schedules.php">Approved</a>
-                        </li> -->
+                    <ul style="list-style-type: none;" class="sidenav-second-level collapse" id="collapseExamplePages">
                         <li>
-                            <a href="appointment.php"></i>Request</a>
+                            <a href="appointment.php"><i class="fa fa-angle-right"></i>Request</a>
                         </li>
                         <li>
-                            <a href="reschedule.php"></i>Reschedule</a>
+                            <a href="reschedule.php"><i class="fa fa-angle-right"></i>Reschedule</a>
                         </li>
                     </ul>
                 </li>
