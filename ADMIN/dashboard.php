@@ -47,7 +47,7 @@
         <div class="sidebar-wrapper">
             <div class="logo">
                 <img src="assets/img/Logo.png" class="logoo" alt="logo" />
-                <a href="dashboard.html" class="simple-text">
+                <a href="dashboard.php" class="simple-text" style="font-size: 22px;">
                     <strong>EAS Customs</strong>
                 </a>
             </div>
