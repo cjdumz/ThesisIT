@@ -57,7 +57,7 @@
                               </ul>
                         </li>
                         <li class="nav-link">
-                            <a data-toggle="modal" href="process/logout.php">
+                            <a data-toggle="modal" id="myBtn">
                                 Logout
                             </a>
                         </li>
@@ -67,3 +67,14 @@
             </div>
         </nav>
 <!-- End of Navbar -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
