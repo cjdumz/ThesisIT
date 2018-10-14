@@ -10,9 +10,12 @@
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    
   <title>
-    Material Dashboard by Creative Tim
+    EAS Customs
   </title>
+  <link rel="icon" href="assets/img/Logo.png">
+    
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -35,7 +38,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Table List</a>
+            <a class="navbar-brand" href="tables.php" style="font-size: 22px;">Request</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -104,21 +107,25 @@
                 <div class="card-header card-header-tabs card-header-primary">
                   <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
-                      <span class="nav-tabs-title">Tasks:</span>
+                      <span class="nav-tabs-title" style="font-size: 17px;">Tasks:</span>
+                        
                       <ul class="nav nav-tabs" data-tabs="tabs">
+                          
                         <li class="nav-item">
                           <a class="nav-link active" href="#profile" data-toggle="tab">
-                            <i class="material-icons">code</i> Appointments
+                            <i class="material-icons">event_note</i> Appointments
                             <div class="ripple-container"></div>
                           </a>
                         </li>
+                          
                         <li class="nav-item">
                           <a class="nav-link" href="#messages" data-toggle="tab">
-                            <i class="material-icons">code</i> Reschedule
+                            <i class="material-icons">replay</i> Reschedule
                             <div class="ripple-container"></div>
                           </a>
                         </li>
                       </ul>
+                        
                     </div>
                   </div>
                 </div>
@@ -132,12 +139,12 @@
                         <table class="table table-hover"  id="doctables" >
                             <thead class=" text-primary">
                                 <tr>
-                                    <th>Customer Name</th>
-                                    <th>Service</th>
-                                    <th>Plate Number</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
+                                    <th style="font-weight: bold;">Customer Name</th>
+                                    <th style="font-weight: bold;">Service</th>
+                                    <th style="font-weight: bold;">Plate Number</th>
+                                    <th style="font-weight: bold;">Status</th>
+                                    <th style="font-weight: bold;">Date</th>
+                                    <th style="font-weight: bold;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -164,14 +171,14 @@
                                               <input type="hidden" name="command" value="accept">
                                               <input type="hidden" name="id" value="'.$row['ID'].'">
                                               <button class="btn btn-success col-12" type="submit" name="commands" style="margin-top: 5px; width: 150px;">
-                                              <i class="fa fa-check-square-o" aria-hidden="true"></i> Accept</button>
+                                              <i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp; Accept</button>
                                             </form>
 
                                             <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                                 <input type="hidden" name="command" value="deny">
                                                 <input type="hidden" name="id" value="'.$row['ID'].'">
                                                 <button class="btn btn-danger col-12" type="submit" name="commands" style="margin-top: 5px; width: 150px;">
-                                                <i class="fa fa-history" aria-hidden="true"></i> Reschedule</button>
+                                                <i class="fa fa-history" aria-hidden="true"></i>&nbsp; Reschedule</button>
                                             </form>
                                       
                                           </td>
@@ -196,19 +203,19 @@
                       <div class="table-responsive">
                         <table class="table">
                           <thead class=" text-primary">
-                            <th>
+                            <th style="font-weight: bold;">
                               ID
                             </th>
-                            <th>
+                            <th style="font-weight: bold;">
                               Name
                             </th>
-                            <th>
+                            <th style="font-weight: bold;">
                               Country
                             </th>
-                            <th>
+                            <th style="font-weight: bold;">
                               City
                             </th>
-                            <th>
+                            <th style="font-weight: bold;">
                               Salary
                             </th>
                           </thead>
@@ -332,36 +339,12 @@
 
       <footer class="footer">
         <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
           <div class="copyright float-right">
             &copy;
             <script>
               document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+            </script>,
+            <a href="dashboard.php" target="_blank">Abenchers</a> <i class="material-icons">favorite</i>  | Design: IT Project 2
           </div>
         </div>
       </footer>
