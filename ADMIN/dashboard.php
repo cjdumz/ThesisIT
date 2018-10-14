@@ -97,11 +97,13 @@
                         <li>
                             <a href="appointment.php"><i class="fa fa-angle-right"></i>Request</a>
                         </li>
+                       <br>
                         <li>
                             <a href="reschedule.php"><i class="fa fa-angle-right"></i>Reschedule</a>
                         </li>
                     </ul>
                 </li>
+                
                 <li>
                     <a href="#">
                         <i class="fa fa-calendar"></i>
