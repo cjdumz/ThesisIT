@@ -8,7 +8,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Appointment Request</title>
+  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -62,11 +62,11 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item active">
-                  <a class="nav-link" href="appointments.php">Appointments</a>
+                <li class="nav-item">
+                  <a class="nav-link" href="blank.php">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="reschedule.php">Reschedule</a>
+                  <a class="nav-link" href="#">Reschedule</a>
                 </li>
               </ul>
             </div>
@@ -84,7 +84,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-table"></i>
               <span class="menu-title">Account Management</span>
             </a>
@@ -117,65 +117,64 @@
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Appointments</h4>
+                  <h4 class="card-title">Vehicles</h4>
                   <p class="card-description">
-                    List of Appointment Request
-                    
+                    List of all registered Vehicles
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="doctables">
+                    <table class="table table-bordered" id="doctables">
                       <thead>
-                        <tr>
-                            <th>Customer Name</th>
-                            <th>Service</th>
-                            <th>Plate Number</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Action</th>
+                        <tr style="background-color: #B80011; font-weight: bold; color: white;">
+                          <th>
+                            Owner
+                          </th>
+                          <th>
+                            Plate
+                          </th>
+                          <th>
+                            Body Type
+                          </th>
+                          <th>
+                            Brand
+                          </th>
+                          <th>
+                            Series
+                          </th>
+                          <th>
+                            Color
+                          </th>
+                          <th>
+                            Status
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php
-                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
-                        yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
-                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                            = services.serviceId where appointments.status = 'Pending' AND (NOW() = date OR NOW() < date ) order by 10 ASC");
-                        if($data->execute()){
-                            $values = $data->get_result();
-                            while($row = $values->fetch_assoc()) {
-                            $dateTime = $row['date'];
-                            $dateTimeSplit = explode(" ",$dateTime);
-                            $date = $dateTimeSplit[0];
-                            echo '
-                                <tr>
-                                <td>'.$row['Name'].'</td>
-                                <td>'.$row['sername'].'</td>
-                                <td>'.$row['plateNumber'].'</td>
-                                <td>'.$row['status'].'</td>
-                                <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
-                                <td>
+                            $data = $connection->prepare("SELECT concat(firstName, ' ', middleName, ' ',lastName ) as 'Name', vehicles.plateNumber, vehicles.bodyType, vehicles.bodyType, vehicles.make, vehicles.series, vehicles.color, vehicles.status FROM `vehicles` join personalinfo where personalinfo.personalId = vehicles.personalId");
+                            if($data->execute()){
+                                $values = $data->get_result();
+                                while($row = $values->fetch_assoc()) {
+                                echo '
+                                    <tr>
+                                        <td>'.$row['Name'].'</td>
+                                        <td><a href="viewVehicle.php?plate='.$row['plateNumber'].'">'.$row['plateNumber'].'</td>
+                                        <td>'.$row['bodyType'].'</td>
+                                        <td>'.$row['make'].'</td>
+                                        <td>'.$row['series'].'</td>
+                                        <td>'.$row['color'].'</td>
+                                        <td>'.$row['status'].'</td>
+                                    </tr>
 
-                                    <form method="POST" action="process/server.php" enctype="multipart/form-data">
-                                        <input type="hidden" name="command1" value="accept">
-                                        <input type="hidden" name="id1" value="'.$row['ID'].'">
-                                        <button class="btn btn-success" type="submit" name="commands1" style="margin-top: 5px; width: 120px;">
-                                        Accept</button>
-                                        <input type="hidden" name="command2" value="deny">
-                                        <input type="hidden" name="id2" value="'.$row['ID'].'">
-                                        <button class="btn" type="submit" name="commands2" style="margin-top: 5px; width: 120px; background-color: #B80011; color:white;">
-                                        Reschedule</button>
-                                    </form>
-                                    
-                                </td>
 
-                                </tr>
-                            ';
+
+                                   
+                                ';
+                                }
+                            }else{
+                                echo "<tr>
+                                        <td colspan='7'>No Available Data</td>
+                                    </tr>";
                             }
-                        }else{
-                            echo "<tr>
-                                    <td colspan='7'>No Available Data</td>
-                                </tr>";
-                        }
                         ?>
                       </tbody>
                     </table>

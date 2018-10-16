@@ -89,6 +89,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="vehicle.php">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Vehicle</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="menu-icon mdi mdi-sticker"></i>
               <span class="menu-title">Settings</span>

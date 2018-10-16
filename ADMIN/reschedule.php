@@ -90,6 +90,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="vehicle.php">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Vehicle</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="menu-icon mdi mdi-sticker"></i>
               <span class="menu-title">Settings</span>
@@ -185,14 +191,34 @@
                                             <!-- start -->
                                             <div class="row">
                                               <div class="col-6">
-                                                <h4 class="card-title">Customer Name: '.$row['Name'].'</h4>
-                                                <h4 class="card-title">Plate Number: '.$row['plateNumber'].'</h4>
+                                                <h4 class="card-title">Customer Name:</h4>                                            
                                               </div>
                                               <div class="col-6">
-                                                <h4 class="card-title">Services:</h4>
-                                                <p class="card-description">
+                                                <h4 class="card-title">'.$row['Name'].'</h4>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-6">
+                                                <h4 class="card-title">Plate Number:</h4>                                            
+                                              </div>
+                                              <div class="col-6">
+                                                <h4 class="card-title">'.$row['plateNumber'].'</h4>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-6">
+                                                <h4 class="card-title">Status:</h4>                                            
+                                              </div>
+                                              <div class="col-6">
+                                                <h4 class="card-title">'.$row['status'].'</h4>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-6">
+                                                <h4 class="card-title">Services:</h4>                                            
+                                              </div>
+                                              <div class="col-6">
                                                 <h4 class="card-title">'.$row['sername'].'</h4>
-                                                </p>
                                               </div>
                                             </div>
                                             <form class="forms-sample">
@@ -211,7 +237,7 @@
                                             <!-- end -->
                                           </div>
                                           <div class="modal-footer" >
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
                                             <button type="button" class="btn btn-danger">Dismiss</button>
                                             <button type="button" class="btn btn-success">Reschedule</button>
                                             </form>
