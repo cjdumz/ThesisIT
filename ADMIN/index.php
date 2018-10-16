@@ -10,10 +10,10 @@
 
   <link rel="icon" href="images/Logo.png">
   <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style2.css">
 
   <title>EAS Customs</title>
-  <link rel="icon" href="assets/img/Logo.png">
+  <link rel="icon" href="./images/Logo.png">
   
 </head>
 

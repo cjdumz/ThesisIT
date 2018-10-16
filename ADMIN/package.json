@@ -1,49 +1,40 @@
 {
-  "name": "material-dashboard",
-  "version": "2.1.0",
-  "description": "Material Dasboard, a Google Material Desgin. Coded by Creative Tim",
+  "name": "Star-Admin-Free",
+  "version": "2.0.0",
+  "description": "",
   "main": "index.html",
-  "directories": {
-    "example": "root"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creativetimofficial/material-dashboard.git"
-  },
-  "keywords": [
-    "material dashboard",
-    "bootstrap material admin",
-    "bootstrap material dashboard",
-    "material design admin",
-    "material design",
-    "creative tim",
-    "html dashboard",
-    "html css dashboard",
-    "web dashboard",
-    "freebie",
-    "free bootstrap dashboard",
-    "css3 dashboard",
-    "bootstrap admin",
-    "bootstrap dashboard",
-    "frontend",
-    "responsive bootstrap dashboard"
-  ],
-  "author": "Creative Tim <hello@creative-tim.com> (https://www.creative-tim.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/material-dashboard/issues"
+  "dependencies": {
+    "bootstrap": "4.0.0",
+    "chart.js": "2.7.1",
+    "flag-icon-css": "2.9.0",
+    "font-awesome": "4.7.0",
+    "gulp-sourcemaps": "^2.6.3",
+    "jquery": "3.2.1",
+    "mdi": "2.1.19",
+    "popper.js": "1.12.9",
+    "simple-line-icons": "2.4.1"
   },
   "devDependencies": {
+    "browser-sync": "^2.16.0",
+    "compass-mixins": "^0.12.10",
+    "del": "2.2.2",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-clean": "^0.4.0",
-    "gulp-install": "^1.1.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-open": "^3.0.1"
+    "gulp-concat": "^2.6.1",
+    "gulp-inject": "4.3.0",
+    "gulp-inject-partials": "^1.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.3.2",
+    "merge-stream": "^1.0.1",
+    "minimatch": "^3.0.4",
+    "run-sequence": "^1.2.2"
   },
-  "homepage": "http://demos.creative-tim.com/material-dashboard/examples/dashboard.html?_ga=2.143239282.69692347.1519629130-329288944.1519374311"
+  "scripts": {
+    "clean": "rm -rf ./node_modules",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bootstrapdash",
+  "url": "http://www.bootstrapdash.com/",
+  "copyright": "",
+  "license": ""
 }
