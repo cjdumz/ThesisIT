@@ -18,8 +18,12 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
   <link rel="icon" href="images/Logo.png">
+  <style>
+
+  </style>
 </head>
 
 <body>

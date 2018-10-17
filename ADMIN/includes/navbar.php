@@ -1,13 +1,13 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center custom">
         <a class="navbar-brand brand-logo" href="dashboard.php">
-        <img src="./images/logo.svg" alt="logo" />
+            <img src="images/Logo.png" class="customslogo" alt="">
         </a>
-        <a class="navbar-brand brand-logo-mini" href="dashboard.php">
-            <img src="images/logo-mini.svg" alt="logo" />
+        <a class="navbar-brand" href="dashboard.php" style="color: white; font-weight: bold;">
+           EAS CUSTOMS
         </a>
         </div>
-        <div class="navbar-menu-wrapper d-flex align-items-center">
+        <div class="navbar-menu-wrapper d-flex align-items-center custom">
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">

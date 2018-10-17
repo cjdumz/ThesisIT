@@ -18,6 +18,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -136,7 +137,7 @@
                   <div class="table-responsive">
                   <table class="table table-hover" id="doctables">
                       <thead>
-                        <tr style="background-color: #B80011; font-weight: bold; color: white;">
+                        <tr class="redborder">
                           <th>
                             ID
                           </th>

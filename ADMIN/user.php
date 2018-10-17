@@ -18,6 +18,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -119,10 +120,19 @@
                         <div class="form-group">
                           <label class="bmd-label-floating">Vehicle</label>
                           <select type="text" class="form-control">
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
+                          <?php
+                          
+                            $id = $_GET['id'];
+                            $data = $connection->prepare("SELECT * FROM vehicles where personalId = $id");
+                            if($data->execute()){
+                                $values = $data->get_result();
+                                while($row = $values->fetch_assoc()) {
+                                  echo " <option value='$id'>   </option>";
+                                }
+                            }else{
+                                echo "<option >Invalid Account</option>";
+                            }
+                          ?>
                           </select>
                         </div>
                       </div>
