@@ -63,7 +63,7 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item active">
+                <li class="nav-item">
                   <a class="nav-link" href="appointments.php">Appointments</a>
                 </li>
                 <li class="nav-item">
@@ -79,13 +79,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="blank.php">
               <i class="menu-icon mdi mdi-chart-line"></i>
               <span class="menu-title">Client Records</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-table"></i>
               <span class="menu-title">Account Management</span>
             </a>

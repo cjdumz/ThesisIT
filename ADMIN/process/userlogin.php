@@ -20,6 +20,8 @@
               $_SESSION['id'] = $row['id'];
               $_SESSION['username'] = $username;
               $_SESSION['password'] = $password;
+              $_SESSION['name'] = $row['firstName'];
+
           }
             
             header("Location: ../dashboard.php");

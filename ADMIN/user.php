@@ -1,5 +1,11 @@
-<?php require 'process/require/auth.php';?>
-<?php require "process/require/dataconf.php";?>
+<?php require 'process/require/auth.php';
+      require "process/require/dataconf.php";
+if(!isset($_GET['id'])){
+  header("Location: error.php");
+  exit();
+}
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +14,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+  <title>User</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -64,10 +70,10 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="blank.php">Appointments</a>
+                  <a class="nav-link" href="appointments.php">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Reschedule</a>
+                  <a class="nav-link" href="reschedule.php">Reschedule</a>
                 </li>
               </ul>
             </div>
@@ -79,15 +85,21 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="blank.php">
               <i class="menu-icon mdi mdi-chart-line"></i>
               <span class="menu-title">Client Records</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li class="nav-item active">
+            <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-table"></i>
               <span class="menu-title">Account Management</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="vehicle.php">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Vehicle</span>
             </a>
           </li>
           <li class="nav-item">
@@ -121,18 +133,21 @@
                           <label class="bmd-label-floating">Vehicle</label>
                           <select type="text" class="form-control">
                           <?php
-                          
-                            $id = $_GET['id'];
-                            $data = $connection->prepare("SELECT * FROM vehicles where personalId = $id");
-                            if($data->execute()){
-                                $values = $data->get_result();
-                                while($row = $values->fetch_assoc()) {
-                                  echo " <option value='$id'>   </option>";
-                                }
-                            }else{
-                                echo "<option >Invalid Account</option>";
+                            if(isset($_GET['id'])){
+                              $id = $_GET['id'];
+                              $getpart = $connection->prepare('SELECT * FROM vehicles where personalId = '.$id.' limit 1; ');
+                              $getpart->execute();
+                              $values = $getpart->get_result();
+                              $content = $values->fetch_assoc();
+                              echo' <option hidden value="'.$content['id'].'" selected>'.$content['make'].'('.$content['plateNumber'].')</option>';
+                              $getotherpart = $connection->prepare('SELECT * FROM vehicles where personalId = '.$id.'; ');
+                              $getotherpart->execute();
+                              $values = $getotherpart->get_result();
+                              while($contents = $values->fetch_assoc()) {
+                                  echo' <option value="'.$contents['id'].'">'.$contents['make'].'('.$contents['plateNumber'].')</option>';
+                              }
                             }
-                          ?>
+                            ?>
                           </select>
                         </div>
                       </div>

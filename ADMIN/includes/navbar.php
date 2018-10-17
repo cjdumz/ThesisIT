@@ -66,7 +66,17 @@
             </li>
             <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <span class="profile-text">Hello, Admin !</span>
+                <span class="profile-text">Hello,
+                <?php
+                    require "process/require/dataconf.php";
+                    if(isset($_SESSION["firstName"])){
+                    $id = $_SESSION['name'];
+                    $type = $_SESSION['type'];
+                    echo  ' <p class="dropdown-header text-center" style="font-size:12px;">'.$type.'</p>';
+                    echo  ' <p class="dropdown-header">'.$id.'</p>';
+                    }
+                    $name = $_SESSION['firstName']; echo $name; ?>
+                </span>
                 <img class="img-xs rounded-circle" src="images/faces-clipart/pic-1.png" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">

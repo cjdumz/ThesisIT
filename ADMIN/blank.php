@@ -117,7 +117,7 @@
                     <code>.table-{color}</code>
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="doctables">
+                    <table class="table table-bordered table-dark" id="doctables">
                       <thead>
                         <tr>
                           <th>

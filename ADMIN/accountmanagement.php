@@ -64,10 +64,10 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="blank.php">Appointments</a>
+                  <a class="nav-link" href="appointments.php">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Reschedule</a>
+                  <a class="nav-link" href="reschedule.php">Reschedule</a>
                 </li>
               </ul>
             </div>
@@ -79,7 +79,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="blank.php">
               <i class="menu-icon mdi mdi-chart-line"></i>
               <span class="menu-title">Client Records</span>
             </a>
