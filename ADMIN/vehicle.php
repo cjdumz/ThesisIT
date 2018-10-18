@@ -8,7 +8,8 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+  <title>Vehicle</title>
+  <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -31,85 +32,8 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item nav-profile">
-            <div class="nav-link">
-              <div class="user-wrapper">
-                <div class="profile-image">
-                  <img src="images/faces-clipart/pic-1.png" alt="profile image">
-                </div>
-                <div class="text-wrapper">
-                  <p class="profile-name">Admin</p>
-                  <div>
-                    <small class="designation text-muted">Manager</small>
-                    <span class="status-indicator online"></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">
-              <i class="menu-icon mdi mdi-television"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-content-copy"></i>
-              <span class="menu-title">Request</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="appointments.php">Appointments</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="reschedule.php">Reschedule</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
-              <span class="menu-title">Calendar</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="blank.php">
-              <i class="menu-icon mdi mdi-chart-line"></i>
-              <span class="menu-title">Client Records</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="accountmanagement.php">
-              <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Account Management</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="vehicle.php">
-              <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Vehicle</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-sticker"></i>
-              <span class="menu-title">Settings</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-restart"></i>
-              <span class="menu-title">Notifications</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+        
+    <?php include "includes/sidenav.php";?>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">

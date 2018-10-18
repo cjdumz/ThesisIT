@@ -1,12 +1,10 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center custom">
-        <a class="navbar-brand brand-logo" href="dashboard.php">
-            <img src="images/Logo.png" class="customslogo" alt="">
+        <img src="images/Logo.png" class="logoo" alt=""/>
+        <a class="navbar-brand" href="dashboard.php" style="color: #b80011; margin-top: 5px; margin-left: 3px;">
+          <strong>EAS CUSTOMS</strong>
         </a>
-        <a class="navbar-brand" href="dashboard.php" style="color: white; font-weight: bold;">
-           EAS CUSTOMS
-        </a>
-        </div>
+    </div>
         <div class="navbar-menu-wrapper d-flex align-items-center custom">
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown">
