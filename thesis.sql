@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 10, 2018 at 08:24 AM
+-- Generation Time: Oct 18, 2018 at 12:34 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `thesis2`
+-- Database: `thesis`
 --
 
 -- --------------------------------------------------------
@@ -33,6 +33,9 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `firstName` varchar(255) NOT NULL,
+  `middleName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -42,8 +45,8 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `username`, `password`, `date_created`, `date_modified`) VALUES
-(2, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2018-09-12 07:26:00', '2018-09-12 07:26:00');
+INSERT INTO `admin` (`id`, `username`, `password`, `firstName`, `middleName`, `lastName`, `date_created`, `date_modified`) VALUES
+(2, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', '', '', '2018-09-12 07:26:00', '2018-09-12 07:26:00');
 
 -- --------------------------------------------------------
 
@@ -67,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   KEY `personalId3` (`personalId`),
   KEY `serviceId` (`serviceId`),
   KEY `vehicleId` (`vehicleId`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
@@ -75,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 
 INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `created`, `modified`) VALUES
 (1, 1, 1, 1, NULL, NULL, 'declined', '2018-09-26', '2018-09-24 00:33:35', NULL),
-(3, 1, 1, 3, NULL, NULL, 'Pending', '2018-09-05', '2018-09-24 15:51:21', NULL),
+(3, 1, 1, 3, NULL, NULL, 'Overdue', '2018-09-05', '2018-09-24 15:51:21', NULL),
 (5, 1, 1, 3, NULL, NULL, 'Rescheduled', '2018-09-27', '2018-09-24 16:44:33', NULL),
 (6, 1, 1, 3, NULL, NULL, 'Declined', '2018-09-27', '2018-09-24 16:44:57', NULL),
 (7, 5, 1, 3, NULL, NULL, 'Declined', '2018-10-05', '2018-10-03 02:34:14', NULL),
@@ -87,7 +90,51 @@ INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `other
 (13, 8, 1, 3, 'Hello', 'hehe', 'Declined', '2018-10-10', '2018-10-03 15:42:56', NULL),
 (14, 6, 1, 3, '', '', 'Declined', '2018-10-17', '2018-10-03 16:00:21', NULL),
 (15, 4, 1, 3, '', '', 'Accepted', '2018-10-20', '2018-10-03 16:01:20', NULL),
-(16, 2, 1, 3, '', '', 'pending', '2018-10-11', '2018-10-03 17:02:16', NULL);
+(16, 2, 1, 3, '', '', 'Overdue', '2018-10-11', '2018-10-03 17:02:16', NULL),
+(18, 10, 1, 34, 'sadas', 'asdsad', 'Pending', '2018-10-31', '2018-10-16 13:58:21', NULL),
+(19, 10, 1, 34, 'sadas', 'Pending', 'asdasd', '2018-10-31', '2018-10-16 13:59:10', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chargeinvoice`
+--
+
+DROP TABLE IF EXISTS `chargeinvoice`;
+CREATE TABLE IF NOT EXISTS `chargeinvoice` (
+  `id` int(11) NOT NULL,
+  `vehicleId` int(11) NOT NULL,
+  `personalId` int(11) NOT NULL,
+  `appointmentId` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `scopeWork` varchar(255) NOT NULL,
+  `laborPrices` int(11) NOT NULL,
+  `spareParts` varchar(255) NOT NULL,
+  `sparePartsPrices` int(11) NOT NULL,
+  `TotalPrice` int(11) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `vehicle` (`appointmentId`),
+  KEY `personal` (`vehicleId`),
+  KEY `personal2` (`personalId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `daterestricted`
+--
+
+DROP TABLE IF EXISTS `daterestricted`;
+CREATE TABLE IF NOT EXISTS `daterestricted` (
+  `restrictId` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `modified` datetime NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`restrictId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -255,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `engineNumber` varchar(255) DEFAULT NULL,
   `typeOfEngine` varchar(255) DEFAULT NULL,
   `engineDisplacement` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'Active',
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -280,6 +327,14 @@ ALTER TABLE `appointments`
   ADD CONSTRAINT `personalId3` FOREIGN KEY (`personalId`) REFERENCES `personalinfo` (`personalId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `serviceId` FOREIGN KEY (`serviceId`) REFERENCES `services` (`serviceId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `vehicleId` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `chargeinvoice`
+--
+ALTER TABLE `chargeinvoice`
+  ADD CONSTRAINT `personal` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `personal2` FOREIGN KEY (`personalId`) REFERENCES `personalinfo` (`personalId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vehicle` FOREIGN KEY (`appointmentId`) REFERENCES `appointments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `personalinfo`
