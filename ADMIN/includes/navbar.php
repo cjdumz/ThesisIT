@@ -5,7 +5,7 @@
           <strong>EAS CUSTOMS</strong>
         </a>
     </div>
-        <div class="navbar-menu-wrapper d-flex align-items-center custom">
+        <div class="navbar-menu-wrapper d-flex align-items-center custom" style="color:#b80011";>
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -64,16 +64,13 @@
             </li>
             <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <span class="profile-text">Hello,
+                <span class="profile-text" style="font-size:14px;">Hello, Admin
                 </span>
                 <img class="img-xs rounded-circle" src="images/faces-clipart/pic-1.png" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <a class="dropdown-item mt-2">
                 Manage Accounts
-                </a>
-                <a class="dropdown-item">
-                Change Password
                 </a>
                 <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Logout
                 </a>

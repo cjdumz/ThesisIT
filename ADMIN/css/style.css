@@ -13769,9 +13769,9 @@ input:focus {
       .sidebar .nav .nav-item .nav-link .badge {
         margin-left: auto; }
       .sidebar .nav .nav-item .nav-link:hover {
-        color: #3d3d3d; }
+        background-color:#808080 ; }
     .sidebar .nav .nav-item.active > .nav-link {
-      color: #308ee0; }
+      background-color: #b80011; color: white; }/**/
       .sidebar .nav .nav-item.active > .nav-link .menu-title,
       .sidebar .nav .nav-item.active > .nav-link i {
         color: inherit; }
@@ -13802,8 +13802,8 @@ input:focus {
           .sidebar .nav .nav-item.nav-profile .nav-link .user-wrapper .text-wrapper .designation {
             margin-right: 3px; }
     .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile) > .nav-link {
-      background: #fafbfc;
-      color: #4a4a4a; }
+      background: #808080;
+      color: white; }
     .sidebar .nav.sub-menu {
       margin-bottom: 0;
       padding: 0 0 0 4rem; }
@@ -13886,7 +13886,7 @@ input:focus {
 /* Navbar */
 .navbar.default-layout {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(120deg, #b80011, #b80011);
+  background: linear-gradient(120deg, #e5e5e55c, #e5e5e55c);
   transition: background 0.25s ease;
   -webkit-transition: background 0.25s ease;
   -moz-transition: background 0.25s ease;
@@ -14233,7 +14233,7 @@ html {
       width: 100%; } }
 
 .content-wrapper {
-  background: #f2f8f9;
+  background: #e5e5e55c;
   padding: 1.5rem 1.7rem;
   width: 100%;
   -webkit-flex-grow: 1;
@@ -16319,3 +16319,8 @@ ul {
 
 /*# sourceMappingURL=maps/style.css.map */
 /* additional css */
+
+/*my style*/
+.nav-item active{
+    background-color: red;
+}
