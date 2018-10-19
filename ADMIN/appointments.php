@@ -157,12 +157,14 @@
                                     <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                         <input type="hidden" name="command1" value="accept">
                                         <input type="hidden" name="id1" value="'.$row['ID'].'">
-                                        <button class="btn" type="submit" name="commands1" style="margin-top: 5px; width: 120px; background-color: #4caf50; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
+                                        <button class="btn" type="submit" name="commands1" style="margin-top: 5px; width: 145px; background-color: #4caf50; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
                                         Accept</button>
-                                        
+                                    </form>
+                                    
+                                    <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                         <input type="hidden" name="command2" value="deny">
                                         <input type="hidden" name="id2" value="'.$row['ID'].'">
-                                        <button class="btn" type="submit" name="commands2" style="margin-top: 5px; width: 120px; background-color: #f44336; color:white;"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                        <button class="btn" type="submit" name="commands2" style="margin-top: 5px; width: 145px; background-color: #f44336; color:white;"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                         Reschedule</button>
                                     </form>
                                     

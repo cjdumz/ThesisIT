@@ -13769,7 +13769,7 @@ input:focus {
       .sidebar .nav .nav-item .nav-link .badge {
         margin-left: auto; }
       .sidebar .nav .nav-item .nav-link:hover {
-        background-color:#808080 ; }
+        background-color:#d9d9d9 ; }
     .sidebar .nav .nav-item.active > .nav-link {
       background-color: #b80011; color: white; }/**/
       .sidebar .nav .nav-item.active > .nav-link .menu-title,
@@ -13802,7 +13802,7 @@ input:focus {
           .sidebar .nav .nav-item.nav-profile .nav-link .user-wrapper .text-wrapper .designation {
             margin-right: 3px; }
     .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile) > .nav-link {
-      background: #808080;
+      background: #d9d9d9;
       color: white; }
     .sidebar .nav.sub-menu {
       margin-bottom: 0;

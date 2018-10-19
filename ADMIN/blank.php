@@ -36,16 +36,16 @@
         <ul class="nav">
         <hr class="style2">
             
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" id="active" href="dashboard.php">
-              <i class="menu-icon mdi mdi-television"></i>
+              <i class="menu-icon mdi mdi-sort-variant"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
             
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-content-copy"></i>
+              <i class="menu-icon mdi mdi-inbox"></i>
               <span class="menu-title" style="font-size:14px;">Request</span>
               <i class="menu-arrow"></i>
             </a>
@@ -63,14 +63,14 @@
             
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
+              <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
             
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-note-text"></i>
+              <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Client Records</span>
             </a>
           </li>
@@ -84,21 +84,21 @@
             
           <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
-              <i class="menu-icon mdi mdi-table"></i>
+              <i class="menu-icon mdi mdi-car-side"></i>
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
             </a>
           </li>
             
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-sticker"></i>
+          <li class="nav-item active">
+            <a class="nav-link" href="blank.php">
+              <i class="menu-icon mdi mdi-settings"></i>
               <span class="menu-title" style="font-size:14px;">Settings</span>
             </a>
           </li>
             
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-restart"></i>
+              <i class="menu-icon mdi mdi-bell"></i>
               <span class="menu-title" style="font-size:14px;">Notifications</span>
             </a>
           </li>
