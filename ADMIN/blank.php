@@ -208,7 +208,7 @@
                             May 15, 2015
                           </td>
                         </tr>
-                        <tr class="table-primary">
+                        <tr class="table-primary" style="color:black;">
                           <td>
                             5
                           </td>

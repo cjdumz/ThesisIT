@@ -92,7 +92,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="blank.php">
               <i class="menu-icon mdi mdi-settings"></i>
               <span class="menu-title" style="font-size:14px;">Settings</span>
             </a>
@@ -116,24 +116,24 @@
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Appointments</h4>
+                  <p class="card-title" style="font-size:20px;">Appointments</p>
                   <p class="card-description">
                     List of Appointment Request
                     
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="doctables">
+                    <table class="table table-bordered table-dark" id="doctables">
                       <thead>
-                        <tr class="redborder">
-                            <th>Customer Name</th>
-                            <th>Service</th>
-                            <th>Plate Number</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Action</th>
+                        <tr class="grid">
+                            <th style="font-size:15px;">Customer Name</th>
+                            <th style="font-size:15px;">Service</th>
+                            <th style="font-size:15px;">Plate Number</th>
+                            <th style="font-size:15px;">Status</th>
+                            <th style="font-size:15px;">Date</th>
+                            <th style="font-size:15px;">Action</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="table-primary" style="color:black;">
                       <?php
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                         yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
@@ -157,14 +157,14 @@
                                     <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                         <input type="hidden" name="command1" value="accept">
                                         <input type="hidden" name="id1" value="'.$row['ID'].'">
-                                        <button class="btn" type="submit" name="commands1" style="margin-top: 5px; width: 145px; background-color: #4caf50; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
+                                        <button class="btn btn-success" type="submit" name="commands1" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
                                         Accept</button>
                                     </form>
                                     
                                     <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                         <input type="hidden" name="command2" value="deny">
                                         <input type="hidden" name="id2" value="'.$row['ID'].'">
-                                        <button class="btn" type="submit" name="commands2" style="margin-top: 5px; width: 145px; background-color: #f44336; color:white;"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                        <button class="btn btn-danger" type="submit" name="commands2" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                         Reschedule</button>
                                     </form>
                                     

@@ -91,7 +91,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="blank.php">
               <i class="menu-icon mdi mdi-settings"></i>
               <span class="menu-title" style="font-size:14px;">Settings</span>
             </a>
@@ -114,24 +114,24 @@
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Reschedule</h4>
+                  <p class="card-title" style="font-size:20px;">Reschedule</p>
                   <p class="card-description">
-                    List of pedding appointments to be rescheduled
+                    List of pending appointments to be rescheduled
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="doctables">
+                    <table class="table table-bordered table-dark" id="doctables">
                       <thead>
-                        <tr class="redborder">
-                            <th>Customer Name</th>
-                            <th>Service</th>
-                            <th>Plate Number</th>
-                            <th>Status</th>
-                            <th>Previous Date</th>
-                            <th>Action</th>
+                        <tr class="grid">
+                            <th style="font-size:15px;">Customer Name</th>
+                            <th style="font-size:15px;">Service</th>
+                            <th style="font-size:15px;">Plate Number</th>
+                            <th style="font-size:15px;">Status</th>
+                            <th style="font-size:15px;">Previous Date</th>
+                            <th style="font-size:15px;">Action</th>
                           
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="table-primary" style="color:black;">
                         <?php
                             $data = $connection->prepare("SELECT appointments.id as 'ID', personalinfo.personalId as 'personID',
                                 concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series, yearModel,plateNumber,serviceType,serviceName
@@ -161,7 +161,7 @@
                                                     <input type="hidden" name="command" value="deny">
                                                     <input type="hidden" name="id" value="'.$row['ID'].'">
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn" style="background-color: #595959; color: white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'">
+                                                    <button type="button" class="btn btn-danger" style="color: white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                                       Reschedule
                                                     </button>
                                                 </form>

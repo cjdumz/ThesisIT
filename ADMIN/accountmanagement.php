@@ -91,7 +91,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="blank.php">
               <i class="menu-icon mdi mdi-settings"></i>
               <span class="menu-title" style="font-size:14px;">Settings</span>
             </a>
@@ -118,7 +118,7 @@
 
                     <div class="row">
                         <div class="col-11">
-                            <h4 class="card-title">Users</h4>
+                            <p class="card-title" style="font-size:20px;">Users</p>
                             <p class="card-description">
                                 List of Users
                             </p>
@@ -132,28 +132,28 @@
                   
                   
                   <div class="table-responsive">
-                  <table class="table table-hover" id="doctables">
+                  <table class="table table-bordered table-dark" id="doctables">
                       <thead>
-                        <tr class="redborder">
-                          <th>
+                        <tr class="grid">
+                          <th style="font-size:15px;">
                             ID
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Name
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Address
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Mobile Number
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Email
                           </th>
                           <a href=""></a>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="table-primary" style="color:black;">
                         <?php
                             $data = $connection->prepare("SELECT * from personalinfo;");
                             if($data->execute()){
