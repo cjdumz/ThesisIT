@@ -114,38 +114,38 @@
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Vehicles</h4>
+                  <h4 class="card-title" style="font-size:20px;">Vehicles</h4>
                   <p class="card-description">
                     List of all registered Vehicles
                   </p>
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="doctables">
+                    <table class="table table-bordered table-dark" id="doctables">
                       <thead>
-                        <tr class="redborder">
-                          <th>
+                        <tr class="grid">
+                          <th style="font-size:15px;">
                             Owner
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Plate
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Body Type
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Brand
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Series
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Color
                           </th>
-                          <th>
+                          <th style="font-size:15px;">
                             Status
                           </th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="table-primary" style="color:black;">
                       <?php
                             $data = $connection->prepare("SELECT concat(firstName, ' ', middleName, ' ',lastName ) as 'Name', vehicles.plateNumber, vehicles.bodyType, vehicles.bodyType, vehicles.make, vehicles.series, vehicles.color, vehicles.status FROM `vehicles` join personalinfo where personalinfo.personalId = vehicles.personalId");
                             if($data->execute()){

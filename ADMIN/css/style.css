@@ -13700,6 +13700,7 @@ input:focus {
   padding: 0;
   width: 255px;
   z-index: 11;
+  box-shadow: 5px 0 10px -5px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
@@ -13771,7 +13772,8 @@ input:focus {
       .sidebar .nav .nav-item .nav-link:hover {
         background-color:#d9d9d9 ; }
     .sidebar .nav .nav-item.active > .nav-link {
-      background-color: #b80011; color: white; }/**/
+      background-color: #b80011; 
+      color: white; }/**/
       .sidebar .nav .nav-item.active > .nav-link .menu-title,
       .sidebar .nav .nav-item.active > .nav-link i {
         color: inherit; }
@@ -13803,7 +13805,7 @@ input:focus {
             margin-right: 3px; }
     .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile) > .nav-link {
       background: #d9d9d9;
-      color: white; }
+      color: #b80011; }
     .sidebar .nav.sub-menu {
       margin-bottom: 0;
       padding: 0 0 0 4rem; }
@@ -13814,10 +13816,10 @@ input:focus {
         line-height: 1;
         height: auto; }
         .sidebar .nav.sub-menu .nav-item .nav-link.active {
-          color: #308ee0;
+          color: #b80011;
           background: transparent; }
           .sidebar .nav.sub-menu .nav-item .nav-link.active:before {
-            background: #308ee0; }
+            background: #b80011; }
       .sidebar .nav.sub-menu .nav-item:hover > .nav-link {
         background: initial;
         color: #000; }
@@ -13896,6 +13898,7 @@ input:focus {
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
+    box-shadow: 5px 0 10px -5px rgba(0, 0, 0, 0.2);
     background: #ffffff;
     width: 255px;
     height: 63px; }
@@ -14217,7 +14220,8 @@ html {
     padding-top: 63px; }
   .page-body-wrapper.full-page-wrapper {
     width: 100%;
-    min-height: 100vh; }
+    min-height: 100vh;
+}
 
 .main-panel {
   transition: width 0.25s ease, margin 0.25s ease;
@@ -14240,7 +14244,8 @@ html {
   flex-grow: 1; }
 
 .container-scroller {
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .scroll-container {
   position: relative; }
@@ -14326,7 +14331,9 @@ pre {
   justify-content: stretch; }
   .stretch-card > .card {
     width: 100%;
-    min-width: 100%; }
+    min-width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 @media (min-width: 576px) {
   .border-right-sm {
