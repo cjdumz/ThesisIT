@@ -124,7 +124,7 @@
                             </p>
                         </div>
                         <div class="col-1">
-                            <button type="button" class="btn" style="background-color: #b80011; color: white; padding-button: 10px; float: right;" data-toggle="modal" data-target="#addUser">
+                            <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#addUser"><i class="menu-icon mdi mdi-account-multiple-plus"></i>
                                 Add User
                             </button>
                         </div>
@@ -228,15 +228,7 @@
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-          <div class="container-fluid clearfix">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
-              <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
-              <i class="mdi mdi-heart text-danger"></i>
-            </span>
-          </div>
-        </footer>
+        <?php include "includes/footer.php";?>
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
@@ -256,6 +248,7 @@
                 </div>
                 <div class="modal-body">
                 <!-- start -->
+                <br>
                   <form class="forms-sample">
                     <div class="row">
                         <div class="col-4">
@@ -297,12 +290,15 @@
                       <label for="exampleInputAddress">Address</label>
                       <input type="text" class="form-control" id="exampleInputAddress" placeholder="Location">
                     </div>
+                    </form> 
                    
                 <!-- end -->
                 </div>
                 <div class="modal-footer" >
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success">Add</button>
+                <form>
+                    <button type="button" class="btn btn-darkblue" style="width: 100px;"><i class="menu-icon mdi mdi-account-multiple-plus"></i>Add</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                 </form>
                 </div>
             </div>

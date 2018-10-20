@@ -6,6 +6,14 @@
         </a>
     </div>
         <div class="navbar-menu-wrapper d-flex align-items-center custom" style="color:#b80011";>
+         
+        <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+        <li class="nav-item">
+            <a href="dashboard.php" class="nav-link" style="font-size:22px; font-weight:bold; letter-spacing: 2px;">
+              <i class="menu-icon mdi mdi-sort-variant"></i>Dashboard</a>
+          </li>
+        </ul>
+            
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -64,15 +72,15 @@
             </li>
             <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <span class="profile-text" style="font-size:14px;">Hello, Admin
+                <span class="profile-text" style="font-size:14px; font-weight:bold;">Hello, Admin
                 </span>
-                <img class="img-xs rounded-circle" src="images/faces-clipart/pic-1.png" alt="Profile image">
+                <img class="img-xs rounded-circle" src="images/faces-clipart/pic-2.png" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                <a class="dropdown-item mt-2">
-                Manage Accounts
+                <a class="dropdown-item mt-2"><i class="menu-icon mdi mdi-account-settings-variant"></i>
+                Account Settings
                 </a>
-                <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Logout
+                <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="menu-icon mdi mdi-logout-variant"></i>Logout
                 </a>
             </div>
             </li>
@@ -94,8 +102,8 @@
             </div>
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="process/logout.php">Logout</a>
+            <a class="btn btn-darkblue" href="process/logout.php"><i class="menu-icon mdi mdi-logout-variant"></i>Logout</a>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal"><i class="menu-icon mdi mdi-cancel"></i>Cancel</button>
             </div>
         </div>
     </div>
