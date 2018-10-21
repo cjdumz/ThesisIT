@@ -234,9 +234,10 @@
                                             <!-- end -->
                                           </div>
                                           <div class="modal-footer" >
-
-                                            <button type="button" class="btn btn-danger">Dismiss</button>
-                                            <button type="button" class="btn btn-success">Reschedule</button>
+                                          
+                                            <button type="button" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
+                                            <button type="button" class="btn btn-secondary"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
+                                            
                                             </form>
                                           </div>
                                         </div>
