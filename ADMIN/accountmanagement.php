@@ -5,6 +5,7 @@
 <html lang="en">
 
 <head>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -290,17 +291,17 @@
                       <label for="exampleInputAddress">Address</label>
                       <input type="text" class="form-control" id="exampleInputAddress" placeholder="Location">
                     </div>
+                    <button id="submit" type="button">Add</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                     </form> 
                    
                 <!-- end -->
                 </div>
-                <div class="modal-footer" >
+          <!-- <div class="modal-footer" >
                 <form>
-                    <button type="button" class="btn btn-darkblue" style="width: 100px;"><i class="menu-icon mdi mdi-account-multiple-plus"></i>Add</button>
-                    &nbsp;
-                    <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                 </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -323,9 +324,39 @@
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
+  <!-- AJAX Link -->
+ <script>
+$(document).ready(function(){
+  $("#submit").click(function(){
+    var exampleInputName1 = $("#exampleInputName1").val();
+    var exampleInputName2 = $("#exampleInputName2").val();
+    var exampleInputName3 = $("#exampleInputName3").val();
+    var exampleInputPlate = $("#exampleInputPlate").val();
+    var exampleInputEmail = $("#exampleInputEmail").val();
+    var exampleInputMobile = $("#exampleInputMobile").val();
+    var exampleInputTel = $("#exampleInputTel").val();
+    var exampleInputAddress = $("#exampleInputAddress").val();
+    var dataString = 'exampleInputName1=' + exampleInputName1 + '&exampleInputName2=' + exampleInputName2;
+    if(exampleInputName1=='' || exampleInputName2=='' || exampleInputName3=='' || exampleInputNPlate=='' || exampleInputEmail==''
+      || exampleInputMobile=='' || exampleInputTel=='' || exampleInputAddress==''){
+      $("#display").html("");
+    } else {
+    $.ajax({
+      type: "POST",
+      cache: false,
+      success: function(result){
+       $("#display").html(result);
+      }
+    });
+    }
+    return false;
+  }); 
+});
+</script>
 </body>
 
-</html>
+
+
 
 <script>
   var table = $('#doctables').DataTable({
@@ -334,3 +365,4 @@
 
 });
 </script>
+</html>
