@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -291,17 +291,18 @@
                       <label for="exampleInputAddress">Address</label>
                       <input type="text" class="form-control" id="exampleInputAddress" placeholder="Location">
                     </div>
-                    <button id="submit" type="button">Add</button>
-                    &nbsp;
-                    <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                     </form> 
+                    
+                    <div class="modal-footer" >
+                    <form class="forms-sample">
+                        <button id="submit" type="button" class="btn btn-darkblue" style="width: 100px;"><i class="menu-icon mdi mdi-account-multiple-plus"></i>Add</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                    </form>
+                    </div>
                    
                 <!-- end -->
                 </div>
-          <!-- <div class="modal-footer" >
-                <form>
-                </form>
-                </div> -->
             </div>
         </div>
     </div>
