@@ -339,6 +339,7 @@ $(document).ready(function(){
     var dataString = 'exampleInputName1=' + exampleInputName1 + '&exampleInputName2=' + exampleInputName2;
     if(exampleInputName1=='' || exampleInputName2=='' || exampleInputName3=='' || exampleInputNPlate=='' || exampleInputEmail==''
       || exampleInputMobile=='' || exampleInputTel=='' || exampleInputAddress==''){
+      alert('Fill all fields')
       $("#display").html("");
     } else {
     $.ajax({
