@@ -222,7 +222,7 @@
                                               <div class="form-group row">
                                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Previous Date</label>
                                                 <div class="col-sm-9">
-                                                  <input type="date" class="form-control" id="exampleInputEmail2" disabled value="'.$row['date'].'">
+                                                  <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
@@ -236,7 +236,7 @@
                                           <div class="modal-footer" >
                                           
                                             <button type="button" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
-                                            <button type="button" class="btn btn-secondary"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                             
                                             </form>
                                           </div>

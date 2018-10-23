@@ -118,13 +118,251 @@ if(!isset($_GET['id'])){
           <div class="row">
             
             <!-- start -->
-            <div class="col-lg-12 stretch-card">
+            <div class="col-lg-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Edit Profile</h4>
+                  <h4 class="card-title">Personal Information</h4>
                   <form>
                     <div class="row">
                       <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Vehicle</label>
+                          <select type="text" class="form-control">
+                          <?php
+                            if(isset($_GET['id'])){
+                              $id = $_GET['id'];
+                              $getpart = $connection->prepare('SELECT * FROM vehicles where personalId = '.$id.' limit 1; ');
+                              $getpart->execute();
+                              $values = $getpart->get_result();
+                              $content = $values->fetch_assoc();
+                              echo' <option hidden value="'.$content['id'].'" selected>'.$content['make'].'('.$content['plateNumber'].')</option>';
+                              $getotherpart = $connection->prepare('SELECT * FROM vehicles where personalId = '.$id.'; ');
+                              $getotherpart->execute();
+                              $values = $getotherpart->get_result();
+                              while($contents = $values->fetch_assoc()) {
+                                  echo' <option value="'.$contents['id'].'">'.$contents['make'].'('.$contents['plateNumber'].')</option>';
+                              }
+                            }
+                            ?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Username</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email address</label>
+                          <input type="email" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Fist Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Middle Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Last Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Adress</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email Address</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Mobile Number</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Telephone Number</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>About Me</label>
+                          <div class="form-group">
+                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                            <textarea class="form-control" rows="5"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="float:right">Update Profile</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- end -->
+
+            <!-- start -->
+            <div class="col-lg-8 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Vehicle Information</h4>
+                  <form>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Plate Number</label>
+                          <select type="text" class="form-control">
+                          <?php
+                            if(isset($_GET['id'])){
+                              $id = $_GET['id'];
+                              $getpart = $connection->prepare('SELECT * FROM vehicles where personalId = '.$id.' limit 1; ');
+                              $getpart->execute();
+                              $values = $getpart->get_result();
+                              $content = $values->fetch_assoc();
+                              echo' <option hidden value="'.$content['id'].'" selected>'.$content['make'].'('.$content['plateNumber'].')</option>';
+                              $getotherpart = $connection->prepare('SELECT * FROM vehicles where personalId = '.$id.'; ');
+                              $getotherpart->execute();
+                              $values = $getotherpart->get_result();
+                              while($contents = $values->fetch_assoc()) {
+                                  echo' <option value="'.$contents['id'].'">'.$contents['make'].'('.$contents['plateNumber'].')</option>';
+                              }
+                            }
+                            ?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Status</label>
+                          <select type="text" class="form-control">
+                            <option value="">Active</option>
+                            <option value="">Deactivate</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 ">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Body Type</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Year Model</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Chassis Number</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Engine Classification</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Number of Cylenders</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Type of Drive Terrain</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Make</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Series</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Color</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Engine Number</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Type of Engine</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Engine Displacement</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="float:right">Update Vehicle</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- end -->
+
+            <!-- start -->
+            <div class="col-lg-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Transactions</h4>
+                  <form>
+                    <div class="row">
+                      <div class="col-md-5 grid-margin stretch-card">
                         <div class="form-group">
                           <label class="bmd-label-floating">Vehicle</label>
                           <select type="text" class="form-control">

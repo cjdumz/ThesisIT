@@ -156,7 +156,7 @@
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT * from personalinfo;");
+                            $data = $connection->prepare("SELECT * FROM `personalinfo`;");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
