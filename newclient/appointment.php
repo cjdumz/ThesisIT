@@ -1,7 +1,21 @@
 <?php
+session_start();
 include 'process/database.php';
-$service = new database ;
-$service -> mechanical_service();
+$mechanicalservice = new database ;
+$mechanicalservice -> mechanical_service();
+$electricalservice = new database ;
+$electricalservice -> electrical_service();
+$paintservice = new database ;
+$paintservice -> painting_service();
+//PDO
+//Connect to our MySQL database using the PDO extension.
+$id = $_SESSION['id'];
+$pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+$result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();//Our select statement. This will retrieve the data that we want.
+$sql = "SELECT id, make,series FROM vehicles where personalId = '$result'"; //Prepare the select statement.
+$stmt = $pdo->prepare($sql); //Execute the statement.
+$stmt->execute(); //Retrieve the rows using fetchAll.
+$vehicles = $stmt->fetchAll();  
 
 ?>
 <!DOCTYPE html>
@@ -9,23 +23,17 @@ $service -> mechanical_service();
 <head>
      <title>EAS Customs - Make an Appointment</title>
      <link rel="icon" href="images/Logo.png">
-<!--
 
-Template 2098 Health
-
-http://www.tooplate.com/view/2098-health
-
--->
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
      <meta name="keywords" content="">
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+     <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/magnific-popup.css">
-
+     
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
 
@@ -44,26 +52,31 @@ http://www.tooplate.com/view/2098-health
 
      <!-- HEADER -->
      <header>
-          <div class="container">
+          <div class="container" >
                <div class="row">
+         
+          <div class="col-md-4 col-sm-5">
+                       <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
+                       <a href="index.html" class="navbar-brand" >EAS Customs</a>
+          </div>
 
-                    <div class="col-md-4 col-sm-3">
-                         <p>Welcome to EAS Customs</p>
-                    </div>
-                         
-                    <div class="col-md-8 col-sm-7 text-align-right">
+              <div class="col-md-8 col-sm-7 text-align-right">
                          <span class="phone-icon"><i class="fa fa-phone"></i>  09257196568 / 09304992021</span>
                          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Sat)</span>
                          <span class="email-icon"><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
                     </div>
 
-               </div>
-          </div>
+
+                    
+        </div>
+      </div>
+          
+
      </header>
 
 
      <!-- MENU -->
-     <section class="navbar navbar-default navbar-static-top" role="navigation">
+     <section class="navbar navbar-default navbar-static-top" role="navigation" >
           <div class="container">
 
                <div class="navbar-header">
@@ -71,25 +84,33 @@ http://www.tooplate.com/view/2098-health
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <img src="images/Logo.png" class="logoo" alt="logo" />
-
-                    <a href="index.php" class="navbar-brand"> EAS CUSTOMS</a>
-
+              
 
                </div>
+          
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                         <li><a href="index.php" class="smoothScroll">Home</a></li>
-                         <li><a href="#news" class="smoothScroll">Services</a></li>
-                         <li><a href="#news" class="smoothScroll">About Us</a></li>
-                         <li><a href="#news" class="smoothScroll">Contact Us</a></li>
-                         <li><a href="#google-map" class="smoothScroll">Reviews</a></li>
-                         <li class="appointment-btn"><a href="appointment.php">Make an appointment</a></li>
+                     <ul class="nav navbar-nav navbar-right">
+                     <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                </a>
+                  <ul class="dropdown-menu">
+                     <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;">Account Settings</a></li>
+              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;">Logout</a>
+                    </li>
+                  </ul>
+                  </li>
+             </ul>
+                    <?php endif ?>
+                    <ul class="nav navbar-nav">
+                          <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
+                          <li><a href="vehicleshistory.php" class="smoothScroll">Vehicle History</a></li>
+                         <li><a href="vehiclesinfo.php" class="smoothScroll">Your Vehicles</a></li>
                     </ul>
                </div>
 
@@ -102,78 +123,103 @@ http://www.tooplate.com/view/2098-health
 	 <!-- APPOINTMENT SECTION --> 
 	  <section id="appointment-detail" data-stellar-background-ratio="3">
           <div class="container">
-               <div class="">
-					<form id="appointment-form" role="form" method="post" action="#">
+				
+                    <form id="appointment-form" role="form" method="post" action="#">
                         <div class="section-title wow fadeInUp" data-wow-delay="0.2s">
-							<h2>Make an appointment</h2>
+							<h2 align="center">Make an appointment</h2>
                         </div>
-
                         <div class="wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="row">
                             <div class="col-md-6 col-sm-6">
-                                <label for="select">Select Vehicle:</label>
-                                    <select class="form-control">
-								<option>General Health</option>
-                                        <option>Cardiology</option>
-                                        <option>Dental</option>
-								<option>Medical Research</option>
+                               <label for="select">Select Car</label>
+                                    <select class="form-control" name="vehicle" id="vehicle">
+                                                  <?php foreach($vehicles as $vehicle): ?>
+                                                  <option value="<?= $vehicle['id']; ?>"><?= $vehicle['make']; ?> <?= $vehicle['series']; ?></option>
+                                                  <?php endforeach; ?>                                                  
                                     </select>
                             </div>
-								   
-							<div class="col-md-12 col-sm-12">
-							<br>
-							<br>
-							<label for="service">Select Service</label>
-							<br>
-							<br>
-								<div class ="services">
-									<ul>
-										<li><a class="active" href="appointment.php">Mechanical</a></li>
-										<li><a href="electrical.php">Electrical</a></li>
-										<li><a href="#">Customize</a><li>
-										<li><a href="#">Body Repair</a></li>
-										<li><a href="painting.php">Body Paint</a></li>
-										<li><a href="#">Maintenance</a></li>
-									</ul>
-								</div>
-								<div class ="service-detail">
-									<?php
-										foreach($service->mechanical_service as $service){
-										?>	
-										<input type="radio" name="service" value="<?= $service['serviceId']; ?>"><?= $service['serviceName']; ?></input>
-										<br>
-										<br>
-							<?php	}
-						?>
-								</div>                   
-							</div>
-				   
-							<div class="col-md-6 col-sm-6">
-								<br>
-								<br>
-								<label for="date">Select Date</label>
-								<input type="date" name="date" value="" class="form-control">
-							</div>
+                            </div>
+                            <br><br>
 
-							<div class="col-md-6 col-sm-6">
-								<br>
-								<br>
-								<label for="time">Select Time</label>
-								<input type="time" name="time" value="" class="form-control">
-							</div>
-							
-							<div class="col-md-12 col-sm-12">
-								<br>
-								<br>
-								<label for="Message">Additional Message</label>
-								<textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea>
-							</div>
-							
-							<div class="col-md-6 col-sm-6" style="left:25%;">
-								<br>
-								<br>
-								<button type="submit" class="form-control" id="cf-submit" name="submit" >Submit</button>
-							</div>
-						</div>
+					<div class="row">
+                         <div class="col-md-12 col-sm-12">			   
+					<label for="service">Select Service</label>
+					<br><br>
+					<div class ="services">
+                              <ul>
+                                 <li><a role="button" id="mechanical">Mechanical</a></li>
+                                 <li><a role="button" id="electrical">Electrical</a></li>
+                                 <li><a href="#">Customize</a></li>
+                                 <li><a href="#">Body Repair</a></li>
+                                 <li><a role="button" id="painting">Body Paint</a></li>
+                                 <li><a href="#">Maintenance</a></li>
+                              </ul>
+                         </div>
+                         <br>
+ 
+                         <div class="service-detail" id="mechanical_service" style="display: none;">
+                              <select>
+						<?php
+						 foreach($mechanicalservice->mechanical_service as $mechanicalservice):
+						?>	
+						 <option name="service" value="<?= $mechanicalservice['serviceId']; ?>"><?= $mechanicalservice['serviceName']; ?><br></option>
+						<?php	
+                                 endforeach;  
+						?>
+                               </select>
+					</div>
+                          
+                         <div class="service-detail" id="electrical_service" style="display: none;">
+                              <?php
+                               foreach($electricalservice->electrical_service as $electricalservice):
+                              ?>   
+                               <input type="checkbox" name="service" value="<?= $electricalservice['serviceId']; ?>"><?= $electricalservice['serviceName']; ?><br></input>
+                              <?php     
+                                 endforeach;  
+                              ?>
+                         </div>
+
+                         <div class="service-detail" id="paint_service" style="display: none">
+                              <?php
+                               foreach($paintservice->painting_service as $paintservice){
+                                                  ?>   
+                               <input type="checkbox" name="service" value="<?= $paintservice['serviceId']; ?>"><?= $paintservice['serviceName']; ?></input>
+                              <br><br>
+                              <?php     
+                                   }
+                              ?>
+                         </div>
+                         </div>
+                                            
+					<br><br>
+                         <div class="row">
+					<div class="col-md-6 col-sm-6">
+                         <br>
+					<label for="date">Select Date</label>
+					<input type="date" name="date" value="" class="form-control">
+					</div>
+                         </div>
+                         <br><br>
+                         <div class="row">
+                         <div class="col-md-6 col-sm-6">
+					<label for="time">Select Time</label>
+					<input type="time" name="time" value="" class="form-control">
+					</div>
+                         </div>
+
+                         <br><br>
+                         <div class="row">		
+					<div class="col-md-12 col-sm-12">
+					<label for="Message">Additional Message</label>
+					<textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea>
+					</div>	
+                         </div>
+					<div class="col-md-6 col-sm-6" style="left:25%;">
+					<br>	<br>
+					<button type="submit" class="form-control" id="cf-submit" name="submit" >Submit</button>
+					</div>
+					</div>
+                         
                     </form>
                 </div>
             </div>
@@ -247,6 +293,7 @@ http://www.tooplate.com/view/2098-health
      <script src="js/smoothscroll.js"></script>
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
+     <script src="js/script.js"></script>
 
 </body>
 </html>

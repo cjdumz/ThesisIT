@@ -6,9 +6,9 @@
     $profile->user_profile($username);
 
     if (!isset($_SESSION['username'])) {
-    $_SESSION['unauthorized_user'] = '<div class="alert alert-warning fade in">
+    $_SESSION['unauthorized_user'] = '<div class="alert alert-danger fade in">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong>  Unauthorized user please login.
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Error</strong>  Unauthorized user please login.
     </div>';
         header('location: login.php');
       }
@@ -21,13 +21,14 @@
 <head>
 
      <title>EAS Customs - Home</title>
+     
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
      <meta name="keywords" content="">
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+     <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
@@ -41,14 +42,7 @@
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
      <!-- PRE LOADER -->
-     <section class="preloader">
-          <div class="spinner">
-
-               <span class="spinner-rotate"></span>
-               
-          </div>
-     </section>
-
+    
 
     <!-- HEADER -->
      <header>
@@ -56,7 +50,7 @@
                <div class="row">
          
           <div class="col-md-4 col-sm-5">
-
+                       <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
                        <a href="index.html" class="navbar-brand" >EAS Customs</a>
           </div>
 
@@ -84,6 +78,7 @@
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
                     </button>
 
                     <!-- lOGO TEXT HERE -->
@@ -107,7 +102,7 @@
              </ul>
                     <?php endif ?>
                     <ul class="nav navbar-nav">
-                          <li class="appointment-btn" ><a href="#appointment">Make an appointment</a></li>
+                          <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
                           <li><a href="vehicleshistory.php" class="smoothScroll">Vehicle History</a></li>
                          <li><a href="vehiclesinfo.php" class="smoothScroll">Your Vehicles</a></li>
                     </ul>

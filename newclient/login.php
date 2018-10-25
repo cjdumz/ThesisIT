@@ -20,7 +20,7 @@ if (isset($_SESSION['username'])) {
      <meta name="keywords" content="">
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+     <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
@@ -49,7 +49,7 @@ if (isset($_SESSION['username'])) {
                     
 
                     <div class="col-md-4 col-sm-5">
-                        <span class="email-icon"><i class="fa fa-sign-in" aria-hidden="true"></i> <a href="login.php">LOGIN</a></span>
+                        <span class="email-icon"><i class="fa fa-user-o" aria-hidden="true"></i> <a href="login.php">LOGIN</a></span>
                         <span class="email-icon"><i class="fa fa-file-text" aria-hidden="true"></i> <a href="register.php">REGISTER</a></span>
                     </div>
                          
@@ -76,6 +76,8 @@ if (isset($_SESSION['username'])) {
                     </button>
 
                     <!-- lOGO TEXT HERE -->
+                     <img src="images/Logo.png" class="logoo" alt="logo" />
+                     
                     <a href="index.php" class="navbar-brand">EAS CUSTOMS</a>
                </div>
 
@@ -101,12 +103,9 @@ if (isset($_SESSION['username'])) {
           <div class="container">
                <div class="row">
                   
-                         
-                 
-
-                  
-			   <div class="col-xs-6 col-sm-6" align="center">
-
+          <div class="col-xs-3 col-sm-3 " align="center">
+          </div>                        
+			   <div class="col-xs-5 col-sm-5 " align="center">
 					<form id="appointment-form" role="form" method="post" action="login.php">
                         <div class="section-title wow fadeInUp" data-wow-delay="0.2s">
 							<h2>Login</h2>
@@ -123,31 +122,52 @@ if (isset($_SESSION['username'])) {
                          ?>
 
                          <?php endif ?>
-                            <?php if (isset($_SESSION['timeout'])) : ?>
+                         <?php if (isset($_SESSION['timeout'])) : ?>
                          <?php 
                          
                            echo $_SESSION['timeout']; 
                              unset($_SESSION['timeout']);
                          ?>
                          <?php endif ?>
+                         <?php if (isset($_SESSION['login_first'])) : ?>
+                         <?php 
+                         
+                           echo $_SESSION['login_first']; 
+                             unset($_SESSION['login_first']);
+                         ?>
+                         <?php endif ?>
+                         <?php if (isset($_SESSION['register_success'])) : ?>
+                         <?php 
+                         
+                           echo $_SESSION['register_success']; 
+                             unset($_SESSION['register_success']);
+                         ?>
+                         <?php endif ?>
+                         <?php
+                         if(isset($_REQUEST['success'])=="done")
+                          {
+                              echo '<div class="alert alert-success fade in" align="center">
+                              <a href="#" class="close" data-dismiss="alert" >&times;</a>
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong> Registration Successful Please Login </div';
+                          }
+                         ?>
                         </div>
                             <div class="wow fadeInUp" data-wow-delay="0.4s">
                                 <div class="col-md-12 col-sm-12">
                                     <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-									<br>
-									<br>
-								</div>
+          									<br>
+          									<br>
+          								</div>
                                 <div class="col-md-12 col-sm-12">
                                     <input type="password" class="form-control" name="password" placeholder="Password">
-									<br>
-									<br>
+          									<br>
+          									<br>
                                 </div>		
                                     <button type="submit" class="form-control" id="cf-submit" name="login_user">Login </button>
                             
 					</form>
 					<br>
-					<p> Forgot your username? </p>
-					<hr>
+					<a href="register.php"> Don't have an account? Sign in </a>
 					<p> Forgot your password? </p>
 					</div>
                 </div>

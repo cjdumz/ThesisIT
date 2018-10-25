@@ -1,11 +1,12 @@
 <?php
 // Change this to your connection info.
-$DB_HOST = 'localhost:3308';
+$DB_HOST = 'localhost';
 $DB_USER = 'root';
-$DB_PASS = 'root';
+$DB_PASS = '';
 $DB_NAME = 'thesis';
 // Try and connect using the info above.
 $mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+if (isset($_POST['reg_user'])) {
 if ($mysqli->connect_errno) {
 	// If there is an error with the connection, stop the script and display the error.
 	die ('Failed to connect to MySQL: ' . $mysqli->connect_errno);
@@ -89,4 +90,5 @@ if($stmt = $mysqli->prepare('INSERT INTO personalinfo (user_id, firstName, middl
 
 
 $mysqli->close();
+}
 ?>

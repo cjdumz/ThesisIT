@@ -1132,6 +1132,38 @@ http://www.tooplate.com/view/2098-health
     padding-bottom: 100px;
   }
 
+}
+
+.form_error span {
+  font-size: 1.1em;
+  color: #D83D5A;
+  margin: 0;
+}
+.form_error input {
+  border: 1px solid #D83D5A;
+}
+.form_success input {
+  border: 1px solid green;
+
+}
+/*Styling in case no errors on form*/
+.form_success span {
+  font-size: 1.1em;
+  color: green;
+  margin: 0;
+}
+
+.form_error span {
+  font-size: 1.1em;
+  color: red;
+  margin: 0;
+}
+
+#error_msg {
+  color: red;
+  text-align: center;
+  margin: 10px auto;
+}
 
 
 
