@@ -152,18 +152,16 @@
                                 <td>'.$row['plateNumber'].'</td>
                                 <td>'.$row['status'].'</td>
                                 <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
-                                <td>
-                                    <div class="row center">
-                                      <div class="col-6">
-                                        <input type="hidden" name="command1" value="accept">
-                                        <input type="hidden" name="id1" value="'.$row['ID'].'">
-                                        <button class="btn btn-success" name="commands1" style="margin-top: 5px; width: 145px; color:white;"  data-toggle="modal" data-target="#appointmentModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
+                                <td class="text-center">
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <button class="btn btn-success" style="margin-top: 5px; width: 145px; color:white;"  data-toggle="modal" data-target="#appointmentModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
                                         Accept</button>
                                       </div>
-                                      <div class="col-6">
+                                      <div class="col-12">
                                         <input type="hidden" name="command2" value="deny">
                                         <input type="hidden" name="id2" value="'.$row['ID'].'">
-                                        <button class="btn btn-danger"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                        <button class="btn btn-danger" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                         Reschedule</button>
                                       </div>
                                     </div>
@@ -216,7 +214,6 @@
                                             <h4 class="card-title">'.$row['sername'].'</h4>
                                           </div>
                                         </div>
-                                        <form class="forms-sample">
                                           <div class="form-group row">
                                             <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Proposed Date</label>
                                             <div class="col-sm-9">
@@ -226,12 +223,14 @@
                                         <!-- end -->
                                       </div>
                                       <div class="modal-footer" >
-                                      
-                                        <button class="btn btn-success" type="submit" name="commands1" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
+                                      <form action="process/server.php" method="post" class="ajax">
+
+                                        <input type="hidden" name="command1" value="accept">
+                                        <input type="hidden" name="id1" value="'.$row['ID'].'">
+                                        <button class="btn btn-success" type="submit" name="commands1" value="hello!" style="margin-top: 5px; width: 145px; color:white;" ><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
                                         Accept</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
-                                        
-                                        </form>
+                                      </form>
                                       </div>
                                     </div>
                                   </div>
@@ -281,7 +280,6 @@
                                             <h4 class="card-title">'.$row['sername'].'</h4>
                                           </div>
                                         </div>
-                                        <form class="forms-sample">
                                           <div class="form-group row">
                                             <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Previous Date</label>
                                             <div class="col-sm-9">
@@ -297,12 +295,13 @@
                                         <!-- end -->
                                       </div>
                                       <div class="modal-footer" >
-                                      
+                                     
+
                                         <button class="btn btn-danger" type="submit" name="commands2" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                         Reschedule</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                         
-                                        </form>
+                                        
                                       </div>
                                     </div>
                                   </div>
@@ -352,6 +351,7 @@
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
+  <script src="js/jquery.min.js"></script>
 </body>
 
 </html>
@@ -360,6 +360,36 @@
   var table = $('#doctables').DataTable({
     // PAGELENGTH OPTIONS
     "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+
+});
+</script>
+
+<script>
+$('form.ajax').on('submit', function(){
+  var that = $(this),
+      url = that.attr('action'),
+      type = that.attr('method'),
+      data = {};
+
+  that.find('[name]').each(function(index, value){
+    var that = $(this),
+        name = that.attr('name'),
+        value = that.val();
+
+    data[name] = value;
+  });
+
+  $.ajax({
+      url: url,
+      type: type,
+      data: data,
+      success: function(response){
+        console.log(response);
+      }
+
+  });
+
+  return false;
 
 });
 </script>
