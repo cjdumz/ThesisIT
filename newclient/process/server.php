@@ -29,9 +29,9 @@ if (isset($_POST['reg_user'])) {
   // form validation: ensure that the form is correctly filled ...
   // by adding (array_push()) corresponding error unto $errors array
   if ($password_1 != $password_2) {
-	array_push($errors, '<div class="alert alert-danger fade in">
+	array_push($errors, '<div class="alert alert-danger fade in align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> The two passwords do not match.
+    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> There are still problems in the form.
   </div>');
   }
 
@@ -44,13 +44,13 @@ if (isset($_POST['reg_user'])) {
   if ($personalinfo) { // if user exists
     
     if ($personalinfo['email'] === $email) {
-      array_push($errors, '<div class="alert alert-danger fade in">
+      array_push($errors, '<div class="alert alert-danger fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong> Notice</strong> Email already exist.</div> ');
     }
   
     if ($personalinfo['contactNumber'] === $contactNumber) {
-      array_push($errors, '<div class="alert alert-danger fade in">
+      array_push($errors, '<div class="alert alert-danger fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong> Notice</strong> The Contact Number already exists.</div> ');
     }
@@ -63,7 +63,7 @@ if (isset($_POST['reg_user'])) {
  
   if ($user) { // if user exists
     if ($user['username'] === $username) {
-      array_push($errors, '<div class="alert alert-danger fade in">
+      array_push($errors, '<div class="alert alert-danger fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong> Notice</strong> Username already exist.</div> ');
     }
@@ -118,7 +118,7 @@ if (isset($_POST['login_user'])) {
           $_SESSION['username'] = $row['username'];
           $_SESSION['id'] = $row['id'];
           $_SESSION['last_login_timestamp'] = time();  
-          $_SESSION['success'] = '<div class="alert alert-success fade in">
+          $_SESSION['success'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> Login Successfully.
   </div>';
@@ -141,7 +141,7 @@ if (isset($_POST['account_edit'])) {
   $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
    $query  = "UPDATE personalinfo SET firstName = '$firstName', lastName ='$lastName', middleName = '$middleName', email = '$email', contactNumber = '$contactNumber', address = '$address', modified = now() WHERE user_id = '$user_id'";
     mysqli_query($db, $query);
-    $_SESSION['success'] = '<div class="alert alert-success fade in">
+    $_SESSION['success'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> Changes saved Successfully.
     </div>';
@@ -167,7 +167,7 @@ if (isset($_POST['account_edit'])) {
   $engineNumber = mysqli_real_escape_string($db, $_POST['vehicleid']);
    $query  = "UPDATE vehicles SET plateNumber = '$plateNumber', bodyType ='$bodyType', yearModel = '$yearModel', chasisNumber = '$chasisNumber', engineClassification = '$engineClassification', numberOfCylinders = '$numberOfCylinders', typeOfDriveTrain = '$typeOfDriveTrain', make = '$make',  series = '$series', color = '$color', engineNumber = '$engineNumber', typeOfEngine = '$typeOfEngine', engineDisplacement = '$engineDisplacement',  modified = now() WHERE id = '$vehicleid'";
     if (mysqli_query($db, $query) == true) {
-    $_SESSION['success_edit'] = '<div class="alert alert-success fade in">
+    $_SESSION['success_edit'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> Changes saved Successfully.
     </div>';
@@ -180,24 +180,16 @@ if (isset($_POST['account_edit'])) {
   if (isset($_POST['vehicle_add'])) { 
   $db = mysqli_connect('localhost', 'root', '', 'thesis');
   $plateNumber = mysqli_real_escape_string($db, $_POST['plateNumber']);
-  //$bodyType = mysqli_real_escape_string($db, $_POST['bodyType']);
   $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
-  //$chasisNumber = mysqli_real_escape_string($db, $_POST['chasisNumber']);
-  //$numberOfCylinders = mysqli_real_escape_string($db, $_POST['numberOfCylinders']);
-  //$typeOfDriveTrain = mysqli_real_escape_string($db, $_POST['typeOfDriveTrain']);
   $make = mysqli_real_escape_string($db, $_POST['make']);
   $series = mysqli_real_escape_string($db, $_POST['series']);
   $color = mysqli_real_escape_string($db, $_POST['color']);
-  //$engineDisplacement = mysqli_real_escape_string($db, $_POST['engineDisplacement']);
-  //$engineClassification = mysqli_real_escape_string($db, $_POST['engineClassification']);
-  //$typeOfEngine = mysqli_real_escape_string($db, $_POST['typeOfEngine']);
-  //$engineNumber = mysqli_real_escape_string($db, $_POST['engineNumber']);
   $personalId = mysqli_real_escape_string($db, $_POST['personalId']);
   $query  = "INSERT INTO vehicles (personalId, plateNumber, make, series, color, yearModel) VALUES ('$personalId','$plateNumber', '$make', '$series', '$color', '$yearModel')";
     if (mysqli_query($db, $query) == true) {
-    $_SESSION['vehicle_add'] = '<div class="alert alert-success fade in">
+    $_SESSION['vehicle_add'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong>' .$make.' '.$series.'was added successfully </div>';
+    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> ' .$make.' '.$series.'was added successfully </div>';
      header('location: vehiclesinfo.php');
      exit();
     }else {
@@ -211,9 +203,9 @@ if (isset($_POST['account_edit'])) {
   $vehicleId = mysqli_real_escape_string($db, $_POST['vehicleId']);
   $query  = "DELETE FROM vehicles WHERE id = $vehicleId"; 
     if (mysqli_query($db, $query) == true) {
-    $_SESSION['delete'] = '<div class="alert alert-success fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> Delete successful </div>';
+    $_SESSION['delete'] = '<div class="alert alert-warning fade in" align="center">
+    <a href="#" class="close" data-dismiss="alert" >&times;</a>
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong> Vehicle data deleted successfully </div>';
      header('location: vehiclesinfo.php');
      exit();
     }else {

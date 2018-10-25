@@ -28,7 +28,7 @@
      <meta name="keywords" content="">
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+     <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
@@ -107,7 +107,7 @@
              </ul>
                     <?php endif ?>
                     <ul class="nav navbar-nav">
-                          <li class="appointment-btn" ><a href="#appointment">Make an appointment</a></li>
+                          <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
                           <li><a href="vehicleshistory.php" class="smoothScroll">Vehicle History</a></li>
                          <li><a href="vehiclesinfo.php" class="smoothScroll">Your Vehicles</a></li>
                     </ul>

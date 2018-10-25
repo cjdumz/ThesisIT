@@ -8,13 +8,6 @@ $service -> painting_service();
 <html lang="en">
 <head>
      <title>EAS Customs - Make an Appointment</title>
-<!--
-
-Template 2098 Health
-
-http://www.tooplate.com/view/2098-health
-
--->
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
@@ -24,7 +17,7 @@ http://www.tooplate.com/view/2098-health
 
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/magnific-popup.css">
-
+     <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
 

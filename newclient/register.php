@@ -1,16 +1,16 @@
-
+<?php include('process/process.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-     <title>EAS Customs - Login</title>
+     <title>EAS Customs - Register</title>
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
      <meta name="keywords" content="">
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+     <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
@@ -38,7 +38,7 @@
                <div class="row">
 
                     <div class="col-md-4 col-sm-5">
-                        <span class="email-icon"><i class="fa fa-sign-in" aria-hidden="true"></i> <a href="login.php">LOGIN</a></span>
+                        <span class="email-icon"><i class="fa fa-user-o" aria-hidden="true"></i> <a href="login.php">LOGIN</a></span>
                         <span class="email-icon"><i class="fa fa-file-text" aria-hidden="true"></i> <a href="register.php">REGISTER</a></span>
                     </div>
                          
@@ -65,6 +65,8 @@
                     </button>
 
                     <!-- lOGO TEXT HERE -->
+                     <img src="images/Logo.png" class="logoo" alt="logo" />
+                     
                     <a href="index.php" class="navbar-brand">EAS CUSTOMS</a>
                </div>
 
@@ -86,72 +88,108 @@
 	 
 	 
      <!-- REGISTER PAGE -->
-      <section id="appointment" data-stellar-background-ratio="3">
-          <div class="container">
-            <div class="row">
-			   
-			   <div class="col-md-6 col-sm-6">
-                    <img src="images/appointment-image.jpg" class="img-responsive" alt="">
-                </div>
-					
-			   <div class="col-md-6 col-sm-6">
-                         
-                         <form id="appointment-form" role="form" method="post" action="process/rejister.php">
+    <div class="container">
+    <form id="register_form">
+      <h4>Register</h4>
 
-                             
-                              <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
-                                   <h2>REGISTER</h2>
-                              </div>
-
-                              <div class="wow fadeInUp" data-wow-delay="0.8s">
-                                   <div class="col-md-4 col-sm-4">
-                                        <!--<label for="name">First Name</label>-->
-                                        <input type="text" name="firstName" placeholder="First Name" required class="form-control">
-                                   </div>
-
-                                   <div class="col-md-4 col-sm-4">
-                                        <!--<label for="email">Middle Name</label>-->
-                                        <input type="text" name="middleName" placeholder="Middle Name" required class="form-control">
-                                   </div>
-
-                                   <div class="col-md-4 col-sm-4">
-                                        <!--<label for="date">Last Name</label>-->
-                                        <input type="text" name="lastName" placeholder="Last Name" required class="form-control">
-                                   </div>
-
-                                   <div class="col-md-6 col-sm-6">
-										<!--<label for="date">Phone Number</label>-->
-                                        <input type="contact" name="contactNumber" placeholder="Phone Number" required class="form-control">
-                                   </div>
-								   
-								   <div class="col-md-6 col-sm-6">
-										<!--<label for="date">Email</label>-->
-                                        <input type="email" name="email" placeholder="Email" required class="form-control">
-                                   </div>
-
-                                   <div class="col-md-12 col-sm-12">
-                                        <input type="text" name="address" placeholder="Address" required class="form-control">
-                                   </div>
-								   
-								   <div class="col-md-6 col-sm-6">
-										<!--<label for="date">Phone Number</label>-->
-                                        <input type="text" name="username" placeholder="Username" required class="form-control">
-                                   </div>
-								   
-								   <div class="col-md-6 col-sm-6">
-										<!--<label for="date">Phone Number</label>-->
-                                        <input type="password" name="password" placeholder="Password" required class="form-control">
-                                   </div>
-								   
-								   <div class="col-md-12 col-sm-12">
-                                        <button type="submit" class="form-control" id="cf-submit" name="submit">Submit</button>
-                                   </div>
-                              </div>
-                        </form>
-                    </div>
-            </div>
+    <h3>Vehicle Information</h3>
+    <div class="form-group">
+          <label for="plateNumber">Plate Number</label><i style="color:red;"> *</i>
+          <input type="text" class="form-control" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber">
+          <span></span>
         </div>
-     </section>
+        <div class="form-group">
+          <label for="make">Make</label><span style="color:red;"> *</span>
+          <input type="text" class="form-control" id="make" aria-describedby="make" name="make" >
+          <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
+        </div>
+         <div class="form-group">
+          <label for="series">Series</label><span style="color:red;"> *</span>
+          <input class="form-control" type="text" class="form-control" name="series" id="series">
+        </div>
+        <div class="form-group">
+          <label for="yearModel">Year Model</label><span style="color:red;"> *</span>
+          <input class="form-control" type="number" class="form-control" id="yearModel" name="yearModel">
+        </div>
+         <div class="form-group">
+          <label for="color">Color</label><span style="color:red;"> *</span>
+          <input class="form-control" type="text" name="color" id="color">
+        </div>
+       
+    
+    <h3>Personal Info</h3>   
+    <br>
+    <div class="row">
+    <div class="col-md-4 col-sm-4">
+    <input type="text" class="form-control" name="firstName" placeholder="First Name" id="firstName">
+    <div id="firstName_msg" style="display: none; color: red;">First name is empty</div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+    <input type="text" class="form-control" name="middleName" placeholder="Middle Name" id="middleName">
+    <div id="middleName_msg" style="display: none; color: red;">Middle name is empty</div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+    <input type="text" class="form-control" name="lastName" placeholder="Last Name" id="lastName">
+    <div id="lastName_msg" style="display: none; color: red;">Last name is empty</div>
+    </div>
+    </div>
+    <br>
+    <div class="row">
+    <div class="col-md-12 col-sm-12">
+    <input type="text" class="form-control" name="address" placeholder="Address" id="address">
+    <div id="address_msg" style="display: none; color: red;">Address is empty</div>
+    <br>
+    </div>
+    <div class="col-md-12 col-sm-12">
+    <input type="text" class="form-control" name="contactNumber" placeholder="Contact Number" id="contactNumber">
+    <div id="contactNumber_msg" style="display: none; color: red;">Contact is empty</div>
+    <span></span>
+    <br>
+    </div>
+    <div class="col-md-12 col-sm-12">
+    <input type="email" class="form-control" name="Email" placeholder="email" id="email">
+    <div id="email_msg" style="display: none; color: red;">email is empty</div>
+    <div id="emailpat_msg" style="display: none; color: red;"> Invalid Email.</div>
+    <span></span><br>
+    </div>
+    <div class="col-md-12 col-md-12">
+    <input type="text" class="form-control" name="username" placeholder="Username" id="username" pattern=".{8,}" title='must contain 6 or more characters'>
+    <small id="username" class="form-text text-muted"> Must contain 8-12 characters.</small><br>
+    <div id="username_msg" style="display: none; color: red;">Username is empty</div>
+    <div id="usernamepat_msg" style="display: none; color: red;"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
+    <span></span>
+    <br>
+    </div>
+    <div class="col-md-6 col-sm-6">
+    <input type="password" class="form-control" name="password" placeholder="Password" id="password" title="must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter">
+    <div id="passwordpat_msg" style="display: none; color: red;"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
+    <div id="password_msg" style="display: none; color: red;">password is empty</div>
+    <span></span><br>
+    </div>
+    <br>
+    <div class="col-md-6 col-sm-6">
+    <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password">
+    <span id="message"></span>
+    </div>
+    </div>
+        <div id="error_msg"></div>
+    <div class="form-group">
+    <button type="button" name="register" id="reg_btn">Register</button>
+    </div>
+    
+
+  </form>
+
+  </div>
+  </div>
+
+
+             
+    
+    
+
+
+
 
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
@@ -248,6 +286,7 @@
      <script src="js/smoothscroll.js"></script>
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
+     <script src="js/script.js"></script>
 
 </body>
 </html>

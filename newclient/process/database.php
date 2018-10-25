@@ -16,6 +16,11 @@ class database{
 		}
 		
 	}
+
+	public function register($data){
+		$this->conn->query($data);
+		return true;
+	}
 	
 	public function url($url){
 		header("location:".$url);
@@ -29,6 +34,9 @@ class database{
 		}
 		return $this->data;
 	}
+	
+	
+
 	
 	
 	public function mechanical_service(){
@@ -48,7 +56,7 @@ class database{
 	}
 	
 	public function electrical_service(){
-		$query=$this->conn->query("SELECT serviceId,serviceType,serviceName from services where serviceType = 'Painting'");
+		$query=$this->conn->query("SELECT serviceId,serviceType,serviceName from services where serviceType = 'Electrical'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
 			$this->electrical_service[]=$row;
 		}
@@ -73,11 +81,11 @@ class database{
 	}
 
 	public function vehicle_info(){
-		$query=$this->conn->query("SELECT * from vehicles where now(created) ");
+		$query=$this->conn->query("SELECT * from vehicles where user_id= '".$_SESSION['id']."'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
-			$this->vehicleinfo[]=$row;
+			$this->vehicle_info[]=$row;
 		}
-		return $this->vehicleinfo;
+		return $this->vehicle_info;
 	}
 }
   
