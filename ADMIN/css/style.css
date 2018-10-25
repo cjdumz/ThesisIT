@@ -13739,9 +13739,13 @@ input:focus {
   background: #ff4500; }
 
 /* Sidebar */
+
 .sidebar {
+  background-attachment: fixed;
+  background-image: url("1.jpg");
+  background-repeat: no-repeat;
+
   min-height: calc(100vh - 63px);
-  background: #ffffff;
   font-family: "Poppins", sans-serif;
   padding: 0;
   width: 255px;
@@ -13763,7 +13767,7 @@ input:focus {
     .sidebar .nav .nav-item .nav-link {
       align-items: center;
       display: flex;
-      padding: 16px 35px;
+      padding: 15px 31px;
       white-space: nowrap;
       height: 52px;
       color: #4a4a4a; }
@@ -13932,6 +13936,10 @@ input:focus {
       right: 0; } }
 
 /* Navbar */
+  #navhead.scrolled {
+    background-color: white;
+}
+
 .navbar.default-layout {
   font-family: "Poppins", sans-serif;
   background: linear-gradient(120deg, #e5e5e55c, #e5e5e55c);

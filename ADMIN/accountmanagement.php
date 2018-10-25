@@ -35,7 +35,7 @@
     <!-- partial:partials/_sidebar.html -->
         
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -250,49 +250,52 @@
                 <div class="modal-body">
                 <!-- start -->
                 <br>
-                  <form>
+                  <form class="forms-sample">
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputName1">Name</label>
-                                <input required type="text" class="form-control" id="exampleInputName1" placeholder="First Name">
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="First Name">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputName2">Middle Name</label>
-                                <input required type="text" class="form-control" id="exampleInputName2" placeholder="Middle Name">
+                                <input type="text" class="form-control" id="exampleInputName2" placeholder="Middle Name">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputName3">Last Name</label>
-                                <input required type="text" class="form-control" id="exampleInputName3" placeholder="Last Name">
+                                <input type="text" class="form-control" id="exampleInputName3" placeholder="Last Name">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPlate">Plate Number</label>
-                      <input required type="text" class="form-control" id="exampleInputPlate" placeholder="Plate Number">
+                      <input type="text" class="form-control" id="exampleInputPlate" placeholder="Plate Number">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail">Email address</label>
-                      <input required type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
+                      <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputMobile">Mobile Number</label>
-                      <input required type="text" class="form-control" id="exampleInputMobile" placeholder="Mobile Number">
+                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="Mobile Number">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputTel">Telephone Number</label>
-                      <input required type="text" class="form-control" id="exampleInputTel" placeholder="Telephone Number">
+                      <input type="text" class="form-control" id="exampleInputTel" placeholder="Telephone Number">
                     </div>
                     <div class="form-group">
-                     <label for="exampleInputAddress" required>Address</label>
-                      <input required type="text" class="form-control" id="exampleInputTel" placeholder="Telephone Number">
+                      <label for="exampleInputAddress">Address</label>
+                      <input type="text" class="form-control" id="exampleInputAddress" placeholder="Location">
                     </div>
+                    </form> 
+                    
                     <div class="modal-footer" >
-                        <button type="submit" class="btn btn-darkblue" style="width: 100px;"><i class="menu-icon mdi mdi-account-multiple-plus"></i>Add</button>
+                    <form class="forms-sample">
+                        <button id="submit" type="button" class="btn btn-darkblue" style="width: 100px;"><i class="menu-icon mdi mdi-account-multiple-plus"></i>Add</button>
                         &nbsp;
                         <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                     </form>
@@ -337,7 +340,7 @@ $(document).ready(function(){
     var dataString = 'exampleInputName1=' + exampleInputName1 + '&exampleInputName2=' + exampleInputName2;
     if(exampleInputName1=='' || exampleInputName2=='' || exampleInputName3=='' || exampleInputNPlate=='' || exampleInputEmail==''
       || exampleInputMobile=='' || exampleInputTel=='' || exampleInputAddress==''){
-      // alert('Fill all fields')
+      alert('Fill all fields')
       $("#display").html("");
     } else {
     $.ajax({

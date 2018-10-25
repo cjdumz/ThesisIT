@@ -1,4 +1,16 @@
-<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+<!-- Navigation jquery-->
+<head>
+    <script>
+       $(function () {
+  $(document).scroll(function () {
+    var $nav = $("#navhead");
+    $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+  });
+});
+    </script>
+</head>
+
+<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row" id="navhead">
     <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center custom">
         <img src="images/Logo.png" class="logoo" alt=""/>
         <a class="navbar-brand" href="dashboard.php" style="color: #b80011; margin-top: 5px; margin-left: 3px;">
