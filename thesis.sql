@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 18, 2018 at 12:34 PM
+-- Generation Time: Oct 26, 2018 at 06:44 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -148,7 +148,8 @@ CREATE TABLE IF NOT EXISTS `personalinfo` (
   `user_id` int(11) DEFAULT NULL,
   `firstName` varchar(250) NOT NULL,
   `lastName` varchar(250) NOT NULL,
-  `middleName` varchar(250) NOT NULL,
+  `middleName` varchar(250) DEFAULT NULL,
+  `suffix` varchar(255) DEFAULT NULL,
   `address` varchar(250) NOT NULL,
   `mobileNumber` varchar(250) NOT NULL,
   `telephoneNumber` varchar(255) DEFAULT NULL,
@@ -163,32 +164,32 @@ CREATE TABLE IF NOT EXISTS `personalinfo` (
 -- Dumping data for table `personalinfo`
 --
 
-INSERT INTO `personalinfo` (`personalId`, `user_id`, `firstName`, `lastName`, `middleName`, `address`, `mobileNumber`, `telephoneNumber`, `email`, `created`, `modified`) VALUES
-(1, NULL, 'Weng', 'Palpallatoc', 'Ignacio', '#4 St.Ruth Petersville Subdivision Camp 7 Baguio', '09260023544', NULL, 'weng.great@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
-(2, NULL, 'Jelly', 'Grabanzor', 'Llanes', 'New Lucban Baguio', '09123456789', NULL, 'jellygrabanzor@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
-(3, 17, 'jeli', 'llanes', 'g', 'Seoul, south korea', '09177771390', NULL, 'jellyllanes@yahoo.com', '2018-09-24 03:44:08', NULL),
-(7, NULL, 'flower', 'flower', 'flower', 'garden', '09999999999', NULL, 'flower@gmail.com', '2018-09-26 14:49:12', NULL),
-(8, NULL, 'tutubi', 'tutubi', 'tutubi', 'Tutubi, La Union', '09000000000', NULL, 'tutubi@yahoo.com', '2018-09-26 14:55:33', NULL),
-(9, NULL, 'aybee', 'aybeee', 'aybee', 'aybe', '09177770001', NULL, 'aybe@gmail.com', '2018-09-26 15:37:56', NULL),
-(10, NULL, 'aybee', 'aybeee', 'aybee', 'aybe', '09177770001', NULL, 'aybe@gmail.com', '2018-09-26 15:40:29', NULL),
-(11, NULL, 'bobo', 'bobo', 'bobo', 'Texas, La Union', '09177771397', NULL, 'bobo@gmail.com', '2018-09-26 15:48:05', NULL),
-(12, NULL, 'kurtz', 'kurtz', 'k', 'Texas, La Union', '09177770003', NULL, 'kurtz@gmail.com', '2018-09-26 15:53:01', NULL),
-(13, 43, 'hayts', 'hayts', 'hayts', 'san nicolas', '09177771378', NULL, 'hayts@yahoo.com', '2018-09-26 21:10:54', NULL),
-(14, 44, 'sawakas', 'sawakas', 'sawakas', 'Seoul, south korea', '09999999988', NULL, 'sawakas@gmail.com', '2018-09-26 21:19:19', NULL),
-(15, 45, 'joshua', 'abubo', 'lacap', 'New orleans, pangasinan', '09177771256', NULL, 'joshua@yahoo.com', '2018-09-26 21:40:10', NULL),
-(16, 46, 'albert', 'lacap', 'imuan', 'New orleans, pangasinan', '09000000024', NULL, 'albert@yahoo.com', '2018-09-26 21:56:57', NULL),
-(17, 47, 'windee', 'palpallatoc', 'ignacio', 'Texas, La Union', '09177770088', NULL, 'windee@gmail.com', '2018-09-27 13:36:59', NULL),
-(19, 48, 'windee', 'palpallatoc', 'ignacio', 'garden', '09000000044', NULL, 'windee@yahoo.com', '2018-09-27 13:38:50', NULL),
-(20, 49, 'Angelica', 'Grabanzor', 'Llanes', 'Seoul, Ilocos sur', '09171550423', NULL, 'jellybee@yahoo.com', '2018-09-27 13:53:13', NULL),
-(29, 54, 'Janella', 'hoya', 'ignacio', 'san nicolas', 'aaaaaa', NULL, 'jellygrabaor8@gmail.com', '2018-10-02 00:55:44', NULL),
-(30, 55, 'jeli', 'Agpaoa', 'ignacio', 'New orleans, pangasinan', '0917', NULL, 'jellygracsdfbanzor@yahoo.com', '2018-10-02 00:56:55', NULL),
-(31, 56, 'jeli', 'llanes', 'Middleton', 'Seoul, south korea', '09177771322', NULL, 'jellygrabanzor@tanga.com', '2018-10-02 00:59:25', NULL),
-(32, 57, 'a', 'a', 'a', 'garden', '09177771390', NULL, 'jellygrabanzor@yahoo.com', '2018-10-02 01:00:21', NULL),
-(33, 58, 'Kate', 'Middleton', 'Lacap', 'Texas, La Union', '09177771311', NULL, 'katemiddleton@gmail.com', '2018-10-03 12:44:00', NULL),
-(34, 59, 'Angelica', 'Grabanzor', 'Llanes', 'Texas, La Union', '09177771390', NULL, 'angelica@yahoo.com', '2018-10-03 15:01:19', NULL),
-(35, 60, 'ivy', 'palma', 'mae', 'san nicolas', '0919419860', NULL, 'ivymaepalma14@gmail.com', '2018-10-03 15:48:37', NULL),
-(36, 61, 'albert', 'lacap', 'imaun', 'gibraltar', '09012334123', NULL, 'lacapalbert22@gmail.com', '2018-10-03 16:34:25', NULL),
-(41, 63, ' ivy mae', ' palma', ' johnson', '  Tuding, Itogon, benguet', ' 09268148276', NULL, ' ivymaepalma1234@gmail.com', '2018-10-05 12:22:13', NULL);
+INSERT INTO `personalinfo` (`personalId`, `user_id`, `firstName`, `lastName`, `middleName`, `suffix`, `address`, `mobileNumber`, `telephoneNumber`, `email`, `created`, `modified`) VALUES
+(1, NULL, 'Weng', 'Palpallatoc', 'Ignacio', NULL, '#4 St.Ruth Petersville Subdivision Camp 7 Baguio', '09260023544', NULL, 'weng.great@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
+(2, NULL, 'Jelly', 'Grabanzor', 'Llanes', NULL, 'New Lucban Baguio', '09123456789', NULL, 'jellygrabanzor@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
+(3, 17, 'jeli', 'llanes', 'g', NULL, 'Seoul, south korea', '09177771390', NULL, 'jellyllanes@yahoo.com', '2018-09-24 03:44:08', NULL),
+(7, NULL, 'flower', 'flower', 'flower', NULL, 'garden', '09999999999', NULL, 'flower@gmail.com', '2018-09-26 14:49:12', NULL),
+(8, NULL, 'tutubi', 'tutubi', 'tutubi', NULL, 'Tutubi, La Union', '09000000000', NULL, 'tutubi@yahoo.com', '2018-09-26 14:55:33', NULL),
+(9, NULL, 'aybee', 'aybeee', 'aybee', NULL, 'aybe', '09177770001', NULL, 'aybe@gmail.com', '2018-09-26 15:37:56', NULL),
+(10, NULL, 'aybee', 'aybeee', 'aybee', NULL, 'aybe', '09177770001', NULL, 'aybe@gmail.com', '2018-09-26 15:40:29', NULL),
+(11, NULL, 'bobo', 'bobo', 'bobo', NULL, 'Texas, La Union', '09177771397', NULL, 'bobo@gmail.com', '2018-09-26 15:48:05', NULL),
+(12, NULL, 'kurtz', 'kurtz', 'k', NULL, 'Texas, La Union', '09177770003', NULL, 'kurtz@gmail.com', '2018-09-26 15:53:01', NULL),
+(13, 43, 'hayts', 'hayts', 'hayts', NULL, 'san nicolas', '09177771378', NULL, 'hayts@yahoo.com', '2018-09-26 21:10:54', NULL),
+(14, 44, 'sawakas', 'sawakas', 'sawakas', NULL, 'Seoul, south korea', '09999999988', NULL, 'sawakas@gmail.com', '2018-09-26 21:19:19', NULL),
+(15, 45, 'joshua', 'abubo', 'lacap', NULL, 'New orleans, pangasinan', '09177771256', NULL, 'joshua@yahoo.com', '2018-09-26 21:40:10', NULL),
+(16, 46, 'albert', 'lacap', 'imuan', NULL, 'New orleans, pangasinan', '09000000024', NULL, 'albert@yahoo.com', '2018-09-26 21:56:57', NULL),
+(17, 47, 'windee', 'palpallatoc', 'ignacio', NULL, 'Texas, La Union', '09177770088', NULL, 'windee@gmail.com', '2018-09-27 13:36:59', NULL),
+(19, 48, 'windee', 'palpallatoc', 'ignacio', NULL, 'garden', '09000000044', NULL, 'windee@yahoo.com', '2018-09-27 13:38:50', NULL),
+(20, 49, 'Angelica', 'Grabanzor', 'Llanes', NULL, 'Seoul, Ilocos sur', '09171550423', NULL, 'jellybee@yahoo.com', '2018-09-27 13:53:13', NULL),
+(29, 54, 'Janella', 'hoya', 'ignacio', NULL, 'san nicolas', 'aaaaaa', NULL, 'jellygrabaor8@gmail.com', '2018-10-02 00:55:44', NULL),
+(30, 55, 'jeli', 'Agpaoa', 'ignacio', NULL, 'New orleans, pangasinan', '0917', NULL, 'jellygracsdfbanzor@yahoo.com', '2018-10-02 00:56:55', NULL),
+(31, 56, 'jeli', 'llanes', 'Middleton', NULL, 'Seoul, south korea', '09177771322', NULL, 'jellygrabanzor@tanga.com', '2018-10-02 00:59:25', NULL),
+(32, 57, 'a', 'a', 'a', NULL, 'garden', '09177771390', NULL, 'jellygrabanzor@yahoo.com', '2018-10-02 01:00:21', NULL),
+(33, 58, 'Kate', 'Middleton', 'Lacap', NULL, 'Texas, La Union', '09177771311', NULL, 'katemiddleton@gmail.com', '2018-10-03 12:44:00', NULL),
+(34, 59, 'Angelica', 'Grabanzor', 'Llanes', NULL, 'Texas, La Union', '09177771390', NULL, 'angelica@yahoo.com', '2018-10-03 15:01:19', NULL),
+(35, 60, 'ivy', 'palma', 'mae', NULL, 'san nicolas', '0919419860', NULL, 'ivymaepalma14@gmail.com', '2018-10-03 15:48:37', NULL),
+(36, 61, 'albert', 'lacap', 'imaun', NULL, 'gibraltar', '09012334123', NULL, 'lacapalbert22@gmail.com', '2018-10-03 16:34:25', NULL),
+(41, 63, ' ivy mae', ' palma', ' johnson', NULL, '  Tuding, Itogon, benguet', ' 09268148276', NULL, ' ivymaepalma1234@gmail.com', '2018-10-05 12:22:13', NULL);
 
 -- --------------------------------------------------------
 
