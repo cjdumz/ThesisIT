@@ -157,7 +157,7 @@
 
                                             <div class="col-12">
 
-                                                <form method="POST" action="process/server.php" enctype="multipart/form-data">
+                                                
                                                     <input type="hidden" name="command" value="deny">
                                                     <input type="hidden" name="id" value="'.$row['ID'].'">
                                                     <!-- Button trigger modal -->
@@ -218,7 +218,7 @@
                                                 <h4 class="card-title">'.$row['sername'].'</h4>
                                               </div>
                                             </div>
-                                            <form class="forms-sample">
+                                            <form method="POST" action="process/server.php" enctype="multipart/form-data" class="">
                                               <div class="form-group row">
                                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Previous Date</label>
                                                 <div class="col-sm-9">
@@ -228,14 +228,15 @@
                                               <div class="form-group row">
                                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Proposed Date</label>
                                                 <div class="col-sm-9">
-                                                  <input type="date" class="form-control" id="exampleInputPassword2" placeholder="">
+                                                  <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="">
                                                 </div>
                                               </div>
                                             <!-- end -->
                                           </div>
+                                          <input type="hidden" name="id" value="'.$row['ID'].'">
                                           <div class="modal-footer" >
                                           
-                                            <button type="button" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
+                                            <button type="submit" name="resubmit" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                             
                                             </form>
@@ -288,6 +289,36 @@
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script>
+    $('form.ajax').on('submit', function(){
+      var that = $(this),
+          url = that.attr('action'),
+          type = that.attr('method'),
+          data = {};
+
+      that.find('[name]').each(function(index, value){
+          var that = $(this),
+              name = that.attr('name'),
+              value = that.val();
+
+          data[name] = value;
+      });
+
+      $.ajax({
+          url: url,
+          type: type,
+          data: data,
+          success: function(response){
+              console.log(response);
+          }
+
+      });
+
+      return false;
+
+  });
+  </script>
 </body>
 
 </html>
