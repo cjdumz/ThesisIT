@@ -50,7 +50,7 @@ if (isset($_SESSION['username'])) {
 
                     <div class="col-md-4 col-sm-5">
                         <span class="email-icon"><i class="fa fa-user-o" aria-hidden="true"></i> <a href="login.php">LOGIN</a></span>
-                        <span class="email-icon"><i class="fa fa-file-text" aria-hidden="true"></i> <a href="register.php">REGISTER</a></span>
+                        <span class="email-icon"><i class="fa fa-address-card-o" aria-hidden="true"></i> <a href="register.php">REGISTER</a></span>
                     </div>
                          
                     <div class="col-md-8 col-sm-7 text-align-right">
