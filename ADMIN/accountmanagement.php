@@ -255,47 +255,45 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputName1">Name</label>
-                                <input type="text" class="form-control" id="exampleInputName1" placeholder="First Name">
+                                <input required type="text" class="form-control" id="exampleInputName1" placeholder="First Name">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputName2">Middle Name</label>
-                                <input type="text" class="form-control" id="exampleInputName2" placeholder="Middle Name">
+                                <input required type="text" class="form-control" id="exampleInputName2" placeholder="Middle Name">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="exampleInputName3">Last Name</label>
-                                <input type="text" class="form-control" id="exampleInputName3" placeholder="Last Name">
+                                <input required  type="text" class="form-control" id="exampleInputName3" placeholder="Last Name">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPlate">Plate Number</label>
-                      <input type="text" class="form-control" id="exampleInputPlate" placeholder="Plate Number">
+                      <input required  type="text" class="form-control" id="exampleInputPlate" placeholder="Plate Number">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
+                      <input required  type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputMobile">Mobile Number</label>
-                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="Mobile Number">
+                      <input required  type="text" class="form-control" id="exampleInputMobile" placeholder="Mobile Number">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputTel">Telephone Number</label>
-                      <input type="text" class="form-control" id="exampleInputTel" placeholder="Telephone Number">
+                      <input required  type="text" class="form-control" id="exampleInputTel" placeholder="Telephone Number">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputAddress">Address</label>
-                      <input type="text" class="form-control" id="exampleInputAddress" placeholder="Location">
+                      <input required  type="text" class="form-control" id="exampleInputAddress" placeholder="Location">
                     </div>
-                    </form> 
                     
                     <div class="modal-footer" >
-                    <form class="forms-sample">
-                        <button id="submit" type="button" class="btn btn-darkblue" style="width: 100px;"><i class="menu-icon mdi mdi-account-multiple-plus"></i>Add</button>
+                        <button type="submit" class="btn btn-darkblue" style="width: 100px;"><i class="menu-icon mdi mdi-account-multiple-plus"></i>Add</button>
                         &nbsp;
                         <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                     </form>
