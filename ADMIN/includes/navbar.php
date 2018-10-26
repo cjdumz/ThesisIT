@@ -20,10 +20,8 @@
         <div class="navbar-menu-wrapper d-flex align-items-center custom" style="color:#b80011";>
          
         <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
-        <li class="nav-item">
-            <a href="dashboard.php" class="nav-link" style="font-size:22px; font-weight:bold; letter-spacing: 2px;">
-              <i class="menu-icon mdi mdi-sort-variant"></i>Dashboard</a>
-          </li>
+            <li class="nav-item">
+            </li>
         </ul>
             
         <ul class="navbar-nav navbar-nav-right">
