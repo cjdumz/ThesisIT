@@ -5,10 +5,11 @@
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Reschedule Request</title>
+  <title>Account Management</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
@@ -31,10 +32,10 @@
     <?php include "includes/navbar.php";?>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
+    <!-- partial:partials/_sidebar.html -->
         
-          <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -55,7 +56,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                   <a class="nav-link" href="reschedule.php" style="font-size:14px;">Reschedule</a>
                 </li>
               </ul>

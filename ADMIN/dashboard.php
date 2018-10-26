@@ -5,13 +5,12 @@
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-  <title>Dashboard</title>
+  <title>Account Management</title>
   <link rel="icon" href="images/Logo.png">
-    
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -23,6 +22,8 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
 </head>
 
 <body>
@@ -30,15 +31,14 @@
     <!-- partial:partials/_navbar.html -->
     <?php include "includes/navbar.php";?>
     <!-- partial -->
-      
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" id="active" href="dashboard.php">
               <i class="menu-icon mdi mdi-sort-variant"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>

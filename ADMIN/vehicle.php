@@ -34,7 +34,7 @@
       <!-- partial:partials/_sidebar.html -->
         
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
