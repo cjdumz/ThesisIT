@@ -251,6 +251,69 @@
                 <!-- start -->
                 <br>
                   <form class="forms-sample">
+                  <h3>Vehicle Information</h3>
+                  <div class="form-group">
+                    <label for="bodyType">Body Type</label>
+                    <input required type="text" class="form-control" id="bodyType" name="bodyType">
+                  <span></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="chassisNumber">Chassis Number</label>
+                    <input required type="text" class="form-control" id="chassisNumber" aria-describedby="chassisNumber" name="chassisNumber" >
+                  </div>
+                  <div class="form-group">
+                    <label for="color">Color</label>
+                    <input required class="form-control" type="text" class="form-control" name="color" id="color">
+                  </div>
+                  <div class="form-group">
+                    <label for="created">Created</label>
+                    <input required class="form-control" type="number" class="form-control" id="created" name="created">
+                  </div>
+                  <div class="form-group">
+                    <label for="engineClassification">Engine Classification</label>
+                    <input required class="form-control" type="text" name="engineClassification" id="engineClassification">
+                  </div>
+                  <div class="form-group">
+                    <label for="engineDisplacement">Engine Displacement</label>
+                    <input required type="text" class="form-control" id="engineDisplacement" aria-describedby="engineDisplacement" name="engineDisplacement" >
+                  </div>
+                  <div class="form-group">
+                    <label for="engineNumber">Engine Number</label>
+                    <input required type="text" class="form-control" id="engineNumber" aria-describedby="engineNumber" name="engineNumber" >
+                  </div>
+                  <div class="form-group">
+                    <label for="make">Make</label>
+                    <input required  type="text" class="form-control" id="make" aria-describedby="make" name="make" >
+                  </div>
+                  <div class="form-group">
+                    <label for="modified">Modified</label>
+                    <input required  type="text" class="form-control" id="modified" aria-describedby="modified" name="modified" >
+                  </div>
+                  <div class="form-group">
+                    <label for="numberOfCylinders">Number of Cylinders</label>
+                    <input required  type="text" class="form-control" id="numberOfCylinders" aria-describedby="numberOfCylinders" name="numberOfCylinders" >
+                  </div>
+                  <div class="form-group">
+                    <label for="plateNumber">Plate Number</label>
+                    <input required  type="text" class="form-control" id="plateNumber" aria-describedby="plateNumber" name="plateNumber" >
+                  </div>
+                  <div class="form-group">
+                    <label for="series">Series</label>
+                    <input required  type="text" class="form-control" id="series" aria-describedby="series" name="series" >
+                  </div>
+                  <div class="form-group">
+                    <label for="status">Status</label>
+                    <input required  type="text" class="form-control" id="status" aria-describedby="status" name="status" >
+                  </div>
+                  <div class="form-group">
+                    <label for="typeOfDriveTrain">Type of Drive Train</label>
+                    <input required  type="text" class="form-control" id="typeOfDriveTrain" aria-describedby="typeOfDriveTrain" name="typeOfDriveTrain" >
+                  </div>
+                  <div class="form-group">
+                    <label for="typeOfEngine">Type of Engine</label>
+                    <input required  type="text" class="form-control" id="typeOfEngine" aria-describedby="typeOfEngine" name="typeOfEngine" >
+                  </div>
+                    <h3>Personal Information</h3>
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
