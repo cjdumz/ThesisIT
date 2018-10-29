@@ -1,5 +1,22 @@
 <?php require 'process/require/auth.php';?>
-<?php require "process/require/dataconf.php";?>
+<?php require "process/require/dataconf.php";
+
+if(isset($_GET['plate'])){
+    $plate = $connection->real_escape_string($_GET["plate"]);
+    $data = $connection->prepare("SELECT *, concat(personalinfo.firstName, ' ', personalinfo.middleName, ' ', personalinfo.lastName) as 
+    'Name', personalinfo.personalId as 'ID' FROM vehicles join personalinfo where plateNumber = '$plate' AND vehicles.personalId = personalinfo.personalId");
+    if($data->execute()){
+        $values = $data->get_result();
+        $row = $values->fetch_assoc();
+    }else{
+        header("Location: error.php");
+    }
+   
+
+}else{
+    header("Location: error.php");
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,11 +35,14 @@
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
+  <link rel="stylesheet" href="vendor/chosen/chosen.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/chosen.css" />
+
 </head>
 
 <body>
@@ -110,9 +130,149 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            
+            <!-- start -->
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                    <h4 class="card-title">Vehicle Information</h4>
+                    <form action="process/updateVehicle.php" method="POST"> 
+                        <div class="row">
+                        <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Owner</label>
+                                    <input type="hidden" name="altowner" value="<?php echo $row['personalId']; ?>">
+                                    <select 
+                                    <?php 
+                                        if($row['status'] == 'active'){
+                                            echo 'disabled';
+                                        }
+                                    ?>
+                                    type="text" class="form-control  chzn-select" name="owner" tabindex="2">
+                                      <option selected value="<?php echo $row['personalId']; ?>"><?php echo $row['Name']; ?></option>
+                                    <?php 
+                                      $otherOwner = $connection->prepare("SELECT concat(personalinfo.firstName, ' ', personalinfo.middleName, ' ', personalinfo.lastName) as 
+                                      'Name', personalinfo.personalId as 'ID' FROM  personalinfo");
+                                      if($otherOwner->execute()){
+                                          $values = $otherOwner->get_result();
+                                          while($rows = $values->fetch_assoc()) {
+                                          echo '
+                                              <option value="'.$rows['ID'].'">'.$rows['Name'].'</td>';
+                                          }
+                                        }
+          
 
-
+                                    ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="userID" value="<?php echo $row['ID']; ?>">
+                            <input type="hidden" name="vehicleID" value="<?php echo $row['id']; ?>">
+                            <div class="col-4">
+                                    <div class="form-group">
+                                    <label class="bmd-label-floating">Plate Number</label>
+                                    <input type="text" class="form-control" name="plate" value="<?php echo $plate; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Status</label>
+                                    <select type="text" class="form-control" name="status">
+                                    <?php
+                                        echo '<option selected hidden value="'.$row['status'].'">'.$row['status'].'</option>';
+                                    ?>
+                                        <option value="active">active</option>
+                                        <option value="deactivated">deactivate</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Body Type</label>
+                            <input type="text" class="form-control" name="btype" value="<?php echo $row['bodyType']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Year Model</label>
+                            <input type="text" class="form-control" name="ymodel" value="<?php echo $row['yearModel']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Chassis Number</label>
+                            <input type="text" class="form-control" name="chassis" value="<?php echo $row['chasisNumber']; ?>">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Engine Classification</label>
+                            <input type="text" class="form-control" name="engineClass" value="<?php echo $row['engineClassification']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Number of Cylinders</label>
+                            <input type="text" class="form-control" name="cylinderNum" value="<?php echo $row['numberOfCylinders']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Type of Drive Terrain</label>
+                            <input type="text" class="form-control" name="terain" value="<?php echo $row['typeOfDriveTrain']; ?>">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Make</label>
+                            <input type="text" class="form-control" name="make" value="<?php echo $row['make']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Series</label>
+                            <input type="text" class="form-control" name="series" value="<?php echo $row['series']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Color</label>
+                            <input type="text" class="form-control" name="color" value="<?php echo $row['color']; ?>">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Engine Number</label>
+                            <input type="text" class="form-control" name="engineNum" value="<?php echo $row['engineNumber']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Type of Engine</label>
+                            <input type="text" class="form-control" name="engineType" value="<?php echo $row['typeOfEngine']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label class="bmd-label-floating">Engine Displacement</label>
+                            <input type="text" class="form-control" name="displacement" value="<?php echo $row['engineDisplacement']; ?>">
+                            </div>
+                        </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="updateVehicle" style="float:right">Update Vehicle</button>
+                        <div class="clearfix"></div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <!-- end -->
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -127,7 +287,7 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <!-- <script src="vendors/js/vendor.bundle.base.js"></script> -->
   <script src="vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
@@ -138,11 +298,16 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+  <!-- End custom js for this page -->
 
-  <script src="js/jquery.dataTables.js"></script>
-  <script src="js/dataTables.bootstrap4.js"></script>
-  <script src="js/sb-admin-datatables.min.js"></script>
+
+	<script src="js/mootools-yui-compressed.js"></script>
+	<script src="js/mootools-more-1.4.0.1.js"></script>
+  <script src="js/chosen.js"></script>
+  <script> $$(".chzn-select").chosen(); $$(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
+
+
+
 </body>
 
 </html>
@@ -154,3 +319,4 @@
 
 });
 </script>
+

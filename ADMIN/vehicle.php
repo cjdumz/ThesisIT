@@ -154,7 +154,7 @@
                                 echo '
                                     <tr>
                                         <td>'.$row['Name'].'</td>
-                                        <td><a href="viewVehicle.php?plate='.$row['plateNumber'].'">'.$row['plateNumber'].'</td>
+                                        <td><a href="viewvehicle.php?plate='.$row['plateNumber'].'">'.$row['plateNumber'].'</td>
                                         <td>'.$row['bodyType'].'</td>
                                         <td>'.$row['make'].'</td>
                                         <td>'.$row['series'].'</td>
