@@ -16,6 +16,8 @@ $('document').ready(function(){
         $("#mechanical_service").toggle();
         $("#electical_service").hide();
         $("#paint_service").hide();
+        $("#mechanical").addClass("active");
+
     });
  $("#electrical").click(function(){
         $("#electrical_service").toggle();
@@ -29,6 +31,28 @@ $('document').ready(function(){
         $("#mechanical_service").hide();
 
     });
+
+$('input[name="service"]').click(function () { getSelectedCheckBoxes('service'); 
+  }); 
+
+
+  var getSelectedCheckBoxes = function (groupName) { 
+    var result = $('input[name="' + groupName + '"]:checked');
+    var resultName = $('input[name="' + groupName + '"]:checked').attr("id"); //For reference only 
+    if (result.length > 0) { 
+    var resultString = result.length + " checkboxe(s) checked<br>"; 
+    result.each(function () { 
+      resultString += $(this).attr("id") + "<br/>"; 
+      //resultString += $(this).val() + "<br/>"; 
+    });  
+     $('#serviceDisplay').html(resultString); 
+    
+   } 
+
+     else { 
+    $('#serviceDisplay').html("No checkbox checked"); 
+   } 
+     }; 
  
 
 

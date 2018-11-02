@@ -33,6 +33,7 @@
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+     <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
@@ -90,8 +91,8 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
                   <ul class="dropdown-menu">
-                     <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;">Account Settings</a></li>
-              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;">Logout</a>
+                     <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
+              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
@@ -127,9 +128,11 @@
      
      
   <div class="row">
-  <div class="container">  
+  <div class="card" style="width: auto; margin-left: 0px; margin-right: 0px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  <div class="container" >  
   <h3>Vehicle Information</h3><br>
-    <button type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#addVehicle"><i class="fa fa-car" aria-hidden="true"></i> Add Vehicle</button>
+    <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#addVehicle"><i class="fa fa-car" aria-hidden="true"></i>  Add Vehicle</button>
   </br>
   <!--MODAL ADD VEHICLES-->
   <div class="modal fade" id="addVehicle" role="dialog">
@@ -176,8 +179,8 @@
         </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" name="vehicle_add">Add Vehicle</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-sm btn-primary" name="vehicle_add">Add Vehicle</button>
+          <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
         </div>
       </div>
       </form>
@@ -195,8 +198,8 @@
           ?>
     <?php endif ?>
     </div>
-    <table class="table table-hover table-bordered ">
-      <thead>
+    <table class="table table-hover table-bordered " id="doctables" >
+      <thead style="background-color: #B80011;color: white;">
         <tr>
           <th>Plate Number</th>
           <th>Make</th>
@@ -233,8 +236,8 @@
         <?php echo "<td align = 'center'>".$row['make']."</td>"; ?>
         <?php echo "<td align = 'center'>".$row['series']."</td>"; ?>
         <?php echo "<td align = 'center'>".$row['color']."</td>"; ?>
-        <?php echo "<td align = 'center'>".date('m-d-Y', strtotime($row['created']))."</td>"; ?>
-        <?php echo "<td align = 'center'>".date('m-d-Y', strtotime($row['modified']))."</td>"; ?>
+        <?php echo "<td align = 'center'>".date('F d, Y', strtotime($row['created']))."</td>"; ?>
+        <?php echo "<td align = 'center'>".date('F d, Y', strtotime($row['modified']))."</td>"; ?>
         <td>
         
         <button type="button" class="btn btn-sm btn-primary " data-toggle="modal" data-target="#viewVehicle<?php echo $row['id']; ?>"><i class="fa fa-address-card" aria-hidden="true"></i> View Info</button>
@@ -462,11 +465,16 @@
 
     </tbody>
   </table>
+
+
+
  
    
          </div>
         </div>
+      </div>
     </div>
+  
 
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
@@ -563,6 +571,22 @@
      <script src="js/smoothscroll.js"></script>
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
+    <!-- FOR TABLE -->
+     <script src="js/jquery.dataTables.js"></script>
+     <script src="js/dataTables.bootstrap4.js"></script>
+     <script src="js/sb-admin-datatables.min.js"></script>
+
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <script src="vendors/js/vendor.bundle.addons.js"></script>
+ 
+
+     <script>
+  var table = $('#doctables').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+
+});
+</script>
 
 </body>
 </html>

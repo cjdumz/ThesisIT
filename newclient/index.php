@@ -38,7 +38,6 @@ http://www.tooplate.com/view/2098-health
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
-
      <!-- PRE LOADER -->
      <section class="preloader">
           <div class="spinner">

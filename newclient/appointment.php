@@ -7,6 +7,10 @@ $electricalservice = new database ;
 $electricalservice -> electrical_service();
 $paintservice = new database ;
 $paintservice -> painting_service();
+$appointmentinfo = new database ;
+$appointmentinfo -> appointment_info();
+
+
 //PDO
 //Connect to our MySQL database using the PDO extension.
 $id = $_SESSION['id'];
@@ -42,6 +46,11 @@ $vehicles = $stmt->fetchAll();
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
+     <link rel="stylesheet" href="css/normalize.css"  type="text/css"/>
+     <link rel="stylesheet" href="css/datepicker.css"  type="text/css"/> 
+     <!-- DatePicker dont move to another line -->
+     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>  
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -99,9 +108,9 @@ $vehicles = $stmt->fetchAll();
                      <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
-                  <ul class="dropdown-menu">
-                     <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;">Account Settings</a></li>
-              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;">Logout</a>
+                 <ul class="dropdown-menu">
+                     <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
+              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
@@ -138,16 +147,19 @@ $vehicles = $stmt->fetchAll();
                                                   <?php endforeach; ?>                                                  
                                     </select>
                             </div>
+                            <div class="col-md-6 col-sm-6">
+                              <div class="well well-sm" id="serviceDisplay" style="overflow-y: scroll;">Choose a service for our vehicle/s.</div>
+                            </div>
                             </div>
                             <br><br>
 
-					<div class="row">
+					<div class="row" >
                          <div class="col-md-12 col-sm-12">			   
 					<label for="service">Select Service</label>
 					<br><br>
-					<div class ="services">
+					<div class ="services" >
                               <ul>
-                                 <li><a role="button" id="mechanical">Mechanical</a></li>
+                                 <li><a role="button" id="mechanical" >Mechanical</a></li>
                                  <li><a role="button" id="electrical">Electrical</a></li>
                                  <li><a href="#">Customize</a></li>
                                  <li><a href="#">Body Repair</a></li>
@@ -156,24 +168,31 @@ $vehicles = $stmt->fetchAll();
                               </ul>
                          </div>
                          <br>
+
+
  
                          <div class="service-detail" id="mechanical_service" style="display: none;">
-                              <select>
-						<?php
-						 foreach($mechanicalservice->mechanical_service as $mechanicalservice):
-						?>	
-						 <option name="service" value="<?= $mechanicalservice['serviceId']; ?>"><?= $mechanicalservice['serviceName']; ?><br></option>
-						<?php	
-                                 endforeach;  
-						?>
-                               </select>
-					</div>
+                              
+              						<?php
+              						 foreach($mechanicalservice->mechanical_service as $mechanicalservice):
+              						?>	
+              						 <input type="checkbox" id="<?= $mechanicalservice['serviceName']; ?>" name="service" value="<?= $mechanicalservice['serviceId']; ?>"><?= $mechanicalservice['serviceName']; ?><br></input>
+              						<?php	
+                            endforeach;  
+              						?>
+              					</div>
+                         
                           
                          <div class="service-detail" id="electrical_service" style="display: none;">
                               <?php
                                foreach($electricalservice->electrical_service as $electricalservice):
                               ?>   
-                               <input type="checkbox" name="service" value="<?= $electricalservice['serviceId']; ?>"><?= $electricalservice['serviceName']; ?><br></input>
+                               <input type="checkbox" name="service" value="<?= $electricalservice['serviceName']; ?>"> 
+                               <?= $electricalservice['serviceName']; ?>
+                               </input>
+                               <br>
+                             </input>
+
                               <?php     
                                  endforeach;  
                               ?>
@@ -182,33 +201,79 @@ $vehicles = $stmt->fetchAll();
                          <div class="service-detail" id="paint_service" style="display: none">
                               <?php
                                foreach($paintservice->painting_service as $paintservice){
-                                                  ?>   
+                              ?>   
                                <input type="checkbox" name="service" value="<?= $paintservice['serviceId']; ?>"><?= $paintservice['serviceName']; ?></input>
                               <br><br>
                               <?php     
                                    }
                               ?>
+                              
                          </div>
-                         </div>
-                                            
-					<br><br>
-                         <div class="row">
-					<div class="col-md-6 col-sm-6">
-                         <br>
-					<label for="date">Select Date</label>
-					<input type="date" name="date" value="" class="form-control">
-					</div>
-                         </div>
-                         <br><br>
-                         <div class="row">
-                         <div class="col-md-6 col-sm-6">
-					<label for="time">Select Time</label>
-					<input type="time" name="time" value="" class="form-control">
-					</div>
+                        
+                         
                          </div>
 
-                         <br><br>
-                         <div class="row">		
+
+                                            
+					<br><br>
+          <script type="text/javascript">
+           var unavailableDates  = [<?php
+           foreach($appointmentinfo->appointment_info as $appointmentinfo):
+           ?>"<?= date('j-m-Y', strtotime($appointmentinfo['date'])); ?>",
+          <?php     
+            endforeach;
+          ?>];
+           function unavailable(date) {
+           dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+           if ($.inArray(dmy, unavailableDates) == -1) {
+            return [true, ""];
+            } else {
+            return [false, "", "Unavailable"];
+            }
+           }
+
+          $(function(){
+            $('#datepicker').datepicker({
+              minDate: 0,
+              beforeShowDay: $.datepicker.noWeekends,
+              inline: true,
+              //nextText: '&rarr;',
+              //prevText: '&larr;',
+              showOtherMonths: true,
+              //dateFormat: 'dd MM yy',
+              dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+              beforeShowDay: unavailable, 
+              //showOn: "button",
+              //buttonImage: "img/calendar-blue.png",
+              //buttonImageOnly: true,
+            });
+          });
+          </script>
+          <div class="row">
+
+					<div class="col-md-6 col-sm-6">
+          <br>
+					<label for="date">Select Date</label>
+					<input type="text" id="datepicker" name="date" class="form-control">
+					</div>
+          
+                         
+          </div>
+          <br><br>
+
+
+                         
+
+          <div class="row">
+             <div class="col-md-6 col-sm-6">
+					 <label for="time">Select Time</label>
+					 <input type="time" name="time" value="" class="form-control">
+					</div>
+          </div>
+
+          <br><br>
+          
+          <div class="row">		
 					<div class="col-md-12 col-sm-12">
 					<label for="Message">Additional Message</label>
 					<textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea>
@@ -281,9 +346,8 @@ $vehicles = $stmt->fetchAll();
                </div>
           </div>
      </footer>
-
      <!-- SCRIPTS -->
-     <script src="js/jquery.js"></script>
+
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>
@@ -294,6 +358,9 @@ $vehicles = $stmt->fetchAll();
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
      <script src="js/script.js"></script>
+     
+
+  
 
 </body>
 </html>

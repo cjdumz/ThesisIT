@@ -80,6 +80,15 @@ class database{
 		return $this->personalinfo;
 	}
 
+	public function appointment_info(){
+		$query=$this->conn->query("SELECT * from appointments");
+		while($row=$query->fetch_array(MYSQLI_ASSOC)){
+			$this->appointment_info[]=$row;
+		}
+		return $this->appointment_info;
+	}
+
+
 	public function vehicle_info(){
 		$query=$this->conn->query("SELECT * from vehicles where user_id= '".$_SESSION['id']."'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
