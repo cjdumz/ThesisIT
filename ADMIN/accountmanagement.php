@@ -1,5 +1,6 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
+<?php require 'process/process.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,11 +126,12 @@
                             </p>
                         </div>
                         <div class="col-1">
-                            <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#addUser"><i class="menu-icon mdi mdi-account-multiple-plus"></i>
+                            <a href ="adduser.php"><button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#addUser"><i class="menu-icon mdi mdi-account-multiple-plus"></i>
                                 Add User
-                            </button>
+                            </button></a>
                         </div>
                     </div>
+                    
                   
                   
                   <div class="table-responsive">
@@ -238,135 +240,7 @@
   </div>
 
   <!-- Modal -->
-    <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #000099; color: white; border: 3px solid #000099;">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Add User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                <!-- start -->
-                <br>
-                  <form class="forms-sample">
-                  <h3>Vehicle Information</h3>
-                  <div class="form-group">
-                    <label for="bodyType">Body Type</label>
-                    <input required type="text" class="form-control" id="bodyType" name="bodyType">
-                  <span></span>
-                  </div>
-                  <div class="form-group">
-                    <label for="chassisNumber">Chassis Number</label>
-                    <input required type="text" class="form-control" id="chassisNumber" aria-describedby="chassisNumber" name="chassisNumber" >
-                  </div>
-                  <div class="form-group">
-                    <label for="color">Color</label>
-                    <input required class="form-control" type="text" class="form-control" name="color" id="color">
-                  </div>
-                  <div class="form-group">
-                    <label for="created">Created</label>
-                    <input required class="form-control" type="number" class="form-control" id="created" name="created">
-                  </div>
-                  <div class="form-group">
-                    <label for="engineClassification">Engine Classification</label>
-                    <input required class="form-control" type="text" name="engineClassification" id="engineClassification">
-                  </div>
-                  <div class="form-group">
-                    <label for="engineDisplacement">Engine Displacement</label>
-                    <input required type="text" class="form-control" id="engineDisplacement" aria-describedby="engineDisplacement" name="engineDisplacement" >
-                  </div>
-                  <div class="form-group">
-                    <label for="engineNumber">Engine Number</label>
-                    <input required type="text" class="form-control" id="engineNumber" aria-describedby="engineNumber" name="engineNumber" >
-                  </div>
-                  <div class="form-group">
-                    <label for="make">Make</label>
-                    <input required  type="text" class="form-control" id="make" aria-describedby="make" name="make" >
-                  </div>
-                  <div class="form-group">
-                    <label for="modified">Modified</label>
-                    <input required  type="text" class="form-control" id="modified" aria-describedby="modified" name="modified" >
-                  </div>
-                  <div class="form-group">
-                    <label for="numberOfCylinders">Number of Cylinders</label>
-                    <input required  type="text" class="form-control" id="numberOfCylinders" aria-describedby="numberOfCylinders" name="numberOfCylinders" >
-                  </div>
-                  <div class="form-group">
-                    <label for="plateNumber">Plate Number</label>
-                    <input required  type="text" class="form-control" id="plateNumber" aria-describedby="plateNumber" name="plateNumber" >
-                  </div>
-                  <div class="form-group">
-                    <label for="series">Series</label>
-                    <input required  type="text" class="form-control" id="series" aria-describedby="series" name="series" >
-                  </div>
-                  <div class="form-group">
-                    <label for="status">Status</label>
-                    <input required  type="text" class="form-control" id="status" aria-describedby="status" name="status" >
-                  </div>
-                  <div class="form-group">
-                    <label for="typeOfDriveTrain">Type of Drive Train</label>
-                    <input required  type="text" class="form-control" id="typeOfDriveTrain" aria-describedby="typeOfDriveTrain" name="typeOfDriveTrain" >
-                  </div>
-                  <div class="form-group">
-                    <label for="typeOfEngine">Type of Engine</label>
-                    <input required  type="text" class="form-control" id="typeOfEngine" aria-describedby="typeOfEngine" name="typeOfEngine" >
-                  </div>
-                    <h3>Personal Information</h3>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="exampleInputName1">Name</label>
-                                <input required type="text" class="form-control" id="exampleInputName1" placeholder="First Name">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="exampleInputName2">Middle Name</label>
-                                <input required type="text" class="form-control" id="exampleInputName2" placeholder="Middle Name">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="exampleInputName3">Last Name</label>
-                                <input required  type="text" class="form-control" id="exampleInputName3" placeholder="Last Name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPlate">Plate Number</label>
-                      <input required  type="text" class="form-control" id="exampleInputPlate" placeholder="Plate Number">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail">Email address</label>
-                      <input required  type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputMobile">Mobile Number</label>
-                      <input required  type="text" class="form-control" id="exampleInputMobile" placeholder="Mobile Number">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputTel">Telephone Number</label>
-                      <input required  type="text" class="form-control" id="exampleInputTel" placeholder="Telephone Number">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputAddress">Address</label>
-                      <input required  type="text" class="form-control" id="exampleInputAddress" placeholder="Location">
-                    </div>
-                    
-                    <div class="modal-footer" >
-                        <button type="submit" class="btn btn-darkblue" style="width: 100px;"><i class="menu-icon mdi mdi-account-multiple-plus"></i>Add</button>
-                        &nbsp;
-                        <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
-                    </form>
-                    </div>
-                   
-                <!-- end -->
-                </div>
-            </div>
-        </div>
-    </div>
+  
   <!-- container-scroller -->
 
   <!-- plugins:js -->
@@ -386,6 +260,7 @@
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
+   <script src="js/script.js"></script>
   <!-- AJAX Link -->
  <script>
 $(document).ready(function(){
