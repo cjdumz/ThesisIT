@@ -369,7 +369,7 @@ $('#password').blur(function() {
         },
         success: function(data){
       alert('Register success');
-       window.location = "login.php?success=done";
+      //  window.location = "login.php?success=done";
      },
 
       });
