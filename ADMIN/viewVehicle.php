@@ -8,6 +8,7 @@ if(isset($_GET['plate'])){
     if($data->execute()){
         $values = $data->get_result();
         $row = $values->fetch_assoc();
+        $vehicleID = $row['id'];
     }else{
         header("Location: error.php");
     }
@@ -46,6 +47,7 @@ if(isset($_GET['plate'])){
 </head>
 
 <body>
+
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <?php include "includes/navbar.php";?>
@@ -270,11 +272,101 @@ if(isset($_GET['plate'])){
                         <div class="clearfix"></div>
                     </form>
                     </div>
+                    <div class="card-footer small text-muted">
+                    <?php 
+                      $timequery = $connection->query("SELECT modified FROM `vehicles` where id = $vehicleID;");
+                      $row2 = $timequery->fetch_assoc();
+                      $dateTime = $row2['modified'];
+                      $dateTimeSplit = explode(" ",$dateTime);
+                      $date = $dateTimeSplit[0];
+                      $time = $dateTimeSplit[1];
+                      echo "Updated on ".date('M d, Y',strtotime($date));
+                      echo "  ".date('h:i:s A',strtotime($time));
+                    ?>
+                    </div>
                 </div>
             </div>
             <!-- end -->
+
+           <!-- start -->
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Vehicle Hisotry</h4>
+                    <!-- start -->
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-dark" id="doctables">
+                        <thead>
+                          <tr>
+                            <th>
+                              #
+                            </th>
+                            <th>
+                              First name
+                            </th>
+                            <th>
+                              Product
+                            </th>
+                            <th>
+                              Amount
+                            </th>
+                            <th>
+                              Deadline
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="table-info">
+                            <td>
+                              1
+                            </td>
+                            <td>
+                              Herman Beck
+                            </td>
+                            <td>
+                              Photoshop
+                            </td>
+                            <td>
+                              $ 77.99
+                            </td>
+                            <td>
+                              May 15, 2015
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- end -->
+                    
+                </div>
+                <div class="card-footer small text-muted">
+                    <?php 
+                      if($timequery = $connection->query("SELECT modified FROM `vehicles` where id = $vehicleID;")){
+                        $row2 = $timequery->fetch_assoc();
+                        $dateTime = $row2['modified'];
+                        $dateTimeSplit = explode(" ",$dateTime);
+                        $date = $dateTimeSplit[0];
+                        $time = $dateTimeSplit[1];
+                        echo "Updated on ".date('M d, Y',strtotime($date));
+                        echo "  ".date('h:i:s A',strtotime($time));
+                      }else{
+                        echo "No current Update";
+                      }
+                    ?>
+                </div>
+              </div>
+            </div>
+
+
+
+           <!-- end -->
+
+          
           </div>
         </div>
+
+
+        
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <?php include "includes/footer.php";?>
