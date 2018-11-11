@@ -1,27 +1,27 @@
 <?php
-     session_start();
+    session_start();
     include 'process/database.php';
-    include 'process/server.php';
-     $username=$_SESSION['username'];
-     $profile =new database;
-     $profile->user_profile($username);
-     $personalinfo =new database;
-     $personalinfo->personal_info();
+    $username=$_SESSION['username'];
+    $profile =new database;
+    $profile->user_profile($username);
 
-     if (!isset($_SESSION['username'])) {
-    $_SESSION['unauthorized_user'] = '<div class="alert alert-warning fade in">
+    if (!isset($_SESSION['username'])) {
+    $_SESSION['unauthorized_user'] = '<div class="alert alert-danger fade in">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong>  Unauthorized user please login.
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Error</strong>  Unauthorized user please login.
     </div>';
         header('location: login.php');
       }
-
+  if (isset($_SESSION['username'])) {
+  header("Refresh: 1800; url=process/logout.php?timeout=yes");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-     <title>EAS Customs - Account</title>
+     <title>EAS Customs - Home</title>
+     
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
@@ -49,15 +49,16 @@
                
           </div>
      </section>
+    
 
-
+    <!-- HEADER -->
      <header>
           <div class="container" >
                <div class="row">
          
           <div class="col-md-4 col-sm-5">
                        <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
-                       <a href="home.php" class="navbar-brand" >EAS Customs</a>
+                       <a href="index.html" class="navbar-brand" >EAS Customs</a>
           </div>
 
               <div class="col-md-8 col-sm-7 text-align-right">
@@ -70,6 +71,17 @@
                     
         </div>
       </div>
+
+      <style type="text/css">
+      ul.nav li.dropdown:hover > ul.dropdown-menu {
+      display: block;    
+      }
+     @media (min-width: 979px) {
+      ul.nav li.dropdown:hover > ul.dropdown-menu {
+     display: block;
+     }
+    }
+      </style>
           
 
      </header>
@@ -81,6 +93,7 @@
 
                <div class="navbar-header">
                     <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
@@ -106,7 +119,7 @@
                   </li>
              </ul>
                     <?php endif ?>
-                       <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav">
                           <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
                           <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
                          <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>
@@ -116,72 +129,81 @@
 
           </div>
      </section>
-
- 
-    <br>
-    <div class="container">
-   <?php if (isset($_SESSION['success'])) : ?>
+     <br>
+     <div class="container">  
+    <?php if (isset($_SESSION['success'])) : ?>
           <?php 
             echo $_SESSION['success']; 
-            unset($_SESSION['success']);
+            unset($_SESSION['success']); 
           ?>
     <?php endif ?>
-   </div>
+    <?php if (isset($_SESSION['delete'])) : ?>
+          <?php 
+            echo $_SESSION['delete']; 
+              unset($_SESSION['delete']);
+          ?>
+      <?php endif ?>
+      </div>
 
- <div class="container">
- <div class="row">
+  <?php
+   if(isset($_REQUEST['status'])=="Active")
+   {
+    echo '<script type="text/javascript">
+      $("document").ready(function(){
+      $("#activeContent").show();
+        });
+        </script>';
+   }
+   elseif (isset($_REQUEST['status'])== "Pending") 
+   {
+    
+    echo '<script type="text/javascript">
+      $("document").ready(function(){
+      $("#activeContent").show();
+        });
+        </script>'; 
+   }
 
+    ?>
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" role="button" id='Pending' class="btn btn-default">Pending</button>
+    <button type="button" role="button" id="Active" class="btn btn-default">Active</button>
+    <button type="button" role="button" id="Reschedule" class="btn btn-default">Reschedule</button>
+    <br>
+  </div><br>
 
-  <form action="personalinfoedit.php" >
-  <h3>Account Settings</h3>
-  <h5>General Information</h5>
-   
-   <?php 
-   foreach($personalinfo->personalinfo as $personalinfo){
-   ?>
-    <div class="form-group">
-    <h4>Personal Information</h4>
-    </div>
-    <div class="form-group">
-      <label for="username">Account Name:</label>
-      <?php echo ucfirst($personalinfo['firstName']).' '.ucfirst($personalinfo['middleName'][0]).'. '.ucfirst($personalinfo['lastName']); ?>
-    </div>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <?php echo $personalinfo['email']; ?>
-    </div>
-    <div class="form-group">
-      <label for="phone">Contact Number:</label>
-      <?php echo $personalinfo['contactNumber']; ?>
-    </div>
-    <div class="form-group">
-      <label for="address">Address:</label>
-      <?php echo $personalinfo['address']; ?>
-    </div>
-     <div class="form-group">
-      <label for="modified">Date Created:</label>
-      <?php echo $personalinfo['created']; ?>
-    </div>
-      <div class="form-group">
-      <label for="modified">Date Modified:</label>
-      <?php echo $personalinfo['modified']; ?>
-    </div>
-     <input type="submit" class="btn" value="Edit">
+  <div id="pendingContent" style="display: none">
+  <div class="container">
+  <div class="panel panel-default" id="headings">
+              <div class="panel-heading">This is Pending</div>
+              <div class="panel-body">
+              </div>
+            </div>
   </div>
-</form>
+  </div>
 
-<?php
-   
-    }
+  <div id="activeContent" style="display: none">
+  <div class="container">
+  <div class="panel panel-default" id="headings">
+              <div class="panel-heading">This is Active</div>
+              <div class="panel-body">
+              </div>
+            </div>
+  </div>
+  </div>
 
-  ?>
-  
-</div>
-          
+  <div id="rescheduleContent" style="display: none">
+    <div class="container">
+    <div class="panel panel-default" id="headings">
+              <div class="panel-heading">This is Reschedule</div>
+              <div class="panel-body">
+              </div>
+            </div>  
+     </div>
+    </div>
+  </div>
 
-               </div>
-          </div>
-     </section>
+     
 
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
@@ -205,7 +227,7 @@
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Latest News</h4>
                               <div class="latest-stories">
                                    <div class="stories-image">
-                                        
+                                        <a href="#"><img src="images/news-image.jpg" class="img-responsive" alt=""></a>
                                    </div>
                                    <div class="stories-info">
                                         <a href="#"><h5>Amazing Technology</h5></a>
@@ -215,7 +237,7 @@
 
                               <div class="latest-stories">
                                    <div class="stories-image">
-                                        
+                                        <a href="#"><img src="images/news-image.jpg" class="img-responsive" alt=""></a>
                                    </div>
                                    <div class="stories-info">
                                         <a href="#"><h5>New Healing Process</h5></a>

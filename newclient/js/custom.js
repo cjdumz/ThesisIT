@@ -42,4 +42,4 @@
     // WOW ANIMATION
     new WOW({ mobile: false }).init();
 
-})(jQuery);
+});

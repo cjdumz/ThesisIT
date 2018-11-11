@@ -78,25 +78,26 @@
                          <li><a href="#team" class="smoothScroll">About Us</a></li>
                          <li><a href="#news" class="smoothScroll">Contact Us</a></li>
                          <li><a href="#google-map" class="smoothScroll">Reviews</a></li>
-                         <li class="appointment-btn"><a href="appointment.php">Make an appointment</a></li>
+                         <li class="appointment-btn"><a href="login.php?loginrequired=1">Make an appointment</a></li>
                     </ul>
                </div>
 
           </div>
      </section>
 
-	 
-	 
+   
+   
      <!-- REGISTER PAGE -->
     <div class="container">
     <form id="register_form">
       <h4>Register</h4>
 
     <h3>Vehicle Information</h3>
-    <div class="form-group">
+        <div class="form-group">
           <label for="plateNumber">Plate Number</label><i style="color:red;"> *</i>
           <input type="text" class="form-control" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber">
-          <span></span>
+          <div id="plateNumber_msg" style="display: none; color: red;font-size: 0.9em;">Plate Number is empty</div>
+          <span style="font-size: 0.9em;"></span>
         </div>
         <div class="form-group">
           <label for="make">Make</label><span style="color:red;"> *</span>
@@ -122,54 +123,55 @@
     <div class="row">
     <div class="col-md-4 col-sm-4">
     <input type="text" class="form-control" name="firstName" placeholder="First Name" id="firstName" required>
-    <div id="firstName_msg" style="display: none; color: red;">First name is empty</div>
+    <div id="firstName_msg" style="display: none; color: red;font-size: 0.9em;">First name is empty</div>
     </div>
     <div class="col-md-4 col-sm-4">
     <input type="text" class="form-control" name="middleName" placeholder="Middle Name" id="middleName">
-    <div id="middleName_msg" style="display: none; color: red;">Middle name is empty</div>
+    <div id="middleName_msg" style="display: none; color: red;font-size: 0.9em">Middle name is empty</div>
     </div>
     <div class="col-md-4 col-sm-4">
     <input type="text" class="form-control" name="lastName" placeholder="Last Name" id="lastName">
-    <div id="lastName_msg" style="display: none; color: red;">Last name is empty</div>
+    <div id="lastName_msg" style="display: none; color: red;font-size: 0.9em">Last name is empty</div>
     </div>
     </div>
     <br>
     <div class="row">
     <div class="col-md-12 col-sm-12">
     <input type="text" class="form-control" name="address" placeholder="Address" id="address">
-    <div id="address_msg" style="display: none; color: red;">Address is empty</div>
+    <div id="address_msg" style="display: none; color: red;font-size: 0.9em">Address is empty</div>
     <br>
     </div>
     <div class="col-md-12 col-sm-12">
     <input type="text" class="form-control" name="contactNumber" placeholder="Contact Number" id="contactNumber">
-    <div id="contactNumber_msg" style="display: none; color: red;">Contact is empty</div>
-    <span></span>
+    <div id="contactNumber_msg" style="display: none; color: red;font-size: 0.9em">Contact Number is empty</div>
+    <span style="font-size: 0.9em"></span>
     <br>
     </div>
     <div class="col-md-12 col-sm-12">
     <input type="email" class="form-control" name="Email" placeholder="email" id="email">
-    <div id="email_msg" style="display: none; color: red;">email is empty</div>
-    <div id="emailpat_msg" style="display: none; color: red;"> Invalid Email.</div>
-    <span></span><br>
+    <div id="email_msg" style="display: none; color: red;font-size: 0.9em">email is empty</div>
+    <span style="font-size: 0.9em"></span>
+    <div id="emailpat_msg" style="display: none; color: red;font-size: 0.9em"> Invalid Email.</div>
+    <br>
     </div>
     <div class="col-md-12 col-md-12">
     <input type="text" class="form-control" name="username" placeholder="Username" id="username" pattern=".{8,}" title='must contain 6 or more characters'>
     <small id="username" class="form-text text-muted"> Must contain 8-12 characters.</small><br>
-    <div id="username_msg" style="display: none; color: red;">Username is empty</div>
-    <div id="usernamepat_msg" style="display: none; color: red;"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
-    <span></span>
+    <div id="username_msg" style="display: none; color: red;font-size: 0.9em">Username is empty</div>
+    <div id="usernamepat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
+    <span style="font-size: 0.9em"></span>
     <br>
     </div>
     <div class="col-md-6 col-sm-6">
     <input type="password" class="form-control" name="password" placeholder="Password" id="password" title="must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter">
-    <div id="passwordpat_msg" style="display: none; color: red;"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
-    <div id="password_msg" style="display: none; color: red;">password is empty</div>
-    <span></span><br>
+    <div id="passwordpat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
+    <div id="password_msg" style="display: none; color: red;font-size: 0.9em">password is empty</div>
+    <span style="font-size: 0.9em"></span><br>
     </div>
     <br>
     <div class="col-md-6 col-sm-6">
     <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password">
-    <span id="message"></span>
+    <span id="message" style="font-size: 0.9em"></span>
     </div>
     </div>
         <div id="error_msg"></div>

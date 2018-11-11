@@ -41,6 +41,15 @@
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
+  <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+
+               <span class="spinner-rotate"></span>
+               
+          </div>
+     </section>
+
 
 
      <header>
@@ -48,8 +57,8 @@
                <div class="row">
          
           <div class="col-md-4 col-sm-5">
-
-                       <a href="index.html" class="navbar-brand" >EAS Customs</a>
+                       <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
+                       <a href="home.php" class="navbar-brand" >EAS Customs</a>
           </div>
 
               <div class="col-md-8 col-sm-7 text-align-right">
@@ -100,8 +109,9 @@
                     <?php endif ?>
                     <ul class="nav navbar-nav">
                           <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
-                          <li><a href="vehicleshistory.php" class="smoothScroll">Vehicle History</a></li>
-                         <li><a href="vehiclesinfo.php" class="smoothScroll">Your Vehicles</a></li>
+                          <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
+                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>
+                         <li><a href="requeststatus.php" class="smoothScroll"><i class="fa fa-calendar-o" aria-hidden="true"></i> Appointment Status  <span class="badge"> 4</span></a></li>
                     </ul>
                </div>
 
@@ -132,7 +142,7 @@
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
   <div class="container" >  
   <h3>Vehicle Information</h3><br>
-    <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#addVehicle"><i class="fa fa-car" aria-hidden="true"></i>  Add Vehicle</button>
+    <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#addVehicle" style="background-color: #B80011;color: white"><i class="fa fa-car" aria-hidden="true"></i>  Add Vehicle</button>
   </br>
   <!--MODAL ADD VEHICLES-->
   <div class="modal fade" id="addVehicle" role="dialog">
@@ -158,29 +168,30 @@
         </div>
         <div class="form-group">
           <label for="plateNumber">Plate Number</label><span style="color:red;"> *</span>
-          <input type="text" class="form-control input-xs" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber" >
+          <input type="text" class="form-control input-xs" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber" required="" oninvalid="this.setCustomValidity('Plate Number Invalid or Empty.')" oninput="setCustomValidity('')" pattern="[A-Za-z]{3}-[0-9]{3,}" 
+          >
         </div>
         <div class="form-group">
           <label for="make">Make</label><span style="color:red;"> *</span>
-          <input type="text" class="form-control input-xs" id="make" aria-describedby="make" name="make" >
+          <input type="text" class="form-control input-xs" id="make" aria-describedby="make" name="make" required="" oninvalid="this.setCustomValidity('Make is Empty.')" oninput="setCustomValidity('')" >
           <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
         </div>
          <div class="form-group">
           <label for="series">Series</label><span style="color:red;"> *</span>
-          <input class="form-control input-sm" type="text" class="form-control" name="series">
+          <input class="form-control input-sm" type="text" class="form-control" name="series" required="" invalid="this.setCustomValidity('Series is Empty.')" oninput="setCustomValidity('')">
         </div>
         <div class="form-group">
           <label for="yearModel">Year Model</label><span style="color:red;"> *</span>
-          <input class="form-control input-sm" type="text" class="form-control" id="yearModel" name="yearModel">
+          <input class="form-control input-sm" type="text" class="form-control" id="yearModel" name="yearModel" required="" invalid="this.setCustomValidity('Year Model is Empty.')" oninput="setCustomValidity('')">
         </div>
          <div class="form-group">
           <label for="color">Color</label><span style="color:red;"> *</span>
-          <input class="form-control input-sm" type="text" name="color">
+          <input class="form-control input-sm" type="text" name="color" required="" invalid="this.setCustomValidity('Color is Empty.')" oninput="setCustomValidity('')">
         </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-sm btn-primary" name="vehicle_add">Add Vehicle</button>
-          <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-sm " name="vehicle_add" style="background-color: #B80011;color: white"><i class="fa fa-motorcycle" aria-hidden="true"></i> Add Vehicle</button>
+          <button type="button" class="btn btn-sm" data-dismiss="modal" style="background-color: #308ee0;color:black;"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
         </div>
       </div>
       </form>
@@ -237,7 +248,11 @@
         <?php echo "<td align = 'center'>".$row['series']."</td>"; ?>
         <?php echo "<td align = 'center'>".$row['color']."</td>"; ?>
         <?php echo "<td align = 'center'>".date('F d, Y', strtotime($row['created']))."</td>"; ?>
-        <?php echo "<td align = 'center'>".date('F d, Y', strtotime($row['modified']))."</td>"; ?>
+        <?php if (isset($row['modified'])) {
+              echo "<td align = 'center'>".date('F d, Y', strtotime($row['modified']))."</td>"; 
+            }else
+              echo "<td align = 'center'>No Value.</td> ";
+        ?>
         <td>
         
         <button type="button" class="btn btn-sm btn-primary " data-toggle="modal" data-target="#viewVehicle<?php echo $row['id']; ?>"><i class="fa fa-address-card" aria-hidden="true"></i> View Info</button>
@@ -281,35 +296,83 @@
               </div>
               <div class="form-group">
                 <label for="bodyType">Body Type</label>
-                <p><?php echo $row['bodyType']; ?></p>
+                <p><?php 
+                if (isset($row['modified'])) {
+                    echo $row['bodyType'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                 <p>
               </div>
               <div class="form-group">
                 <label for="chasisNumber">Chasis Number</label>
-                <p><?php echo $row['chasisNumber']; ?></p>
+                <p><?php 
+                if (isset($row['chasisNumber'])) {
+                    echo $row['chasisNumber'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                <p>
               </div>
               <div class="form-group">
                 <label for="numberOfCylinders">Number of Cylinders</label>
-                <p><?php echo $row['numberOfCylinders']; ?></p>
+                <p><?php 
+                if (isset($row['numberOfCylinders'])) {
+                    echo $row['numberOfCylinders'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                <p>
               </div>
                <div class="form-group">
                 <label for="engineClassification">Engine Classification</label>
-                <p><?php echo $row['engineClassification']; ?></p>
+                <p><?php 
+                if (isset($row['engineClassification'])) {
+                    echo $row['engineClassification'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                <p>
               </div>
                <div class="form-group">
                 <label for="typeOfDriveTrain">Type of Drive Train</label>
-                <p><?php echo $row['typeOfDriveTrain']; ?></p>
+                <p><?php 
+                if (isset($row['typeOfDriveTrain'])) {
+                    echo $row['typeOfDriveTrain'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                <p>
               </div>
                <div class="form-group">
                 <label for="engineDisplacement">Engine Displacement</label>
-                <p><?php echo $row['engineDisplacement']; ?></p>
+                <p><?php 
+                if (isset($row['engineDisplacement'])) {
+                    echo $row['engineDisplacement'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                <p>
               </div>
               <div class="form-group">
                 <label for="typeOfEngine">Type of Engine</label>
-                <p><?php echo $row['typeOfEngine']; ?></p>
+                <p><?php 
+                if (isset($row['typeOfEngine'])) {
+                    echo $row['typeOfEngine'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                <p>
               </div>
                <div class="form-group">
                 <label for="engineNumber">Engine Number</label>
-                <p><?php echo $row['engineNumber']; ?></p>
+                <p><?php 
+                if (isset($row['engineNumber'])) {
+                    echo $row['engineNumber'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                <p>
               </div> 
             </div>
             <div class="modal-footer">

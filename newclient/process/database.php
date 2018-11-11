@@ -75,13 +75,13 @@ class database{
 	public function personal_info(){
 		$query=$this->conn->query("SELECT * from personalinfo where user_id= '".$_SESSION['id']."'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
-			$this->personalinfo[]=$row;
+			$this->personal_info[]=$row;
 		}
-		return $this->personalinfo;
+		return $this->personal_info;
 	}
 
-	public function appointment_info(){
-		$query=$this->conn->query("SELECT * from appointments");
+	public function appointment_info_activeschedule(){
+		$query=$this->conn->query("SELECT * from appointments where status='accepted'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
 			$this->appointment_info[]=$row;
 		}
@@ -96,6 +96,8 @@ class database{
 		}
 		return $this->vehicle_info;
 	}
+
+
 }
   
 	

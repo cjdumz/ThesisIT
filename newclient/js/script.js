@@ -14,21 +14,55 @@ $('document').ready(function(){
  //For Appointment
  $("#mechanical").click(function(){
         $("#mechanical_service").toggle();
-        $("#electical_service").hide();
+        $("#electrical_service").hide();
         $("#paint_service").hide();
-        $("#mechanical").addClass("active");
-
+        $("#customization").hide();
+        $("#body_Repair").hide();
+        $("#maintenance_service").hide();
     });
  $("#electrical").click(function(){
         $("#electrical_service").toggle();
         $("#mechanical_service").hide();
         $("#paint_service").hide();
-
+        $("#customization").hide();
+        $("#body_Repair").hide();
+        $("#maintenance_service").hide();
     });
  $("#painting").click(function(){
         $("#paint_service").toggle();
         $("#electrical_service").hide();
         $("#mechanical_service").hide();
+        $("#customization").hide();
+        $("#body_Repair").hide();
+        $("#maintenance_service").hide();
+
+    });
+ $("#bodyRepair").click(function(){
+        $("#body_Repair").toggle();
+        $("#electrical_service").hide();
+        $("#mechanical_service").hide();
+        $("#painting").hide();
+        $("#customization").hide();
+        $("#maintenance_service").hide();
+
+    });
+ $("#customize").click(function(){
+        $("#customization").toggle();
+        $("#electrical_service").hide();
+        $("#mechanical_service").hide();
+        $("#body_Repair").hide();
+        $("#painting").hide();
+        $("#maintenance_service").hide();
+
+
+    });
+ $("#maintenance").click(function(){
+        $("#maintenance_service").toggle();
+        $("#electrical_service").hide();
+        $("#mechanical_service").hide();
+        $("#body_Repair").hide();
+        $("#painting").hide();
+        $("#customization").hide();
 
     });
 
@@ -72,19 +106,22 @@ $('input[name="service"]').click(function () { getSelectedCheckBoxes('service');
       if (response == 'taken' ) {
         username_state = false;
         $('#username').parent().removeClass();
-        $('#username').parent().addClass("form_error");
+        $('#username').css("border","1px solid #D83D5A");
+        $('#username').siblings("span").css("color","#D83D5A");
         $('#username').siblings("span").text('Username already exist');
         return;
       }else if (response == 'not_taken') {
         username_state = true;
         $('#username').parent().removeClass();
-        $('#username').parent().addClass("form_success");
+        $('#username').css("border","1px solid green");
+        $('#username').siblings("span").css("color","green");
         $('#username').siblings("span").text('Username available');
         return;
       }
     }
   });
- });    
+ }); 
+
   $('#email').on('blur', function(){
   var email = $('#email').val();
   if (email == '') {
@@ -107,8 +144,6 @@ $('input[name="service"]').click(function () { getSelectedCheckBoxes('service');
           return;
         }else if (response == 'not_taken') {
           email_state = true;
-          $('#email').parent().removeClass();
-          $('#email').parent().addClass("form_success");
           $('#email').siblings("span").text('Email available');
           return;
         }
@@ -134,13 +169,17 @@ $('#plateNumber').on('blur', function(){
         if (response == 'taken' ) {
           plateNumber_state = false;
           $('#plateNumber').parent().removeClass();
-          $('#plateNumber').parent().addClass("form_error");
-          $('#plateNumber').siblings("span").text('Plate Number already exist');
+          $('#plateNumber').css("border","1px solid #D83D5A"); 
+          $('#plateNumber').siblings("span").css("color","#D83D5A");
+          $('#plateNumber').siblings("span").text('Plate Number already exist').fadeIn();
+          return;
         }else if (response == 'not_taken') {
           plateNumber_state = true;
           $('#plateNumber').parent().removeClass();
-          $('#plateNumber').parent().addClass("form_success");
-          $('#plateNumber').siblings("span").text('Plate number available');
+          $('#plateNumber').css("border","1px solid green"); 
+          $('#plateNumber').siblings("span").css("color","green");
+          $('#plateNumber').siblings("span").text('Plate number available').fadeIn();
+          return;
         }
       }
   });
@@ -163,54 +202,63 @@ $('#contactNumber').on('blur', function(){
         if (response == 'taken' ) {
           contactNumber_state = false;
           $('#contactNumber').parent().removeClass();
-          $('#contactNumber').parent().addClass("form_error");
-          $('#contactNumber').siblings("span").text('Plate Number already exist');
+          //$('#contactNumber').parent().addClass("form_error");
+          $('#contactNumber').css("border","1px solid #D83D5A");
+          $('#contactNumber').siblings("span").css("color","#D83D5A");
+          $('#contactNumber_msg').hide();
+          $('#contactNumber').siblings("span").text('Contact Number already exist');
+          return;
         }else if (response == 'not_taken') {
           contactNumber_state = true;
           $('#contactNumber').parent().removeClass();
-          $('#contactNumber').parent().addClass("form_success");
-          $('#contactNumber').siblings("span").text('Plate number available');
+          //$('#contactNumber').parent().addClass("form_success");
+          $('#contactNumber').css("border","1px solid green");
+          $('#contactNumber').css("color","green");
+          $('#contactNumber').siblings("span").text('Contact number available');
+          return;
         }
       }
   });
  });
 
 
-
-
 $('#password, #confirm_password').on('keyup', function () {
   if ($('#password').val() == $('#confirm_password').val()) {
     $('#message').html('Matching').css('color', 'green');
     password_state = true;
+    return;
   } else 
     $('#message').html('Not Matching').css('color', 'red');
+    return;
 });
-
-
 
 // Check if input fields are empty
 
 $('#firstName').blur(function() {
   if (this.value == '') {
+    $('#firstName').css("border","1px solid #D83D5A"); 
     $('#firstName_msg').fadeIn("slow");
     firstName_state = false;
     return;
     
   }
   if (this.value != '' )
+    $('#firstName').css("border",""); 
     $('#firstName_msg').fadeOut();
     firstName_state = true;
     return;
 });
 
 $('#middleName').blur(function() {
-  if (this.value == '') {  
+  if (this.value == '') { 
+    $('#middleName').css("border","1px solid #D83D5A"); 
     $('#middleName_msg').fadeIn("slow");
     middleName_state = false;
     return;
     
   }
   if (this.value != '' )
+    $('#middleName').css("border","");
     $('#middleName_msg').fadeOut();
     middleName_state = true;
     return;
@@ -218,12 +266,14 @@ $('#middleName').blur(function() {
 
 $('#lastName').blur(function() {
   if (this.value == '') {
+    $('#lastName').css("border","1px solid #D83D5A");
     $('#lastName_msg').fadeIn("slow");
     lastName_state = false;
     return;
     
   }
   if (this.value != '' )
+    $('#lastName').css("border","");
     $('#lastName_msg').fadeOut();
     lastName_state = true;
     return;
@@ -232,11 +282,13 @@ $('#lastName').blur(function() {
 $('#address').blur(function() {
   if (this.value == '') {
     $('#address_msg').fadeIn("slow");
+    $('#address').css("border","1px solid #D83D5A");
     addressName_state = false;
     return;
     
   }
   if (this.value != '' )
+    $('#address').css("border","");
     $('#address_msg').fadeOut();
     address_state = true;
     return;
@@ -244,25 +296,33 @@ $('#address').blur(function() {
 
 $('#contactNumber').blur(function() {
   if (this.value == '') {
-    $('#contactNumber_msg').fadeIn("slow");
+    $('#contactNumber').parent().removeClass();
+    $('#contactNumber').siblings("span").hide();
+    $('#contactNumber').css("border","1px solid #D83D5A");
+    $('#contactNumber_msg').fadeIn("slow");  
     contactNumber_state = false;
     return;
-    
   }
   if (this.value != '' )
+    $('#contactNumber').parent().removeClass();
     $('#contactNumber_msg').fadeOut();
+    $('#contactNumber').siblings("span").show();
     contactNumber_state = true;
     return;
 });
 
 $('#email').blur(function() {
   if (this.value == '') {
+    $('#email').parent().removeClass();
     $('#email_msg').fadeIn("slow");
+    $('#email').parent().addClass("form_error");
     email_state = false;
     return;
   }
   if (this.value != '' )
+    $('#email').parent().removeClass();
     $('#email_msg').fadeOut();
+    $('#email').siblings("span").show();
     email_state = true;
     return;
 });
@@ -271,24 +331,34 @@ $('#email').blur(function() {
 var emailpattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 
     if(emailpattern.test($("#email").val())) {
+      $('#email').parent().removeClass();
+      $('#email').parent().addClass("form_success");
       $('#emailpat_msg').fadeOut("slow");
+      $('#email').siblings("span").show();
       email_state = true;
       return;
     } else 
+      $('#email').parent().removeClass();
+      $('#email').parent().addClass("form_error");
       $('#emailpat_msg').fadeIn("slow");
+      $('#email').siblings("span").hide();
       email_state = false;
       return;
 });
+
+
       
 
 $('#username').blur(function() {
   if (this.value == '') {
     $('#username_msg').fadeIn("slow");
+    $('#username').siblings("span").hide();
     username_state = false;
     return;
   }
   if (this.value != '' )
     $('#username_msg').fadeOut();
+    $('#username').siblings("span").show();
     username_state = true;
 });
 
@@ -328,12 +398,22 @@ $('#password').blur(function() {
 });
 
 
-
-
-
-
-
-
+$('#plateNumber').blur(function() {
+  if (this.value == '') {
+    $('#plateNumber_msg').fadeIn("slow");
+    $('#plateNumber').css("border","1px solid #D83D5A");
+    $('#plateNumber').siblings("span").hide();
+    plateNumber_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#plateNumber_msg').fadeOut();
+    $('#plateNumber').css("border","");
+    $('#plateNumber').siblings("span").show();
+    plateNumber_state = true;
+    return;
+});
 
 
  $('#reg_btn').on('click', function(){
@@ -381,4 +461,9 @@ $('#password').blur(function() {
       });
   }
  });
+
 });
+
+
+
+

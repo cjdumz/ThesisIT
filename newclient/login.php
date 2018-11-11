@@ -89,15 +89,15 @@ if (isset($_SESSION['username'])) {
                          <li><a href="#team" class="smoothScroll">About Us</a></li>
                          <li><a href="#news" class="smoothScroll">Contact Us</a></li>
                          <li><a href="#google-map" class="smoothScroll">Reviews</a></li>
-                         <li class="appointment-btn"><a href="appointment.php">Make an appointment</a></li>
+                         <li class="appointment-btn"><a href="login.php?loginrequired=1">Make an appointment</a></li>
                     </ul>
                </div>
 
           </div>
      </section>
 
-	 
-	 
+   
+   
      <!-- LOGIN PAGE -->
       <section id="appointment-detail" data-stellar-background-ratio="3">
           <div class="container">
@@ -105,13 +105,13 @@ if (isset($_SESSION['username'])) {
                   
           <div class="col-xs-3 col-sm-3 " align="center">
           </div>                        
-			   <div class="col-xs-5 col-sm-5 " align="center" style="width: auto; padding: 40px;
+         <div class="col-xs-5 col-sm-5 " align="center" style="width: auto; padding: 40px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             text-align: center;">
 
-					<form id="appointment-form" role="form" method="post" action="login.php">
+          <form id="appointment-form" role="form" method="post" action="login.php">
                         <div class="section-title wow fadeInUp" data-wow-delay="0.2s">
-							<h2>Login</h2>
+              <h2>Login</h2>
                         <?php if (isset($_SESSION['unauthorized_user'])) : ?>
                          <?php 
                            echo $_SESSION['unauthorized_user']; 
@@ -151,30 +151,39 @@ if (isset($_SESSION['username'])) {
                           {
                               echo '<div class="alert alert-success fade in" align="center">
                               <a href="#" class="close" data-dismiss="alert" >&times;</a>
-                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong> Registration Successful Please Login </div';
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong> Registration Successful Please Login </div>';
                           }
                          ?>
+                         <?php
+                         if(isset($_REQUEST['loginrequired'])=="1")
+                          {
+                              echo '<div class="alert alert-danger fade in" align="center">
+                              <a href="#" class="close" data-dismiss="alert" >&times;</a>
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong>   Please login first. </div>';
+                          }
+                         ?>
+
                         </div>
                         
                             <div class="wow fadeInUp" data-wow-delay="0.4s">
                                 <div class="col-md-12 col-sm-12">
                                     <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-          									<br>
-          									<br>
-          								</div>
+                            <br>
+                            <br>
+                          </div>
                                 <div class="col-md-12 col-sm-12">
                                     <input type="password" class="form-control" name="password" placeholder="Password">
-          									<br>
-          									<br>
-                                </div>		
+                            <br>
+                            <br>
+                                </div>    
                                     <button type="submit" class="form-control" id="cf-submit" name="login_user">Login </button>
                         </div>
                             
-					</form>
-					<br>
-					<a href="register.php"> Don't have an account? Sign in </a>
-					<p> Forgot your password? </p>
-					</div>
+          </form>
+          <br>
+          <a href="register.php"> Don't have an account? Sign in </a>
+          <p> Forgot your password? </p>
+          </div>
                 </div>
             </div>
         </div>
@@ -202,7 +211,7 @@ if (isset($_SESSION['username'])) {
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Latest News</h4>
                               <div class="latest-stories">
                                    <div class="stories-image">
-                                        <a href="#"><img src="images/news-image.jpg" class="img-responsive" alt=""></a>
+                                       
                                    </div>
                                    <div class="stories-info">
                                         <a href="#"><h5>Amazing Technology</h5></a>
@@ -212,7 +221,7 @@ if (isset($_SESSION['username'])) {
 
                               <div class="latest-stories">
                                    <div class="stories-image">
-                                        <a href="#"><img src="images/news-image.jpg" class="img-responsive" alt=""></a>
+                                        
                                    </div>
                                    <div class="stories-info">
                                         <a href="#"><h5>New Healing Process</h5></a>

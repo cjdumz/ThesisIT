@@ -56,8 +56,8 @@
                <div class="row">
          
           <div class="col-md-4 col-sm-5">
-
-                       <a href="index.html" class="navbar-brand" >EAS Customs</a>
+                       <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
+                       <a href="home.html" class="navbar-brand" >EAS Customs</a>
           </div>
 
               <div class="col-md-8 col-sm-7 text-align-right">
@@ -108,8 +108,9 @@
                     <?php endif ?>
                     <ul class="nav navbar-nav">
                           <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
-                          <li><a href="vehicleshistory.php" class="smoothScroll">Vehicle History</a></li>
-                         <li><a href="vehiclesinfo.php" class="smoothScroll">Your Vehicles</a></li>
+                          <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
+                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>
+                         <li><a href="requeststatus.php" class="smoothScroll"><i class="fa fa-calendar-o" aria-hidden="true"></i> Appointment Status  <span class="badge"> 4</span></a></li>
                     </ul>
                </div>
 

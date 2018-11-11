@@ -42,6 +42,13 @@
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
      <!-- PRE LOADER -->
+     <section class="preloader">
+          <div class="spinner">
+
+               <span class="spinner-rotate"></span>
+               
+          </div>
+     </section>
     
 
     <!-- HEADER -->
@@ -64,6 +71,17 @@
                     
         </div>
       </div>
+
+      <style type="text/css">
+      ul.nav li.dropdown:hover > ul.dropdown-menu {
+      display: block;    
+      }
+     @media (min-width: 979px) {
+      ul.nav li.dropdown:hover > ul.dropdown-menu {
+     display: block;
+     }
+    }
+      </style>
           
 
      </header>
@@ -103,8 +121,9 @@
                     <?php endif ?>
                     <ul class="nav navbar-nav">
                           <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
-                          <li><a href="vehicleshistory.php" class="smoothScroll">Vehicle History</a></li>
-                         <li><a href="vehiclesinfo.php" class="smoothScroll">Your Vehicles</a></li>
+                          <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
+                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>
+                         <li><a href="requeststatus.php" class="smoothScroll"><i class="fa fa-calendar-o" aria-hidden="true"></i> Appointment Status  <span class="badge"> 4</span></a></li>
                     </ul>
                </div>
 
@@ -124,6 +143,13 @@
               unset($_SESSION['delete']);
           ?>
       <?php endif ?>
+      </div>
+
+      <div class="container">
+      <div class="jumbotron">
+        <h1>Welcome to EAS Customs</h1>
+        <p>A quick preview of everything Bootstrap has to offer.</p>
+        <p><a class="btn btn-primary btn-large">Learn more</a></p>
       </div>
 
      

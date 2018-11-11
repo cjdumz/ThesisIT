@@ -22,14 +22,14 @@ if (isset($_POST['reg_user'])) {
   $firstName = mysqli_real_escape_string($db, $_POST['firstName']);
   $lastName = mysqli_real_escape_string($db, $_POST['lastName']);
   $middleName = mysqli_real_escape_string($db, $_POST['middleName']);
-  $contactNumber = mysqli_real_escape_string($db, $_POST['contactNumber']);
+  $mobileNumber = mysqli_real_escape_string($db, $_POST['mobileNumber']);
   $address = mysqli_real_escape_string($db, $_POST['address']);
 
 
   // form validation: ensure that the form is correctly filled ...
   // by adding (array_push()) corresponding error unto $errors array
   if ($password_1 != $password_2) {
-	array_push($errors, '<div class="alert alert-danger fade in align="center">
+  array_push($errors, '<div class="alert alert-danger fade in align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> There are still problems in the form.
   </div>');
@@ -37,7 +37,7 @@ if (isset($_POST['reg_user'])) {
 
   // first check the database to make sure 
   // a user does not already exist with the same username and/or email
-  $personalinfo_check_query = "SELECT * FROM personalinfo WHERE email= '$email' OR contactNumber= '$contactNumber' LIMIT 1";
+  $personalinfo_check_query = "SELECT * FROM personalinfo WHERE email= '$email' OR mobileNumber= '$mobileNumber' LIMIT 1";
   $result = mysqli_query($db, $personalinfo_check_query);
   $personalinfo = mysqli_fetch_assoc($result);
   
@@ -71,19 +71,19 @@ if (isset($_POST['reg_user'])) {
 
   // Finally, register user if there are no errors in the form
   if (count($errors) == 0) {
-  	$password = password_hash($password_1, PASSWORD_DEFAULT);//encrypt the password before saving in the database
+    $password = password_hash($password_1, PASSWORD_DEFAULT);//encrypt the password before saving in the database
 
-  	$query = "INSERT INTO users (username, password) 
-  			  VALUES('$username', '$password')";
-  	mysqli_query($db, $query);
+    $query = "INSERT INTO users (username, password) 
+          VALUES('$username', '$password')";
+    mysqli_query($db, $query);
     $last_id = mysqli_insert_id($db); 
 
     $query1 = "INSERT INTO personalinfo (firstName, lastName, middleName, email, contactNumber, address, user_id) 
           VALUES('$firstName', '$lastName', '$middleName', '$email', '$contactNumber', '$address', '$last_id')";
     mysqli_query($db, $query1);
-  	$_SESSION['username'] = $username;
-  	$_SESSION['success'] = "You are now logged in";
-  	header('location: home.php');
+    $_SESSION['username'] = $username;
+    $_SESSION['success'] = "You are now logged in";
+    header('location: home.php');
   }
 }
 
@@ -120,7 +120,7 @@ if (isset($_POST['login_user'])) {
           $_SESSION['last_login_timestamp'] = time();  
           $_SESSION['success'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> Login Successfully.
+    <i class="fa fa-check-circle" aria-hidden="true"></i> <strong>Notice</strong> Login Successfully.
   </div>';
           header('location: home.php');
           exit();
@@ -213,3 +213,21 @@ if (isset($_POST['account_edit'])) {
     }
     $db->close();     
   }
+  //Insert Appointment
+  if(isset($_POST["vehicle"]))
+  {
+   $vehicle = mysqli_real_escape_string($connect, $_POST["vehicle"]);
+   $personalId = mysqli_real_escape_string($connect, $_POST["personalId"]);
+   $additionalMessage = mysqli_real_escape_string($connect, $_POST["additionalMessage"]);
+   $service = mysqli_real_escape_string($connect, $_POST["service"]);
+   $date = mysqli_real_escape_string($connect, $_POST["date"]);
+   $query = "
+   INSERT INTO appointments(serviceId, vehicleId, personalId, otherService, date, status, notification )
+   VALUES ('$service', '$vehicle', '$personalId', '$additionalMessage', '$date', 'Pending', '0')
+   ";
+   mysqli_query($db, $query);
+  }
+
+
+
+?>
