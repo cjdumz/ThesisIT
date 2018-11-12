@@ -119,15 +119,15 @@
                       <thead>
                         <tr class="grid">
                             <th style="font-size:15px;">Customer Name</th>
-                            <th style="font-size:15px;">Transactions</th>
                             <th style="font-size:15px;">Vehicles</th>
-                            <th style="font-size:15px;">Status</th>
+                            <th style="font-size:15px;">Transactions</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                       <?php
-                        $data = $connection->prepare("select concat(firstName,' ',middleName,' ',lastName) as 'Name', count(vehicles.id) as 'vehicles', count(appointments.id) as 'appointments', appointments.status as 'astatus' from vehicles inner join appointments ON
-                        vehicles.id = appointments.vehicleId inner join personalinfo ON appointments.personalId = personalinfo.personalId GROUP BY 1");
+                        $data = $connection->prepare("select  concat(firstName,' ',middleName,' ',lastName) as 'Name' , count(vehicles.personalId) as 'Vehicles' from vehicles join personalinfo 
+                        where vehicles.personalId = personalinfo.personalId
+                        group by 1");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {
@@ -137,9 +137,9 @@
                             echo '
                                 <tr>
                                 <td>'.$row['Name'].'</td>
-                                <td class="text-center"><button class="btn btn-primary text-center" style="width: 120px;">'.$row['vehicles'].' Vehicles</button></td>
-                                <td class="text-center"><button class="btn btn-success text-center" style="width: 120px;">'.$row['appointments'].' Vehicles</button></td>
-                                <td>'.$row['astatus'].'</td>
+                                <td class="text-center"><button class="btn btn-primary text-center" style="width: 150px;">Vehicles</button></td>
+                                <td class="text-center"><button class="btn btn-success text-center" style="width: 150px;">Transactions</button></td>
+                                
 
    
 

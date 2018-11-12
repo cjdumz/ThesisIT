@@ -8,7 +8,7 @@ if(isset($_POST['command1'])){
   if($action=='accept'){
     $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted' WHERE `appointments`.`id` = $id;");
   }else{
-    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Rescheduled' WHERE `appointments`.`id` =  $id");
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Reschedule' WHERE `appointments`.`id` =  $id");
   }
   if($actions_command ->execute()){
     $MSG = "succesully approved appointment";

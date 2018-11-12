@@ -41,9 +41,13 @@ if(isset($_GET['plate'])){
   <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
-  <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/chosen.css" />
 
+  <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+
+  <link rel="stylesheet" href="css/chosen.css" />
+  <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
 </head>
 
 <body>
@@ -282,64 +286,107 @@ if(isset($_GET['plate'])){
                     <h4 class="card-title">Vehicle Hisotry</h4>
                     <!-- start -->
                     <div class="table-responsive">
-                      <table class="table table-bordered table-dark" id="doctables">
-                        <thead>
-                          <tr>
-                            <th>
-                              #
-                            </th>
-                            <th>
-                              First name
-                            </th>
-                            <th>
-                              Product
-                            </th>
-                            <th>
-                              Amount
-                            </th>
-                            <th>
-                              Deadline
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="table-info">
-                            <td>
-                              1
-                            </td>
-                            <td>
-                              Herman Beck
-                            </td>
-                            <td>
-                              Photoshop
-                            </td>
-                            <td>
-                              $ 77.99
-                            </td>
-                            <td>
-                              May 15, 2015
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <table class="table table-bordered table-dark" id="doctables">
+                      <thead>
+                        <tr class="grid">
+                          <th style="font-size:15px;">
+                            ID
+                          </th>
+                          <th style="font-size:15px;">
+                            Owner
+                          </th>
+                          <th style="font-size:15px;">
+                            Date
+                          </th>
+                          <th style="font-size:15px;">
+                            Progress
+                          </th>
+                          <th style="font-size:15px;">
+                            Status
+                          </th>
+                          <th style="font-size:15px;">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-primary" style="color:black;">
+                        <?php
+                            $data = $connection->prepare("SELECT *, concat(firstName,' ',middleName,' ',lastName) as 'Name' FROM `appointments` inner join personalinfo on
+                            appointments.personalId = personalinfo.personalId
+                            where vehicleID = $vehicleID;");
+                            if($data->execute()){
+                                $values = $data->get_result();
+                                while($row = $values->fetch_assoc()) {
+                                echo '
+                                    <tr>
+                                        <td>'.$row['id'].'</td>
+                                        <td>'.$row['Name'].'</td>
+                                        <td>'.$row['date'].'</td>
+                                        <td>
+                                          <div class="progress">
+                                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                                              aria-valuemax="100">
+                                            </div>
+                                           </div>
+                                        </td>
+                                        <td>'.$row['status'].'</td>
+                                        <td class="text-center"><a href="records.php?'.$row['id'].'"><button class="btn btn-primary">View</button></a></td>
+                                        
+                                        
+                                    </tr>
+
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter'.$row['personalId'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <!-- start -->
+                                            
+                                            <form class="forms-sample">
+                                              <div class="form-group row">
+                                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Previous Date</label>
+                                                <div class="col-sm-9">
+                                                  <input type="date" class="form-control" id="exampleInputEmail2" disabled value="">
+                                                </div>
+                                              </div>
+                                              <div class="form-group row">
+                                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Proposed Date</label>
+                                                <div class="col-sm-9">
+                                                  <input type="date" class="form-control" id="exampleInputPassword2" placeholder="">
+                                                </div>
+                                              </div>
+                                            <!-- end -->
+                                          </div>
+                                          <div class="modal-footer" >
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger">Dismiss</button>
+                                            <button type="button" class="btn btn-success">Reschedule</button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                ';
+                                }
+                            }else{
+                                echo "<tr>
+                                        <td colspan='7'>No Available Data</td>
+                                    </tr>";
+                            }
+                        ?>
+                      </tbody>
+                    </table>
                     </div>
                     <!-- end -->
                     
-                </div>
-                <div class="card-footer small text-muted">
-                    <?php 
-                      if($timequery = $connection->query("SELECT modified FROM `vehicles` where id = $vehicleID;")){
-                        $row2 = $timequery->fetch_assoc();
-                        $dateTime = $row2['modified'];
-                        $dateTimeSplit = explode(" ",$dateTime);
-                        $date = $dateTimeSplit[0];
-                        $time = $dateTimeSplit[1];
-                        echo "Updated on ".date('M d, Y',strtotime($date));
-                        echo "  ".date('h:i:s A',strtotime($time));
-                      }else{
-                        echo "No current Update";
-                      }
-                    ?>
                 </div>
               </div>
             </div>
@@ -384,9 +431,11 @@ if(isset($_GET['plate'])){
 	<script src="js/mootools-more-1.4.0.1.js"></script>
   <script src="js/chosen.js"></script>
   <script> $$(".chzn-select").chosen(); $$(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
-
-
-
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.dataTables.js"></script>
+  <script src="js/dataTables.bootstrap4.js"></script>
+  <script src="js/sb-admin-datatables.min.js"></script>
+  
 </body>
 
 </html>
@@ -398,4 +447,3 @@ if(isset($_GET['plate'])){
 
 });
 </script>
-

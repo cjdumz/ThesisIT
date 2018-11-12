@@ -215,7 +215,7 @@
                                       <div class="modal-footer" >
                                         <form action="process/server.php" method="post">
                                             <input type="hidden" name="command1" value="accept">
-                                            <input type="hidden" name="id1" value="19">
+                                            <input type="hidden" name="id1" value="'.$row['ID'].'">
                                           <button class="btn btn-success" type="submit" name="commands1" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
                                           Accept</button>
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>

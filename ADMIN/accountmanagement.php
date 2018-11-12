@@ -137,9 +137,6 @@
                             Mobile Number
                           </th>
                           <th style="font-size:15px;">
-                            Email
-                          </th>
-                          <th style="font-size:15px;">
                             Action
                           </th>
                         </tr>
@@ -156,7 +153,6 @@
                                         <td>'.$row['firstName'].' '.$row['middleName'].' '.$row['lastName'].'</td>
                                         <td>'.$row['address'].'</td>
                                         <td>'.$row['mobileNumber'].'</td>
-                                        <td>'.$row['email'].'</td>
                                         <td class="text-center"><a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary">View</button></a></td>
                                         
                                         

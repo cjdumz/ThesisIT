@@ -1,9 +1,6 @@
 <?php require 'process/require/auth.php';
       require "process/require/dataconf.php";
-if(!isset($_GET['id'])){
-  header("Location: error.php");
-  exit();
-}
+
 
 ?>
 
@@ -83,7 +80,7 @@ if(!isset($_GET['id'])){
             </a>
           </li>
             
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link " href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
@@ -105,226 +102,51 @@ if(!isset($_GET['id'])){
           <div class="row">
             
             <!-- start -->
-
-             <?php
-              if(isset($_GET['id'])){
-                $id = $_GET['id'];
-                $getuser = $connection->prepare('SELECT * FROM personalinfo where personalId = '.$id.' limit 1; ');
-                $getuser->execute();
-                $value = $getuser->get_result();
-                $contentx = $value->fetch_assoc();
-              }
-              ?>
-
-            <!-- end -->
-
-            <!-- start -->
-            <div class="col-lg-4 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Personal Information</h4>
-                  <form action="updateUserInfo.php?<?php echo $contentx['personalId']; ?> ">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['firstName'] ?>" placeholder="<?php echo $contentx['firstName'] ?>">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Middle Name</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['middleName'] ?>" placeholder="<?php echo $contentx['middleName'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['lastName'] ?>" placeholder="<?php echo $contentx['lastName'] ?>">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Suffix</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['suffix'] ?>" placeholder="<?php echo $contentx['suffix'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['address'] ?>" placeholder="<?php echo $contentx['address'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Email Address</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['email'] ?>" placeholder="<?php echo $contentx['email'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Mobile Number</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Telephone Number</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <br><br><br>
-                    <button type="submit" class="btn btn-primary" style="float:right">Update Profile</button>
-                    <div class="clearfix"></div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <!-- end -->
-
-            <!-- start -->
-            <div class="col-lg-8 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Vehicle Information</h4>
-                  <form>
-                    <div class="row">
-                      <div class="col-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Plate Number</label>
-                          <select type="text" class="form-control">
-                          <?php
-                            if(isset($_GET['id'])){
-                              $id = $_GET['id'];
-                              $getpart = $connection->prepare('SELECT * FROM vehicles where personalId = '.$id.' limit 1; ');
-                              $getpart->execute();
-                              $values = $getpart->get_result();
-                              $content = $values->fetch_assoc();
-                              echo' <option hidden value="'.$content['id'].'" selected>'.$content['make'].'('.$content['plateNumber'].')</option>';
-                              $getotherpart = $connection->prepare('SELECT * FROM vehicles where personalId = '.$id.'; ');
-                              $getotherpart->execute();
-                              $values = $getotherpart->get_result();
-                              while($contents = $values->fetch_assoc()) {
-                                  echo' <option value="'.$contents['id'].'">'.$contents['make'].'('.$contents['plateNumber'].')</option>';
-                              }
-                            }
-                            ?>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Status</label>
-                          <select type="text" class="form-control">
-                            <option value="">Active</option>
-                            <option value="">Deactivate</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 ">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Body Type</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Year Model</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Chassis Number</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Engine Classification</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Number of Cylenders</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Type of Drive Terrain</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Make</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Series</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Color</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Engine Number</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Type of Engine</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Engine Displacement</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="float:right">Update Vehicle</button>
-                    <div class="clearfix"></div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <!-- end -->
-
-            <!-- start -->
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Transactions</h4>
+                  <h4 class="card-title">Records</h4>
                   
+                  <div class="col-md-6 ">
+                    <table class="table table-bordered site_pro table-condensed">
+                      <tbody>
+                        <tr><th width="25%">Owner</th><td>Closed</td></tr>
+                        <tr><th>Plate Number:</th><td>4</td></tr>
+                        <tr><th>Services</th><td>Oliver Fleener, Joe Smith, John Jones</td></tr>
+                        <tr><th>Appointment Date</th><td>7/15/2018</td></tr>
+                        <tr><th>Date Requested</th><td>7/15/2018</td></tr>
+                        <tr><th>Date Approved</th><td>7/15/2018</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-6 ">
+    
+    <div class="btn-group btn-group-sm pull-right">
+   <button type="button" class="btn btn-default ">Edit Task</button>
+   <div class="btn-group btn-group-sm">
+     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+       Add Task Item
+       <span class="caret"></span>
+     </button>
+     <ul class="dropdown-menu">
+       <li><a href="#">Add Single Item</a></li>
+       <li><a href="#">Add Prepopluated Items</a></li>
+     </ul>
+   </div>
+ 
+   <div class="btn-group btn-group-sm">
+     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+       Print Task
+       <span class="caret"></span>
+     </button>
+     <ul class="dropdown-menu">
+       <li><a href="#">Print Preview</a></li>
+       <li><a href="#">PDF</a></li>
+     </ul>
+   </div>
+ </div> 
+                  <br>
+
                   <!-- start -->
                   <div class="table-responsive">
                     <table class="table table-bordered table-dark" id="doctables">
