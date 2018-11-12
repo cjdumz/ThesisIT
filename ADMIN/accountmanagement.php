@@ -72,7 +72,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="clientrecords.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Client Records</span>
             </a>
@@ -89,20 +89,6 @@
             <a class="nav-link" href="vehicle.php">
               <i class="menu-icon mdi mdi-car-side"></i>
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
-            </a>
-          </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="blank.php">
-              <i class="menu-icon mdi mdi-settings"></i>
-              <span class="menu-title" style="font-size:14px;">Settings</span>
-            </a>
-          </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-bell"></i>
-              <span class="menu-title" style="font-size:14px;">Notifications</span>
             </a>
           </li>
             
@@ -153,7 +139,9 @@
                           <th style="font-size:15px;">
                             Email
                           </th>
-                          <a href=""></a>
+                          <th style="font-size:15px;">
+                            Action
+                          </th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
@@ -165,10 +153,11 @@
                                 echo '
                                     <tr>
                                         <td>'.$row['personalId'].'</td>
-                                        <td><a href="user.php?id='.$row['personalId'].'">'.$row['firstName'].' '.$row['middleName'].' '.$row['lastName'].'</a></td>
+                                        <td>'.$row['firstName'].' '.$row['middleName'].' '.$row['lastName'].'</td>
                                         <td>'.$row['address'].'</td>
                                         <td>'.$row['mobileNumber'].'</td>
                                         <td>'.$row['email'].'</td>
+                                        <td class="text-center"><a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary">View</button></a></td>
                                         
                                         
                                     </tr>

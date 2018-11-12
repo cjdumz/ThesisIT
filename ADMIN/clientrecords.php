@@ -1,14 +1,16 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
+<?php require 'process/process.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Vehicle</title>
+  <title>Account Management</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
@@ -31,7 +33,7 @@
     <?php include "includes/navbar.php";?>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
+    <!-- partial:partials/_sidebar.html -->
         
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
@@ -69,7 +71,7 @@
             </a>
           </li>
             
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="clientrecords.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Client Records</span>
@@ -83,7 +85,7 @@
             </a>
           </li>
             
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
               <i class="menu-icon mdi mdi-car-side"></i>
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
@@ -92,6 +94,7 @@
             
         </ul>
       </nav>
+        
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -100,71 +103,58 @@
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title" style="font-size:20px;">Vehicles</h4>
-                  <p class="card-description">
-                    List of all registered Vehicles
-                  </p>
+
+                    <div class="row">
+                        <div class="col-11">
+                            <p class="card-title" style="font-size:20px;">Client Records</p>
+                            <p class="card-description">
+                                List of Accepted Request
+                            </p>
+                        </div>
+                    </div>
+                    
                   <div class="table-responsive">
-                    <table class="table table-bordered table-dark" id="doctables">
+                  <!-- start -->
+                  <table class="table table-bordered table-dark" id="doctables">
                       <thead>
                         <tr class="grid">
-                          <th style="font-size:15px;">
-                            Owner
-                          </th>
-                          <th style="font-size:15px;">
-                            Plate
-                          </th>
-                          <th style="font-size:15px;">
-                            Body Type
-                          </th>
-                          <th style="font-size:15px;">
-                            Brand
-                          </th>
-                          <th style="font-size:15px;">
-                            Series
-                          </th>
-                          <th style="font-size:15px;">
-                            Color
-                          </th>
-                          <th style="font-size:15px;">
-                            Status
-                          </th>
-                          <th style="font-size:15px;">
-                            Action
-                          </th>
+                            <th style="font-size:15px;">Customer Name</th>
+                            <th style="font-size:15px;">Transactions</th>
+                            <th style="font-size:15px;">Vehicles</th>
+                            <th style="font-size:15px;">Status</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                       <?php
-                            $data = $connection->prepare("SELECT concat(firstName, ' ', middleName, ' ',lastName ) as 'Name', vehicles.plateNumber, vehicles.bodyType, vehicles.bodyType, vehicles.make, vehicles.series, vehicles.color, vehicles.status FROM `vehicles` join personalinfo where personalinfo.personalId = vehicles.personalId");
-                            if($data->execute()){
-                                $values = $data->get_result();
-                                while($row = $values->fetch_assoc()) {
-                                echo '
-                                    <tr>
-                                        <td>'.$row['Name'].'</td>
-                                        <td>'.$row['plateNumber'].'</td>
-                                        <td>'.$row['bodyType'].'</td>
-                                        <td>'.$row['make'].'</td>
-                                        <td>'.$row['series'].'</td>
-                                        <td>'.$row['color'].'</td>
-                                        <td>'.$row['status'].'</td>
-                                        <td><a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary">View</button></a></td>
-                                    </tr>
+                        $data = $connection->prepare("select concat(firstName,' ',middleName,' ',lastName) as 'Name', count(vehicles.id) as 'vehicles', count(appointments.id) as 'appointments', appointments.status as 'astatus' from vehicles inner join appointments ON
+                        vehicles.id = appointments.vehicleId inner join personalinfo ON appointments.personalId = personalinfo.personalId GROUP BY 1");
+                        if($data->execute()){
+                            $values = $data->get_result();
+                            while($row = $values->fetch_assoc()) {
+                            // $dateTime = $row['date'];
+                            // $dateTimeSplit = explode(" ",$dateTime);
+                            // $date = $dateTimeSplit[0];
+                            echo '
+                                <tr>
+                                <td>'.$row['Name'].'</td>
+                                <td class="text-center"><button class="btn btn-primary text-center" style="width: 120px;">'.$row['vehicles'].' Vehicles</button></td>
+                                <td class="text-center"><button class="btn btn-success text-center" style="width: 120px;">'.$row['appointments'].' Vehicles</button></td>
+                                <td>'.$row['astatus'].'</td>
 
+   
 
-
-                                   
-                                ';
-                                }
-                            }else{
-                                echo "<tr>
-                                        <td colspan='7'>No Available Data</td>
-                                    </tr>";
+                                </tr>
+                            ';
                             }
+                        }else{
+                            echo "<tr>
+                                    <td colspan='7'>No Available Data</td>
+                                </tr>";
+                        }
                         ?>
                       </tbody>
                     </table>
+                  <!-- end -->
                   </div>
                 </div>
               </div>
@@ -181,6 +171,9 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+
+  <!-- Modal -->
+  
   <!-- container-scroller -->
 
   <!-- plugins:js -->
@@ -200,9 +193,41 @@
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
+   <script src="js/script.js"></script>
+  <!-- AJAX Link -->
+ <script>
+$(document).ready(function(){
+  $("#submit").click(function(){
+    var exampleInputName1 = $("#exampleInputName1").val();
+    var exampleInputName2 = $("#exampleInputName2").val();
+    var exampleInputName3 = $("#exampleInputName3").val();
+    var exampleInputPlate = $("#exampleInputPlate").val();
+    var exampleInputEmail = $("#exampleInputEmail").val();
+    var exampleInputMobile = $("#exampleInputMobile").val();
+    var exampleInputTel = $("#exampleInputTel").val();
+    var exampleInputAddress = $("#exampleInputAddress").val();
+    var dataString = 'exampleInputName1=' + exampleInputName1 + '&exampleInputName2=' + exampleInputName2;
+    if(exampleInputName1=='' || exampleInputName2=='' || exampleInputName3=='' || exampleInputNPlate=='' || exampleInputEmail==''
+      || exampleInputMobile=='' || exampleInputTel=='' || exampleInputAddress==''){
+      alert('Fill all fields')
+      $("#display").html("");
+    } else {
+    $.ajax({
+      type: "POST",
+      cache: false,
+      success: function(result){
+       $("#display").html(result);
+      }
+    });
+    }
+    return false;
+  }); 
+});
+</script>
 </body>
 
-</html>
+
+
 
 <script>
   var table = $('#doctables').DataTable({
@@ -211,3 +236,4 @@
 
 });
 </script>
+</html>

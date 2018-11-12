@@ -39,7 +39,7 @@
         <hr class="style2">
             
           <li class="nav-item">
-            <a class="nav-link" id="active" href="dashboard.php">
+            <a class="nav-link" href="dashboard.php">
               <i class="menu-icon mdi mdi-sort-variant"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
@@ -71,7 +71,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link"  href="clientrecords.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Client Records</span>
             </a>
@@ -88,20 +88,6 @@
             <a class="nav-link" href="vehicle.php">
               <i class="menu-icon mdi mdi-car-side"></i>
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
-            </a>
-          </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="blank.php">
-              <i class="menu-icon mdi mdi-settings"></i>
-              <span class="menu-title" style="font-size:14px;">Settings</span>
-            </a>
-          </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-bell"></i>
-              <span class="menu-title" style="font-size:14px;">Notifications</span>
             </a>
           </li>
             

@@ -72,7 +72,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="clientrecords.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Client Records</span>
             </a>
@@ -89,20 +89,6 @@
             <a class="nav-link" href="vehicle.php">
               <i class="menu-icon mdi mdi-car-side"></i>
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
-            </a>
-          </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="blank.php">
-              <i class="menu-icon mdi mdi-settings"></i>
-              <span class="menu-title" style="font-size:14px;">Settings</span>
-            </a>
-          </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-bell"></i>
-              <span class="menu-title" style="font-size:14px;">Notifications</span>
             </a>
           </li>
             
@@ -227,7 +213,7 @@
                                         <!-- end -->
                                       </div>
                                       <div class="modal-footer" >
-                                        <form action="process/server.php" method="post" class="ajax">
+                                        <form action="process/server.php" method="post">
                                             <input type="hidden" name="command1" value="accept">
                                             <input type="hidden" name="id1" value="19">
                                           <button class="btn btn-success" type="submit" name="commands1" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
@@ -366,7 +352,7 @@
 
 });
 </script>
-<script>
+<!-- <script>
 $('form.ajax').on('submit', function(){
     var that = $(this),
         url = that.attr('action'),
@@ -394,4 +380,4 @@ $('form.ajax').on('submit', function(){
     return false;
 
 });
-</script>
+</script> -->

@@ -30,21 +30,6 @@ if(!isset($_GET['id'])){
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
-  
-  
-
-    <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/custom.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="images/favicon.png" />
-  <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
 </head>
 
 <body>
@@ -211,7 +196,7 @@ if(!isset($_GET['id'])){
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Vehicle Information</h4>
-                  <form action="process/updatePersonalInfo.php" method="POST"> 
+                  <form>
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group">
@@ -325,7 +310,7 @@ if(!isset($_GET['id'])){
                           <input type="text" class="form-control">
                         </div>
                       </div>
-                    </div><br><br>
+                    </div>
                     <button type="submit" class="btn btn-primary" style="float:right">Update Vehicle</button>
                     <div class="clearfix"></div>
                   </form>
@@ -338,64 +323,116 @@ if(!isset($_GET['id'])){
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Records</h4>
+                  <h4 class="card-title">Transactions</h4>
                   
                   <!-- start -->
                   <div class="table-responsive">
                     <table class="table table-bordered table-dark" id="doctables">
                       <thead>
-                        <tr class="text-center">
-                          <th>#</th>
-                          <th>Plate Number</th>
-                          <th>Date</th>
-                          <th>Status</th>
-                          <th>Progress</th>
-                          <th>Action</th>
+                        <tr>
+                          <th>
+                            #
+                          </th>
+                          <th>
+                            First name
+                          </th>
+                          <th>
+                            Product
+                          </th>
+                          <th>
+                            Amount
+                          </th>
+                          <th>
+                            Deadline
+                          </th>
                         </tr>
                       </thead>
-                      <tbody class="table-primary" style="color:black;">
-                        
-                      <?php
-                        $data = $connection->prepare("SELECT *,concat(firstName,' ',middleName,' ',lastName) as 'Name', vehicles.plateNumber, appointments.status as 'stats'  FROM `appointments` join `personalinfo` join vehicles
-                        where personalinfo.personalId = $id and appointments.status = 'Accepted' and personalinfo.personalId = appointments.personalId");
-                        if($data->execute()){
-                            $values = $data->get_result();
-                            while($row = $values->fetch_assoc()) {
-                            $dateTime = $row['date'];
-                            $dateTimeSplit = explode(" ",$dateTime);
-                            $date = $dateTimeSplit[0];
-                            echo '
-                                <tr>
-                                <td>'.$row['id'].'</td>
-                                <td>'.$row['plateNumber'].'</td>
-                                <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
-                                <td>'.$row['stats'].'</td>
-                                <td>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
-                                      aria-valuemax="100">
-                                    </div>
-                                  </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="row">
-                                      <div class="col-12">
-                                        <button class="btn btn-success" name="commands1" style="margin-top: 5px; width: 145px; color:white;"  data-toggle="modal" data-target="#appointmentModalCenter'.$row['id'].'"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
-                                        View</button>
-                                      </div>
-                                    </div>
-                                    
-                                </td>
-
-                                </tr>
-                            ';
-                            }
-                        }else{
-                            echo "<tr>
-                                    <td colspan='7'>No Available Data</td>
-                                </tr>";
-                        }
-                        ?>
+                      <tbody>
+                        <tr class="table-info">
+                          <td>
+                            1
+                          </td>
+                          <td>
+                            Herman Beck
+                          </td>
+                          <td>
+                            Photoshop
+                          </td>
+                          <td>
+                            $ 77.99
+                          </td>
+                          <td>
+                            May 15, 2015
+                          </td>
+                        </tr>
+                        <tr class="table-warning">
+                          <td>
+                            2
+                          </td>
+                          <td>
+                            Messsy Adam
+                          </td>
+                          <td>
+                            Flash
+                          </td>
+                          <td>
+                            $245.30
+                          </td>
+                          <td>
+                            July 1, 2015
+                          </td>
+                        </tr>
+                        <tr class="table-danger">
+                          <td>
+                            3
+                          </td>
+                          <td>
+                            John Richards
+                          </td>
+                          <td>
+                            Premeire
+                          </td>
+                          <td>
+                            $138.00
+                          </td>
+                          <td>
+                            Apr 12, 2015
+                          </td>
+                        </tr>
+                        <tr class="table-success">
+                          <td>
+                            4
+                          </td>
+                          <td>
+                            Peter Meggik
+                          </td>
+                          <td>
+                            After effects
+                          </td>
+                          <td>
+                            $ 77.99
+                          </td>
+                          <td>
+                            May 15, 2015
+                          </td>
+                        </tr>
+                        <tr class="table-primary" style="color:black;">
+                          <td>
+                            5
+                          </td>
+                          <td>
+                            Edward
+                          </td>
+                          <td>
+                            Illustrator
+                          </td>
+                          <td>
+                            $ 160.25
+                          </td>
+                          <td>
+                            May 03, 2015
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
