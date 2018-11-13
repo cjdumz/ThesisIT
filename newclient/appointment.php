@@ -1,6 +1,22 @@
 <?php
-session_start();
-include 'process/database.php';
+    session_start();
+    include 'process/database.php';
+    $username=$_SESSION['username'];
+    $profile =new database;
+    $profile->user_profile($username);
+
+    if (!isset($_SESSION['username'])) {
+    $_SESSION['unauthorized_user'] = '<div class="alert alert-danger fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Error</strong>  Unauthorized user please login.
+    </div>';
+        header('location: login.php');
+      }
+  if (isset($_SESSION['username'])) {
+  header("Refresh: 1800; url=process/logout.php?timeout=yes");
+  }
+
+  
 $mechanicalservice = new database ;
 $mechanicalservice -> mechanical_service();
 $electricalservice = new database ;
@@ -15,15 +31,15 @@ $personalinfo -> personal_info();
 $id = $_SESSION['id'];
 $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
 $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
-$sql = "SELECT id, make,series FROM vehicles where personalId = '$result'";
+$sql = "SELECT * FROM vehicles where personalId = '$result'";
 $stmt = $pdo->prepare($sql); 
 $stmt->execute(); 
 $vehicles = $stmt->fetchAll();  
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
      <title>EAS Customs - Make an Appointment</title>
      <link rel="icon" href="images/Logo.png">
 
@@ -48,8 +64,20 @@ $vehicles = $stmt->fetchAll();
      <link rel="stylesheet" href="css/normalize.css"  type="text/css"/>
      <link rel="stylesheet" href="css/datepicker.css"  type="text/css"/> 
      <!-- DatePicker dont move to another line -->
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
      <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script> 
+     <script> 
+      var $jq171 = jQuery.noConflict(true);
+      </script>
+
+
+     <script> 
+      window.jQuery = $jq171;
+     </script>
+     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
@@ -58,6 +86,7 @@ $vehicles = $stmt->fetchAll();
     
 
     <!-- HEADER -->
+
      <header>
           <div class="container" >
                <div class="row">
@@ -77,19 +106,6 @@ $vehicles = $stmt->fetchAll();
                     
         </div>
       </div>
-
-      <style type="text/css">
-      ul.nav li.dropdown:hover > ul.dropdown-menu {
-      display: block;    
-      }
-     @media (min-width: 979px) {
-      ul.nav li.dropdown:hover > ul.dropdown-menu {
-     display: block;
-     }
-    }
-      </style>
-          
-
      </header>
 
 
@@ -110,6 +126,7 @@ $vehicles = $stmt->fetchAll();
 
                </div>
           
+
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
                      <ul class="nav navbar-nav navbar-right">
@@ -137,12 +154,10 @@ $vehicles = $stmt->fetchAll();
 
           </div>
      </section>
+     <br>
+     
 
-  
-
-   
-   
-   <!-- APPOINTMENT SECTION --> 
+  <!-- APPOINTMENT SECTION --> 
     <section id="appointment-detail" data-stellar-background-ratio="3">
           <div class="container">
         
@@ -150,13 +165,14 @@ $vehicles = $stmt->fetchAll();
                         <div class="section-title wow fadeInUp" data-wow-delay="0.2s">
               <h2 align="center">Make an appointment</h2>
                         </div>
-                        <div class="wow fadeInUp" data-wow-delay="0.2s">
+                          <?php echo $id; ?>
+                            <div class="wow fadeInUp" data-wow-delay="0.2s">
                             <div class="row">
                             <div class="col-md-6 col-sm-6">
-                               <label for="select">Select Car</label>
+                               <label for="select" style="font-size: 24px;">Select Car</label>
                                     <select class="form-control" name="vehicle" id="vehicle">
                                                   <?php foreach($vehicles as $vehicle): ?>
-                                                  <option value="<?= $vehicle['id']; ?>"><?= $vehicle['make']; ?> <?= $vehicle['series']; ?></option>
+                                                  <option value="<?= $vehicle['id']; ?>"><?= $vehicle['plateNumber']; ?> <?= $vehicle['make']; ?> <?= $vehicle['series']; ?></option>
                                                   <?php endforeach; ?>                                                  
                                     </select>
                             </div>
@@ -172,7 +188,7 @@ $vehicles = $stmt->fetchAll();
 
           <div class="row" >
           <div class="col-md-12 col-sm-12">        
-          <label for="service">Select Service</label>
+          <label for="service" style="font-size: 24px;">Select Service</label>
           <br><br>
           <div class ="services" >
                               <ul>
@@ -194,7 +210,7 @@ $vehicles = $stmt->fetchAll();
                            foreach($mechanicalservice->mechanical_service as $mechanicalservice):
                           ?>  
                            <div class="col-md-4 col-sm-4">
-                           <input type="checkbox" id="<?= $mechanicalservice['serviceName']; ?>" name="service" value="<?= $mechanicalservice['serviceId']; ?>"><?= $mechanicalservice['serviceName']; ?><br></input>
+                           <input type="checkbox" id="<?= $mechanicalservice['serviceName']; ?>" name="service[]" value="<?= $mechanicalservice['serviceId']; ?>"><?= $mechanicalservice['serviceName']; ?><br></input>
                            </div>
                           <?php 
                             endforeach; 
@@ -208,13 +224,13 @@ $vehicles = $stmt->fetchAll();
                               <?php
                                foreach($electricalservice->electrical_service as $electricalservice):
                               ?>
-                               <div class="col-md-4 col-sm-4">   
-                               <input type="checkbox" name="service" value="<?= $electricalservice['serviceName']; ?>"> 
+                               <div class="col-md-5 col-sm-5">   
+                               <input type="checkbox" name="service[]" value="<?= $electricalservice['serviceName']; ?>"> 
                                <?= $electricalservice['serviceName']; ?>
                                </input>
                                <br>
                              </input>
-
+                               </div>
                               <?php     
                                  endforeach;  
                               ?>
@@ -225,7 +241,7 @@ $vehicles = $stmt->fetchAll();
                               <?php
                                foreach($paintservice->painting_service as $paintservice){
                               ?>   
-                               <input type="checkbox" name="service" value="<?= $paintservice['serviceId']; ?>"><?= $paintservice['serviceName']; ?></input>
+                               <input type="checkbox" name="service[]" value="<?= $paintservice['serviceId']; ?>"><?= $paintservice['serviceName']; ?></input>
                               <br><br>
                               <?php     
                                    }
@@ -233,17 +249,17 @@ $vehicles = $stmt->fetchAll();
                               
                          </div>
                          <div class="service-detail" id="body_Repair" style="display: none">
-                               <input type="checkbox" name="service" value="bodyRepair">Request for Body Repair.</input>
+                               <input type="checkbox" name="service[]" value="bodyRepair">Request for Body Repair.</input>
                               <br><br> 
                          </div>
 
                          <div class="service-detail" id="customization" style="display: none">
-                               <input type="checkbox" name="service" value="custom">Request for Customization.</input>
+                               <input type="checkbox" name="service[]" value="custom">Request for Customization.</input>
                               <br><br> 
                          </div>
 
                          <div class="service-detail" id="maintenance" style="display: none">
-                               <input type="checkbox" name="service" value="maintenance_service">Request for Maintenance.</input>
+                               <input type="checkbox" name="service[]" value="maintenance_service">Request for Maintenance.</input>
                               <br><br> 
                          </div>
                         
@@ -254,14 +270,11 @@ $vehicles = $stmt->fetchAll();
             <?php
                    foreach($personalinfo->personal_info as $personalinfo):
             ?>
-              <input type="text" id="personalId" name="personalId" value="<?= $personalinfo['personalId']; ?>">
+              <input type="hidden" id="personalId" name="personalId" value="<?= $personalinfo['personalId']; ?>">
             <?php 
                    endforeach;  
             ?>
-           </div>
-
-
-                                            
+           </div>                                            
           <br><br>
           <script type="text/javascript">
            var unavailableDates  = [<?php
@@ -272,17 +285,18 @@ $vehicles = $stmt->fetchAll();
           ?>];
            function unavailable(date) {
            dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-           if ($.inArray(dmy, unavailableDates) == -1) {
+           if ($jq171.inArray(dmy, unavailableDates) == -1) {
             return [true, ""];
             } else {
             return [false, "", "Unavailable"];
             }
            }
 
-          $(function(){
-            $('#datepicker').datepicker({
+          $jq171(function(){
+            $jq171('#datepicker').datepicker({
+              dateFormat: 'yy-mm-dd',
               minDate: 0,
-              beforeShowDay: $.datepicker.noWeekends,
+              beforeShowDay: $jq171.datepicker.noWeekends,
               inline: true,
               //nextText: '&rarr;',
               //prevText: '&larr;',
@@ -300,7 +314,7 @@ $vehicles = $stmt->fetchAll();
 
           <div class="col-md-6 col-sm-6">
           <br>
-          <label for="date">Select Date</label>
+          <label for="date" style="font-size: 24px;">Select Date</label>
           <input type="text" id="datepicker" name="date" class="form-control" autocomplete="off">
           </div>         
           </div>
@@ -308,13 +322,13 @@ $vehicles = $stmt->fetchAll();
           
           <div class="row">   
           <div class="col-md-12 col-sm-12">
-          <label for="Message">Additional Message</label>
+          <label for="Message" style="font-size: 24px;">Additional Message/Other Service</label>
           <textarea class="form-control" name="additionalMessage" rows="5" id="additionalMessage" name="message" placeholder="Message"></textarea>
           </div>  
                          </div>
-          <div class="col-md-6 col-sm-6" style="left:25%;">
+          <div class="form-group" style="text-align: center;">
           <br>  <br>
-          <input type="submit" name="post" id="post" class="btn btn-info" value="Post" />
+          <input type="submit" name="post" id="cf-submit" class="btn btn-danger" value="SUBMIT" style="width: 1000px;" />
           </div>
           </div>
 
@@ -328,7 +342,7 @@ $vehicles = $stmt->fetchAll();
    function load_unseen_notification(view = '')
    {
     $.ajax({
-     url:"process/fetch.php",
+     url:"fetch.php",
      method:"POST",
      data:{view:view},
      dataType:"json",
@@ -351,7 +365,7 @@ $vehicles = $stmt->fetchAll();
     {
      var form_data = $(this).serialize();
      $.ajax({
-      url:"process/server.php",
+      url:"insert.php",
       method:"POST",
       data:form_data,
       success:function(data)
@@ -384,7 +398,7 @@ $vehicles = $stmt->fetchAll();
     </section>
    
    <!-- END OF APPOINTMENT SECTION -->
-  <hr>
+
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
           <div class="container">
@@ -393,39 +407,71 @@ $vehicles = $stmt->fetchAll();
                     <div class="col-md-4 col-sm-4">
                          <div class="footer-thumb"> 
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
+                              <p>Fusce at libero iaculis, venenatis augue quis, pharetra lorem. Curabitur ut dolor eu elit consequat ultricies.</p>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fa fa-phone"></i> 010-070-0170</p>
+                                   <p><i class="fa fa-envelope-o"></i> <a href="#">info@company.com</a></p>
                               </div>
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-4"> 
                          <div class="footer-thumb"> 
+                              <h4 class="wow fadeInUp" data-wow-delay="0.4s">Latest News</h4>
+                              <div class="latest-stories">
+                                   <div class="stories-image">
+                                        <a href="#"><img src="images/news-image.jpg" class="img-responsive" alt=""></a>
+                                   </div>
+                                   <div class="stories-info">
+                                        <a href="#"><h5>Amazing Technology</h5></a>
+                                        <span>March 08, 2018</span>
+                                   </div>
+                              </div>
+
+                              <div class="latest-stories">
+                                   <div class="stories-image">
+                                        <a href="#"><img src="images/news-image.jpg" class="img-responsive" alt=""></a>
+                                   </div>
+                                   <div class="stories-info">
+                                        <a href="#"><h5>New Healing Process</h5></a>
+                                        <span>February 20, 2018</span>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4"> 
+                         <div class="footer-thumb">
                               <div class="opening-hours">
                                    <h4 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h4>
                                    <p>Monday - Friday <span>06:00 AM - 10:00 PM</span></p>
-                                   <p>Saturday <span>06:00 AM - 10:00 PM</span></p>
+                                   <p>Saturday <span>09:00 AM - 08:00 PM</span></p>
                                    <p>Sunday <span>Closed</span></p>
                               </div> 
 
                               <ul class="social-icon">
+                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                   <li><a href="#" class="fa fa-twitter"></a></li>
+                                   <li><a href="#" class="fa fa-instagram"></a></li>
                               </ul>
-
                          </div>
                     </div>
 
                     <div class="col-md-12 col-sm-12 border-top">
                          <div class="col-md-4 col-sm-6">
-                              <p>Copyright &copy; Abenchers 2018 
+                              <div class="copyright-text"> 
+                                   <p>Copyright &copy; 2018 Your Company 
                                    
-                                   | Design: <a rel="nofollow" href="https://www.facebook.com/tooplate" target="_parent">IT Project 2</a></p>
+                                   | Design: <a rel="nofollow" href="https://www.facebook.com/tooplate" target="_parent">Tooplate</a></p>
+                              </div>
                          </div>
                          <div class="col-md-6 col-sm-6">
                               <div class="footer-link"> 
-
+                                   <a href="#">Laboratory Tests</a>
+                                   <a href="#">Departments</a>
+                                   <a href="#">Insurance Policy</a>
+                                   <a href="#">Careers</a>
                               </div>
                          </div>
                          <div class="col-md-2 col-sm-2 text-align-center">
@@ -438,21 +484,18 @@ $vehicles = $stmt->fetchAll();
                </div>
           </div>
      </footer>
-     <!-- SCRIPTS -->
-    
 
+     <!-- SCRIPTS -->
+
+     <script src="js/jquery.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>
-     <script src="js/jquery.magnific-popup.min.js"></script>
-     <script src="js/magnific-popup-options.js"></script>
      <script src="js/wow.min.js"></script>
+     <script src="js/smoothscroll.js"></script>
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
      <script src="js/script.js"></script>
-     
-
-  
 
 </body>
 </html>

@@ -51,7 +51,7 @@ $('document').ready(function(){
         $("#electrical_service").hide();
         $("#mechanical_service").hide();
         $("#body_Repair").hide();
-        $("#painting").hide();
+        $("#paint_service").hide();
         $("#maintenance_service").hide();
 
 

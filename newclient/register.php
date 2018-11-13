@@ -174,7 +174,7 @@
     <span id="message" style="font-size: 0.9em"></span>
     </div>
     </div>
-        <div id="error_msg"></div>
+    <div id="error_msg"></div>
     <div class="form-group">
     <button type="button" name="register" id="reg_btn">Register</button>
     </div>
