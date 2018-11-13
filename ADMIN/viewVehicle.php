@@ -330,7 +330,7 @@ if(isset($_GET['plate'])){
                                            </div>
                                         </td>
                                         <td>'.$row['status'].'</td>
-                                        <td class="text-center"><a href="records.php?'.$row['id'].'"><button class="btn btn-primary">View</button></a></td>
+                                        <td class="text-center"><a href="records.php?id='.$row['id'].'"><button class="btn btn-primary">View</button></a></td>
                                         
                                         
                                     </tr>
