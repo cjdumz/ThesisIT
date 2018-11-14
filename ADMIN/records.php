@@ -72,7 +72,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
