@@ -106,8 +106,8 @@
                   <p class="card-title" style="font-size:20px;">Appointments</p>
                   <p class="card-description">
                     List of Appointment Request
-                    
                   </p>
+                    
                   <div class="table-responsive">
                     <table class="table table-bordered table-dark" id="doctables">
                       <thead>
