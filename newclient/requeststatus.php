@@ -4,6 +4,18 @@
     $username=$_SESSION['username'];
     $profile =new database;
     $profile->user_profile($username);
+    
+
+    $id = $_SESSION['id'];
+    $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+    $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
+    $_SESSION['personalId'] = $result;
+    $appointmentactive =new database;
+    $appointmentactive->appointment_active();
+    $appointmentpending =new database;
+    $appointmentpending->appointment_pending();
+    $appointmentreschedule =new database;
+    $appointmentreschedule->appointment_reschedule();
 
     if (!isset($_SESSION['username'])) {
     $_SESSION['unauthorized_user'] = '<div class="alert alert-danger fade in">
@@ -20,7 +32,7 @@
 <html lang="en">
 <head>
 
-     <title>EAS Customs - Home</title>
+     <title>EAS Customs - Request Status</title>
      
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -29,11 +41,15 @@
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
      <link rel="icon" href="images/Logo.png">
-     <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+     <!-- Font Awesome Version 5.0 -->
+     <link rel="stylesheet" href="css/all.css">
+     <script src="js/jquery.js"></script>
+     
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
@@ -42,13 +58,7 @@
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
      <!-- PRE LOADER -->
-     <section class="preloader">
-          <div class="spinner">
-
-               <span class="spinner-rotate"></span>
-               
-          </div>
-     </section>
+  
     
 
     <!-- HEADER -->
@@ -72,22 +82,12 @@
         </div>
       </div>
 
-      <style type="text/css">
-      ul.nav li.dropdown:hover > ul.dropdown-menu {
-      display: block;    
-      }
-     @media (min-width: 979px) {
-      ul.nav li.dropdown:hover > ul.dropdown-menu {
-     display: block;
-     }
-    }
-      </style>
-          
+     
 
      </header>
 
 
-     <!-- MENU -->
+    <!-- MENU -->
      <section class="navbar navbar-default navbar-static-top" role="navigation" >
           <div class="container">
 
@@ -107,23 +107,33 @@
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
-                     <ul class="nav navbar-nav navbar-right">
+                     <ul class="nav navbar-nav ">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fas fa-user-circle"></i></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
               <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
+                  <?php endif ?>
              </ul>
-                    <?php endif ?>
-                    <ul class="nav navbar-nav">
-                          <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
-                          <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
-                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>
-                         <li><a href="requeststatus.php" class="smoothScroll"><i class="fa fa-calendar-o" aria-hidden="true"></i> Appointment Status  <span class="badge"> 4</span></a></li>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                          
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
+                        <li class="dropdown">
+                        <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
+                        <li class="dropdown">
+                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" aria-hidden="true" style="font-size: 20px;padding: 0;"></i>  <span class="label label-pill label-danger count" style="border-radius:10px;"></span></a>
+                         <ul class="dropdown-menu" id="dropdownnotif" aria-labelledby="dropdownMenuDivider"></ul>
+                        </li>          
+                        <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
+
+                          
+                           
                     </ul>
                </div>
 
@@ -159,29 +169,62 @@
     
     echo '<script type="text/javascript">
       $("document").ready(function(){
-      $("#activeContent").show();
+      $("#pendingContent").show();
+        });
+        </script>'; 
+   }
+   elseif (isset($_REQUEST['status'])== "Reschedule") 
+   {
+    
+    echo '<script type="text/javascript">
+      $("document").ready(function(){
+      $("#rescheduleContent").show();
+        });
+        </script>'; 
+   }
+   else
+   {
+    
+    echo '<script type="text/javascript">
+      $("document").ready(function(){
+      $("#pendingContent").show();
         });
         </script>'; 
    }
 
     ?>
+  <div class="container">
   <div class="btn-group" role="group" aria-label="...">
     <button type="button" role="button" id='Pending' class="btn btn-default">Pending</button>
     <button type="button" role="button" id="Active" class="btn btn-default">Active</button>
     <button type="button" role="button" id="Reschedule" class="btn btn-default">Reschedule</button>
     <br>
-  </div><br>
-
-  <div id="pendingContent" style="display: none">
-  <div class="container">
-  <div class="panel panel-default" id="headings">
-              <div class="panel-heading">This is Pending</div>
-              <div class="panel-body">
-              </div>
-            </div>
   </div>
   </div>
-
+ <br> 
+ <div id="pendingContent" style="display: none;overflow-y: auto;height: 1000px;" >
+ <div class="container">
+ <div class="jumbotron">         
+  <?php
+                foreach($appointmentpending->appointment_pending as $appointmentpending):
+                ?> 
+                 <?php echo '<div class="panel panel-default" id="headings">'; ?> 
+                 <?php echo '<div class="panel-heading">This is Pending</div>'; ?>
+                 <?php echo '<div class="panel-body">'; ?>
+                
+                 <?= $appointmentpending['personalId']; ?> 
+                 <?= $appointmentpending['status']; ?> 
+                 <?= $appointmentpending['date']; ?>
+                <?php echo '</div>'; ?>
+                <?php echo '</div>'; ?>
+             <?php     
+                endforeach;  
+             ?>
+  </div>
+  </div>
+  </div>    
+  
+    
   <div id="activeContent" style="display: none">
   <div class="container">
   <div class="panel panel-default" id="headings">
@@ -291,8 +334,67 @@
           </div>
      </footer>
 
+     <script>
+  $(document).ready(function(){
+   
+   function load_unseen_notification(view = '')
+   {
+    $.ajax({
+     url:"process/fetch.php",
+     method:"POST",
+     data:{view:view},
+     dataType:"json",
+     success:function(data)
+     {
+      $('#dropdownnotif').html(data.notification);
+      if(data.unseen_notification > 0)
+      {
+       $('.count').html(data.unseen_notification);
+      }
+     }
+    });
+   }
+   
+   load_unseen_notification();
+   
+   $('#appointment_form').on('submit', function(event){
+    event.preventDefault();
+    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '')
+    {
+     var form_data = $(this).serialize();
+     $.ajax({
+      url:"process/insert.php",
+      method:"POST",
+      data:form_data,
+      success:function(data)
+      {
+       $('#appointment_form')[0].reset();
+       load_unseen_notification();
+      }
+     });
+    }
+    else
+    {
+     alert("Both Fields are Required");
+    }
+   });
+   
+   $(document).on('click', '.dropdown-toggle', function(){
+    $('.count').html('');
+    load_unseen_notification('yes');
+   });
+   
+   setInterval(function(){ 
+    load_unseen_notification();; 
+   }, 5000);
+   
+  });
+  </script>
+
+     
+
      <!-- SCRIPTS -->
-     <script src="js/jquery.js"></script>
+     
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>
@@ -300,6 +402,7 @@
      <script src="js/smoothscroll.js"></script>
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
+     <script src="js/script.js"></script>
 
 </body>
 </html>

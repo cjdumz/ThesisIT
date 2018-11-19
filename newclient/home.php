@@ -101,9 +101,9 @@
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
-                     <ul class="nav navbar-nav navbar-right">
+              <ul class="nav navbar-nav navbar-right">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 0;"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
                   <ul class="dropdown-menu">
                      <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
@@ -142,7 +142,7 @@
       <div class="container">
       <div class="jumbotron">
         <h1>Welcome to EAS Customs</h1>
-        <p>A quick preview of everything Bootstrap has to offer.</p>
+        <p>A quick preview of everything EAS has to offer.</p>
         <p><a class="btn btn-primary btn-large">Learn more</a></p>
       </div>
 

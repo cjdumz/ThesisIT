@@ -1,18 +1,16 @@
 <?php
 if(isset($_POST["view"]))
 {
-include 'process/database.php';
-$db = mysqli_connect('localhost', 'root', '', 'thesis');
- 
+ $db = mysqli_connect('localhost', 'root', '','thesis');
  if($_POST["view"] != '')
  {
   $update_query = "UPDATE appointments SET notification=1 WHERE notification=0";
   mysqli_query($db, $update_query);
  }
-
- $query = "SELECT * FROM appointments ORDER BY id DESC LIMIT 5";
+ $query = "SELECT appointments.status AS status, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, appointments.created as created, vehicles.plateNumber as plateNumber FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId ORDER BY `appointments`.`created` DESC LIMIT 5";
  $result = mysqli_query($db, $query);
  $output = '';
+ //SELECT appointments.status AS status, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, appointments.created as created, vehicles.plateNumber as plateNumber FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId ORDER BY `appointments`.`created` DESC LIMIT 5
  if(mysqli_num_rows($result) > 0)
  {
   while($row = mysqli_fetch_array($result))
@@ -20,8 +18,9 @@ $db = mysqli_connect('localhost', 'root', '', 'thesis');
    $output .= '
    <li>
     <a href="requeststatus.php?status='.$row["status"].'">
-     <strong>Vehicle '.$row["vehicleId"].$row["personalId"].$row["serviceId"].' </strong><br/>
-     <small><em>This vehicle is now '.$row["status"].' check it here </em></small>
+     <strong>Vehicle '.$row["plateNumber"].' '.$row["make"].' '.$row["series"].' '.$row["yearModel"].' </strong><br>
+     <em>Is now '.$row["status"].' check it here </em><br>
+     <b>'.date("m/d/y h:i A",strtotime($row["created"])).'</b>
     </a>
    </li>
    <li class="divider"></li>

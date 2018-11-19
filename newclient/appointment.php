@@ -1,6 +1,7 @@
 <?php
     session_start();
     include 'process/database.php';
+
     $username=$_SESSION['username'];
     $profile =new database;
     $profile->user_profile($username);
@@ -30,7 +31,7 @@ $personalinfo -> personal_info();
 
 $id = $_SESSION['id'];
 $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
-$result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
+$result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn(); 
 $sql = "SELECT * FROM vehicles where personalId = '$result'";
 $stmt = $pdo->prepare($sql); 
 $stmt->execute(); 
@@ -52,7 +53,8 @@ $vehicles = $stmt->fetchAll();
      <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/magnific-popup.css">
-     
+     <!-- Font Awesome Version 5.0 -->
+     <link rel="stylesheet" href="css/all.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
 
@@ -65,8 +67,8 @@ $vehicles = $stmt->fetchAll();
      <link rel="stylesheet" href="css/datepicker.css"  type="text/css"/> 
      <!-- DatePicker dont move to another line -->
 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
+     <!-- Notification Jquery Library -->
+     <script src="js/jquery.js"></script>
 
      <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
      <script> 
@@ -86,14 +88,13 @@ $vehicles = $stmt->fetchAll();
     
 
     <!-- HEADER -->
-
      <header>
           <div class="container" >
                <div class="row">
          
           <div class="col-md-4 col-sm-5">
                        <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
-                       <a href="index.html" class="navbar-brand" >EAS Customs</a>
+                       <a href="home.php" class="navbar-brand" >EAS Customs</a>
           </div>
 
               <div class="col-md-8 col-sm-7 text-align-right">
@@ -129,32 +130,38 @@ $vehicles = $stmt->fetchAll();
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
-                     <ul class="nav navbar-nav navbar-right">
+                     <ul class="nav navbar-nav ">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 0;"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
               <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
+                  <?php endif ?>
              </ul>
-                    <?php endif ?>
-                    <ul class="nav navbar-nav">
-                          <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
-                          <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
-                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>
-                         <li class="dropdown">
-                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-calendar-o" aria-hidden="true"></i> Appointment Status <span class="label label-pill label-danger count" style="border-radius:10px;"></span></a>
-                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider"></ul>
-                        </li>              
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                          
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
+                        <li class="dropdown">
+                        <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
+                        <li class="dropdown">
+                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" aria-hidden="true" style="font-size: 20px;padding: 0;"></i>  <span class="label label-pill label-danger count" style="border-radius:10px;"></span></a>
+                         <ul class="dropdown-menu" id="dropdownnotif" aria-labelledby="dropdownMenuDivider"></ul>
+                        </li>          
+                        <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
+
+                          
+                           
                     </ul>
                </div>
 
           </div>
      </section>
-     <br>
      
 
   <!-- APPOINTMENT SECTION --> 
@@ -165,7 +172,6 @@ $vehicles = $stmt->fetchAll();
                         <div class="section-title wow fadeInUp" data-wow-delay="0.2s">
               <h2 align="center">Make an appointment</h2>
                         </div>
-                          <?php echo $id; ?>
                             <div class="wow fadeInUp" data-wow-delay="0.2s">
                             <div class="row">
                             <div class="col-md-6 col-sm-6">
@@ -185,7 +191,7 @@ $vehicles = $stmt->fetchAll();
                             </div>
                             </div>
                             <br><br>
-
+          <?php echo $result ?>
           <div class="row" >
           <div class="col-md-12 col-sm-12">        
           <label for="service" style="font-size: 24px;">Select Service</label>
@@ -210,7 +216,7 @@ $vehicles = $stmt->fetchAll();
                            foreach($mechanicalservice->mechanical_service as $mechanicalservice):
                           ?>  
                            <div class="col-md-4 col-sm-4">
-                           <input type="checkbox" id="<?= $mechanicalservice['serviceName']; ?>" name="service[]" value="<?= $mechanicalservice['serviceId']; ?>"><?= $mechanicalservice['serviceName']; ?><br></input>
+                           <input type="checkbox" class="service" name="service" id="<?= $mechanicalservice['serviceName']; ?>"  value="<?= $mechanicalservice['serviceId']; ?>"><?= $mechanicalservice['serviceName']; ?><br></input>
                            </div>
                           <?php 
                             endforeach; 
@@ -225,7 +231,7 @@ $vehicles = $stmt->fetchAll();
                                foreach($electricalservice->electrical_service as $electricalservice):
                               ?>
                                <div class="col-md-5 col-sm-5">   
-                               <input type="checkbox" name="service[]" value="<?= $electricalservice['serviceName']; ?>"> 
+                               <input type="checkbox" name="service[]" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"> 
                                <?= $electricalservice['serviceName']; ?>
                                </input>
                                <br>
@@ -241,7 +247,7 @@ $vehicles = $stmt->fetchAll();
                               <?php
                                foreach($paintservice->painting_service as $paintservice){
                               ?>   
-                               <input type="checkbox" name="service[]" value="<?= $paintservice['serviceId']; ?>"><?= $paintservice['serviceName']; ?></input>
+                               <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceId']; ?>"><?= $paintservice['serviceName']; ?></input>
                               <br><br>
                               <?php     
                                    }
@@ -330,25 +336,23 @@ $vehicles = $stmt->fetchAll();
           <br>  <br>
           <input type="submit" name="post" id="cf-submit" class="btn btn-danger" value="SUBMIT" style="width: 1000px;" />
           </div>
-          </div>
+          </div>         
+          </form>
 
 
-
-                         
-                    </form>
-           <script>
+  <script>
   $(document).ready(function(){
    
    function load_unseen_notification(view = '')
    {
     $.ajax({
-     url:"fetch.php",
+     url:"process/fetch.php",
      method:"POST",
      data:{view:view},
      dataType:"json",
      success:function(data)
      {
-      $('.dropdown-menu').html(data.notification);
+      $('#dropdownnotif').html(data.notification);
       if(data.unseen_notification > 0)
       {
        $('.count').html(data.unseen_notification);
@@ -365,7 +369,7 @@ $vehicles = $stmt->fetchAll();
     {
      var form_data = $(this).serialize();
      $.ajax({
-      url:"insert.php",
+      url:"process/insert.php",
       method:"POST",
       data:form_data,
       success:function(data)

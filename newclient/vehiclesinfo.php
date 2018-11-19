@@ -29,22 +29,20 @@
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
      <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
+     <!-- Font Awesome Version 5.0 -->
+     <link rel="stylesheet" href="css/all.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
      <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
-
+     <script src="js/jquery.js"></script>
+     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
-
-
-    
-
-
 
      <header>
           <div class="container" >
@@ -79,6 +77,7 @@
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
                     </button>
 
                     <!-- lOGO TEXT HERE -->
@@ -89,23 +88,33 @@
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
-                     <ul class="nav navbar-nav navbar-right">
+                     <ul class="nav navbar-nav ">
                      <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
               <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
+                  <?php endif ?>
              </ul>
-                    <?php endif ?>
-                    <ul class="nav navbar-nav">
-                          <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
-                          <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
-                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>
-                         <li><a href="requeststatus.php" class="smoothScroll"><i class="fa fa-calendar-o" aria-hidden="true"></i> Appointment Status  <span class="badge"> 4</span></a></li>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                          
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
+                        <li class="dropdown">
+                        <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
+                        <li class="dropdown">
+                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" aria-hidden="true" style="font-size: 20px;padding: 0;"></i>  <span class="label label-pill label-danger count" style="border-radius:10px;"></span></a>
+                         <ul class="dropdown-menu" id="dropdownnotif" aria-labelledby="dropdownMenuDivider"></ul>
+                        </li>          
+                        <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
+
+                          
+                           
                     </ul>
                </div>
 
@@ -153,7 +162,7 @@
         <small id="reminder" class="form-text text-muted">Please fill out the required fields.</small>
         <div class="form-group">
          <?php 
-         foreach($personalinfo->personalinfo as $personalinfo){
+         foreach($personalinfo->personal_info as $personalinfo){
          ?> 
            <input type="hidden" name="personalId" value="<?php echo $personalinfo['personalId']; ?>">
          <?php
@@ -232,8 +241,6 @@
             $resultCheck = mysqli_num_rows($res);
                    if ($resultCheck > 0) {
                     while ($row = mysqli_fetch_assoc($res)) {
-
-              
             ?>
       
       <tr>
@@ -525,13 +532,82 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
    
          </div>
         </div>
       </div>
     </div>
-  
+     <script>
+  $(document).ready(function(){
+   
+   function load_unseen_notification(view = '')
+   {
+    $.ajax({
+     url:"process/fetch.php",
+     method:"POST",
+     data:{view:view},
+     dataType:"json",
+     success:function(data)
+     {
+      $('#dropdownnotif').html(data.notification);
+      if(data.unseen_notification > 0)
+      {
+       $('.count').html(data.unseen_notification);
+      }
+     }
+    });
+   }
+   
+   load_unseen_notification();
+   
+   $('#appointment_form').on('submit', function(event){
+    event.preventDefault();
+    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '')
+    {
+     var form_data = $(this).serialize();
+     $.ajax({
+      url:"process/insert.php",
+      method:"POST",
+      data:form_data,
+      success:function(data)
+      {
+       $('#appointment_form')[0].reset();
+       load_unseen_notification();
+      }
+     });
+    }
+    else
+    {
+     alert("Both Fields are Required");
+    }
+   });
+   
+   $(document).on('click', '.dropdown-toggle', function(){
+    $('.count').html('');
+    load_unseen_notification('yes');
+   });
+   
+   setInterval(function(){ 
+    load_unseen_notification();; 
+   }, 5000);
+   
+  });
+  </script>
 
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
@@ -618,9 +694,9 @@
                </div>
           </div>
      </footer>
-
+  
      <!-- SCRIPTS -->
-     <script src="js/jquery.js"></script>
+     
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>
@@ -638,12 +714,12 @@
  
 
      <script>
-  var table = $('#doctables').DataTable({
-    // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+      var table = $('#doctables').DataTable({
+      // PAGELENGTH OPTIONS
+      "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
 
-});
-</script>
+      });
+    </script>
 
 </body>
 </html>

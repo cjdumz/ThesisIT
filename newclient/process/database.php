@@ -81,13 +81,12 @@ class database{
 	}
 
 	public function appointment_info_activeschedule(){
-		$query=$this->conn->query("SELECT * from appointments where status='accepted'");
+		$query=$this->conn->query("SELECT * from daterestricted where status='Accepted'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
 			$this->appointment_info[]=$row;
 		}
 		return $this->appointment_info;
 	}
-
 
 	public function vehicle_info(){
 		$query=$this->conn->query("SELECT * from vehicles where user_id= '".$_SESSION['id']."'");
@@ -96,6 +95,31 @@ class database{
 		}
 		return $this->vehicle_info;
 	}
+
+	public function appointment_active(){
+		$query=$this->conn->query("SELECT * from appointments where status='Accepted' AND personalId ='".$_SESSION['personalId']."'");
+		while($row=$query->fetch_array(MYSQLI_ASSOC)){
+			$this->appointment_active[]=$row;
+		}
+		return $this->appointment_active;
+	}
+
+	public function appointment_pending(){
+		$query=$this->conn->query("SELECT * from appointments where status='Pending' AND personalId ='".$_SESSION['personalId']."'");
+		while($row=$query->fetch_array(MYSQLI_ASSOC)){
+			$this->appointment_pending[]=$row;
+		}
+		return $this->appointment_pending;
+	}
+
+	public function appointment_reschedule(){
+		$query=$this->conn->query("SELECT * from appointments where status='Reschedule' AND personalId ='".$_SESSION['personalId']."'");
+		while($row=$query->fetch_array(MYSQLI_ASSOC)){
+			$this->appointment_reschedule[]=$row;
+		}
+		return $this->appointment_reschedule;
+	}
+
 
 
 }

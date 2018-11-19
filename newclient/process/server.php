@@ -189,7 +189,7 @@ if (isset($_POST['account_edit'])) {
     if (mysqli_query($db, $query) == true) {
     $_SESSION['vehicle_add'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> ' .$make.' '.$series.'was added successfully </div>';
+    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> ' .$make.' '.$series.' was added successfully </div>';
      header('location: vehiclesinfo.php');
      exit();
     }else {

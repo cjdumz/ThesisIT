@@ -65,6 +65,28 @@ $('document').ready(function(){
         $("#customization").hide();
 
     });
+ 
+ $("#Pending").click(function(){
+        $("#pendingContent").toggle();
+        $("#activeContent").hide();
+        $("#rescheduleContent").hide();
+
+    });
+ $("#Active").click(function(){
+        $("#activeContent").toggle();
+        $("#pendingContent").hide();
+        $("#rescheduleContent").hide();
+
+    });
+ $("#Reschedule").click(function(){
+        $("#rescheduleContent").toggle();
+        $("#pendingContent").hide();
+        $("#activeContent").hide();
+
+    });
+
+
+
 
 $('input[name="service"]').click(function () { getSelectedCheckBoxes('service'); 
   }); 
@@ -76,10 +98,11 @@ $('input[name="service"]').click(function () { getSelectedCheckBoxes('service');
     if (result.length > 0) { 
     var resultString = result.length + " checkboxe(s) checked<br>"; 
     result.each(function () { 
-      resultString += $(this).attr("id") + "<br/>"; 
+      resultString += $(this).attr("id") + "<br/>";
+      resultString1 += $(this).attr("class") + "<br/>"; 
       //resultString += $(this).val() + "<br/>"; 
     });  
-     $('#serviceDisplay').html(resultString); 
+     $('#serviceDisplay').html(resultString1); 
     
    } 
 
@@ -430,7 +453,7 @@ $('#plateNumber').blur(function() {
   var make = $('#make').val();
   var series = $('#series').val();
   var color = $('#color').val();
-  if (username_state == false || email_state == false || firstName_state == false || middleName_state == false || lastName_state == false || contactNumber_state == false || address_state == false || email_state == false || username_state == false || password_state == false) {
+  if (username_state == false) {
     $('#error_msg').html('<div class="alert alert-danger fade in align="center"><a href="#" class="close" data-dismiss="alert">&times;</a><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> There are still errors in the form.</div>');
   }else{
       // proceed with form submission
