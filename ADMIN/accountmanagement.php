@@ -65,7 +65,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
@@ -153,50 +153,50 @@
                                         <td>'.$row['firstName'].' '.$row['middleName'].' '.$row['lastName'].'</td>
                                         <td>'.$row['address'].'</td>
                                         <td>'.$row['mobileNumber'].'</td>
-                                        <td class="text-center"><a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary">View</button></a></td>
-                                        
-                                        
+                                        <td class="text-center">
+                                          <a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary">View</button></a>
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal'.$row['personalId'].'">Send SMS</button>
+                                        </td>
                                     </tr>
 
-
-
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter'.$row['personalId'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal modal-lg fade" id="exampleModal'.$row['personalId'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                          <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Send SMS</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
                                           <div class="modal-body">
-                                            <!-- start -->
+                                          <form action="process/sms.php" method="POST">
+                                            <div class="form-group row">
+                                              <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Phone Number</label>
+                                              <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="phone" id="exampleInputEmail2"  value="'.$row['mobileNumber'].'">
+                                              </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                              <label for="exampleInputEmail3" class="col-sm-3 col-form-label">Phone Number</label>
+                                              <div class="col-sm-9">
+                                                <textarea type="text" class="form-control" name="message" id="exampleInputEmail3"></textarea>
+                                              </div>
+                                            </div>
                                             
-                                            <form class="forms-sample">
-                                              <div class="form-group row">
-                                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Previous Date</label>
-                                                <div class="col-sm-9">
-                                                  <input type="date" class="form-control" id="exampleInputEmail2" disabled value="">
-                                                </div>
-                                              </div>
-                                              <div class="form-group row">
-                                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Proposed Date</label>
-                                                <div class="col-sm-9">
-                                                  <input type="date" class="form-control" id="exampleInputPassword2" placeholder="">
-                                                </div>
-                                              </div>
-                                            <!-- end -->
+                                    
                                           </div>
-                                          <div class="modal-footer" >
+                                          <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-danger">Dismiss</button>
-                                            <button type="button" class="btn btn-success">Reschedule</button>
-                                            </form>
+                                            <button type="submit" name="send-sms" class="btn btn-primary">Send</button>
                                           </div>
+                                          </form>
                                         </div>
                                       </div>
                                     </div>
+
+
                                 ';
                                 }
                             }else{

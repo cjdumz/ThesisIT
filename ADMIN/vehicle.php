@@ -43,7 +43,7 @@
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
-            
+          
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon mdi mdi-inbox"></i>
@@ -61,9 +61,9 @@
               </ul>
             </div>
           </li>
-            
+          
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
@@ -109,9 +109,6 @@
                       <thead>
                         <tr class="grid">
                           <th style="font-size:15px;">
-                            Owner
-                          </th>
-                          <th style="font-size:15px;">
                             Plate
                           </th>
                           <th style="font-size:15px;">
@@ -142,7 +139,6 @@
                                 while($row = $values->fetch_assoc()) {
                                 echo '
                                     <tr>
-                                        <td>'.$row['Name'].'</td>
                                         <td>'.$row['plateNumber'].'</td>
                                         <td>'.$row['bodyType'].'</td>
                                         <td>'.$row['make'].'</td>

@@ -1,9 +1,13 @@
-<?php require 'process/require/auth.php';
-      require "process/require/dataconf.php";
-
-
+<?php require 'process/require/auth.php';?>
+<?php require "process/require/dataconf.php";?>
+<?php require "process/check/appointmentcheck.php";?>
+<?php if(!isset($_GET['id'])){
+        header("Location: error.php");
+        exit();
+      }else{
+        $id = $_GET['id'];
+      }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,8 +16,9 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>User</title>
+  <title>Appointment Request</title>
   <link rel="icon" href="images/Logo.png">
+    
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -35,22 +40,22 @@
     <?php include "includes/navbar.php";?>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
-        
-          <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed;">
+    <!-- partial:partials/_sidebar.html -->
+    
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
         <hr class="style2">
             
           <li class="nav-item">
             <a class="nav-link" href="dashboard.php">
-              <i class="menu-icon mdi mdi-sort-variant"></i>
+              <i class="menu-icon mdi mdi-inbox"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
             
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-inbox"></i>
+              <i class="menu-icon mdi mdi-content-copy"></i>
               <span class="menu-title" style="font-size:14px;">Request</span>
               <i class="menu-arrow"></i>
             </a>
@@ -67,7 +72,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
@@ -81,7 +86,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link " href="accountmanagement.php">
+            <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
@@ -93,177 +98,134 @@
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
             </a>
           </li>
-    
+            
         </ul>
       </nav>
+
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
             
-            <!-- start -->
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Records</h4>
-                  
-                  <div class="col-md-6 ">
-                    <table class="table table-bordered site_pro table-condensed">
-                      <tbody>
-                        <tr><th width="25%">Owner</th><td>Closed</td></tr>
-                        <tr><th>Plate Number:</th><td>4</td></tr>
-                        <tr><th>Services</th><td>Oliver Fleener, Joe Smith, John Jones</td></tr>
-                        <tr><th>Appointment Date</th><td>7/15/2018</td></tr>
-                        <tr><th>Date Requested</th><td>7/15/2018</td></tr>
-                        <tr><th>Date Approved</th><td>7/15/2018</td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="col-md-6 ">
-    
-    <div class="btn-group btn-group-sm pull-right">
-   <button type="button" class="btn btn-default ">Edit Task</button>
-   <div class="btn-group btn-group-sm">
-     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-       Add Task Item
-       <span class="caret"></span>
-     </button>
-     <ul class="dropdown-menu">
-       <li><a href="#">Add Single Item</a></li>
-       <li><a href="#">Add Prepopluated Items</a></li>
-     </ul>
-   </div>
- 
-   <div class="btn-group btn-group-sm">
-     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-       Print Task
-       <span class="caret"></span>
-     </button>
-     <ul class="dropdown-menu">
-       <li><a href="#">Print Preview</a></li>
-       <li><a href="#">PDF</a></li>
-     </ul>
-   </div>
- </div> 
-                  <br>
+                  <p class="card-title" style="font-size:20px;">Records</p>
+                  <p class="card-description">Transaction Record of Appointment ID: <?php echo $id; ?></p>
 
                   <!-- start -->
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-dark" id="doctables">
-                      <thead>
-                        <tr>
-                          <th>
-                            #
-                          </th>
-                          <th>
-                            First name
-                          </th>
-                          <th>
-                            Product
-                          </th>
-                          <th>
-                            Amount
-                          </th>
-                          <th>
-                            Deadline
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="table-info">
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            Herman Beck
-                          </td>
-                          <td>
-                            Photoshop
-                          </td>
-                          <td>
-                            $ 77.99
-                          </td>
-                          <td>
-                            May 15, 2015
-                          </td>
-                        </tr>
-                        <tr class="table-warning">
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Messsy Adam
-                          </td>
-                          <td>
-                            Flash
-                          </td>
-                          <td>
-                            $245.30
-                          </td>
-                          <td>
-                            July 1, 2015
-                          </td>
-                        </tr>
-                        <tr class="table-danger">
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            John Richards
-                          </td>
-                          <td>
-                            Premeire
-                          </td>
-                          <td>
-                            $138.00
-                          </td>
-                          <td>
-                            Apr 12, 2015
-                          </td>
-                        </tr>
-                        <tr class="table-success">
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Peter Meggik
-                          </td>
-                          <td>
-                            After effects
-                          </td>
-                          <td>
-                            $ 77.99
-                          </td>
-                          <td>
-                            May 15, 2015
-                          </td>
-                        </tr>
-                        <tr class="table-primary" style="color:black;">
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Edward
-                          </td>
-                          <td>
-                            Illustrator
-                          </td>
-                          <td>
-                            $ 160.25
-                          </td>
-                          <td>
-                            May 03, 2015
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+
+                  <div class="form-group">
+
+                    <div class="row"><!-- row-start -->
+                      <div class="col-md-2"><p>Owner:</p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">Juan Tamad</h5></div>
+                      <div class="col-md-2"><p>Date of Request</p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">10-30-2018</h5></div>
+                    </div><!-- row-end -->
+                    <div class="row">
+                      <div class="col-md-2"><p>Plate Number: </p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">ABC-123</h5></div>
+                      <div class="col-md-2"><p>Date Approved: </p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">10-31-2018</h5></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2"><p>Status</p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">Accepted</h5></div>
+                      <div class="col-md-2"><p>Date of Appointment</p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">11-02-2018</h5></div>
+                    </div>
+                    <div class="row">
+                      <div class=" offset-md-1 col-md-2"><p>Progress</p></div>
+                      <div class="col-md-7">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- start -->
+                   <hr>
+                   <div class="row">
+                      <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></p></div>
+                      <div class="col-md-2 offset-md-8" style="margin">
+                        <h5 style="margin-top: 20px;">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Add Task</button>
+                        </h5>
+                      </div>
+                    </div>
+                    
+                   
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="doctables">
+                        <thead>
+                          <tr class="text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">Task</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="text-center">
+                            <th scope="row">1</th>
+                            <td>Change Oil</td>
+                            <td>Mechanical</td>
+                            <td>Pending</td>
+                            <td>11-03-2018</td>
+                            <td>11-03-2018</td>
+                            <td><input type="checkbox" aria-label="Checkbox for following text input"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <br>
+                    
+                    <!-- Button trigger modal -->
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                <input type="text" class="form-control" id="recipient-name">
+                              </div>
+                              <div class="form-group">
+                                <label for="message-text" class="col-form-label">Message:</label>
+                                <textarea class="form-control" id="message-text"></textarea>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Add</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end -->
+                    
+
+                    
                   </div>
-                  <!-- end -->
+                  <!-- END -->
 
                 </div>
               </div>
             </div>
-            <!-- end -->
 
           </div>
         </div>
@@ -291,10 +253,11 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
+  <script src="js/jquery.min.js"></script>
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
+  
 </body>
 
 </html>
@@ -304,62 +267,5 @@
     // PAGELENGTH OPTIONS
     "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
 
-});
-</script>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#officegroup').on('change',function(){
-        var ogID = $(this).val();
-        if(ogID){
-            $.ajax({
-                type:'POST',
-                url:'includes/getDeviceData.php',
-                data:'group_id='+ogID,
-                success:function(html){
-                    $('#office').html(html);
-                    $('#computer').html('<option value="">Select office first</option>'); 
-                    $('#part').html('<option value="">Select computer first</option>'); 
-                }
-            }); 
-        }else{
-            $('#office').html('<option value="">Select office group first</option>');
-            $('#computer').html('<option value="">Select office first</option>'); 
-            $('#part').html('<option value="">Select computer first</option>'); 
-        }
-    });
-    
-    $('#office').on('change',function(){
-        var officeID = $(this).val();
-        if(officeID){
-            $.ajax({
-                type:'POST',
-                url:'includes/getDeviceData.php',
-                data:'office_id='+officeID,
-                success:function(html){
-                    $('#computer').html(html);
-                    $('#part').html('<option value="">Select computer first</option>');
-                }
-            }); 
-        }else{
-          $('#computer').html('<option value="">Select office first</option>'); 
-          $('#part').html('<option value="">Select computer first</option>'); 
-        }
-    });
-          $('#computer').on('change',function(){
-              var computerID = $(this).val();
-              if(computerID){
-                  $.ajax({
-                      type:'POST',
-                      url:'includes/getDeviceData.php',
-                      data:'computer_id='+computerID,
-                      success:function(html){
-                          $('#part').html(html);
-                      }
-                  }); 
-              }else{
-                  $('#part').html('<option value="">Select computer first</option>');
-              }          
-      });
 });
 </script>

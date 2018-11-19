@@ -1,3 +1,4 @@
+
 <?php
     
     $connection = new mysqli("localhost","root","","thesis");//make database connection
@@ -17,3 +18,5 @@
         echo "ERROR : ".$e->getMessage();
     }
 ?>
+<?php
+    

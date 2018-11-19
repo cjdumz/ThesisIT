@@ -83,7 +83,7 @@ if(!isset($_GET['id'])){
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
@@ -136,18 +136,19 @@ if(!isset($_GET['id'])){
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Personal Information</h4>
-                  <form action="updateUserInfo.php?<?php echo $contentx['personalId']; ?> ">
+                  <form action="process/server.php" method="POST">
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['firstName'] ?>" placeholder="<?php echo $contentx['firstName'] ?>">
+                          <input type="hidden" name="id" value="<?php echo $id; ?>">
+                          <input type="text" class="form-control" name="first" value="<?php echo $contentx['firstName'] ?>" placeholder="<?php echo $contentx['firstName'] ?>">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Middle Name</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['middleName'] ?>" placeholder="<?php echo $contentx['middleName'] ?>">
+                          <input type="text" class="form-control" name="middle" value="<?php echo $contentx['middleName'] ?>" placeholder="<?php echo $contentx['middleName'] ?>">
                         </div>
                       </div>
                     </div>
@@ -155,13 +156,13 @@ if(!isset($_GET['id'])){
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['lastName'] ?>" placeholder="<?php echo $contentx['lastName'] ?>">
+                          <input type="text" class="form-control" name="last" value="<?php echo $contentx['lastName'] ?>" placeholder="<?php echo $contentx['lastName'] ?>">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Suffix</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['suffix'] ?>" placeholder="<?php echo $contentx['suffix'] ?>">
+                          <input type="text" class="form-control" name="suffix" value="<?php echo $contentx['suffix'] ?>" placeholder="<?php echo $contentx['suffix'] ?>">
                         </div>
                       </div>
                     </div>
@@ -169,7 +170,7 @@ if(!isset($_GET['id'])){
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['address'] ?>" placeholder="<?php echo $contentx['address'] ?>">
+                          <input type="text" class="form-control" name="address" value="<?php echo $contentx['address'] ?>" placeholder="<?php echo $contentx['address'] ?>">
                         </div>
                       </div>
                     </div>
@@ -177,7 +178,7 @@ if(!isset($_GET['id'])){
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email Address</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['email'] ?>" placeholder="<?php echo $contentx['email'] ?>">
+                          <input type="text" class="form-control" name="email" value="<?php echo $contentx['email'] ?>" placeholder="<?php echo $contentx['email'] ?>">
                         </div>
                       </div>
                     </div>
@@ -185,18 +186,18 @@ if(!isset($_GET['id'])){
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Mobile Number</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
+                          <input type="text" class="form-control" name="mobile" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Telephone Number</label>
-                          <input type="text" class="form-control" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
+                          <input type="text" class="form-control" name="telephone" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
                         </div>
                       </div>
                     </div>
                     <br><br><br>
-                    <button type="submit" class="btn btn-primary" style="float:right">Update Profile</button>
+                    <button type="submit" class="btn btn-primary" name="submit-user" style="float:right">Update Profile</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -325,8 +326,9 @@ if(!isset($_GET['id'])){
                       </div>
                     </div><br><br>
                     <button type="submit" class="btn btn-primary" style="float:right">Update Vehicle</button>
+                    </form>
+                    <button type="submit" name="submit-add-vehicle" class="btn btn-danger" style="float:right; margin-right: 10px;">Add Vehicle</button>
                     <div class="clearfix"></div>
-                  </form>
                 </div>
               </div>
             </div>

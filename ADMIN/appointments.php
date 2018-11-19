@@ -65,7 +65,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
@@ -106,8 +106,8 @@
                   <p class="card-title" style="font-size:20px;">Appointments</p>
                   <p class="card-description">
                     List of Appointment Request
-                    
                   </p>
+                    
                   <div class="table-responsive">
                     <table class="table table-bordered table-dark" id="doctables">
                       <thead>
