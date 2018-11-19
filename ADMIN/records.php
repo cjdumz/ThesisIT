@@ -148,7 +148,7 @@
                     <!-- start -->
                    <hr>
                    <div class="row">
-                      <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></p></div>
+                      <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
                       <div class="col-md-2 offset-md-8" style="margin">
                         <h5 style="margin-top: 20px;">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Add Task</button>
@@ -158,19 +158,19 @@
                     
                    
                     <div class="table-responsive">
-                      <table class="table table-bordered" id="doctables">
+                      <table class="table table-bordered table-dark" id="doctables">
                         <thead>
-                          <tr class="text-center">
-                            <th scope="col">#</th>
-                            <th scope="col">Task</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">End Date</th>
-                            <th scope="col">Action</th>
+                          <tr class="grid">
+                            <th scope="col" style="font-size:15px;">#</th>
+                            <th scope="col" style="font-size:15px;">Task</th>
+                            <th scope="col" style="font-size:15px;">Type</th>
+                            <th scope="col" style="font-size:15px;">Status</th>
+                            <th scope="col" style="font-size:15px;">Start Date</th>
+                            <th scope="col" style="font-size:15px;">End Date</th>
+                            <th scope="col" style="font-size:15px;">Action</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-primary" style="color:black;">
                           <tr class="text-center">
                             <th scope="row">1</th>
                             <td>Change Oil</td>
