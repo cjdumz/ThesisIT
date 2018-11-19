@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 26, 2018 at 06:44 AM
+-- Generation Time: Nov 19, 2018 at 06:16 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -91,7 +91,7 @@ INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `other
 (14, 6, 1, 3, '', '', 'Declined', '2018-10-17', '2018-10-03 16:00:21', NULL),
 (15, 4, 1, 3, '', '', 'Accepted', '2018-10-20', '2018-10-03 16:01:20', NULL),
 (16, 2, 1, 3, '', '', 'Overdue', '2018-10-11', '2018-10-03 17:02:16', NULL),
-(18, 10, 1, 34, 'sadas', 'asdsad', 'Pending', '2018-10-31', '2018-10-16 13:58:21', NULL),
+(18, 10, 1, 34, 'sadas', 'asdsad', 'Overdue', '2018-10-31', '2018-10-16 13:58:21', NULL),
 (19, 10, 1, 34, 'sadas', 'Pending', 'asdasd', '2018-10-31', '2018-10-16 13:59:10', NULL);
 
 -- --------------------------------------------------------
@@ -139,6 +139,44 @@ CREATE TABLE IF NOT EXISTS `daterestricted` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `events`
+--
+
+DROP TABLE IF EXISTS `events`;
+CREATE TABLE IF NOT EXISTS `events` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `start_date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `end_date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=Active, 0=Block'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `title`, `description`, `start_date`, `end_date`, `created`, `status`) VALUES
+(1, 'This is a special events about web development', '', '2018-02-12 00:00:00', '2018-02-16 00:00:00', '2018-02-10 00:00:00', 1),
+(2, 'PHP Seminar 2018', '', '2018-02-11 00:00:00', '2018-02-17 00:00:00', '2018-02-10 00:00:00', 1),
+(3, 'Bootstrap events 2018', '', '2018-02-4 00:00:00', '2018-02-4 00:00:00', '2018-02-01 00:00:00', 1),
+(4, 'Developers events', '', '2018-02-04 00:00:00', '2018-02-04 00:00:00', '2018-02-01 00:00:00', 1),
+(5, 'Annual Conference 2018', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
+(6, 'Bootstrap Annual events 2018', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
+(7, 'HTML5 events', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
+(8, 'PHP conference events 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-02 00:00:00', 1),
+(9, 'Web World events', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-01 00:00:00', 1),
+(10, 'Wave PHP 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-02 00:00:00', 1),
+(11, 'Dev PHP 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-01 00:00:00', 1),
+(12, 'Seminar ', '', '2018-11-13 00:00:00', '2018-11-13 00:00:00', '2018-11-13 00:00:00', 1),
+(13, 'fieldtrip', '', '2018-11-14 00:00:00', '2018-11-14 00:00:00', '2018-11-13 00:00:00', 0),
+(15, 'Divisoria', '', '2018-11-16 00:00:00', '2018-11-16 00:00:00', '2018-11-13 00:00:00', 1),
+(16, 'Byahe', '', '2018-11-14 00:00:00', '2018-11-15 00:00:00', '2018-11-14 00:00:00', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personalinfo`
 --
 
@@ -158,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `personalinfo` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`personalId`),
   KEY `userId` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `personalinfo`
@@ -167,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `personalinfo` (
 INSERT INTO `personalinfo` (`personalId`, `user_id`, `firstName`, `lastName`, `middleName`, `suffix`, `address`, `mobileNumber`, `telephoneNumber`, `email`, `created`, `modified`) VALUES
 (1, NULL, 'Weng', 'Palpallatoc', 'Ignacio', NULL, '#4 St.Ruth Petersville Subdivision Camp 7 Baguio', '09260023544', NULL, 'weng.great@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
 (2, NULL, 'Jelly', 'Grabanzor', 'Llanes', NULL, 'New Lucban Baguio', '09123456789', NULL, 'jellygrabanzor@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
-(3, 17, 'jeli', 'llanes', 'g', NULL, 'Seoul, south korea', '09177771390', NULL, 'jellyllanes@yahoo.com', '2018-09-24 03:44:08', NULL),
+(3, 17, 'jeli', 'llanes', 'g', '', 'Seoul, south korea', '09177771390', '', 'jellyllanes@yahoo.com', '2018-09-24 03:44:08', '2018-11-19 02:25:17'),
 (7, NULL, 'flower', 'flower', 'flower', NULL, 'garden', '09999999999', NULL, 'flower@gmail.com', '2018-09-26 14:49:12', NULL),
 (8, NULL, 'tutubi', 'tutubi', 'tutubi', NULL, 'Tutubi, La Union', '09000000000', NULL, 'tutubi@yahoo.com', '2018-09-26 14:55:33', NULL),
 (9, NULL, 'aybee', 'aybeee', 'aybee', NULL, 'aybe', '09177770001', NULL, 'aybe@gmail.com', '2018-09-26 15:37:56', NULL),
@@ -249,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -278,7 +316,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `created`, `modified`) VALUES
 (59, 'angelica', '$2y$10$mGimxaQ7zuMFrdLUr1iESuRp.fOD6vExmZKK2EK6.KlxWICNGADb6', '2018-10-03 15:01:19', NULL),
 (60, 'ivy1998', '$2y$10$H7Y/RRe5uQoq4A1k.m7owesbUbl3DVPaomYuXArLPDdB/u5W86VK6', '2018-10-03 15:48:37', NULL),
 (61, 'lacap22', '$2y$10$DPLFNks35QMc8lmppfmDOOW9uYXP63Tlwv1SsljtsMUXL5nswpqI6', '2018-10-03 16:34:25', NULL),
-(63, 'aybiaybi', '$2y$10$SRC4dYoPKgEEP8oUlIyHBeFEIy1.PMXCLInYTvl53C1AY1M1bOiEq', '2018-10-05 12:22:13', NULL);
+(63, 'aybiaybi', '$2y$10$SRC4dYoPKgEEP8oUlIyHBeFEIy1.PMXCLInYTvl53C1AY1M1bOiEq', '2018-10-05 12:22:13', NULL),
+(64, 'albert22', '$2y$10$5lXxj4vkgRXJwpBEB77qfuyjZ5LXTcX2vu/QlH6rPjhUZaR7tpWQC', '2018-11-11 18:23:48', NULL),
+(65, 'jellybeebee', '$2y$10$URXiZpC8qvM9hDfsMIEqN.3p9C.RMWvAKRcviRU0oY05j4O62I4c.', '2018-11-12 16:17:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -308,14 +348,14 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `personalId2` (`personalId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
 --
 
 INSERT INTO `vehicles` (`id`, `personalId`, `plateNumber`, `bodyType`, `yearModel`, `chasisNumber`, `engineClassification`, `numberOfCylinders`, `typeOfDriveTrain`, `make`, `series`, `color`, `engineNumber`, `typeOfEngine`, `engineDisplacement`, `status`, `created`, `modified`) VALUES
-(1, 3, 'ABC-123', 'Cedan', '1997', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'Red', NULL, NULL, NULL, 'active', '2018-09-24 00:24:57', NULL);
+(1, 3, 'ABC-123', 'Cedan', '1997', '0', '', '0', '', 'Honda', 'Civic', 'Red', '0', '', '', 'active', '2018-09-24 00:24:57', '2018-11-19 02:25:43');
 
 --
 -- Constraints for dumped tables

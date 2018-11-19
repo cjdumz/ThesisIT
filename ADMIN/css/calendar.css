@@ -513,3 +513,13 @@ a.cal-event-week {
 .badge-important {
   background-color: #b94a48;
 }
+/*Icons*/
+.sidebar .nav .nav-item .nav-link .menu-icon {
+        margin-right: 1.25rem;
+        width: 16px;
+        line-height: 1;
+        font-size: 18px;
+        color: #979797; }
+.rtl .sidebar .nav .nav-item .nav-link .menu-icon {
+          margin-right: 0;
+          margin-left: 1.25rem; }
