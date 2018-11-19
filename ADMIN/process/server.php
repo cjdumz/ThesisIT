@@ -22,9 +22,16 @@ if(isset($_POST['command1'])){
 if(isset($_POST['resubmit'])){
   $update = $connection->real_escape_string($_POST["update"]);
   $id = $connection->real_escape_string($_POST["id"]);
-  $actions_command = $connection->prepare("UPDATE `appointments` SET `date` = '$update' WHERE `appointments`.`id` = $id;");
+  $location = $connection->real_escape_string($_POST["location"]);
+  $actions_command = $connection->prepare("UPDATE `appointments` SET `date` = '$update' , `status`= 'Rescheduled' WHERE `appointments`.`id` = $id;");
   if($actions_command ->execute()){
-    $MSG = "succesully approved appointment";
+    if($location == 'appointment'){
+      $MSG = "succesully approved appointment";
+      header("Refresh: 0; url=../appointments.php");
+    }else{
+      header("Refresh: 0; url=../reschedule.php");
+    }
+
   }else{
     $MSG = "there was an error while updating the data..";
   }

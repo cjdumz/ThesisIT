@@ -125,7 +125,7 @@
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                         yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
                         = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                            = services.serviceId where appointments.status = 'Pending' AND (NOW() = date OR NOW() < date ) order by 10 ASC");
+                            = services.serviceId where appointments.status = 'Pending' OR appointments.status = 'Rescheduled' AND (NOW() = date OR NOW() < date ) order by 10 ASC");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {
@@ -226,7 +226,7 @@
                                   </div>
                                 </div>
 
-                                <!-- Reschedule Modal -->
+                                <!-- Modal -->
                                 <div class="modal fade" id="exampleModalCenter'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -270,27 +270,29 @@
                                             <h4 class="card-title">'.$row['sername'].'</h4>
                                           </div>
                                         </div>
+                                        <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                           <div class="form-group row">
-                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Previous Date</label>
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label card-title">Previous Date</label>
                                             <div class="col-sm-9">
                                               <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
                                             </div>
                                           </div>
                                           <div class="form-group row">
-                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Proposed Date</label>
+                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Proposed Date</label>
                                             <div class="col-sm-9">
-                                              <input type="date" class="form-control" id="exampleInputPassword2" placeholder="">
+                                              <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="">
                                             </div>
                                           </div>
                                         <!-- end -->
                                       </div>
+                                      <input type="hidden" name="id" value="'.$row['ID'].'">
+                                      <input type="hidden" name="location" value="appointment">
                                       <div class="modal-footer" >
                                       
-                                        <button class="btn btn-danger" type="submit" name="commands2" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-calendar-clock"></i>
-                                        Reschedule</button>
+                                        <button type="submit" name="resubmit" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                         
-
+                                        </form>
                                       </div>
                                     </div>
                                   </div>

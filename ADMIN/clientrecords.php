@@ -224,6 +224,14 @@ $(document).ready(function(){
   }); 
 });
 </script>
+
+<script>
+  var table = $('#doctables').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+
+});
+</script>
 </body>
 
 

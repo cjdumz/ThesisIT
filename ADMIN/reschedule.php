@@ -212,15 +212,15 @@
                                                 <h4 class="card-title">'.$row['sername'].'</h4>
                                               </div>
                                             </div>
-                                            <form method="POST" action="process/server.php" enctype="multipart/form-data" class="">
+                                            <form method="POST" action="process/server.php" enctype="multipart/form-data">
                                               <div class="form-group row">
-                                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Previous Date</label>
+                                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label card-title">Previous Date</label>
                                                 <div class="col-sm-9">
                                                   <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
-                                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Proposed Date</label>
+                                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Proposed Date</label>
                                                 <div class="col-sm-9">
                                                   <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="">
                                                 </div>
@@ -228,6 +228,7 @@
                                             <!-- end -->
                                           </div>
                                           <input type="hidden" name="id" value="'.$row['ID'].'">
+                                          <input type="hidden" name="location" value="reschedule">
                                           <div class="modal-footer" >
                                           
                                             <button type="submit" name="resubmit" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
