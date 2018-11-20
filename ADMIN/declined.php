@@ -9,7 +9,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Appointment Request</title>
+  <title>Declined Request</title>
   <link rel="icon" href="images/Logo.png">
     
   <!-- plugins:css -->
@@ -106,9 +106,9 @@
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title" style="font-size:20px;">Appointments</p>
+                  <p class="card-title" style="font-size:20px;">Declined</p>
                   <p class="card-description">
-                    List of Appointment Request
+                    List of Declined Request
                   </p>
                     
                   <div class="table-responsive">
@@ -128,7 +128,7 @@
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                         yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
                         = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                            = services.serviceId where appointments.status = 'Pending' OR appointments.status = 'Rescheduled' AND (NOW() = date OR NOW() < date ) order by 10 ASC");
+                            = services.serviceId where  appointments.status = 'declined' order by 10 ASC");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {

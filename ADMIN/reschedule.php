@@ -59,6 +59,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="reschedule.php" style="font-size:14px;">Reschedule</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
+                </li>
               </ul>
             </div>
           </li>
@@ -131,8 +134,7 @@
                                 concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series, yearModel,plateNumber,serviceType,serviceName
                                 as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
                                 = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on
-                                appointments.serviceId = services.serviceId where appointments.status = 'Rescheduled' OR appointments.status
-                                    = 'Declined' OR appointments.status = 'Overdue'");
+                                appointments.serviceId = services.serviceId where appointments.status = 'Rescheduled' OR  appointments.status = 'Overdue'");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
