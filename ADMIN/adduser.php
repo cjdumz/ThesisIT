@@ -119,7 +119,7 @@
             
             <!-- start -->
 
-             <?php
+         <!--     <?php
               if(isset($_GET['id'])){
                 $id = $_GET['id'];
                 $getuser = $connection->prepare('SELECT * FROM personalinfo where personalId = '.$id.' limit 1; ');
@@ -127,7 +127,7 @@
                 $value = $getuser->get_result();
                 $contentx = $value->fetch_assoc();
               }
-              ?>
+              ?> -->
 
             <!-- end -->
 
@@ -141,13 +141,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control" name="first">
+                          <input type="text" class="form-control" name="first" required>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Middle Name</label>
-                          <input type="text" class="form-control" name="middle">
+                          <input type="text" class="form-control" name="middle" required>
                         </div>
                       </div>
                     </div>
@@ -155,7 +155,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control" name="last">
+                          <input type="text" class="form-control" name="last" required>
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -168,8 +168,8 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control" name="address">
+                          <label class="bmd-label-floating">Address</label>
+                          <input type="text" class="form-control" name="address" required>
                         </div>
                       </div>
                     </div>
@@ -177,7 +177,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email Address</label>
-                          <input type="text" class="form-control" name="email">
+                          <input type="text" class="form-control" name="email" required>
                         </div>
                       </div>
                     </div>
@@ -185,13 +185,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Mobile Number</label>
-                          <input type="text" class="form-control" name="mobile">
+                          <input type="text" class="form-control"  pattern="[0-9]{4}[0-9]{3}[0-9]{4}" name="mobile" required>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Telephone Number</label>
-                          <input type="text" class="form-control" name="telephone">
+                          <input type="text" class="form-control"  pattern="[0-9]{3}[0-9]{3}[0-9]{4}" name="telephone">
                         </div>
                       </div>
                     </div>
