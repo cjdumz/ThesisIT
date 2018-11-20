@@ -220,6 +220,12 @@
                                                   <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="">
                                                 </div>
                                               </div>
+                                              <div class="form-group row">
+                                              <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Message</label>
+                                              <div class="col-sm-9">
+                                              <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
+                                              </div>
+                                            </div>
                                             <!-- end -->
                                           </div>
                                           <input type="hidden" name="id" value="'.$row['ID'].'">
