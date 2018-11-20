@@ -94,13 +94,6 @@
             </a>
           </li>
             
-          <li class="nav-item">
-            <a class="nav-link" href="blank.php">
-              <i class="menu-icon mdi mdi-settings"></i>
-              <span class="menu-title" style="font-size:14px;">Settings</span>
-            </a>
-          </li>
-            
         </ul>
       </nav>
       <!-- partial -->
@@ -134,7 +127,7 @@
                                 concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series, yearModel,plateNumber,serviceType,serviceName
                                 as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
                                 = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on
-                                appointments.serviceId = services.serviceId where appointments.status = 'Rescheduled' OR  appointments.status = 'Overdue'");
+                                appointments.serviceId = services.serviceId  where  appointments.status = 'Overdue'");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
