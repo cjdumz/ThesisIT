@@ -146,7 +146,7 @@
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT * FROM `personalinfo` join `vehicles` WHERE personalinfo.personalId = vehicles.personalId GROUP BY user_id");
+                            $data = $connection->prepare("SELECT * FROM `personalinfo` join `vehicles` WHERE personalinfo.personalId = vehicles.personalId GROUP BY id");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {

@@ -197,7 +197,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Vehicle Information</h4>
-                  <form action="process/adduser_process.php" method="POST">
+                  <form action="process/addvehicle_process.php" method="POST">
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">

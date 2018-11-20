@@ -1,4 +1,6 @@
+
 <?php
+session_start();
 require "require/dataconf.php"; //datebase connection
 
 if(isset($_POST["submit-user"])){
@@ -20,6 +22,7 @@ if(isset($_POST["submit-user"])){
 
   $adduser->bind_param("ssssssss", $first, $last, $middle, $suffix, $address, $mobile, $telephone, $email);
   if($adduser->execute()){ 
+    $_SESSION['user_id'] = $adduser->insert_id;
     header("Location: ../adduser.php");
   }else{
     header("Location: ../error.php");
@@ -28,6 +31,7 @@ if(isset($_POST["submit-user"])){
 }
 
 if(isset($_POST["submit-vehicle"])){  
+  $personalId = $_SESSION['user_id'];
   $plateNumber = $connection->real_escape_string($_POST["plateNumber"]);
   $bodyType = $connection->real_escape_string($_POST["bodyType"]);
   $yearModel = $connection->real_escape_string($_POST["yearModel"]);
@@ -41,15 +45,18 @@ if(isset($_POST["submit-vehicle"])){
   $engineNumber = $connection->real_escape_string($_POST["engineNumber"]);
   $typeOfEngine = $connection->real_escape_string($_POST["typeOfEngine"]);
   $engineDisplacement = $connection->real_escape_string($_POST["engineDisplacement"]);
+  
 
   // echo $first,", ", $middle,", ", $last, ", ",$suffix,", ", $address,", ", $email,", ", $mobile,", ", $telephone;
 
-  $addvehicle = $connection->prepare("INSERT INTO `vehicles`(`personald`, `plateNumber`, `bodyType`, `yearModel`, `chasisNumber`, `engineClassification`, `numberOfCylinders`, `typeOfDriveTrain`, `make`, `series`, `color`, `engineNumber`, `typeOfEngine`, `engineDisplacement`) VALUES (LAST_INSERT_ID(), $plateNumber, $bodyType, $yearModel, $chasisNumber, $engineClassification, $numberOfCylinders, $typeOfDriveTrain, $make, $series, $color, $engineNumber, $typeOfEngine, $engineDisplacement;);");
+  $addvehicle = $connection->prepare("INSERT INTO `vehicles`(`personalId`, `plateNumber`, `bodyType`, `yearModel`, `chasisNumber`, `engineClassification`, `numberOfCylinders`, `typeOfDriveTrain`, `make`, `series`, `color`, `engineNumber`, `typeOfEngine`, `engineDisplacement`) VALUES (LAST_INSERT_ID(),?,?,?,?,?,?,?,?,?,?,?,?,?);");
   
+  $addvehicle->bind_param($personalId, $plateNumber, $bodyType, $yearModel, $chasisNumber, $engineClassification, $numberOfCylinders, $typeOfDriveTrain, $make, $series, $color, $engineNumber, $typeOfEngine, $engineDisplacement);
 
-    echo  $plateNumber, $bodyType, $yearModel, $chasisNumber, $engineClassification, $numberOfCylinders, $typeOfDriveTrain, $make, $series, $color, $engineNumber, $typeOfEngine, $engineDisplacement;
-  // $addvehicle->bind_param("ssssssssssssss", $plateNumber, $bodyType, $yearModel, $chasisNumber, $engineClassification, $numberOfCylinders, $typeOfDriveTrain, $make, $series, $color, $engineNumber, $typeOfEngine, $engineDisplacement);
+  if($addvehicle->execute()){ 
     header("Location: ../accountmanagement.php");
+    exit();
+  }
 }
 
 
