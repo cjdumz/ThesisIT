@@ -141,21 +141,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fist Name</label>
-<<<<<<< HEAD
-                          <required input type="text" class="form-control" name="first">
-=======
                           <input type="text" class="form-control" name="first" required>
->>>>>>> c1fa0e47e1569015c56147df69466bd9a60bb725
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Middle Name</label>
-<<<<<<< HEAD
-                          <required input type="text" class="form-control" name="middle">
-=======
                           <input type="text" class="form-control" name="middle" required>
->>>>>>> c1fa0e47e1569015c56147df69466bd9a60bb725
                         </div>
                       </div>
                     </div>
@@ -163,30 +155,21 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-<<<<<<< HEAD
-                          <required input type="text" class="form-control" name="last">
-=======
                           <input type="text" class="form-control" name="last" required>
->>>>>>> c1fa0e47e1569015c56147df69466bd9a60bb725
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Suffix</label>
-                          <required input type="text" class="form-control" name="suffix">
+                          <input type="text" class="form-control" name="suffix">
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-<<<<<<< HEAD
-                          <label class="bmd-label-floating">Adress</label>
-                          <required input type="text" class="form-control" name="address">
-=======
                           <label class="bmd-label-floating">Address</label>
                           <input type="text" class="form-control" name="address" required>
->>>>>>> c1fa0e47e1569015c56147df69466bd9a60bb725
                         </div>
                       </div>
                     </div>
@@ -194,11 +177,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email Address</label>
-<<<<<<< HEAD
-                          <required input type="text" class="form-control" name="email">
-=======
                           <input type="text" class="form-control" name="email" required>
->>>>>>> c1fa0e47e1569015c56147df69466bd9a60bb725
                         </div>
                       </div>
                     </div>
@@ -206,21 +185,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Mobile Number</label>
-<<<<<<< HEAD
-                          <required input type="text" class="form-control" name="mobile">
-=======
                           <input type="text" class="form-control"  pattern="[0-9]{4}[0-9]{3}[0-9]{4}" name="mobile" required>
->>>>>>> c1fa0e47e1569015c56147df69466bd9a60bb725
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Telephone Number</label>
-<<<<<<< HEAD
-                          <required input type="text" class="form-control" name="telephone">
-=======
                           <input type="text" class="form-control"  pattern="[0-9]{3}[0-9]{3}[0-9]{4}" name="telephone">
->>>>>>> c1fa0e47e1569015c56147df69466bd9a60bb725
                         </div>
                       </div>
                     </div>
