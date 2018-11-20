@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="shortcut icon" href="images/favicon.png" />
 <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+<link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
 
 <body>
     <div class="container-scroller">
