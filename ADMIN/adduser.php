@@ -291,15 +291,9 @@
                           <input type="text" class="form-control" name="engineDisplacement" required>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Status</label>
-                          <input type="text" class="form-control" name="status">
-                        </div>
-                      </div>
                     </div>
                     <br><br><br>
-                    <button type="submit" class="btn btn-primary" name="submit-user" style="float:right">Add User</button>
+                    <button type="submit" class="btn btn-primary" name="submit-vehicle" style="float:right">Add Vehicle</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
