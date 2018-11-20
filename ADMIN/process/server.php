@@ -4,12 +4,24 @@ require "require/dataconf.php"; //datebase connection
 if(isset($_POST['command1'])){
   $action = $connection->real_escape_string($_POST["command1"]);
   $id = $connection->real_escape_string($_POST["id1"]);
+  if(isset($_POST['message'])){
+    $message = $connection->real_escape_string($_POST["message"]);
+  }else{
+    $message = "";
+  }
 
   if($action=='accept'){
-    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted' WHERE `appointments`.`id` = $id;");
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now() WHERE `appointments`.`id` = $id;");
   }else{
-    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Reschedule' WHERE `appointments`.`id` =  $id");
+    if($action=='deny'){
+      $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Reschedule', `modified` = now() WHERE `appointments`.`id` =  $id");
+    }else{
+      if($action=='decline'){
+        $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Declined', `additionalMessage` = '$message', `modified` = now() WHERE `appointments`.`id` =  $id");
+      }
+    }
   }
+  
   if($actions_command ->execute()){
     $MSG = "succesully approved appointment";
     header("Refresh: 0; url=../appointments.php");
@@ -22,8 +34,9 @@ if(isset($_POST['command1'])){
 if(isset($_POST['resubmit'])){
   $update = $connection->real_escape_string($_POST["update"]);
   $id = $connection->real_escape_string($_POST["id"]);
+  $message = $connection->real_escape_string($_POST["message"]);
   $location = $connection->real_escape_string($_POST["location"]);
-  $actions_command = $connection->prepare("UPDATE `appointments` SET `date` = '$update' , `status`= 'Rescheduled' WHERE `appointments`.`id` = $id;");
+  $actions_command = $connection->prepare("UPDATE `appointments` SET `date` = '$update' , `status`= 'Rescheduled', `additionalMessage` = '$message' WHERE `appointments`.`id` = $id;");
   if($actions_command ->execute()){
     if($location == 'appointment'){
       $MSG = "succesully approved appointment";
@@ -64,6 +77,3 @@ if(isset($_POST["submit-user"])){
 }
 }
 ?>
-
-<input type="text" name="phone" value="<?php $phone ?>">
-<textarea name="message" id="" cols="30" rows="10"></textarea>

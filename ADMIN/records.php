@@ -67,6 +67,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="reschedule.php" style="font-size:14px;">Reschedule</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
+                </li>
               </ul>
             </div>
           </li>

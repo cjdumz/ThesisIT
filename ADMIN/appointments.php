@@ -1,4 +1,3 @@
-
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
 <?php require "process/check/appointmentcheck.php";?>
@@ -60,6 +59,9 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="reschedule.php" style="font-size:14px;">Reschedule</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
                 </li>
               </ul>
             </div>
@@ -151,8 +153,14 @@
                                       <div class="col-12">
                                         <input type="hidden" name="command2" value="deny">
                                         <input type="hidden" name="id2" value="'.$row['ID'].'">
-                                        <button class="btn btn-danger"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                        <button class="btn btn-warning"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                         Reschedule</button>
+                                      </div>
+                                      <div class="col-12">
+                                        <input type="hidden" name="command2" value="decline">
+                                        <input type="hidden" name="id2" value="'.$row['ID'].'">
+                                        <button class="btn btn-danger"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                        Decline</button>
                                       </div>
                                     </div>
                                     
@@ -213,6 +221,7 @@
                                           </div>
                                         <!-- end -->
                                       </div>
+
                                       <div class="modal-footer" >
                                         <form action="process/server.php" method="post">
                                             <input type="hidden" name="command1" value="accept">
@@ -227,11 +236,11 @@
                                   </div>
                                 </div>
 
-                                <!-- Modal -->
+                                <!-- Reschedule Modal -->
                                 <div class="modal fade" id="exampleModalCenter'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                      <div class="modal-header" style="background-color: #B80011; color: white; border: 3px solid #B80011;">
+                                      <div class="modal-header" style="background-color: #FFAF00; color: white; border: 3px solid #FFAF00;">
                                         <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
@@ -281,18 +290,101 @@
                                           <div class="form-group row">
                                             <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Proposed Date</label>
                                             <div class="col-sm-9">
-                                              <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="">
+                                              <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="" required>
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Message</label>
+                                            <div class="col-sm-9">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
                                             </div>
                                           </div>
                                         <!-- end -->
                                       </div>
+                                      
+                                      
                                       <input type="hidden" name="id" value="'.$row['ID'].'">
                                       <input type="hidden" name="location" value="appointment">
                                       <div class="modal-footer" >
                                       
-                                        <button type="submit" name="resubmit" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
+                                        <button type="submit" name="resubmit" class="btn btn-warning"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                         
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!-- Decline Modal -->
+                                <div class="modal fade" id="decline'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="appointmentModalCenterTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header" style="background-color: #F44336; color: white; border: 3px solid #F44336;">
+                                        <h5 class="modal-title" id="appointmentModalCenterTitle">Decline</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <!-- start -->
+                                        <div class="row">
+                                          <div class="col-6">
+                                            <h4 class="card-title">Customer Name:</h4>                                            
+                                          </div>
+                                          <div class="col-6">
+                                            <h4 class="card-title">'.$row['Name'].'</h4>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-6">
+                                            <h4 class="card-title">Plate Number:</h4>                                            
+                                          </div>
+                                          <div class="col-6">
+                                            <h4 class="card-title">'.$row['plateNumber'].'</h4>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-6">
+                                            <h4 class="card-title">Status:</h4>                                            
+                                          </div>
+                                          <div class="col-6">
+                                            <h4 class="card-title">'.$row['status'].'</h4>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-12">
+                                            <h4 class="card-title">Services:</h4>                                            
+                                          </div>
+                                          <div class="col-12">
+                                            <h4 class="card-title">'.$row['sername'].'</h4>
+                                          </div>
+                                        </div>
+                                       
+                                          <div class="form-group row">
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Proposed Date</label>
+                                            <div class="col-sm-9">
+                                              <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <form action="process/server.php" method="post">
+                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Message</label>
+                                            <div class="col-sm-9">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
+                                            </div>
+                                          </div>
+                                        <!-- end -->
+                                      </div>
+
+                                      <div class="modal-footer" >
+                                        
+                                            <input type="hidden" name="command1" value="decline">
+                                            <input type="hidden" name="id1" value="'.$row['ID'].'">
+                                          <button class="btn btn-danger" type="submit" name="commands1" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
+                                          Decline</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
+                                    
                                         </form>
                                       </div>
                                     </div>
@@ -343,6 +435,8 @@
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
+
+
   
 </body>
 
@@ -383,3 +477,7 @@ $('form.ajax').on('submit', function(){
     return false;
 
 });
+<<<<<<< HEAD
+</script> -->
+=======
+>>>>>>> 6f5f39c89404f36fa32c1aed05e2ed9ca73ef000
