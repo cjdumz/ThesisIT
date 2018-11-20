@@ -141,13 +141,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control" name="first">
+                          <required input type="text" class="form-control" name="first">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Middle Name</label>
-                          <input type="text" class="form-control" name="middle">
+                          <required input type="text" class="form-control" name="middle">
                         </div>
                       </div>
                     </div>
@@ -155,13 +155,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control" name="last">
+                          <required input type="text" class="form-control" name="last">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Suffix</label>
-                          <input type="text" class="form-control" name="suffix">
+                          <required input type="text" class="form-control" name="suffix">
                         </div>
                       </div>
                     </div>
@@ -169,7 +169,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control" name="address">
+                          <required input type="text" class="form-control" name="address">
                         </div>
                       </div>
                     </div>
@@ -177,7 +177,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email Address</label>
-                          <input type="text" class="form-control" name="email">
+                          <required input type="text" class="form-control" name="email">
                         </div>
                       </div>
                     </div>
@@ -185,13 +185,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Mobile Number</label>
-                          <input type="text" class="form-control" name="mobile">
+                          <required input type="text" class="form-control" name="mobile">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Telephone Number</label>
-                          <input type="text" class="form-control" name="telephone">
+                          <required input type="text" class="form-control" name="telephone">
                         </div>
                       </div>
                     </div>
