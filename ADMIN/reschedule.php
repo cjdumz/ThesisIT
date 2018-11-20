@@ -91,13 +91,6 @@
             </a>
           </li>
             
-          <li class="nav-item">
-            <a class="nav-link" href="blank.php">
-              <i class="menu-icon mdi mdi-settings"></i>
-              <span class="menu-title" style="font-size:14px;">Settings</span>
-            </a>
-          </li>
-            
         </ul>
       </nav>
       <!-- partial -->
