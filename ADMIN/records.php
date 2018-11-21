@@ -154,7 +154,7 @@
                       <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
                       <div class="col-md-2 offset-md-8" style="margin">
                         <h5 style="margin-top: 20px;">
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Add Task</button>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>
                         </h5>
                       </div>
                     </div>
