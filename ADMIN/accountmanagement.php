@@ -160,7 +160,7 @@
                                           <a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a>
                                           
                                           
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal'.$row['personalId'].'"><i class="menu-icon mdi mdi-email-outline"></i> Send SMS</button>
+                                          <button type="button" class="btn btn-darkblue" data-toggle="modal" data-target="#exampleModal'.$row['personalId'].'"><i class="menu-icon mdi mdi-email-outline"></i> Send SMS</button>
                                         </td>
                                     </tr>
 
@@ -168,7 +168,7 @@
                                     <div class="modal modal-lg fade" id="exampleModal'.$row['personalId'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                          <div class="modal-header" style="background-color: #308ee0; color: white; border: 3px solid #308ee0;">
+                                          <div class="modal-header" style="background-color: #000099; color: white; border: 3px solid #000099;">
                                             <h5 class="modal-title" id="exampleModalLabel">Send SMS</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
@@ -193,7 +193,7 @@
                                     
                                           </div>
                                           <div class="modal-footer">
-                                            <button type="submit" name="send-sms" class="btn btn-primary"><i class="menu-icon mdi mdi-send"></i>Send</button>
+                                            <button type="submit" name="send-sms" class="btn btn-darkblue"><i class="menu-icon mdi mdi-send"></i>Send</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                           </div>
                                           </form>
