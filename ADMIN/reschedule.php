@@ -40,7 +40,7 @@
             
           <li class="nav-item">
             <a class="nav-link" id="active" href="dashboard.php">
-              <i class="menu-icon mdi mdi-sort-variant"></i>
+              <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
@@ -232,7 +232,7 @@
                                           <input type="hidden" name="location" value="reschedule">
                                           <div class="modal-footer" >
                                           
-                                            <button type="submit" name="resubmit" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
+                                            <button type="submit" name="resubmit" class="btn btn-warning"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                             
                                             </form>

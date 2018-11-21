@@ -41,7 +41,7 @@
             
           <li class="nav-item">
             <a class="nav-link" href="dashboard.php">
-              <i class="menu-icon mdi mdi-inbox"></i>
+              <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
