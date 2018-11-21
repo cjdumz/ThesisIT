@@ -167,7 +167,7 @@
                                     <div class="modal fade" id="exampleModalCenter'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                       <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                          <div class="modal-header" style="background-color: #B80011; color: white; border: 3px solid #B80011;">
+                                          <div class="modal-header"  style="background-color: #FFAF00; color: white; border: 3px solid #FFAF00;">
                                             <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>

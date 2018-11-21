@@ -154,7 +154,7 @@
                       <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
                       <div class="col-md-2 offset-md-8" style="margin">
                         <h5 style="margin-top: 20px;">
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>
+                          <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>
                         </h5>
                       </div>
                     </div>
@@ -194,7 +194,7 @@
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                          <div class="modal-header">
+                          <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
                             <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
@@ -213,7 +213,7 @@
                             </form>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-primary"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
+                            <button type="button" class="btn btn-darkred"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                           </div>
                         </div>
