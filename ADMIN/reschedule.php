@@ -150,7 +150,7 @@
                                                     <input type="hidden" name="command" value="deny">
                                                     <input type="hidden" name="id" value="'.$row['ID'].'">
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-danger" style="color: white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                                    <button type="button" class="btn btn-warning" style="color: white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                                       Reschedule
                                                     </button>
                                                 </form>

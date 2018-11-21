@@ -157,8 +157,10 @@
                                         <td>'.$row['address'].'</td>
                                         <td>'.$row['mobileNumber'].'</td>
                                         <td class="text-center">
-                                          <a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary">View</button></a>
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal'.$row['personalId'].'">Send SMS</button>
+                                          <a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a>
+                                          
+                                          
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal'.$row['personalId'].'"><i class="menu-icon mdi mdi-email-outline"></i> Send SMS</button>
                                         </td>
                                     </tr>
 

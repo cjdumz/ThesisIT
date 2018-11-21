@@ -148,7 +148,7 @@
                                         <td>'.$row['series'].'</td>
                                         <td>'.$row['color'].'</td>
                                         <td>'.$row['status'].'</td>
-                                        <td><a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary">View</button></a></td>
+                                        <td class="text-center"><a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>
                                     </tr>
 
 

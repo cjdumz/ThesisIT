@@ -188,7 +188,7 @@ if(!isset($_GET['id'])){
                       </div>
                     </div>
                     <br><br><br>
-                    <button type="submit" class="btn btn-primary" name="submit-user" style="float:right">Update Profile</button>
+                    <button type="submit" class="btn btn-success" name="submit-user" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update Profile</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -221,7 +221,7 @@ if(!isset($_GET['id'])){
                             echo '
                                 <tr>
                                   <td>'.$row2['plateNumber'].'</td>
-                                  <td class="text-center"><button class="btn btn-primary">View</td>
+                                  <td class="text-center"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</td>
                                 </tr>
                             ';
                             }
@@ -287,7 +287,7 @@ if(!isset($_GET['id'])){
                                 <td class="text-center">
                                     <div class="row">
                                       <div class="col-12">
-                                        <button class="btn btn-success" name="commands1" style="margin-top: 5px; width: 145px; color:white;"  data-toggle="modal" data-target="#appointmentModalCenter'.$row['id'].'"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
+                                        <button class="btn btn-primary" name="commands1" style="margin-top: 5px; width: 145px; color:white;"  data-toggle="modal" data-target="#appointmentModalCenter'.$row['id'].'"><i class="menu-icon mdi mdi-eye-outline"></i>
                                         View</button>
                                       </div>
                                     </div>

@@ -159,7 +159,7 @@
                                       <div class="col-12">
                                         <input type="hidden" name="command2" value="decline">
                                         <input type="hidden" name="id2" value="'.$row['ID'].'">
-                                        <button class="btn btn-danger"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                        <button class="btn btn-danger"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-remove"></i>
                                         Decline</button>
                                       </div>
                                     </div>

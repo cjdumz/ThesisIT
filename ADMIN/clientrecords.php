@@ -140,8 +140,8 @@
                             echo '
                                 <tr>
                                 <td>'.$row['Name'].'</td>
-                                <td class="text-center"><button class="btn btn-primary text-center" style="width: 150px;">Vehicles</button></td>
-                                <td class="text-center"><button class="btn btn-success text-center" style="width: 150px;">Transactions</button></td>
+                                <td class="text-center"><button class="btn btn-primary text-center" style="width: 155px;"><i class="menu-icon mdi mdi-car"></i> Vehicles</button></td>
+                                <td class="text-center"><button class="btn btn-success text-center" style="width: 155px;"><i class="menu-icon mdi mdi-swap-horizontal"></i> Transactions</button></td>
                                 
 
    
