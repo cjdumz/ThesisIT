@@ -96,218 +96,109 @@
             
         </ul>
       </nav>
-        <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-
-            <!-- start -->
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Personal Information</h4>
-                  <form action="process/adduser_process.php" method="POST">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">First Name</label>
-                          <input type="text" class="form-control" name="first" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Middle Name</label>
-                          <input type="text" class="form-control" name="middle" required>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control" name="last" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Suffix</label>
-                          <input type="text" class="form-control" name="suffix">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Address</label>
-                          <input type="text" class="form-control" name="address" required>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Email Address</label>
-                          <input type="text" class="form-control" name="email" required>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Mobile Number</label>
-                          <input type="text" class="form-control"  pattern="[0-9]{4}[0-9]{3}[0-9]{4}" name="mobile" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Telephone Number</label>
-                          <input type="text" class="form-control"  pattern="[0-9]{3}[0-9]{3}[0-9]{4}" name="telephone">
-                        </div>
-                      </div>
-                    </div>
-                    <br><br><br>
-                    <button type="submit" class="btn btn-primary" name="submit-user" style="float:right"><i class="menu-icon mdi mdi-account-multiple-plus"></i> Add User</button>
-                    <div class="clearfix"></div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <!-- end -->
-            <!-- start -->
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Vehicle Information</h4>
-                  <form action="process/addvehicle_process.php" method="POST">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Plate Number</label>
-                          <input type="text" class="form-control" name="plateNumber" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Body Type</label>
-                          <input type="text" class="form-control" name="bodyType" required>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Year Model</label>
-                          <input type="text" class="form-control" name="yearModel" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Chassis Number</label>
-                          <input type="text" class="form-control" name="chasisNumber">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Engine Classification</label>
-                          <input type="text" class="form-control" name="engineClassification" required>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Number of Cylinders</label>
-                          <input type="text" class="form-control" name="numberOfCylinders" required>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Type of Drive Train</label>
-                          <input type="text" class="form-control" name="typeOfDriveTrain" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Make</label>
-                          <input type="text" class="form-control" name="make">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Series</label>
-                          <input type="text" class="form-control" name="series" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Color</label>
-                          <input type="text" class="form-control" name="color">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Engine Number</label>
-                          <input type="text" class="form-control" name="engineNumber" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Type of Engine</label>
-                          <input type="text" class="form-control" name="typeOfEngine">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Engine Displacement</label>
-                          <input type="text" class="form-control" name="engineDisplacement" required>
-                        </div>
-                      </div>
-                    </div>
-                    <br><br><br>
-                    <button type="submit" class="btn btn-primary" name="submit-vehicle" style="float:right"><i class="menu-icon mdi mdi-car-hatchback"></i> Add Vehicle</button>
-                    <div class="clearfix"></div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <!-- end -->
       
-         
-        <!-- partial:partials/_footer.html -->
-        
-        <!-- partial -->
-          
-      </div>
-      <!-- main-panel ends -->
-    </div>
-        <?php include "includes/footer.php";?>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
+            <div class="main-panel">
+               <div class="content-wrapper">
+                   <div class="row">
+                       
+                       
+                       <div class="col-lg-12 stretch-card">
+                          <div class="card">
+                              <div class="card-body">
 
-  <!-- plugins:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
-  <script src="vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/misc.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+                                    <form action="process/adduser_process.php" method="POST">
+                                    <p class="card-title" style="font-size:20px;">Personal Information</p>
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">First Name</label>
+                                              <input type="text" class="form-control" name="first" required>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">Middle Name</label>
+                                              <input type="text" class="form-control" name="middle" required>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">Last Name</label>
+                                              <input type="text" class="form-control" name="last" required>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">Suffix</label>
+                                              <input type="text" class="form-control" name="suffix">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">Address</label>
+                                              <input type="text" class="form-control" name="address" required>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">Email Address</label>
+                                              <input type="text" class="form-control" name="email" required>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">Mobile Number</label>
+                                              <input type="text" class="form-control"  pattern="[0-9]{4}[0-9]{3}[0-9]{4}" name="mobile" required>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label class="bmd-label-floating">Telephone Number</label>
+                                              <input type="text" class="form-control"  pattern="[0-9]{3}[0-9]{3}[0-9]{4}" name="telephone">
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <br><br><br>
+                                        <a href="addvehicle.php">
+                                            <button type="submit" class="btn btn-primary" name="submit-user" style="float:right">Next <i class="menu-icon mdi mdi-chevron-right"></i></button>
+                                            <div class="clearfix"></div>
+                                        </a>
+                                      </form>
+                              </div>
+                           </div>
+                       </div>   
+                   </div>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <?php include "includes/footer.php";?>
+                <!-- partial -->
+            </div>
+        </div>
+    </div>
+             <!-- container-scroller -->
+              <!-- plugins:js -->
+              <script src="vendors/js/vendor.bundle.base.js"></script>
+              <script src="vendors/js/vendor.bundle.addons.js"></script>
+              <!-- endinject -->
+              <!-- Plugin js for this page-->
+              <!-- End plugin js for this page-->
+              <!-- inject:js -->
+              <script src="js/off-canvas.js"></script>
+              <script src="js/misc.js"></script>
+              <!-- endinject -->
+              <!-- Custom js for this page-->
+              <script src="js/dashboard.js"></script>
+              <!-- End custom js for this page-->
+
 </body>
 
 </html>
