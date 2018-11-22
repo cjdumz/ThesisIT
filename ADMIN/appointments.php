@@ -277,7 +277,8 @@
                                             <h4 class="card-title">Services:</h4>                                            
                                           </div>
                                           <div class="col-6">
-                                            <h4 class="card-title">'.$row['sername'].'</h4>
+                                            <h4 class="card-title">'.$row['sername'].', '.$row['sername'].', '.$row['sername'].','.$row['sername'].', '.$row['sername'].'</h4>
+                                            
                                           </div>
                                         </div>
                                         <form method="POST" action="process/server.php" enctype="multipart/form-data">
