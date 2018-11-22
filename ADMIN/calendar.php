@@ -97,14 +97,10 @@
                        
                        <div class="col-lg-12 stretch-card">
                           <div class="card">
-<<<<<<< HEAD
-                              <div class="card-body">
-                    
-                                  
-=======
                               <div class="card-body">    
->>>>>>> 191bbce37952a0c034c75508f3aff0ffa18340fb
                               <div class="container">
+                                  
+                                  
                                   <div class="page-header">
                                       <h3></h3>
                                       
@@ -136,11 +132,17 @@
                        </div>   
                    </div>
                 </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <?php include "includes/footer.php";?>
+                <!-- partial -->
             </div>
-            
+            <!-- main-panel ends -->
         </div>
+        <!-- page-body-wrapper ends -->
     </div>
-    <?php include "includes/footer.php";?>
+    <!-- container-scroller -->
+
 </body>
     
 
