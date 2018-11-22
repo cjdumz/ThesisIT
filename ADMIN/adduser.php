@@ -1,36 +1,17 @@
-<?php require 'process/require/auth.php';
-      require "process/require/dataconf.php";
-// if(!isset($_GET['id'])){
-//   header("Location: error.php");
-//   exit();
-// }
-
-?>
-
+<?php require 'process/require/auth.php';?>
+<?php require "process/require/dataconf.php";?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>User</title>
+  <title>Dashboard</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
-  <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/custom.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="images/favicon.png" />
-  <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
-  
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
@@ -51,9 +32,9 @@
     <?php include "includes/navbar.php";?>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
+    <!-- partial:partials/_sidebar.html -->
         
-          <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
@@ -93,14 +74,14 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="clientrecords.php">
+            <a class="nav-link"  href="clientrecords.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Client Records</span>
             </a>
           </li>
             
-          <li class="nav-item active">
-            <a class="nav-link " href="accountmanagement.php">
+          <li class="nav-item">
+            <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
@@ -112,10 +93,10 @@
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
             </a>
           </li>
-    
+            
         </ul>
       </nav>
-      <!-- partial -->
+        <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
@@ -185,7 +166,7 @@
                       </div>
                     </div>
                     <br><br><br>
-                    <button type="submit" class="btn btn-primary" name="submit-user" style="float:right">Add User</button>
+                    <button type="submit" class="btn btn-primary" name="submit-user" style="float:right"><i class="menu-icon mdi mdi-account-multiple-plus"></i> Add User</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -293,27 +274,23 @@
                       </div>
                     </div>
                     <br><br><br>
-                    <button type="submit" class="btn btn-primary" name="submit-vehicle" style="float:right">Add Vehicle</button>
+                    <button type="submit" class="btn btn-primary" name="submit-vehicle" style="float:right"><i class="menu-icon mdi mdi-car-hatchback"></i> Add Vehicle</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
               </div>
             </div>
             <!-- end -->
-
-
-
-        
-
-          </div>
-        </div>
-        <!-- content-wrapper ends -->
+      
+         
         <!-- partial:partials/_footer.html -->
-        <?php include "includes/footer.php";?>
+        
         <!-- partial -->
+          
       </div>
       <!-- main-panel ends -->
     </div>
+        <?php include "includes/footer.php";?>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
@@ -331,75 +308,6 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
-  <script src="js/jquery.dataTables.js"></script>
-  <script src="js/dataTables.bootstrap4.js"></script>
-  <script src="js/sb-admin-datatables.min.js"></script>
 </body>
 
 </html>
-
-<script>
-  var table = $('#doctables').DataTable({
-    // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
-
-});
-</script>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#officegroup').on('change',function(){
-        var ogID = $(this).val();
-        if(ogID){
-            $.ajax({
-                type:'POST',
-                url:'includes/getDeviceData.php',
-                data:'group_id='+ogID,
-                success:function(html){
-                    $('#office').html(html);
-                    $('#computer').html('<option value="">Select office first</option>'); 
-                    $('#part').html('<option value="">Select computer first</option>'); 
-                }
-            }); 
-        }else{
-            $('#office').html('<option value="">Select office group first</option>');
-            $('#computer').html('<option value="">Select office first</option>'); 
-            $('#part').html('<option value="">Select computer first</option>'); 
-        }
-    });
-    
-    $('#office').on('change',function(){
-        var officeID = $(this).val();
-        if(officeID){
-            $.ajax({
-                type:'POST',
-                url:'includes/getDeviceData.php',
-                data:'office_id='+officeID,
-                success:function(html){
-                    $('#computer').html(html);
-                    $('#part').html('<option value="">Select computer first</option>');
-                }
-            }); 
-        }else{
-          $('#computer').html('<option value="">Select office first</option>'); 
-          $('#part').html('<option value="">Select computer first</option>'); 
-        }
-    });
-          $('#computer').on('change',function(){
-              var computerID = $(this).val();
-              if(computerID){
-                  $.ajax({
-                      type:'POST',
-                      url:'includes/getDeviceData.php',
-                      data:'computer_id='+computerID,
-                      success:function(html){
-                          $('#part').html(html);
-                      }
-                  }); 
-              }else{
-                  $('#part').html('<option value="">Select computer first</option>');
-              }          
-      });
-});
-</script>
