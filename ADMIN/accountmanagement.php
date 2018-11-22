@@ -41,7 +41,7 @@
             
           <li class="nav-item">
             <a class="nav-link" id="active" href="dashboard.php">
-              <i class="menu-icon mdi mdi-sort-variant"></i>
+              <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
@@ -146,7 +146,7 @@
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT * FROM `personalinfo` join `vehicles` WHERE personalinfo.personalId = vehicles.personalId GROUP BY user_id");
+                            $data = $connection->prepare("SELECT * FROM `personalinfo` join `vehicles` WHERE personalinfo.personalId = vehicles.personalId GROUP BY id");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
@@ -157,8 +157,10 @@
                                         <td>'.$row['address'].'</td>
                                         <td style="text-align: right;">'.$row['mobileNumber'].'</td>
                                         <td class="text-center">
-                                          <a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary">View</button></a>
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal'.$row['personalId'].'">Send SMS</button>
+                                          <a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a>
+                                          
+                                          
+                                          <button type="button" class="btn btn-darkblue" data-toggle="modal" data-target="#exampleModal'.$row['personalId'].'"><i class="menu-icon mdi mdi-email-outline"></i> Send SMS</button>
                                         </td>
                                     </tr>
 
@@ -166,7 +168,7 @@
                                     <div class="modal modal-lg fade" id="exampleModal'.$row['personalId'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                          <div class="modal-header">
+                                          <div class="modal-header" style="background-color: #000099; color: white; border: 3px solid #000099;">
                                             <h5 class="modal-title" id="exampleModalLabel">Send SMS</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
@@ -182,7 +184,7 @@
                                             </div>
 
                                             <div class="form-group row">
-                                              <label for="exampleInputEmail3" class="col-sm-3 col-form-label">Phone Number</label>
+                                              <label for="exampleInputEmail3" class="col-sm-3 col-form-label">Message</label>
                                               <div class="col-sm-9">
                                                 <textarea type="text" class="form-control" name="message" id="exampleInputEmail3"></textarea>
                                               </div>
@@ -191,8 +193,8 @@
                                     
                                           </div>
                                           <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="send-sms" class="btn btn-primary">Send</button>
+                                            <button type="submit" name="send-sms" class="btn btn-darkblue"><i class="menu-icon mdi mdi-send"></i>Send</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                           </div>
                                           </form>
                                         </div>

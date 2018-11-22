@@ -59,7 +59,7 @@
             
           <li class="nav-item">
             <a class="nav-link" href="dashboard.php">
-              <i class="menu-icon mdi mdi-sort-variant"></i>
+              <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
@@ -119,20 +119,6 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            
-            <!-- start -->
-
-         <!--     <?php
-              if(isset($_GET['id'])){
-                $id = $_GET['id'];
-                $getuser = $connection->prepare('SELECT * FROM personalinfo where personalId = '.$id.' limit 1; ');
-                $getuser->execute();
-                $value = $getuser->get_result();
-                $contentx = $value->fetch_assoc();
-              }
-              ?> -->
-
-            <!-- end -->
 
             <!-- start -->
             <div class="col-lg-6 grid-margin stretch-card">
@@ -143,7 +129,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Fist Name</label>
+                          <label class="bmd-label-floating">First Name</label>
                           <input type="text" class="form-control" name="first" required>
                         </div>
                       </div>
@@ -200,6 +186,114 @@
                     </div>
                     <br><br><br>
                     <button type="submit" class="btn btn-primary" name="submit-user" style="float:right">Add User</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- end -->
+            <!-- start -->
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Vehicle Information</h4>
+                  <form action="process/addvehicle_process.php" method="POST">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Plate Number</label>
+                          <input type="text" class="form-control" name="plateNumber" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Body Type</label>
+                          <input type="text" class="form-control" name="bodyType" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Year Model</label>
+                          <input type="text" class="form-control" name="yearModel" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Chassis Number</label>
+                          <input type="text" class="form-control" name="chasisNumber">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Engine Classification</label>
+                          <input type="text" class="form-control" name="engineClassification" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Number of Cylinders</label>
+                          <input type="text" class="form-control" name="numberOfCylinders" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Type of Drive Train</label>
+                          <input type="text" class="form-control" name="typeOfDriveTrain" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Make</label>
+                          <input type="text" class="form-control" name="make">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Series</label>
+                          <input type="text" class="form-control" name="series" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Color</label>
+                          <input type="text" class="form-control" name="color">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Engine Number</label>
+                          <input type="text" class="form-control" name="engineNumber" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Type of Engine</label>
+                          <input type="text" class="form-control" name="typeOfEngine">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Engine Displacement</label>
+                          <input type="text" class="form-control" name="engineDisplacement" required>
+                        </div>
+                      </div>
+                    </div>
+                    <br><br><br>
+                    <button type="submit" class="btn btn-primary" name="submit-vehicle" style="float:right">Add Vehicle</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>

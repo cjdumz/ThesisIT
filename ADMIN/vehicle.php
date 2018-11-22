@@ -39,7 +39,7 @@
             
           <li class="nav-item">
             <a class="nav-link" id="active" href="dashboard.php">
-              <i class="menu-icon mdi mdi-sort-variant"></i>
+              <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
@@ -152,12 +152,16 @@
                                         <td>'.$row['series'].'</td>
                                         <td>'.$row['color'].'</td>
                                         <td>'.$row['status'].'</td>
+<<<<<<< HEAD
                                         <td class="text-center">
                                           <a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary">View</button></a>
                                           <button class="btn btn-primary" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                           History</button>
                                         
                                         </td>
+=======
+                                        <td class="text-center"><a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>
+>>>>>>> 191bbce37952a0c034c75508f3aff0ffa18340fb
                                     </tr>
 
 

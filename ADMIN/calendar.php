@@ -32,7 +32,7 @@
 
               <li class="nav-item">
                 <a class="nav-link" href="dashboard.php">
-                  <i class="menu-icon mdi mdi-sort-variant"></i>
+                  <i class="menu-icon mdi mdi-view-dashboard"></i>
                   <span class="menu-title" style="font-size:14px;">Dashboard</span>
                 </a>
               </li>
@@ -97,9 +97,13 @@
                        
                        <div class="col-lg-12 stretch-card">
                           <div class="card">
+<<<<<<< HEAD
                               <div class="card-body">
                     
                                   
+=======
+                              <div class="card-body">    
+>>>>>>> 191bbce37952a0c034c75508f3aff0ffa18340fb
                               <div class="container">
                                   <div class="page-header">
                                       <h3></h3>

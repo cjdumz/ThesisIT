@@ -62,7 +62,7 @@ if(isset($_GET['plate'])){
             
           <li class="nav-item">
             <a class="nav-link" id="active" href="dashboard.php">
-              <i class="menu-icon mdi mdi-sort-variant"></i>
+              <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
@@ -259,7 +259,7 @@ if(isset($_GET['plate'])){
                             </div>
                         </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="updateVehicle" style="float:right">Update Vehicle</button>
+                        <button type="submit" class="btn btn-success" name="updateVehicle" style="float:right"><i class="menu-icon mdi mdi-car-side"></i> Update Vehicle</button>
                         <div class="clearfix"></div>
                     </form>
                     </div>
@@ -330,7 +330,7 @@ if(isset($_GET['plate'])){
                                            </div>
                                         </td>
                                         <td>'.$row['status'].'</td>
-                                        <td class="text-center"><a href="records.php?id='.$row['id'].'"><button class="btn btn-primary">View</button></a></td>
+                                        <td class="text-center"><a href="records.php?id='.$row['id'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>
                                         
                                         
                                     </tr>

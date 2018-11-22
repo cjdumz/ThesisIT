@@ -40,7 +40,7 @@
             
           <li class="nav-item">
             <a class="nav-link" id="active" href="dashboard.php">
-              <i class="menu-icon mdi mdi-sort-variant"></i>
+              <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
@@ -150,7 +150,7 @@
                                                     <input type="hidden" name="command" value="deny">
                                                     <input type="hidden" name="id" value="'.$row['ID'].'">
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-danger" style="color: white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                                    <button type="button" class="btn btn-warning" style="color: white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                                       Reschedule
                                                     </button>
                                                 </form>
@@ -167,7 +167,7 @@
                                     <div class="modal fade" id="exampleModalCenter'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                       <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                          <div class="modal-header" style="background-color: #B80011; color: white; border: 3px solid #B80011;">
+                                          <div class="modal-header"  style="background-color: #FFAF00; color: white; border: 3px solid #FFAF00;">
                                             <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
@@ -232,7 +232,7 @@
                                           <input type="hidden" name="location" value="reschedule">
                                           <div class="modal-footer" >
                                           
-                                            <button type="submit" name="resubmit" class="btn btn-danger"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
+                                            <button type="submit" name="resubmit" class="btn btn-warning"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                             
                                             </form>
