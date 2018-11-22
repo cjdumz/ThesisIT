@@ -126,7 +126,7 @@ if(!isset($_GET['id'])){
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Personal Information</h4>
+                  <p class="card-title" style="font-size:20px;">Personal Information</p>
                   <form action="process/server.php" method="POST">
                     <div class="row">
                       <div class="col-md-6">
@@ -202,7 +202,7 @@ if(!isset($_GET['id'])){
                 <div class="card-body">
 
                 <!-- start -->
-                <h4 class="card-title">Vehicle List</h4>
+                <p class="card-title" style="font-size:20px;">Vehicle List</p>
                 <div class="table-responsive">
                     <table class="table table-bordered table-dark" id="doctables">
                       <thead>

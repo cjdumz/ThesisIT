@@ -127,7 +127,7 @@ if(isset($_GET['plate'])){
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                    <h4 class="card-title">Vehicle Information</h4>
+                    <p class="card-title" style="font-size:20px;">Vehicle Information</p>
                     <form action="process/updateVehicle.php" method="POST"> 
                         <div class="row">
                         <div class="col-md-4">
@@ -283,7 +283,7 @@ if(isset($_GET['plate'])){
             <div class="col-12 grid-margin stretch-card" id="view">
               <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Vehicle Hisotry</h4>
+                    <p class="card-title" style="font-size:20px;">Vehicle History</p>
                     <!-- start -->
                     <div class="table-responsive">
                     <table class="table table-bordered table-dark" id="doctables">
