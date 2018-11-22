@@ -1,20 +1,20 @@
 <?php
 include_once("process/require/dataconf.php");
-$sqlEvents = "SELECT id, title, start_date, end_date FROM events LIMIT 20";
-$resultset = mysqli_query($connection, $sqlEvents) or die("database error:". mysqli_error($connection));
 $calendar = array();
-while( $rows = mysqli_fetch_assoc($resultset) ) {	
-	// convert  date to milliseconds
-	$start = strtotime($rows['start_date']) * 1000;
-	$end = strtotime($rows['end_date']) * 1000;	
-	$calendar[] = array(
-        'id' =>$rows['id'],
-        'title' => $rows['title'],
-        'url' => "#",
-		"class" => 'event-important',
-        'start' => "$start",
-        'end' => "$end"
-    );
+$sqlEvents = $connection->prepare("SELECT appointments.id, vehicles.plateNumber, appointments.date FROM appointments INNER JOIN vehicles ON appointments.vehicleId = vehicles.id LIMIT 20");
+if ($sqlEvents->execute()){
+    $resultset = $sqlEvents->get_result();
+    while( $rows = $resultset->fetch_assoc() ) {	
+        // convert  date to milliseconds
+        $start = strtotime($rows['date']) * 1000;
+        $calendar[] = array(
+            'id' =>$rows['id'],
+            'title' => $rows['plateNumber'],
+            'url' => "#",
+            "class" => 'event-important',
+            'start' => "$start",
+        );
+    }
 }
 $calendarData = array(
 	"success" => 1,	

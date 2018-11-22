@@ -136,10 +136,14 @@
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                       <?php
-                            $data = $connection->prepare("SELECT concat(firstName, ' ', middleName, ' ',lastName ) as 'Name', vehicles.plateNumber, vehicles.bodyType, vehicles.bodyType, vehicles.make, vehicles.series, vehicles.color, vehicles.status FROM `vehicles` join personalinfo where personalinfo.personalId = vehicles.personalId");
+                            $data = $connection->prepare("SELECT  vehicles.id as 'ID', concat(firstName, ' ', middleName, ' ',lastName ) as 'Name', vehicles.plateNumber,
+                            vehicles.bodyType, vehicles.bodyType, vehicles.make, vehicles.series, vehicles.color, vehicles.status FROM `vehicles`
+                             join personalinfo where personalinfo.personalId = vehicles.personalId");
                             if($data->execute()){
                                 $values = $data->get_result();
+                                
                                 while($row = $values->fetch_assoc()) {
+                                  $vehicleID = $row['ID'];
                                 echo '
                                     <tr>
                                         <td>'.$row['plateNumber'].'</td>
@@ -148,11 +152,64 @@
                                         <td>'.$row['series'].'</td>
                                         <td>'.$row['color'].'</td>
                                         <td>'.$row['status'].'</td>
-                                        <td><a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary">View</button></a></td>
+                                        <td class="text-center">
+                                          <a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary">View</button></a>
+                                          <button class="btn btn-primary" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                          History</button>
+                                        
+                                        </td>
                                     </tr>
 
 
+                                    <!-- Decline Modal -->
+                                    <div class="modal fade" id="decline'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="appointmentModalCenterTitle" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header" style="background-color: #308EE0; color: white; border: 3px solid #308EE0;">
+                                            <h5 class="modal-title" id="appointmentModalCenterTitle">History</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <!-- start -->';
 
+                                            $getHistory = $connection->prepare("SELECT *, concat(firstName,' ',middleName,' ',lastName) as 'Name', appointments.date as 'Time' FROM
+                                             `appointments` inner join personalinfo on
+                                            appointments.personalId = personalinfo.personalId
+                                            where vehicleID = $vehicleID limit 10;");
+                                            if($getHistory->execute()){
+                                                $dates = $getHistory->get_result();
+                                                while($rows = $dates->fetch_assoc()) {
+                                                  echo '
+                                                  <a href="records.php?id='.$rows['id'].'" style="text-decoration:none; color: white;">
+                                                  <div style="border: 4px solid #308EE0; border-radius: 5px; color: white; text-align: center; background-color:#308EE0;margin-bottom: 5px; margin-top: 5px;">
+                                                  '.$rows['Time'].'
+                                                  </div></a>
+    
+                                                    ';
+
+                                                }
+                                              }
+                                              echo'
+                                              <a href="viewvehicle.php?plate='.$row['plateNumber'].'#view" style="text-decoration:none; color: white;">
+                                              <div style="border: 4px solid #308EE0; border-radius: 5px; color: white; text-align: center; background-color:#308EE0;margin-bottom: 5px; margin-top: 5px;">
+                                              View All
+                                              </div></a>
+
+                            
+                                            <!-- end -->
+                                          </div>
+    
+                                          <div class="modal-footer" >
+                                            
+                                              
+                                      
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+        
                                    
                                 ';
                                 }

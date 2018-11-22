@@ -280,7 +280,7 @@ if(isset($_GET['plate'])){
             <!-- end -->
 
            <!-- start -->
-            <div class="col-12 grid-margin stretch-card">
+            <div class="col-12 grid-margin stretch-card" id="view">
               <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Vehicle Hisotry</h4>

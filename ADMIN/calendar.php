@@ -98,10 +98,7 @@
                        <div class="col-lg-12 stretch-card">
                           <div class="card">
                               <div class="card-body">
-                                  <p class="card-title" style="font-size:25px; text-decoration: underline; font-weight: 900; color:#b80011;">Calendar</p>
-                                  <p class="card-description" style="font-size:17px;">
-                                        Calendar
-                                  </p>
+                    
                                   
                               <div class="container">
                                   <div class="page-header">
