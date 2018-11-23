@@ -165,20 +165,13 @@ if (isset($_POST['account_edit'])) {
   if (isset($_POST['vehiclesinfo_edit'])) { 
   $db = mysqli_connect('localhost', 'root', '', 'thesis');
   $plateNumber = mysqli_real_escape_string($db, $_POST['plateNumber']);
-  $bodyType = mysqli_real_escape_string($db, $_POST['bodyType']);
-  $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
-  $chasisNumber = mysqli_real_escape_string($db, $_POST['chasisNumber']);
-  $numberOfCylinders = mysqli_real_escape_string($db, $_POST['numberOfCylinders']);
-  $typeOfDriveTrain = mysqli_real_escape_string($db, $_POST['typeOfDriveTrain']);
   $make = mysqli_real_escape_string($db, $_POST['make']);
+  $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
   $series = mysqli_real_escape_string($db, $_POST['series']);
   $color = mysqli_real_escape_string($db, $_POST['color']);
-  $engineDisplacement = mysqli_real_escape_string($db, $_POST['engineDisplacement']);
-  $engineClassification = mysqli_real_escape_string($db, $_POST['engineClassification']);
-  $typeOfEngine = mysqli_real_escape_string($db, $_POST['typeOfEngine']);
   $vehicleid = mysqli_real_escape_string($db, $_POST['vehicleid']);
-  $engineNumber = mysqli_real_escape_string($db, $_POST['vehicleid']);
-   $query  = "UPDATE vehicles SET plateNumber = '$plateNumber', bodyType ='$bodyType', yearModel = '$yearModel', chasisNumber = '$chasisNumber', engineClassification = '$engineClassification', numberOfCylinders = '$numberOfCylinders', typeOfDriveTrain = '$typeOfDriveTrain', make = '$make',  series = '$series', color = '$color', engineNumber = '$engineNumber', typeOfEngine = '$typeOfEngine', engineDisplacement = '$engineDisplacement',  modified = now() WHERE id = '$vehicleid'";
+
+   $query  = "UPDATE vehicles SET plateNumber = '$plateNumber', yearModel = '$yearModel', make = '$make',  series = '$series', color = '$color',  modified = now() WHERE id = '$vehicleid'";
     if (mysqli_query($db, $query) == true) {
     $_SESSION['success_edit'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -211,21 +204,6 @@ if (isset($_POST['account_edit'])) {
     $db->close();     
   }
 
-  if (isset($_POST['vehicle_delete'])) { 
-  $db = mysqli_connect('localhost', 'root', '', 'thesis');
-  $vehicleId = mysqli_real_escape_string($db, $_POST['vehicleId']);
-  $query  = "DELETE FROM vehicles WHERE id = $vehicleId"; 
-    if (mysqli_query($db, $query) == true) {
-    $_SESSION['delete'] = '<div class="alert alert-warning fade in" align="center">
-    <a href="#" class="close" data-dismiss="alert" >&times;</a>
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong> Vehicle data deleted successfully </div>';
-     header('location: vehiclesinfo.php');
-     exit();
-    }else {
-        echo "Error: " . $query . "<br>" . $db->error;
-    }
-    $db->close();     
-  }
   //Insert Appointment
   if(isset($_POST["vehicle"]))
   {

@@ -109,12 +109,7 @@
                     <ul class="nav navbar-nav navbar-right">
                           
                         <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
-<<<<<<< HEAD
                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
-=======
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
-                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
->>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
                         <li class="dropdown">
@@ -259,7 +254,6 @@
         
         <button type="button" class="btn btn-sm btn-primary " data-toggle="modal" data-target="#viewVehicle<?php echo $row['id']; ?>"><i class="fa fa-address-card" aria-hidden="true"></i> View Info</button>
         <button type="button" class="btn btn-sm btn-success " data-toggle="modal" data-target="#editVehicle<?php echo $row['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit</button>
-        <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#deleteVehicle<?php echo $row['id']; ?>"><i class="fas fa-trash-alt"></i>  Delete</button>
       </td>
 
 
@@ -271,11 +265,13 @@
         
           <!-- Modal content-->
           <div class="modal-content">
-            <div class="modal-header" style="background-color:#B80011; color: #ffffff;">
+            <div class="modal-header" style="background-color:#337AB7; color: #ffffff;">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h5 class="modal-title"><?php echo $row['make'].' '.$row['series'].' '.$row['yearModel']; ?></h5>
             </div>
             <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
               <div class="form-group">
                 <label for="plateNumber">Plate Number</label>
                 <p><?php echo $row['plateNumber']; ?></p>
@@ -296,6 +292,8 @@
                 <label for="color">Color</label>
                 <p><?php echo $row['color']; ?></p>
               </div>
+              </div>
+              <div class="col-md-6 col-sm-6">
               <div class="form-group">
                 <label for="bodyType">Body Type</label>
                 <p><?php 
@@ -304,7 +302,7 @@
                    }else
                    echo "No Value.";   
                 ?>
-                 <p>
+                 </p>
               </div>
               <div class="form-group">
                 <label for="chasisNumber">Chasis Number</label>
@@ -314,7 +312,7 @@
                    }else
                    echo "No Value.";   
                 ?>
-                <p>
+                </p>
               </div>
               <div class="form-group">
                 <label for="numberOfCylinders">Number of Cylinders</label>
@@ -324,7 +322,7 @@
                    }else
                    echo "No Value.";   
                 ?>
-                <p>
+                </p>
               </div>
                <div class="form-group">
                 <label for="engineClassification">Engine Classification</label>
@@ -334,7 +332,7 @@
                    }else
                    echo "No Value.";   
                 ?>
-                <p>
+                </p>
               </div>
                <div class="form-group">
                 <label for="typeOfDriveTrain">Type of Drive Train</label>
@@ -344,7 +342,7 @@
                    }else
                    echo "No Value.";   
                 ?>
-                <p>
+                </p>
               </div>
                <div class="form-group">
                 <label for="engineDisplacement">Engine Displacement</label>
@@ -354,7 +352,7 @@
                    }else
                    echo "No Value.";   
                 ?>
-                <p>
+                </p>
               </div>
               <div class="form-group">
                 <label for="typeOfEngine">Type of Engine</label>
@@ -364,7 +362,7 @@
                    }else
                    echo "No Value.";   
                 ?>
-                <p>
+                </p>
               </div>
                <div class="form-group">
                 <label for="engineNumber">Engine Number</label>
@@ -374,11 +372,13 @@
                    }else
                    echo "No Value.";   
                 ?>
-                <p>
+                </p>
+              </div>
+              </div>
               </div> 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" style="background-color: #b80011;color: white;"><i class="fas fa-times-circle"></i> Close</button>
+              <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" style="color: white;"><i class="fas fa-times-circle"></i> Close</button>
             </div>
           </div>
           
@@ -430,54 +430,8 @@
             <input type="text" class="form-control input-xs" id="color" name="color" value="<?php echo $row['color']; ?>" >
           </div>
           </div>
-          <div class="col-sm-6">
-          <div class="form-group">
-            <label for="bodyType">Body Type</label>
-            <input type="text" class="form-control input-sm" id="bodyType"  name="bodyType" value="<?php echo $row['bodyType']; ?>">
-          </div>
-          </div>
-         <div class="col-sm-6">
-          <div class="form-group">
-            <label for="chasisNumber">Chasis Number</label>
-            <input type="text" class="form-control" id="chasisNumber" name="chasisNumber" value="<?php echo $row['chasisNumber']; ?>" >
-          </div>
-         </div>
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="numberOfCylinders">Number of Cylinders</label>
-            <input type="number" class="form-control" id="numberOfCylinders" name="numberOfCylinders"value="<?php echo $row['numberOfCylinders']; ?>">
-           </div>
-           </div>
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="typeOfDriveTrain">Type of Drive Train</label>
-            <input type="number" class="form-control" id="typeOfDriveTrain" name="typeOfDriveTrain" value="<?php echo $row['typeOfDriveTrain']; ?>">
-          </div>
-          </div>
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="engineNumber">Engine Number</label>
-            <input type="text" class="form-control" id="engineNumber" name="engineNumber" value="<?php echo $row['engineNumber']; ?>">
-          </div>
-          </div>
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="engineDisplacement">Engine Displacement</label>
-            <input type="number" class="form-control" id="engineDisplacement" name="engineDisplacement" value="<?php echo $row['engineDisplacement']; ?>">
-          </div>  
-           </div> 
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="engineClassification">Engine Classification</label>
-            <input type="text" class="form-control" id="engineClassification" name="engineClassification" value="<?php echo $row['engineClassification']; ?>">
-          </div>
-          </div>
-          <div class="col-sm-6">
-          <div class="form-group">
-            <label for="typeofEngine">Type of Engine</label>
-            <input type="text" class="form-control" id="typeOfEngine" name="typeOfEngine" value="<?php echo $row['typeOfEngine']; ?>">
-          </div>
-          </div>
+
+
           </div>   
             </div>
             <div class="modal-footer">
@@ -490,31 +444,7 @@
         </div>
       </div>
 
-     <!--MODAL DELETE VEHICLES-->
-      <div class="modal fade" id="deleteVehicle<?php echo $row['id']; ?>" role="dialog">
-        <div class="modal-dialog">
-        
-          <!-- Modal content-->
-          <form action="vehiclesinfo.php" method="post">
-          <div class="modal-content">
-            <div class="modal-header" style="background-color:#B80011; color: #ffffff;">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h5 class="modal-title"> <?php echo $row['make'].' '.$row['series'].' '.$row['yearModel']; ?>?</h5>
-            </div>
-            <div class="modal-body">
-              <h5>Are you sure?All data about <?php echo $row['make'].' '.$row['series'].' '.$row['yearModel']; ?> will be deleted?</h5>
-            <input type="hidden" name="vehicleId" value="<?php echo $row['id']; ?>">
-            </div>
-          
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-sm btn-success" name="vehicle_delete"><i class="fas fa-check"></i> Yes</button>
-              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> Cancel</button>
-            </div>
-          </div>
-          </form>
-          
-        </div>
-      </div>
+
         <?php 
          }
         }else{

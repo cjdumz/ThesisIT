@@ -229,7 +229,7 @@ $vehicles = $stmt->fetchAll();
                                foreach($electricalservice->electrical_service as $electricalservice):
                               ?>
                                <div class="col-md-5 col-sm-5">   
-                               <input type="checkbox" name="service" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"> 
+                               <input type="checkbox" name="service[]" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"> 
                                <?= $electricalservice['serviceName']; ?>
                                </input>
                                <br>

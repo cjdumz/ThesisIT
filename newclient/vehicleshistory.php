@@ -126,21 +126,16 @@
 
           </div>
      </section>
-     <br>
-     <div class="container">  
-    <?php if (isset($_SESSION['success'])) : ?>
-          <?php 
-            echo $_SESSION['success']; 
-            unset($_SESSION['success']); 
-          ?>
-    <?php endif ?>
-    <?php if (isset($_SESSION['delete'])) : ?>
-          <?php 
-            echo $_SESSION['delete']; 
-              unset($_SESSION['delete']);
-          ?>
-      <?php endif ?>
+      <br>
+
+      <div class="container">
+      <div class="panel panel-default" id="headings">
+      <div class="panel-heading" style="background-color: #b80011;color: white;">Vehicle History</div>
+      <div class="panel-body" style="overflow-y: auto;height: 100px;">
+
       </div>
+      </div>
+      </div>  
 
      
 
