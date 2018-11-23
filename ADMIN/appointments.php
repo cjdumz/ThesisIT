@@ -126,9 +126,8 @@
                       <tbody class="table-primary" style="color:black;">
                       <?php
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
-                        yearModel,plateNumber,serviceType,serviceName as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
-                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on appointments.serviceId
-                            = services.serviceId where appointments.status = 'Pending' OR appointments.status = 'Rescheduled' AND (NOW() = date OR NOW() < date ) order by 10 ASC");
+                        yearModel,plateNumber,appointments.status,date from appointments join personalinfo on appointments.personalId
+                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Pending' OR appointments.status = 'Rescheduled' AND (NOW() = date OR NOW() < date )");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {
@@ -138,7 +137,7 @@
                             echo '
                                 <tr>
                                 <td>'.$row['Name'].'</td>
-                                <td>'.$row['sername'].'</td>
+                                <td><a href="#"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>
                                 <td>'.$row['plateNumber'].'</td>
                                 <td>'.$row['status'].'</td>
                                 <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
@@ -205,10 +204,10 @@
                                           </div>
                                         </div>
                                         <div class="row">
-                                          <div class="col-12">
+                                          <div class="col-6">
                                             <h4 class="card-title">Services:</h4>                                            
                                           </div>
-                                          <div class="col-12">
+                                          <div class="col-6">
                                             <h4 class="card-title">'.$row['sername'].'</h4>
                                           </div>
                                         </div>
@@ -297,7 +296,7 @@
                                           <div class="form-group row">
                                             <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Message</label>
                                             <div class="col-sm-9">
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3" required></textarea>
                                             </div>
                                           </div>
                                         <!-- end -->
