@@ -99,6 +99,8 @@
                           <div class="card">
                               <div class="card-body">    
                               <div class="container">
+                                  
+                                  
                                   <div class="page-header">
                                       <h3></h3>
                                       
@@ -130,11 +132,17 @@
                        </div>   
                    </div>
                 </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <?php include "includes/footer.php";?>
+                <!-- partial -->
             </div>
-            
+            <!-- main-panel ends -->
         </div>
+        <!-- page-body-wrapper ends -->
     </div>
-    <?php include "includes/footer.php";?>
+    <!-- container-scroller -->
+
 </body>
     
 

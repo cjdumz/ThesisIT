@@ -155,7 +155,7 @@
                                         <td>'.$row['personalId'].'</td>
                                         <td>'.$row['firstName'].' '.$row['middleName'].' '.$row['lastName'].'</td>
                                         <td>'.$row['address'].'</td>
-                                        <td>'.$row['mobileNumber'].'</td>
+                                        <td style="text-align: right;">'.$row['mobileNumber'].'</td>
                                         <td class="text-center">
                                           <a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a>
                                           

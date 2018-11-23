@@ -109,7 +109,12 @@
                     <ul class="nav navbar-nav navbar-right">
                           
                         <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
+<<<<<<< HEAD
                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
+=======
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
                         <li class="dropdown">

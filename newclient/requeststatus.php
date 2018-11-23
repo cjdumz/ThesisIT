@@ -4,11 +4,20 @@
     $username=$_SESSION['username'];
     $profile =new database;
     $profile->user_profile($username);
+<<<<<<< HEAD
     $username=$_SESSION['username'];
      $id = $_SESSION['id'];
      $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
      $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
      $_SESSION['personalId'] = $result;
+=======
+    
+
+    $id = $_SESSION['id'];
+    $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+    $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
+    $_SESSION['personalId'] = $result;
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
 
     if (!isset($_SESSION['username'])) {
     $_SESSION['unauthorized_user'] = '<div class="alert alert-danger fade in">
@@ -194,10 +203,15 @@
       <div class="panel-heading" style="background-color: #ffaf00;color: white;"><i class="fas fa-truck-loading"></i> Pending Requests</div>
       <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 200px;">
       <?php
+<<<<<<< HEAD
+=======
+      $pendingRequestsresultCheck = mysqli_num_rows($pendingRequestsresult);
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
        if ($pendingRequestsresultCheck > 0) {
         while ($appointmentpending = mysqli_fetch_assoc($pendingRequestsresult)) {
       ?>
       <div class="well well-sm" style="margin: 0;">  
+<<<<<<< HEAD
       <b><?= $appointmentpending['plateNumber']; ?> <?= $appointmentpending['make']; ?> <?= $appointmentpending['series']; ?> <?= $appointmentpending['yearModel']; ?></b><hr style="padding-bottom: 10px;margin: 0px;">
       <?php if ($appointmentpending['status'] == "Pending"){ ?>
         <label for="Pending">Status:</label>
@@ -205,6 +219,10 @@
       <?php
        }
       ?>
+=======
+      <b><?= $appointmentpending['plateNumber']; ?> <?= $appointmentpending['make']; ?> <?= $appointmentpending['series']; ?> <?= $appointmentpending['yearModel']; ?></b>
+       <span class="label label-success"><?= $appointmentpending['status']; ?></span> <br>
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
       <hr style="padding-bottom: 10px;margin: 0px;">
        <div class="row">
        <div class="col-sm-6 col-md-6">
@@ -220,6 +238,7 @@
 
        <label for="otherServices">Other Services:</label>
        <?= $appointmentpending['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+<<<<<<< HEAD
 
       <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
       <div id="myModal" class="modal fade" role="dialog">
@@ -243,6 +262,57 @@
       </div>
 
 
+=======
+      </div>
+      </div>
+      </div>
+      <br>
+      <?php 
+         }
+        }  
+      ?>
+    </div>
+    </div>
+    <div class="panel panel-default" id="headings">
+      <div class="panel-heading" style="background-color:#4caf50;color: white;"><i class="fas fa-calendar-check"></i> Accepted Vehicles</div>
+      <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 200px;">
+      <?php
+      $acceptedRequestsresultCheck = mysqli_num_rows($acceptedRequestsresult);
+       if ($acceptedRequestsresultCheck > 0) {
+        while ($appointmentaccepted = mysqli_fetch_assoc($acceptedRequestsresult)) {
+      ?>
+
+      <div class="well well-sm" style="margin: 0;">  
+      <b><?= $appointmentaccepted['plateNumber']; ?> <?= $appointmentaccepted['make']; ?> <?= $appointmentaccepted['series']; ?> <?= $appointmentaccepted['yearModel']; ?></b>
+      <?php 
+        if ($appointmentaccepted['status'] == 'Reschedule')
+        {
+      ?>
+      <span class="label label-danger"><?= $appointmentaccepted['status']; ?></span> <br>
+      <hr style="padding-bottom: 10px;margin: 0px;">
+      <?php 
+        } else if ($appointmentaccepted['status'] == 'Pending')
+        {
+      ?>
+       <span class="label label-warning"><?= $appointmentaccepted['status']; ?></span> <br>
+      <hr style="padding-bottom: 10px;margin: 0px;">
+      <?php
+        }
+      ?>
+       <div class="row">
+       <div class="col-sm-6 col-md-6">
+       <label for="desiredDate">Desired Date:</label>
+       <?= date('F d, Y', strtotime($appointmentaccepted['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
+       <label for="created">Date Requested:</label>
+       <?= date("m/d/y h:i A",strtotime($appointmentaccepted['created'])); ?>
+      </div>
+       <div class="col-md-6 col-sm-6">
+       <label for="services">Services Requested:</label>
+       <?=  $appointmentaccepted['services']; ?><hr style="padding: 0px;margin: 0px;">
+
+       <label for="otherServices">Other Services:</label>
+       <?= $appointmentaccepted['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
       </div>
       </div>
       </div>
@@ -250,6 +320,7 @@
       <?php 
          }
         } else {
+<<<<<<< HEAD
           echo '<ol class="breadcrumb" style = "text-align: center;">
               <li class="breadcrumb-item active" aria-current="page">NO PENDING REQUESTS</li>
             </ol>';
@@ -324,10 +395,37 @@
       <div class="well well-sm" style="margin: 0;">  
       <b><?= $appointmentdeclined['plateNumber']; ?> <?= $appointmentdeclined['make']; ?> <?= $appointmentdeclined['series']; ?> <?= $appointmentdeclined['yearModel']; ?></b>
        <span class="label label-danger"><?= $appointmentdeclined['status']; ?> <br>
+=======
+      ?>
+      <div class="well well-sm" style="margin: 0;text-align: center;">
+        NO DATA YET
+      </div>
+      <?php 
+        }
+      ?> 
+      ?>
+
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+    <div class="panel panel-default" id="headings">
+      <div class="panel-heading" style="background-color: #b80011;color: white;"><i class="fas fa-times-circle"></i> Declined Requests</div>
+      <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 460px;">     
+      <?php
+      $declineRequestsresultCheck = mysqli_num_rows($declineRequestsresult);
+       if ($declineRequestsresultCheck > 0) {
+        while ($appointmentdecline = mysqli_fetch_assoc($declineRequestsresult)) {
+      ?>
+      <div class="well well-sm" style="margin: 0;">  
+      <b><?= $appointmentdecline['plateNumber']; ?> <?= $appointmentdecline['make']; ?> <?= $appointmentdecline['series']; ?> <?= $appointmentdecline['yearModel']; ?></b>
+       <span class="label label-danger"><?= $appointmentdecline['status']; ?></span> <br>
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
       <hr style="padding-bottom: 10px;margin: 0px;">
        <div class="row">
        <div class="col-sm-6 col-md-6">
        <label for="desiredDate">Desired Date:</label>
+<<<<<<< HEAD
        <?= $appointmentdeclined['desiredDate']; ?><hr style="padding: 0px;margin: 0px;">
        <label for="created">Date Requested:</label>
        <?= date("m/d/y h:i A",strtotime($appointmentdeclined['created'])); ?>
@@ -337,6 +435,17 @@
        <?= $appointmentdeclined['services']; ?>
        <?php 
          $_SESSION['sessionId'] = explode(",", $appointmentdeclined['services']);  
+=======
+       <?= $appointmentdecline['desiredDate']; ?><hr style="padding: 0px;margin: 0px;">
+       <label for="created">Date Requested:</label>
+       <?= date("m/d/y h:i A",strtotime($appointmentdecline['created'])); ?>
+      </div>
+       <div class="col-md-6 col-sm-6">
+       <label for="services">Services Requested:</label>
+       <?= $appointmentdecline['services']; ?>
+       <?php 
+         $_SESSION['sessionId'] = explode(",", $appointmentdecline['services']);  
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
        ?>
        <!--<?php $serviceId = explode("," ,$appointmentdecline['services']);  
         foreach($serviceId as $service) {
@@ -352,8 +461,14 @@
         -->
 
        <hr style="padding: 0px;margin: 0px;">
+<<<<<<< HEAD
        <label for="otherServices">Other Services:</label>
        <?= $appointmentdeclined['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+=======
+
+       <label for="otherServices">Other Services:</label>
+       <?= $appointmentdecline['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
       </div>
       </div>
       </div>
@@ -361,6 +476,7 @@
       <?php 
          }
        }else {
+<<<<<<< HEAD
         echo '<ol class="breadcrumb" style="text-align: center;"> 
               <li class="breadcrumb-item active" aria-current="page">NO DECLINED REQUESTS</li>
             </ol>';
@@ -371,6 +487,20 @@
     </div>
     </div>
     </div>
+=======
+      ?>
+      <div class="well well-sm" style="margin: 0;text-align: center;">
+        NO DATA YET
+      </div>
+      <?php 
+        }
+      ?> 
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+>>>>>>> 5f45b09658c47ac661d029674837bf6d75530c22
   </div>
   </div>
 
