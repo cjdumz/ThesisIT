@@ -16,7 +16,7 @@ $personalinfo -> personal_info();
 //PDO
 //Connect to our MySQL database using the PDO extension.
 $id = $_SESSION['id'];
-$pdo = new PDO('mysql:host=localhost:3308;dbname=thesis', 'root', 'root');
+$pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
 $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();//Our select statement. This will retrieve the data that we want.
 $sql = "SELECT * FROM vehicles where personalId = '$result'"; //Prepare the select statement.
 $stmt = $pdo->prepare($sql); //Execute the statement.

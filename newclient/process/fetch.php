@@ -1,13 +1,15 @@
 <?php
+session_start();
 if(isset($_POST["view"]))
 {
+ $personalId = $_SESSION['personalId'];
  $db = mysqli_connect('localhost', 'root', '','thesis');
  if($_POST["view"] != '')
  {
   $update_query = "UPDATE appointments SET notification=1 WHERE notification=0";
   mysqli_query($db, $update_query);
  }
- $query = "SELECT appointments.status AS status, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, appointments.created as created, vehicles.plateNumber as plateNumber FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId ORDER BY `appointments`.`created` DESC LIMIT 5";
+ $query = "SELECT appointments.status AS status, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, appointments.created as created, vehicles.plateNumber as plateNumber FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId WHERE appointments.personalId = '$personalId' ORDER BY created DESC LIMIT 5";
  $result = mysqli_query($db, $query);
  $output = '';
  //SELECT appointments.status AS status, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, appointments.created as created, vehicles.plateNumber as plateNumber FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId ORDER BY `appointments`.`created` DESC LIMIT 5

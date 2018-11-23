@@ -1,15 +1,19 @@
 $('document').ready(function(){
  var username_state = false;
+ var password_state = false;
  var email_state = false;
- var plateNumber_state = false;
  var firstName_state = false; 
  var middleName_state = false;
  var lastName_state = false; 
  var address_state = false;
  var contactNumber_state = false;
- var email_state = false;
- var username_state = false;
- var password_state = false;
+
+ var plateNumber_state = false;
+ var make_state = false;
+ var series_state = false;
+ var yearModel_state = false;
+ var color_state = false;
+
 
  //For Appointment
  $("#mechanical").click(function(){
@@ -41,7 +45,7 @@ $('document').ready(function(){
         $("#body_Repair").toggle();
         $("#electrical_service").hide();
         $("#mechanical_service").hide();
-        $("#painting").hide();
+        $("#paint_service").hide();
         $("#customization").hide();
         $("#maintenance_service").hide();
 
@@ -88,7 +92,7 @@ $('document').ready(function(){
 
 
 
-$('input[name="service"]').click(function () { getSelectedCheckBoxes('service'); 
+$('input[type="checkbox"]').click(function () { getSelectedCheckBoxes('service[]'); 
   }); 
 
 
@@ -98,11 +102,10 @@ $('input[name="service"]').click(function () { getSelectedCheckBoxes('service');
     if (result.length > 0) { 
     var resultString = result.length + " checkboxe(s) checked<br>"; 
     result.each(function () { 
-      resultString += $(this).attr("id") + "<br/>";
-      resultString1 += $(this).attr("class") + "<br/>"; 
-      //resultString += $(this).val() + "<br/>"; 
+      //resultString += $(this).attr("id") + "<br/>"; 
+      resultString += $(this).val() + "<br/>"; 
     });  
-     $('#serviceDisplay').html(resultString1); 
+     $('#serviceDisplay').html(resultString); 
     
    } 
 
@@ -225,18 +228,16 @@ $('#contactNumber').on('blur', function(){
         if (response == 'taken' ) {
           contactNumber_state = false;
           $('#contactNumber').parent().removeClass();
-          //$('#contactNumber').parent().addClass("form_error");
           $('#contactNumber').css("border","1px solid #D83D5A");
-          $('#contactNumber').siblings("span").css("color","#D83D5A");
           $('#contactNumber_msg').hide();
           $('#contactNumber').siblings("span").text('Contact Number already exist');
           return;
         }else if (response == 'not_taken') {
           contactNumber_state = true;
           $('#contactNumber').parent().removeClass();
-          //$('#contactNumber').parent().addClass("form_success");
           $('#contactNumber').css("border","1px solid green");
-          $('#contactNumber').css("color","green");
+          $('#contactNumber').siblings("span").css("color","green");
+          $('#contactNumber_msg').hide();
           $('#contactNumber').siblings("span").text('Contact number available');
           return;
         }
@@ -319,17 +320,14 @@ $('#address').blur(function() {
 
 $('#contactNumber').blur(function() {
   if (this.value == '') {
-    $('#contactNumber').parent().removeClass();
-    $('#contactNumber').siblings("span").hide();
+    $('#contactNumber_msg').fadeIn("slow");
     $('#contactNumber').css("border","1px solid #D83D5A");
-    $('#contactNumber_msg').fadeIn("slow");  
     contactNumber_state = false;
     return;
   }
   if (this.value != '' )
-    $('#contactNumber').parent().removeClass();
+    $('#contactNumber').css("border","");
     $('#contactNumber_msg').fadeOut();
-    $('#contactNumber').siblings("span").show();
     contactNumber_state = true;
     return;
 });
@@ -350,6 +348,7 @@ $('#email').blur(function() {
     return;
 });
 
+//For Patterns in registration
 $('#email').blur(function() {
 var emailpattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 
@@ -368,6 +367,28 @@ var emailpattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
       email_state = false;
       return;
 });
+$('#plateNumber').blur(function() {
+var plateNumberpattern = new RegExp(/[A-Za-z]{3}-[0-9]{3,}$/i);
+
+    if(plateNumberpattern.test($("#plateNumber").val())) {
+      $('#plateNumber').parent().removeClass();
+      $('#plateNumberpat_msg').fadeOut("slow");
+      $('#plateNumber').siblings("span").show();
+      plateNumber_state = true;
+      return;
+    } else 
+      $('#plateNumber').parent().removeClass();
+      $('#plateNumber').parent().addClass("form_error");
+      $('#plateNumberpat_msg').fadeIn("slow");
+      $('#plateNumber').siblings("span").hide();
+      plateNumber_state = false;
+      return;
+});
+
+
+
+
+//End of Pattern Validators
 
 
       
@@ -420,7 +441,7 @@ $('#password').blur(function() {
       return;
 });
 
-
+//If empty values given
 $('#plateNumber').blur(function() {
   if (this.value == '') {
     $('#plateNumber_msg').fadeIn("slow");
@@ -438,6 +459,73 @@ $('#plateNumber').blur(function() {
     return;
 });
 
+$('#make').blur(function() {
+  if (this.value == '') {
+    $('#make_msg').fadeIn("slow");
+    $('#make').css("border","1px solid #D83D5A");
+    $('#make').siblings("span").hide();
+    make_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#make_msg').fadeOut();
+    $('#make').css("border","");
+    $('#make').siblings("span").show();
+    make_state = true;
+    return;
+});
+
+$('#series').blur(function() {
+  if (this.value == '') {
+    $('#series_msg').fadeIn("slow");
+    $('#series').css("border","1px solid #D83D5A");
+    $('#series').siblings("span").hide();
+    series_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#series_msg').fadeOut();
+    $('#series').css("border","");
+    $('#series').siblings("span").show();
+    make_state = true;
+    return;
+});
+
+$('#yearModel').blur(function() {
+  if (this.value == '') {
+    $('#yearModel_msg').fadeIn("slow");
+    $('#yearModel').css("border","1px solid #D83D5A");
+    $('#yearModel').siblings("span").hide();
+    yearModel_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#yearModel_msg').fadeOut();
+    $('#yearModel').css("border","");
+    $('#yearModel').siblings("span").show();
+    yearModel_state = true;
+    return;
+});
+
+$('#color').blur(function() {
+  if (this.value == '') {
+    $('#color_msg').fadeIn("slow");
+    $('#color').css("border","1px solid #D83D5A");
+    $('#color').siblings("span").hide();
+    color_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#color_msg').fadeOut();
+    $('#color').css("border","");
+    $('#color').siblings("span").show();
+    color_state = true;
+    return;
+});
 
  $('#reg_btn').on('click', function(){
   var username = $('#username').val();
@@ -453,7 +541,7 @@ $('#plateNumber').blur(function() {
   var make = $('#make').val();
   var series = $('#series').val();
   var color = $('#color').val();
-  if (username_state == false) {
+  if (username_state == false && password_state == false && email_state == false && firstName_state == false && lastName_state == false && middleName_state == false && contactNumber_state == false && address_state == false  && plateNumber_state == false && make_state == false && series_state == false && yearModel_state == false && color_state == false ) {
     $('#error_msg').html('<div class="alert alert-danger fade in align="center"><a href="#" class="close" data-dismiss="alert">&times;</a><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> There are still errors in the form.</div>');
   }else{
       // proceed with form submission

@@ -10,12 +10,6 @@
     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
     $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
     $_SESSION['personalId'] = $result;
-    $appointmentactive =new database;
-    $appointmentactive->appointment_active();
-    $appointmentpending =new database;
-    $appointmentpending->appointment_pending();
-    $appointmentreschedule =new database;
-    $appointmentreschedule->appointment_reschedule();
 
     if (!isset($_SESSION['username'])) {
     $_SESSION['unauthorized_user'] = '<div class="alert alert-danger fade in">
@@ -74,7 +68,7 @@
               <div class="col-md-8 col-sm-7 text-align-right">
                          <span class="phone-icon"><i class="fa fa-phone"></i>  09257196568 / 09304992021</span>
                          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Sat)</span>
-                         <span class="email-icon"><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
+                         <span class="email-icon"><i class="fab fa-facebook"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
                     </div>
 
 
@@ -113,7 +107,7 @@
                 </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
-              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
@@ -122,8 +116,8 @@
                     
                     <ul class="nav navbar-nav navbar-right">
                           
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
-                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
                         <li class="dropdown">
@@ -139,7 +133,7 @@
 
           </div>
      </section>
-     <br>
+    <div class="jumbotron">
      <div class="container">  
     <?php if (isset($_SESSION['success'])) : ?>
           <?php 
@@ -193,60 +187,171 @@
    }
 
     ?>
-  <div class="container">
-  <div class="btn-group" role="group" aria-label="...">
-    <button type="button" role="button" id='Pending' class="btn btn-default">Pending</button>
-    <button type="button" role="button" id="Active" class="btn btn-default">Active</button>
-    <button type="button" role="button" id="Reschedule" class="btn btn-default">Reschedule</button>
-    <br>
-  </div>
-  </div>
- <br> 
- <div id="pendingContent" style="display: none;overflow-y: auto;height: 1000px;" >
- <div class="container">
- <div class="jumbotron">         
-  <?php
-                foreach($appointmentpending->appointment_pending as $appointmentpending):
-                ?> 
-                 <?php echo '<div class="panel panel-default" id="headings">'; ?> 
-                 <?php echo '<div class="panel-heading">This is Pending</div>'; ?>
-                 <?php echo '<div class="panel-body">'; ?>
-                
-                 <?= $appointmentpending['personalId']; ?> 
-                 <?= $appointmentpending['status']; ?> 
-                 <?= $appointmentpending['date']; ?>
-                <?php echo '</div>'; ?>
-                <?php echo '</div>'; ?>
-             <?php     
-                endforeach;  
-             ?>
-  </div>
-  </div>
-  </div>    
-  
     
-  <div id="activeContent" style="display: none">
-  <div class="container">
-  <div class="panel panel-default" id="headings">
-              <div class="panel-heading">This is Active</div>
-              <div class="panel-body">
-              </div>
-            </div>
-  </div>
-  </div>
-
-  <div id="rescheduleContent" style="display: none">
     <div class="container">
+    <div class="row">
+    <div class="col-md-6 col-sm-6">
     <div class="panel panel-default" id="headings">
-              <div class="panel-heading">This is Reschedule</div>
-              <div class="panel-body">
-              </div>
-            </div>  
-     </div>
+      <div class="panel-heading" style="background-color: #ffaf00;color: white;"><i class="fas fa-truck-loading"></i> Pending Requests</div>
+      <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 200px;">
+      <?php
+      $pendingRequestsresultCheck = mysqli_num_rows($pendingRequestsresult);
+       if ($pendingRequestsresultCheck > 0) {
+        while ($appointmentpending = mysqli_fetch_assoc($pendingRequestsresult)) {
+      ?>
+      <div class="well well-sm" style="margin: 0;">  
+      <b><?= $appointmentpending['plateNumber']; ?> <?= $appointmentpending['make']; ?> <?= $appointmentpending['series']; ?> <?= $appointmentpending['yearModel']; ?></b>
+       <span class="label label-success"><?= $appointmentpending['status']; ?></span> <br>
+      <hr style="padding-bottom: 10px;margin: 0px;">
+       <div class="row">
+       <div class="col-sm-6 col-md-6">
+       <label for="desiredDate">Desired Date:</label>
+       <?= $appointmentpending['desiredDate']; ?><hr style="padding: 0px;margin: 0px;">
+       <label for="created">Date Requested:</label>
+       <?= date("m/d/y h:i A",strtotime($appointmentpending['created'])); ?>
+      </div>
+       <div class="col-md-6 col-sm-6">
+       <label for="services">Services Requested:</label>
+        <?= $appointmentpending['services']; ?>
+       <hr style="padding: 0px;margin: 0px;">
+
+       <label for="otherServices">Other Services:</label>
+       <?= $appointmentpending['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+      </div>
+      </div>
+      </div>
+      <br>
+      <?php 
+         }
+        }  
+      ?>
+    </div>
+    </div>
+    <div class="panel panel-default" id="headings">
+      <div class="panel-heading" style="background-color:#4caf50;color: white;"><i class="fas fa-calendar-check"></i> Accepted Vehicles</div>
+      <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 200px;">
+      <?php
+      $acceptedRequestsresultCheck = mysqli_num_rows($acceptedRequestsresult);
+       if ($acceptedRequestsresultCheck > 0) {
+        while ($appointmentaccepted = mysqli_fetch_assoc($acceptedRequestsresult)) {
+      ?>
+
+      <div class="well well-sm" style="margin: 0;">  
+      <b><?= $appointmentaccepted['plateNumber']; ?> <?= $appointmentaccepted['make']; ?> <?= $appointmentaccepted['series']; ?> <?= $appointmentaccepted['yearModel']; ?></b>
+      <?php 
+        if ($appointmentaccepted['status'] == 'Reschedule')
+        {
+      ?>
+      <span class="label label-danger"><?= $appointmentaccepted['status']; ?></span> <br>
+      <hr style="padding-bottom: 10px;margin: 0px;">
+      <?php 
+        } else if ($appointmentaccepted['status'] == 'Pending')
+        {
+      ?>
+       <span class="label label-warning"><?= $appointmentaccepted['status']; ?></span> <br>
+      <hr style="padding-bottom: 10px;margin: 0px;">
+      <?php
+        }
+      ?>
+       <div class="row">
+       <div class="col-sm-6 col-md-6">
+       <label for="desiredDate">Desired Date:</label>
+       <?= date('F d, Y', strtotime($appointmentaccepted['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
+       <label for="created">Date Requested:</label>
+       <?= date("m/d/y h:i A",strtotime($appointmentaccepted['created'])); ?>
+      </div>
+       <div class="col-md-6 col-sm-6">
+       <label for="services">Services Requested:</label>
+       <?=  $appointmentaccepted['services']; ?><hr style="padding: 0px;margin: 0px;">
+
+       <label for="otherServices">Other Services:</label>
+       <?= $appointmentaccepted['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+      </div>
+      </div>
+      </div>
+      <br>
+      <?php 
+         }
+        } else {
+      ?>
+      <div class="well well-sm" style="margin: 0;text-align: center;">
+        NO DATA YET
+      </div>
+      <?php 
+        }
+      ?> 
+      ?>
+
+    </div>
+    </div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+    <div class="panel panel-default" id="headings">
+      <div class="panel-heading" style="background-color: #b80011;color: white;"><i class="fas fa-times-circle"></i> Declined Requests</div>
+      <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 460px;">     
+      <?php
+      $declineRequestsresultCheck = mysqli_num_rows($declineRequestsresult);
+       if ($declineRequestsresultCheck > 0) {
+        while ($appointmentdecline = mysqli_fetch_assoc($declineRequestsresult)) {
+      ?>
+      <div class="well well-sm" style="margin: 0;">  
+      <b><?= $appointmentdecline['plateNumber']; ?> <?= $appointmentdecline['make']; ?> <?= $appointmentdecline['series']; ?> <?= $appointmentdecline['yearModel']; ?></b>
+       <span class="label label-danger"><?= $appointmentdecline['status']; ?></span> <br>
+      <hr style="padding-bottom: 10px;margin: 0px;">
+       <div class="row">
+       <div class="col-sm-6 col-md-6">
+       <label for="desiredDate">Desired Date:</label>
+       <?= $appointmentdecline['desiredDate']; ?><hr style="padding: 0px;margin: 0px;">
+       <label for="created">Date Requested:</label>
+       <?= date("m/d/y h:i A",strtotime($appointmentdecline['created'])); ?>
+      </div>
+       <div class="col-md-6 col-sm-6">
+       <label for="services">Services Requested:</label>
+       <?= $appointmentdecline['services']; ?>
+       <?php 
+         $_SESSION['sessionId'] = explode(",", $appointmentdecline['services']);  
+       ?>
+       <!--<?php $serviceId = explode("," ,$appointmentdecline['services']);  
+        foreach($serviceId as $service) {
+           echo $serviceNumber = $service;
+        }
+       ?>-->
+       <!--
+       <?php foreach($appointmentservice->appointment_service as $appointmentservice):?>
+        <?= $appointmentservice['serviceName'];   ?>
+        <?php 
+         endforeach;  
+        ?>
+        -->
+
+       <hr style="padding: 0px;margin: 0px;">
+
+       <label for="otherServices">Other Services:</label>
+       <?= $appointmentdecline['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+      </div>
+      </div>
+      </div>
+      <br>
+      <?php 
+         }
+       }else {
+      ?>
+      <div class="well well-sm" style="margin: 0;text-align: center;">
+        NO DATA YET
+      </div>
+      <?php 
+        }
+      ?> 
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
   </div>
+  </div>
 
-     
+    <!-- END OF JUMBOTRON -->
+ 
 
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
@@ -334,67 +439,11 @@
           </div>
      </footer>
 
-     <script>
-  $(document).ready(function(){
-   
-   function load_unseen_notification(view = '')
-   {
-    $.ajax({
-     url:"process/fetch.php",
-     method:"POST",
-     data:{view:view},
-     dataType:"json",
-     success:function(data)
-     {
-      $('#dropdownnotif').html(data.notification);
-      if(data.unseen_notification > 0)
-      {
-       $('.count').html(data.unseen_notification);
-      }
-     }
-    });
-   }
-   
-   load_unseen_notification();
-   
-   $('#appointment_form').on('submit', function(event){
-    event.preventDefault();
-    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '')
-    {
-     var form_data = $(this).serialize();
-     $.ajax({
-      url:"process/insert.php",
-      method:"POST",
-      data:form_data,
-      success:function(data)
-      {
-       $('#appointment_form')[0].reset();
-       load_unseen_notification();
-      }
-     });
-    }
-    else
-    {
-     alert("Both Fields are Required");
-    }
-   });
-   
-   $(document).on('click', '.dropdown-toggle', function(){
-    $('.count').html('');
-    load_unseen_notification('yes');
-   });
-   
-   setInterval(function(){ 
-    load_unseen_notification();; 
-   }, 5000);
-   
-  });
-  </script>
 
      
 
      <!-- SCRIPTS -->
-     
+     <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>

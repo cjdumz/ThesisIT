@@ -23,14 +23,14 @@
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-     <!-- PRE LOADER -->
+     <!-- PRE LOADER 
      <section class="preloader">
           <div class="spinner">
 
                <span class="spinner-rotate"></span>
                
           </div>
-     </section>
+     </section>-->
 
  <!-- HEADER -->
      <header>
@@ -89,110 +89,103 @@
    
      <!-- REGISTER PAGE -->
     <div class="container">
-    <form id="register_form">
-      <h4>Register</h4>
-
-    <h3>Vehicle Information</h3>
-        <div class="form-group">
-          <label for="plateNumber">Plate Number</label><i style="color:red;"> *</i>
-          <input type="text" class="form-control" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber">
-          <div id="plateNumber_msg" style="display: none; color: red;font-size: 0.9em;">Plate Number is empty</div>
-          <span style="font-size: 0.9em;"></span>
-        </div>
-        <div class="form-group">
-          <label for="make">Make</label><span style="color:red;"> *</span>
-          <input type="text" class="form-control" id="make" aria-describedby="make" name="make" >
-          <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
-        </div>
-         <div class="form-group">
-          <label for="series">Series</label><span style="color:red;"> *</span>
-          <input class="form-control" type="text" class="form-control" name="series" id="series">
-        </div>
-        <div class="form-group">
-          <label for="yearModel">Year Model</label><span style="color:red;"> *</span>
-          <input class="form-control" type="number" class="form-control" id="yearModel" name="yearModel">
-        </div>
-         <div class="form-group">
-          <label for="color">Color</label><span style="color:red;"> *</span>
-          <input class="form-control" type="text" name="color" id="color">
-        </div>
-       
-    
-    <h3>Personal Info</h3>   
-    <br>
+    <div id="error_msg"></div>
     <div class="row">
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-6 col-sm-6">
+      <form id="register_form">
+      <div class="panel panel-default" id="headings">
+    <div class="panel-heading" style="background-color: #b80011;color: white;">Personal Info</div>
+    <div class="panel-body" style="overflow-y: auto;height: auto;">
+    <div class="form-group">
     <input type="text" class="form-control" name="firstName" placeholder="First Name" id="firstName" required>
     <div id="firstName_msg" style="display: none; color: red;font-size: 0.9em;">First name is empty</div>
     </div>
-    <div class="col-md-4 col-sm-4">
+    <div class="form-group">
     <input type="text" class="form-control" name="middleName" placeholder="Middle Name" id="middleName">
     <div id="middleName_msg" style="display: none; color: red;font-size: 0.9em">Middle name is empty</div>
     </div>
-    <div class="col-md-4 col-sm-4">
+    <div class="form-group">
     <input type="text" class="form-control" name="lastName" placeholder="Last Name" id="lastName">
     <div id="lastName_msg" style="display: none; color: red;font-size: 0.9em">Last name is empty</div>
     </div>
-    </div>
-    <br>
-    <div class="row">
-    <div class="col-md-12 col-sm-12">
-    <input type="text" class="form-control" name="address" placeholder="Address" id="address">
-    <div id="address_msg" style="display: none; color: red;font-size: 0.9em">Address is empty</div>
-    <br>
-    </div>
-    <div class="col-md-12 col-sm-12">
-    <input type="text" class="form-control" name="contactNumber" placeholder="Contact Number" id="contactNumber">
-    <div id="contactNumber_msg" style="display: none; color: red;font-size: 0.9em">Contact Number is empty</div>
-    <span style="font-size: 0.9em"></span>
-    <br>
-    </div>
-    <div class="col-md-12 col-sm-12">
-    <input type="email" class="form-control" name="Email" placeholder="email" id="email">
-    <div id="email_msg" style="display: none; color: red;font-size: 0.9em">email is empty</div>
-    <span style="font-size: 0.9em"></span>
-    <div id="emailpat_msg" style="display: none; color: red;font-size: 0.9em"> Invalid Email.</div>
-    <br>
-    </div>
-    <div class="col-md-12 col-md-12">
+    <div class="form-group">
     <input type="text" class="form-control" name="username" placeholder="Username" id="username" pattern=".{8,}" title='must contain 6 or more characters'>
     <small id="username" class="form-text text-muted"> Must contain 8-12 characters.</small><br>
     <div id="username_msg" style="display: none; color: red;font-size: 0.9em">Username is empty</div>
     <div id="usernamepat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
     <span style="font-size: 0.9em"></span>
-    <br>
     </div>
-    <div class="col-md-6 col-sm-6">
+    <div class="form-group">
+    <input type="text" class="form-control" name="address" placeholder="Address" id="address">
+    <div id="address_msg" style="display: none; color: red;font-size: 0.9em">Address is empty</div>
+    </div>
+    <div class="form-group">
+    <input type="text" class="form-control" name="contactNumber" placeholder="Contact Number" id="contactNumber">
+    <div id="contactNumber_msg" style="display: none; color: red;font-size: 0.9em">Contact Number is empty</div>
+    <span style="font-size: 0.9em"></span>
+    </div>
+    <div class="form-group">
+    <input type="email" class="form-control" name="Email" placeholder="Email" id="email">
+    <div id="email_msg" style="display: none; color: red;font-size: 0.9em">email is empty</div>
+    <span style="font-size: 0.9em"></span>
+    <div id="emailpat_msg" style="display: none; color: red;font-size: 0.9em"> Invalid Email.</div>
+    </div>
+    <div class="form-group">
     <input type="password" class="form-control" name="password" placeholder="Password" id="password" title="must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter">
     <div id="passwordpat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
     <div id="password_msg" style="display: none; color: red;font-size: 0.9em">password is empty</div>
-    <span style="font-size: 0.9em"></span><br>
+    <span style="font-size: 0.9em"></span>
     </div>
-    <br>
-    <div class="col-md-6 col-sm-6">
+    <div class="form-group">
     <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password">
     <span id="message" style="font-size: 0.9em"></span>
     </div>
     </div>
-    <div id="error_msg"></div>
-    <div class="form-group">
-    <button type="button" name="register" id="reg_btn">Register</button>
-    </div>
+  </div>
+  </div>  
+    <div class="col-md-6 col-sm-6">
+
+
+      <div class="panel panel-default" id="headings">
+      <div class="panel-heading" style="background-color: #b80011;color: white;">Vehicle Info</div>
+      <div class="panel-body" style="overflow-y: auto;height: auto;">      
+        <div class="form-group">
+          <input type="text" class="form-control" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber">
+          <div id="plateNumber_msg" style="display: none; color: red;font-size: 0.9em;">Plate Number is empty</div>
+          <div id="plateNumberpat_msg" style="display: none; color: red;font-size: 0.9em"> Wrong Plate Number format.</div>
+          <span style="font-size: 0.9em;"></span>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="make" placeholder="Enter Your Make" aria-describedby="make" name="make" >
+          <div id="make_msg" style="display: none; color: red;font-size: 0.9em;">Make is empty</div>
+          <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
+        </div>
+         <div class="form-group">
+          <input class="form-control" type="text" class="form-control" name="series" id="series" placeholder="Series">
+          <div id="series_msg" style="display: none; color: red;font-size: 0.9em;">Series is empty</div>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="number" class="form-control" id="yearModel" name="yearModel" placeholder="Year Model">
+          <div id="yearModel_msg" style="display: none; color: red;font-size: 0.9em;">Year Model is empty</div>
+        </div>
+         <div class="form-group">
+          <input class="form-control" type="text" name="color" id="color" placeholder="Color">
+          <div id="color_msg" style="display: none; color: red;font-size: 0.9em;">Color is empty</div>
+        </div>
+        <div class="pull-right">
+        <button type="button" class="btn btn-danger btn-sm" name="register" id="reg_btn" style="background-color: #b80011;">Register</button>
+        </div>
+        </div>
+        </div>  
     
-
   </form>
+  </div>
 
-  </div>
-  </div>
+       
+  </div> 
 
 
              
-    
-    
-
-
-
-
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
           <div class="container">

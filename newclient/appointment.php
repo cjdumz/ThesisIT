@@ -68,8 +68,7 @@ $vehicles = $stmt->fetchAll();
      <!-- DatePicker dont move to another line -->
 
      <!-- Notification Jquery Library -->
-     <script src="js/jquery.js"></script>
-
+     
      <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
      <script> 
       var $jq171 = jQuery.noConflict(true);
@@ -80,6 +79,8 @@ $vehicles = $stmt->fetchAll();
       window.jQuery = $jq171;
      </script>
      <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+     <script src="js/jquery.js"></script>
+
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
@@ -132,7 +133,7 @@ $vehicles = $stmt->fetchAll();
                <div class="collapse navbar-collapse">
                      <ul class="nav navbar-nav ">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 0;"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 0;"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fas fa-user-circle"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
@@ -145,29 +146,24 @@ $vehicles = $stmt->fetchAll();
                     
                     <ul class="nav navbar-nav navbar-right">
                           
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
-                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
                         <li class="dropdown">
                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" aria-hidden="true" style="font-size: 20px;padding: 0;"></i>  <span class="label label-pill label-danger count" style="border-radius:10px;"></span></a>
                          <ul class="dropdown-menu" id="dropdownnotif" aria-labelledby="dropdownMenuDivider"></ul>
                         </li>          
-                        <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
-
-                          
-                           
+                        <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>       
                     </ul>
                </div>
 
           </div>
      </section>
-     
-
   <!-- APPOINTMENT SECTION --> 
-    <section id="appointment-detail" data-stellar-background-ratio="3">
+  <div class="jumbotron">
+    <section id="appointment-detail" data-stellar-background-ratio="3" style="padding: 0;">
           <div class="container">
-        
                     <form method="post" id="appointment_form">
                         <div class="section-title wow fadeInUp" data-wow-delay="0.2s">
               <h2 align="center">Make an appointment</h2>
@@ -175,28 +171,33 @@ $vehicles = $stmt->fetchAll();
                             <div class="wow fadeInUp" data-wow-delay="0.2s">
                             <div class="row">
                             <div class="col-md-6 col-sm-6">
-                               <label for="select" style="font-size: 24px;">Select Car</label>
-                                    <select class="form-control" name="vehicle" id="vehicle">
+                               <div class="panel panel-default" id="headings">
+                                <div class="panel-heading" style="background-color: #b80011;color: white;">Select Car</div>
+                                <div class="panel-body" style="overflow-y: auto;height: 100px;">
+                                  <select class="form-control" name="vehicle" id="vehicle">
                                                   <?php foreach($vehicles as $vehicle): ?>
-                                                  <option value="<?= $vehicle['id']; ?>"><?= $vehicle['plateNumber']; ?> <?= $vehicle['make']; ?> <?= $vehicle['series']; ?></option>
+                                                  <option value="<?= $vehicle['id']; ?>"><?= $vehicle['plateNumber']; ?> <?= ucfirst($vehicle['make']); ?> <?= ucfirst($vehicle['series']); ?></option>
                                                   <?php endforeach; ?>                                                  
                                     </select>
+                                </div>
+                                </div>            
                             </div>
                             <div class="col-md-6 col-sm-6">
                               <div class="panel panel-default" id="headings">
-                                <div class="panel-heading" style="background-color: #b80011;color: white;">Choose a service.</div>
+                                <div class="panel-heading" style="background-color: #b80011;color: white;">Choosen Service.</div>
                                 <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 100px;">
                                 </div>
                               </div>
                             </div>
                             </div>
                             <br><br>
-          <?php echo $result ?>
+        
           <div class="row" >
-          <div class="col-md-12 col-sm-12">        
-          <label for="service" style="font-size: 24px;">Select Service</label>
-          <br><br>
-          <div class ="services" >
+          <div class="col-md-12 col-sm-12">  
+          <div class="panel panel-default" id="headings">
+                                <div class="panel-heading" style="background-color: #b80011;color: white;">Select Service</div>
+                                <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: auto;">
+                              <div class ="services" >
                               <ul>
                                  <li><a role="button" id="mechanical" >Mechanical</a></li>
                                  <li><a role="button" id="electrical">Electrical</a></li>
@@ -205,18 +206,15 @@ $vehicles = $stmt->fetchAll();
                                  <li><a role="button" id="painting">Body Paint</a></li>
                                  <li><a role="button" id="maintenance">Maintenance</a></li>
                               </ul>
-          </div>
-                         <br>
-
-
- 
-                         <div class="service-detail" id="mechanical_service" style="display: none;">
+                              </div>
+                               <br>
+                                <div class="service-detail" id="mechanical_service" style="display: none;">
                               
                           <?php
                            foreach($mechanicalservice->mechanical_service as $mechanicalservice):
                           ?>  
                            <div class="col-md-4 col-sm-4">
-                           <input type="checkbox" class="service" name="service" id="<?= $mechanicalservice['serviceName']; ?>"  value="<?= $mechanicalservice['serviceId']; ?>"><?= $mechanicalservice['serviceName']; ?><br></input>
+                           <input type="checkbox" name="service[]" id="<?= $mechanicalservice['serviceName']; ?>"  value="<?= $mechanicalservice['serviceName']; ?>"><?= $mechanicalservice['serviceName']; ?><br></input>
                            </div>
                           <?php 
                             endforeach; 
@@ -231,7 +229,7 @@ $vehicles = $stmt->fetchAll();
                                foreach($electricalservice->electrical_service as $electricalservice):
                               ?>
                                <div class="col-md-5 col-sm-5">   
-                               <input type="checkbox" name="service[]" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"> 
+                               <input type="checkbox" name="service" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"> 
                                <?= $electricalservice['serviceName']; ?>
                                </input>
                                <br>
@@ -247,12 +245,11 @@ $vehicles = $stmt->fetchAll();
                               <?php
                                foreach($paintservice->painting_service as $paintservice){
                               ?>   
-                               <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceId']; ?>"><?= $paintservice['serviceName']; ?></input>
+                               <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceName']; ?>"><?= $paintservice['serviceName']; ?></input>
                               <br><br>
                               <?php     
                                    }
-                              ?>
-                              
+                              ?>        
                          </div>
                          <div class="service-detail" id="body_Repair" style="display: none">
                                <input type="checkbox" name="service[]" value="bodyRepair">Request for Body Repair.</input>
@@ -269,7 +266,10 @@ $vehicles = $stmt->fetchAll();
                               <br><br> 
                          </div>
                         
-                         
+                        
+                                </div>
+          </div>      
+                       
             </div>
           </div>
            <div class="form-group">
@@ -319,9 +319,12 @@ $vehicles = $stmt->fetchAll();
           <div class="row">
 
           <div class="col-md-6 col-sm-6">
-          <br>
-          <label for="date" style="font-size: 24px;">Select Date</label>
-          <input type="text" id="datepicker" name="date" class="form-control" autocomplete="off">
+            <div class="panel panel-default" id="headings">
+            <div class="panel-heading" style="background-color: #b80011;color: white;">Select Date</div>
+            <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: auto;">
+            <input type="text" id="datepicker" name="date" class="form-control" autocomplete="off">
+            </div>
+          </div>
           </div>         
           </div>
           <br><br>
@@ -338,66 +341,9 @@ $vehicles = $stmt->fetchAll();
           </div>
           </div>         
           </form>
-
-
-  <script>
-  $(document).ready(function(){
-   
-   function load_unseen_notification(view = '')
-   {
-    $.ajax({
-     url:"process/fetch.php",
-     method:"POST",
-     data:{view:view},
-     dataType:"json",
-     success:function(data)
-     {
-      $('#dropdownnotif').html(data.notification);
-      if(data.unseen_notification > 0)
-      {
-       $('.count').html(data.unseen_notification);
-      }
-     }
-    });
-   }
-   
-   load_unseen_notification();
-   
-   $('#appointment_form').on('submit', function(event){
-    event.preventDefault();
-    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '')
-    {
-     var form_data = $(this).serialize();
-     $.ajax({
-      url:"process/insert.php",
-      method:"POST",
-      data:form_data,
-      success:function(data)
-      {
-       $('#appointment_form')[0].reset();
-       load_unseen_notification();
-      }
-     });
-    }
-    else
-    {
-     alert("Both Fields are Required");
-    }
-   });
-   
-   $(document).on('click', '.dropdown-toggle', function(){
-    $('.count').html('');
-    load_unseen_notification('yes');
-   });
-   
-   setInterval(function(){ 
-    load_unseen_notification();; 
-   }, 5000);
-   
-  });
-  </script>
                 </div>
             </div>
+        </div>
         </div>
     </section>
    
@@ -490,8 +436,7 @@ $vehicles = $stmt->fetchAll();
      </footer>
 
      <!-- SCRIPTS -->
-
-     <script src="js/jquery.js"></script>
+     <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>

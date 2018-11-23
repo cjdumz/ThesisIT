@@ -90,18 +90,31 @@ if (isset($_POST['reg_user'])) {
 // ...
 
 if (isset($_POST['login_user'])) {
+  $error = 0;
   $username = mysqli_real_escape_string($db, $_POST['username']);
   $password = mysqli_real_escape_string($db, $_POST['password']);
   if (empty($username)) {
-    array_push($errors, '<div class="alert alert-success alert-dismissible">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Success!</strong> Username is required</div>');
+     $_SESSION['emptyusername'] = '<div class="alert alert-warning fade in" align="center">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <i class="fa fa-check-circle" aria-hidden="true"></i> <strong>Notice</strong> Username is empty.
+    </div>';
+    $error++;  
   }
   if (empty($password)) {
-    array_push($errors, '<div class="alert alert-success alert-dismissible">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Success!</strong> Password is required</div>');
+     $_SESSION['emptypassword'] = '<div class="alert alert-warning fade in" align="center">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <i class="fa fa-check-circle" aria-hidden="true"></i> <strong>Notice</strong> Password is empty.
+    </div>';
+    $error++;
   }
+  if (empty($password) && empty($username)) {
+     $_SESSION['emptypassword'] = '<div class="alert alert-warning fade in" align="center">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <i class="fa fa-check-circle" aria-hidden="true"></i> <strong>Notice</strong> Username or Password is empty.
+    </div>';
+    $error++;
+  }
+
     if(count($errors)== 0){
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
@@ -119,13 +132,13 @@ if (isset($_POST['login_user'])) {
           $_SESSION['id'] = $row['id'];
           $_SESSION['last_login_timestamp'] = time();  
           $_SESSION['success'] = '<div class="alert alert-success fade in" align="center">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-check-circle" aria-hidden="true"></i> <strong>Notice</strong> Login Successfully.
-  </div>';
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <i class="fa fa-check-circle" aria-hidden="true"></i> <strong>Notice</strong> Login Successfully.
+          </div>';
           header('location: home.php');
           exit();
-        }
-      } 
+          }
+    }
 
   }
 }
@@ -139,7 +152,7 @@ if (isset($_POST['account_edit'])) {
   $contactNumber = mysqli_real_escape_string($db, $_POST['contactNumber']);
   $address = mysqli_real_escape_string($db, $_POST['address']);
   $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
-   $query  = "UPDATE personalinfo SET firstName = '$firstName', lastName ='$lastName', middleName = '$middleName', email = '$email', contactNumber = '$contactNumber', address = '$address', modified = now() WHERE user_id = '$user_id'";
+   $query  = "UPDATE personalinfo SET firstName = '$firstName', lastName ='$lastName', middleName = '$middleName', email = '$email', mobileNumber = '$contactNumber', address = '$address', modified = now() WHERE user_id = '$user_id'";
     mysqli_query($db, $query);
     $_SESSION['success'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>

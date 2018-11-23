@@ -3,6 +3,10 @@
     include 'process/database.php';
     include 'process/server.php';
      $username=$_SESSION['username'];
+     $id = $_SESSION['id'];
+     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+     $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
+     $_SESSION['personalId'] = $result;
      $profile =new database;
      $profile->user_profile($username);
      $personalinfo =new database;
@@ -103,6 +107,7 @@
                     
                     <ul class="nav navbar-nav navbar-right">
                           
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
                         <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
@@ -230,24 +235,15 @@
   <!-- MAIN VIEW VEHICLES -->
   
      <?php
-            $db = mysqli_connect('localhost', 'root', '', 'thesis');
-            $query = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
-            $res = mysqli_query($db,$query);
-            $row = mysqli_fetch_assoc($res);
-            $personalid = $row['personalId'];
-            
-            $query1 = "SELECT * from vehicles where personalId = '$personalid' ORDER BY modified DESC";
-            $res = mysqli_query($db,$query1);
-            $resultCheck = mysqli_num_rows($res);
-                   if ($resultCheck > 0) {
-                    while ($row = mysqli_fetch_assoc($res)) {
-            ?>
-      
+
+         if ($vehicleinforesultCheck > 0) {
+          while ($row = mysqli_fetch_assoc($vehicleinforesult)) {
+      ?>
       <tr>
         <?php echo "<td align = 'center'>".$row['plateNumber']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['make']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['series']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['color']."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['make'])."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['series'])."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['color'])."</td>"; ?>
         <?php echo "<td align = 'center'>".date('F d, Y', strtotime($row['created']))."</td>"; ?>
         <?php if (isset($row['modified'])) {
               echo "<td align = 'center'>".date('F d, Y', strtotime($row['modified']))."</td>"; 
@@ -552,62 +548,6 @@
         </div>
       </div>
     </div>
-     <script>
-  $(document).ready(function(){
-   
-   function load_unseen_notification(view = '')
-   {
-    $.ajax({
-     url:"process/fetch.php",
-     method:"POST",
-     data:{view:view},
-     dataType:"json",
-     success:function(data)
-     {
-      $('#dropdownnotif').html(data.notification);
-      if(data.unseen_notification > 0)
-      {
-       $('.count').html(data.unseen_notification);
-      }
-     }
-    });
-   }
-   
-   load_unseen_notification();
-   
-   $('#appointment_form').on('submit', function(event){
-    event.preventDefault();
-    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '')
-    {
-     var form_data = $(this).serialize();
-     $.ajax({
-      url:"process/insert.php",
-      method:"POST",
-      data:form_data,
-      success:function(data)
-      {
-       $('#appointment_form')[0].reset();
-       load_unseen_notification();
-      }
-     });
-    }
-    else
-    {
-     alert("Both Fields are Required");
-    }
-   });
-   
-   $(document).on('click', '.dropdown-toggle', function(){
-    $('.count').html('');
-    load_unseen_notification('yes');
-   });
-   
-   setInterval(function(){ 
-    load_unseen_notification();; 
-   }, 5000);
-   
-  });
-  </script>
 
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
@@ -696,7 +636,7 @@
      </footer>
   
      <!-- SCRIPTS -->
-     
+     <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>
