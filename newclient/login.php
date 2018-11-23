@@ -26,6 +26,8 @@ if (isset($_SESSION['username'])) {
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+     <link rel="stylesheet" href="css/all.css">
+
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
@@ -42,14 +44,14 @@ if (isset($_SESSION['username'])) {
                     
 
                     <div class="col-md-4 col-sm-5">
-                        <span class="email-icon"><i class="fa fa-user-o" aria-hidden="true"></i> <a href="login.php">LOGIN</a></span>
-                        <span class="email-icon"><i class="fa fa-file-text" aria-hidden="true"></i> <a href="register.php">REGISTER</a></span>
+                        <span class="email-icon"><i class="fas fa-sign-in-alt"></i> <a href="login.php">LOGIN</a></span>
+                        <span class="email-icon"><i class="fas fa-user-plus"></i> <a href="register.php">REGISTER</a></span>
                     </div>
                          
                     <div class="col-md-8 col-sm-7 text-align-right">
                          <span class="phone-icon"><i class="fa fa-phone"></i>  09257196568 / 09304992021</span>
                          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Sat)</span>
-                         <span class="email-icon"><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
+                         <span class="email-icon"><i class="fab fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
                     </div>
 
                </div>
@@ -80,7 +82,7 @@ if (isset($_SESSION['username'])) {
                          <li><a href="index.php" class="smoothScroll">Home</a></li>
                          <li><a href="#about" class="smoothScroll">Services</a></li>
                          <li><a href="#team" class="smoothScroll">About Us</a></li>
-                         <li><a href="#news" class="smoothScroll">Contact Us</a></li>
+                         <li><a href="#contact-info" class="smoothScroll">Contact Us</a></li>
                          <li><a href="#google-map" class="smoothScroll">Reviews</a></li>
                          <li class="appointment-btn"><a href="login.php?loginrequired=1">Make an appointment</a></li>
                     </ul>
@@ -139,12 +141,34 @@ if (isset($_SESSION['username'])) {
                              unset($_SESSION['register_success']);
                          ?>
                          <?php endif ?>
+                         <?php if (isset($_SESSION['emptyusername'])) : ?>
+                         <?php 
+                         
+                           echo $_SESSION['emptyusername']; 
+                             unset($_SESSION['emptyusername']);
+                         ?>
+                         <?php endif ?>
+                         <?php if (isset($_SESSION['emptypassword'])) : ?>
+                         <?php 
+                         
+                         echo $_SESSION['emptypassword']; 
+                           unset($_SESSION['emptypassword']);
+                         ?>
+                         <?php endif ?>
+                         <?php if (isset($_SESSION['errormsg'])) : ?>
+                         <?php 
+                         
+                         echo $_SESSION['errormsg']; 
+                           unset($_SESSION['errormsg']);
+                         ?>
+                         <?php endif ?>
                          <?php
                          if(isset($_REQUEST['success'])=="done")
                           {
                               echo '<div class="alert alert-success fade in" align="center">
                               <a href="#" class="close" data-dismiss="alert" >&times;</a>
-                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong> Registration Successful Please Login </div>';
+                              <i class="fas fa-check-circle"></i> <strong>Notice</strong> Registration Successful Please Login </div>';
+                              unset($_REQUEST['success']);
                           }
                          ?>
                          <?php
@@ -152,8 +176,10 @@ if (isset($_SESSION['username'])) {
                           {
                               echo '<div class="alert alert-danger fade in" align="center">
                               <a href="#" class="close" data-dismiss="alert" >&times;</a>
-                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong>   Please login first. </div>';
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Notice</strong>  Please login first. </div>';
+                              unset($_REQUEST['loginrequrired']);
                           }
+
                          ?>
 
                         </div>

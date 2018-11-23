@@ -3,6 +3,10 @@
     include 'process/database.php';
     include 'process/server.php';
      $username=$_SESSION['username'];
+     $id = $_SESSION['id'];
+     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+     $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
+     $_SESSION['personalId'] = $result;
      $profile =new database;
      $profile->user_profile($username);
      $personalinfo =new database;
@@ -35,6 +39,7 @@
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+     <link rel="stylesheet" href="css/all.css">
      <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
      <script src="js/jquery.js"></script>
      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
@@ -56,7 +61,7 @@
               <div class="col-md-8 col-sm-7 text-align-right">
                          <span class="phone-icon"><i class="fa fa-phone"></i>  09257196568 / 09304992021</span>
                          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Sat)</span>
-                         <span class="email-icon"><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
+                         <span class="email-icon"><i class="fab fa-facebook"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
                     </div>
 
 
@@ -90,11 +95,11 @@
                <div class="collapse navbar-collapse">
                      <ul class="nav navbar-nav ">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p><i class="fas fa-user-circle"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
-              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
@@ -103,8 +108,8 @@
                     
                     <ul class="nav navbar-nav navbar-right">
                           
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
-                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
                         <li class="dropdown">
@@ -185,7 +190,7 @@
         </div>
         <div class="form-group">
           <label for="yearModel">Year Model</label><span style="color:red;"> *</span>
-          <input class="form-control input-sm" type="text" class="form-control" id="yearModel" name="yearModel" required="" invalid="this.setCustomValidity('Year Model is Empty.')" oninput="setCustomValidity('')">
+          <input class="form-control input-sm" type="number" class="form-control" id="yearModel" name="yearModel" required="" invalid="this.setCustomValidity('Year Model is Empty.')" oninput="setCustomValidity('')">
         </div>
          <div class="form-group">
           <label for="color">Color</label><span style="color:red;"> *</span>
@@ -194,7 +199,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-sm " name="vehicle_add" style="background-color: #B80011;color: white"><i class="fa fa-motorcycle" aria-hidden="true"></i> Add Vehicle</button>
-          <button type="button" class="btn btn-sm" data-dismiss="modal" style="background-color: #308ee0;color:black;"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="color:black;"><i class="fas fa-times-circle"></i> Cancel</button>
         </div>
       </div>
       </form>
@@ -230,24 +235,15 @@
   <!-- MAIN VIEW VEHICLES -->
   
      <?php
-            $db = mysqli_connect('localhost', 'root', '', 'thesis');
-            $query = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
-            $res = mysqli_query($db,$query);
-            $row = mysqli_fetch_assoc($res);
-            $personalid = $row['personalId'];
-            
-            $query1 = "SELECT * from vehicles where personalId = '$personalid' ORDER BY modified DESC";
-            $res = mysqli_query($db,$query1);
-            $resultCheck = mysqli_num_rows($res);
-                   if ($resultCheck > 0) {
-                    while ($row = mysqli_fetch_assoc($res)) {
-            ?>
-      
+
+         if ($vehicleinforesultCheck > 0) {
+          while ($row = mysqli_fetch_assoc($vehicleinforesult)) {
+      ?>
       <tr>
         <?php echo "<td align = 'center'>".$row['plateNumber']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['make']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['series']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['color']."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['make'])."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['series'])."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['color'])."</td>"; ?>
         <?php echo "<td align = 'center'>".date('F d, Y', strtotime($row['created']))."</td>"; ?>
         <?php if (isset($row['modified'])) {
               echo "<td align = 'center'>".date('F d, Y', strtotime($row['modified']))."</td>"; 
@@ -258,7 +254,7 @@
         
         <button type="button" class="btn btn-sm btn-primary " data-toggle="modal" data-target="#viewVehicle<?php echo $row['id']; ?>"><i class="fa fa-address-card" aria-hidden="true"></i> View Info</button>
         <button type="button" class="btn btn-sm btn-success " data-toggle="modal" data-target="#editVehicle<?php echo $row['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit</button>
-        <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#deleteVehicle<?php echo $row['id']; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i>  Delete</button>
+        <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#deleteVehicle<?php echo $row['id']; ?>"><i class="fas fa-trash-alt"></i>  Delete</button>
       </td>
 
 
@@ -377,7 +373,7 @@
               </div> 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" style="background-color: #b80011;color: white;"><i class="fas fa-times-circle"></i> Close</button>
             </div>
           </div>
           
@@ -391,7 +387,7 @@
         
           <!-- Modal content-->
           <div class="modal-content">
-            <div class="modal-header" style="background-color:#B80011; color: #ffffff;">
+            <div class="modal-header" style="background-color:#4caf50; color: #ffffff;">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h5 class="modal-title"><?php echo $row['make'].' '.$row['series'].' '.$row['yearModel']; ?></h5>
             </div>
@@ -420,7 +416,7 @@
           <div class="col-sm-6">
             <div class="form-group">
             <label for="yearModel">Year Model</label>
-            <input type="text" class="form-control input-xs" id="yearModel" name="yearModel" value="<?php echo $row['yearModel']; ?>" >
+            <input type="number" class="form-control input-xs" id="yearModel" name="yearModel" value="<?php echo $row['yearModel']; ?>" >
           </div>
           </div>
            <div class="col-sm-6">
@@ -480,8 +476,8 @@
           </div>   
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-sm btn-primary" name="vehiclesinfo_edit">Edit Vehicle</button>
-              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-sm btn-success" name="vehiclesinfo_edit" style="background-color: #4caf50;"><i class="fas fa-edit"></i> Edit Vehicle</button>
+              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
             </div>
           </div>
          </form>
@@ -506,8 +502,8 @@
             </div>
           
             <div class="modal-footer">
-              <button type="submit" class="btn btn-sm btn-success" name="vehicle_delete">Yes</button>
-              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-sm btn-success" name="vehicle_delete"><i class="fas fa-check"></i> Yes</button>
+              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> Cancel</button>
             </div>
           </div>
           </form>
@@ -552,62 +548,6 @@
         </div>
       </div>
     </div>
-     <script>
-  $(document).ready(function(){
-   
-   function load_unseen_notification(view = '')
-   {
-    $.ajax({
-     url:"process/fetch.php",
-     method:"POST",
-     data:{view:view},
-     dataType:"json",
-     success:function(data)
-     {
-      $('#dropdownnotif').html(data.notification);
-      if(data.unseen_notification > 0)
-      {
-       $('.count').html(data.unseen_notification);
-      }
-     }
-    });
-   }
-   
-   load_unseen_notification();
-   
-   $('#appointment_form').on('submit', function(event){
-    event.preventDefault();
-    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '')
-    {
-     var form_data = $(this).serialize();
-     $.ajax({
-      url:"process/insert.php",
-      method:"POST",
-      data:form_data,
-      success:function(data)
-      {
-       $('#appointment_form')[0].reset();
-       load_unseen_notification();
-      }
-     });
-    }
-    else
-    {
-     alert("Both Fields are Required");
-    }
-   });
-   
-   $(document).on('click', '.dropdown-toggle', function(){
-    $('.count').html('');
-    load_unseen_notification('yes');
-   });
-   
-   setInterval(function(){ 
-    load_unseen_notification();; 
-   }, 5000);
-   
-  });
-  </script>
 
      <!-- FOOTER -->
      <footer data-stellar-background-ratio="5">
@@ -696,7 +636,7 @@
      </footer>
   
      <!-- SCRIPTS -->
-     
+     <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>

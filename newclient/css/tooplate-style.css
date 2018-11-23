@@ -1165,5 +1165,20 @@ http://www.tooplate.com/view/2098-health
   margin: 10px auto;
 }
 
+.vl {
+    border-left: 1px solid black;
+    height: auto;
+}
+.nopadnomar {
+  padding: 0px;
+  margin: 0px;
+}
+
+.formElement {
+    float:left;
+    width:200px;
+}
+
+
 
 

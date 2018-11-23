@@ -39,7 +39,7 @@
 
   if (isset($_POST['contactNumber_check'])) {
     $contactNumber = $_POST['contactNumber'];
-    $sql = "SELECT * FROM personalinfo WHERE contactNumber='$contactNumber'";
+    $sql = "SELECT * FROM personalinfo WHERE mobileNumber='$contactNumber'";
     $results = mysqli_query($db, $sql);
     if (mysqli_num_rows($results) > 0) {
       echo "taken"; 
@@ -72,7 +72,7 @@
      $query = "INSERT INTO users (username, password) 
             VALUES ('$username','".password_hash($_POST['password'], PASSWORD_DEFAULT)."')";
      $result1 = mysqli_query($db, $query);
-     $query2 = "INSERT INTO personalinfo (user_id, firstName, middleName, lastName, address, email, contactNumber) VALUES (LAST_INSERT_ID(),'$firstName', '$middleName', '$lastName', '$address', '$email', '$contactNumber')";
+     $query2 = "INSERT INTO personalinfo (user_id, firstName, middleName, lastName, address, email, mobileNumber) VALUES (LAST_INSERT_ID(),'$firstName', '$middleName', '$lastName', '$address', '$email', '$contactNumber')";
      $result2 = mysqli_query($db, $query2);
      $query3 = "INSERT INTO vehicles (personalid, plateNumber, yearModel, make, series, color) VALUES (LAST_INSERT_ID(), '$plateNumber', '$yearModel', '$make', '$series', '$color')";
      $result3 = mysqli_query($db, $query3);
