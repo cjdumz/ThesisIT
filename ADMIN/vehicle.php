@@ -153,8 +153,9 @@
                                         <td>'.$row['color'].'</td>
                                         <td>'.$row['status'].'</td>
                                         <td class="text-center">
-                                          <a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary">View</button></a>
-                                          <button class="btn btn-primary" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                          <a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a>
+                                          
+                                          <button class="btn btn-darkblue" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-history"></i>
                                           History</button>
                                         
                                         </td>
@@ -165,7 +166,7 @@
                                     <div class="modal fade" id="decline'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="appointmentModalCenterTitle" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                          <div class="modal-header" style="background-color: #308EE0; color: white; border: 3px solid #308EE0;">
+                                          <div class="modal-header" style="background-color: #000099; color: white; border: 3px solid #000099;">
                                             <h5 class="modal-title" id="appointmentModalCenterTitle">History</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
@@ -183,7 +184,7 @@
                                                 while($rows = $dates->fetch_assoc()) {
                                                   echo '
                                                   <a href="records.php?id='.$rows['id'].'" style="text-decoration:none; color: white;">
-                                                  <div style="border: 4px solid #308EE0; border-radius: 5px; color: white; text-align: center; background-color:#308EE0;margin-bottom: 5px; margin-top: 5px;">
+                                                  <div style="border: 4px solid #000099; border-radius: 5px; color: white; text-align: center; background-color:#000099;margin-bottom: 5px; margin-top: 5px;">
                                                   '.$rows['Time'].'
                                                   </div></a>
     
@@ -193,7 +194,7 @@
                                               }
                                               echo'
                                               <a href="viewvehicle.php?plate='.$row['plateNumber'].'#view" style="text-decoration:none; color: white;">
-                                              <div style="border: 4px solid #308EE0; border-radius: 5px; color: white; text-align: center; background-color:#308EE0;margin-bottom: 5px; margin-top: 5px;">
+                                              <div style="border: 4px solid #000099; border-radius: 5px; color: white; text-align: center; background-color:#000099;margin-bottom: 5px; margin-top: 5px;">
                                               View All
                                               </div></a>
 

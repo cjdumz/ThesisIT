@@ -23,7 +23,7 @@ if(isset($_POST["submit-user"])){
   $adduser->bind_param("ssssssss", $first, $last, $middle, $suffix, $address, $mobile, $telephone, $email);
   if($adduser->execute()){ 
     $_SESSION['user_id'] = $adduser->insert_id;
-    header("Location: ../adduser.php");
+    header("Location: ../addvehicle.php");
   }else{
     header("Location: ../error.php");
     exit();

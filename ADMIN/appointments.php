@@ -227,6 +227,7 @@
                                             <input type="hidden" name="id1" value="'.$row['ID'].'">
                                           <button class="btn btn-success" type="submit" name="commands1" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
                                           Accept</button>
+                                          
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                     
                                         </form>
@@ -308,6 +309,7 @@
                                       <div class="modal-footer" >
                                       
                                         <button type="submit" name="resubmit" class="btn btn-warning"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
+                                        
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                         
                                         </form>
@@ -379,8 +381,9 @@
 
                                       <div class="modal-footer" >
                                         
-                                            <input type="hidden" name="command1" value="decline">
-                                            <input type="hidden" name="id1" value="'.$row['ID'].'">
+                                        <input type="hidden" name="command1" value="decline">
+                                        <input type="hidden" name="id1" value="'.$row['ID'].'">
+                                        
                                           <button class="btn btn-danger" type="submit" name="commands1" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-calendar-remove"></i>
                                           Decline</button>
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
@@ -479,5 +482,3 @@ $('form.ajax').on('submit', function(){
 });
 <<<<<<< HEAD
 </script> -->
-=======
->>>>>>> 6f5f39c89404f36fa32c1aed05e2ed9ca73ef000
