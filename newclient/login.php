@@ -77,13 +77,14 @@ if (isset($_SESSION['username'])) {
                </div>
 
                <!-- MENU LINKS -->
-               <div class="collapse navbar-collapse">
+              <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                          <li><a href="index.php" class="smoothScroll">Home</a></li>
-                         <li><a href="#about" class="smoothScroll">Services</a></li>
-                         <li><a href="#team" class="smoothScroll">About Us</a></li>
-                         <li><a href="#contact-info" class="smoothScroll">Contact Us</a></li>
-                         <li><a href="#google-map" class="smoothScroll">Reviews</a></li>
+                         <li><a href="/index.php#services" class="smoothScroll">Services</a></li>
+                         <li><a href="/index.php#fc" class="smoothScroll">Featured Cars</a></li>
+                         <li><a href="/index.php#team" class="smoothScroll">The Team</a></li>
+                         <li><a href="/index.php#feedback" class="smoothScroll">Review</a></li>
+                         <li><a href="/index.php#google-map" class="smoothScroll">Find us</a></li>
                          <li class="appointment-btn"><a href="login.php?loginrequired=1">Make an appointment</a></li>
                     </ul>
                </div>
@@ -209,78 +210,46 @@ if (isset($_SESSION['username'])) {
      </section>
 
      <!-- FOOTER -->
-     <footer data-stellar-background-ratio="5">
+      <footer data-stellar-background-ratio="5">
           <div class="container">
                <div class="row">
 
                     <div class="col-md-4 col-sm-4">
                          <div class="footer-thumb"> 
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
-                              <p>Fusce at libero iaculis, venenatis augue quis, pharetra lorem. Curabitur ut dolor eu elit consequat ultricies.</p>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 010-070-0170</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">info@company.com</a></p>
+                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-4"> 
                          <div class="footer-thumb"> 
-                              <h4 class="wow fadeInUp" data-wow-delay="0.4s">Latest News</h4>
-                              <div class="latest-stories">
-                                   <div class="stories-image">
-                                       
-                                   </div>
-                                   <div class="stories-info">
-                                        <a href="#"><h5>Amazing Technology</h5></a>
-                                        <span>March 08, 2018</span>
-                                   </div>
-                              </div>
-
-                              <div class="latest-stories">
-                                   <div class="stories-image">
-                                        
-                                   </div>
-                                   <div class="stories-info">
-                                        <a href="#"><h5>New Healing Process</h5></a>
-                                        <span>February 20, 2018</span>
-                                   </div>
-                              </div>
-                         </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4"> 
-                         <div class="footer-thumb">
                               <div class="opening-hours">
                                    <h4 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h4>
                                    <p>Monday - Friday <span>06:00 AM - 10:00 PM</span></p>
-                                   <p>Saturday <span>09:00 AM - 08:00 PM</span></p>
+                                   <p>Saturday <span>06:00 AM - 10:00 PM</span></p>
                                    <p>Sunday <span>Closed</span></p>
                               </div> 
 
                               <ul class="social-icon">
-                                   <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                                   <li><a href="#" class="fa fa-twitter"></a></li>
-                                   <li><a href="#" class="fa fa-instagram"></a></li>
                               </ul>
+
                          </div>
                     </div>
 
                     <div class="col-md-12 col-sm-12 border-top">
                          <div class="col-md-4 col-sm-6">
-                              <div class="copyright-text"> 
-                                   <p>Copyright &copy; 2018 Your Company 
+                              <p>Copyright &copy; Abenchers 2018 
                                    
-                                   | Design: <a rel="nofollow" href="https://www.facebook.com/tooplate" target="_parent">Tooplate</a></p>
-                              </div>
+                                   | Design: <a rel="nofollow" target="_parent">IT Project 2</a></p>
                          </div>
                          <div class="col-md-6 col-sm-6">
                               <div class="footer-link"> 
-                                   <a href="#">Laboratory Tests</a>
-                                   <a href="#">Departments</a>
-                                   <a href="#">Insurance Policy</a>
-                                   <a href="#">Careers</a>
+
                               </div>
                          </div>
                          <div class="col-md-2 col-sm-2 text-align-center">
@@ -293,7 +262,6 @@ if (isset($_SESSION['username'])) {
                </div>
           </div>
      </footer>
-
      <!-- SCRIPTS -->
      <script src="js/jquery.js"></script>
      <script src="js/bootstrap.min.js"></script>
