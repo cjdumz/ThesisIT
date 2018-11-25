@@ -130,13 +130,13 @@ if(isset($_GET['id'])){
                         </ol>
                     </nav>
                     <div class="row">
-                        <div class="col-11">
-                            <p class="card-title" style="font-size:20px;"><i class="fa fa-caret-square-o-left"></i><?php echo $Name ?></p>
+                        <div class="offset-2 col-8">
+                            <p class="card-title text-center" style="font-size:20px;"><i class="fa fa-caret-square-o-left"></i><?php echo $Name ?></p>
 
                             <a href="personalinfo.php?id=<?php echo $ID ?>"><button type="button" class="btn btn-info btn-block">Personal Information</button>
                             <button type="button" class="btn btn-info btn-block">Vehicle Information</button>
                             <button type="button" class="btn btn-info btn-block">Daily Task Form</button>
-                            <button type="button" class="btn btn-info btn-block">History if Vehicle</button>
+                            <button type="button" class="btn btn-info btn-block">History of Vehicle</button>
 
                         </div>
                     </div>

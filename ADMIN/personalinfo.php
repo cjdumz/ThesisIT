@@ -138,85 +138,61 @@ if(isset($_GET['id'])){
                                 <p class="card-description">
                                   Personal information
                                 </p>
+
                                 <div class="row">
-                                  <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">First Name</label>
-                                      <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Last Name</label>
-                                      <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <div class="offset-1 col-md-2"><p >Name </p></div>
+                                  <div class="col-md-4"><p style="margin-top: -1%" class="card-title">: <?php echo $row['Name'] ?></p></div>
                                 </div>
 
                                 <div class="row">
-                                  <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Gender</label>
-                                      <div class="col-sm-9">
-                                        <select class="form-control">
-                                          <option>Male</option>
-                                          <option>Female</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Date of Birth</label>
-                                      <div class="col-sm-9">
-                                        <input class="form-control" placeholder="dd/mm/yyyy" />
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <div class="offset-1 col-md-2"><p>Address </p></div>
+                                  <div class="col-md-4"><p style="margin-top: -1%" class="card-title">: <?php echo $row['address'] ?></p></div>
                                 </div>
 
                                 <div class="row">
-                                  <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Category</label>
-                                      <div class="col-sm-9">
-                                        <select class="form-control">
-                                          <option>Category1</option>
-                                          <option>Category2</option>
-                                          <option>Category3</option>
-                                          <option>Category4</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Membership</label>
-                                      <div class="col-sm-4">
-                                        <div class="form-radio">
-                                          <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked> Free
-                                          </label>
-                                        </div>
-                                      </div>
-                                      <div class="col-sm-5">
-                                        <div class="form-radio">
-                                          <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2"> Professional
-                                          </label>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <div class="offset-1 col-md-2"><p>Mobile Number </p></div>
+                                  <div class="col-md-4"><p style="margin-top: -1%" class="card-title">: <?php echo $row['mobileNumber'] ?></p></div>
                                 </div>
 
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p>Telephone Number </p></div>
+                                  <div class="col-md-4"><p style="margin-top: -1%" class="card-title">: <?php echo $row['telephoneNumber'] ?></p></div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p>Email </p></div>
+                                  <div class="col-md-4"><p style="margin-top: -1%" class="card-title">: <?php echo $row['email'] ?></p></div>
+                                </div>
+
+                                <?php 
+                                  $count = $connection->prepare("SELECT count(plateNumber) as 'counter' from vehicles where personalId = $id");
+                                  if($count->execute()){
+                                      $values3 = $count->get_result();
+                                      $row3 = $values3->fetch_assoc();
+                                      $counter = $row3['counter'];
+                                  }
+                                ?>
                                 <p class="card-description">
-                                  Address
+                                  Vehicles (<?php echo $counter; ?>)
                                 </p>
+
+                                <?php 
+                                  $getvehicle = $connection->prepare("SELECT * FROM `vehicles` WHERE vehicles.personalId = $id");
+                                  if($getvehicle->execute()){
+                                      $values2 = $getvehicle->get_result();
+                                      while($row2 = $values2->fetch_assoc()) {
+                                        echo '  <div class="row">
+                                                  <div class="offset-1 col-md-2"><p >Plate Number </p></div>
+                                                  <div class="col-md-4"><p style="margin-top: -1%" class="card-title">: '.$row2['plateNumber'].'</p></div>
+                                                </div>';
+                                      }
+
+                                  }
+                                ?>
+
+                               
+
+                                
 
 
 
