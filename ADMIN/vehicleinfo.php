@@ -4,19 +4,25 @@
 
 
 
-if(isset($_GET['id'])){
-    $id = $connection->real_escape_string($_GET["id"]);
-    $data = $connection->prepare("SELECT *, concat(firstName, ' ',middleName, ' ',lastName)as 'Name' FROM `personalinfo` WHERE personalId =  $id");
+if(isset($_GET['plate'])){
+    $plate = $connection->real_escape_string($_GET["plate"]);
+    $data = $connection->prepare("select  concat(firstName, ' ',middleName, ' ',lastName)as 'Name', personalinfo.personalId as 'ID', vehicles.plateNumber,
+    bodyType, yearModel, chasisNumber, engineClassification, numberOfCylinders, typeOfDriveTrain, make, series, color, engineNumber, typeOfEngine,
+     engineDisplacement, status 
+    
+    from personalinfo inner join vehicles
+        on personalinfo.personalId = vehicles.personalId 
+    where platenumber = '$plate'");
     if($data->execute()){
         $values = $data->get_result();
         $row = $values->fetch_assoc();
-        $ID = $row['personalId'];
+        $ID = $row['ID'];
         $Name = $row['Name'];
     }else{
-        header("Location: error.php");
+
     }
 }else{
-    header("Location: error.php");
+
 }
 ?>
 <!DOCTYPE html>
@@ -120,34 +126,95 @@ if(isset($_GET['id'])){
         <div class="content-wrapper">
 
           <div class="row">
-            <div class="col-lg-12 grid-margin  stretch-card">
-              <div class="card">
-                <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="clientrecords.php">Client Records</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?php echo $Name ?></li>
-                  </ol>
-                </nav>
+              <div class="col-lg-12 grid-margin  stretch-card">
+                <div class="card">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="clientrecords.php">Client Records</a></li>
+                        <li class="breadcrumb-item"><a href="client.php?id=<?php echo $ID ?>"><?php echo $Name ?></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Vehicle Information</li>
+                    </ol>
+                  </nav>
+                </div>
               </div>
             </div>
-          </div>
 
           <div class="row">
-            
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <div class="row">
-                      <div class="offset-2 col-8">
-                          <p class="card-title text-center" style="font-size:20px;"><i class="fa fa-caret-square-o-left"></i><?php echo $Name ?></p>
+                    <div class="row">
+                        <div class="col-11">
+                            <p class="card-title" style="font-size:20px;"><i class="fa fa-caret-square-o-left"></i><?php echo $plate ?></p>
+                            <!-- start -->
+                              <form class="form-sample">
+                                <p class="card-description">
+                                  Vehicle information
+                                </p>
 
-                          <button type="button" class="btn btn-info btn-block"><a href="personalinfo.php?id=<?php echo $ID ?>" style="text-decoration:none; color: white;">Personal Information</a></button>
-                          <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#viewvehicle">Vehicle Information</button>
-                          <button type="button" class="btn btn-info btn-block">Daily Task Form</button>
-                          <button type="button" class="btn btn-info btn-block">History of Vehicle</button>
 
-                      </div>
-                  </div>
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p >Status</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['status'] ?></p></div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p >Body Type</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['bodyType'] ?></p></div>
+                                  <div class="col-md-2"><p >Year Model</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['yearModel'] ?></p></div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p >Chasis Number</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['chasisNumber'] ?></p></div>
+                                  <div class="col-md-2"><p >Engine Classification </p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['engineClassification'] ?></p></div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p >Number of Cylinder</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['numberOfCylinders'] ?></p></div>
+                                  <div class="col-md-2"><p >Make</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['make'] ?></p></div>
+                                </div>
+
+                                
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p >Series</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['series'] ?></p></div>
+                                  <div class="col-md-2"><p >Color</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['color'] ?></p></div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p >Engine Number</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['engineNumber'] ?></p></div>
+                                  <div class="col-md-2"><p >Type of Engine</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['typeOfEngine'] ?></p></div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="offset-1 col-md-2"><p >Type of Drive Terrain</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['typeOfDriveTrain'] ?></p></div>
+                                  <div class="col-md-2"><p >Engine Displacement</p></div>
+                                  <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $row['engineDisplacement'] ?></p></div>
+                                </div>
+
+
+                               
+
+                                
+
+
+
+
+
+                              </form>
+                           <!-- end -->
+
+                        </div>
+                    </div>
                     
                   
                 </div>
@@ -165,41 +232,6 @@ if(isset($_GET['id'])){
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="viewvehicle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Select Vehicle</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <?php
-        $data = $connection->prepare("SELECT * FROM `vehicles` WHERE vehicles.personalId = $ID");
-        if($data->execute()){
-            $values = $data->get_result();
-            while($row = $values->fetch_assoc()) {
-              echo '
-              <button type="button" class="btn btn-info btn-block">
-                <a href="vehicleinfo.php?plate='.$row['plateNumber'].'" style="text-decoration:none; color: white;">'.$row['plateNumber'].'</a>
-              </button>
-
-              ';
-            }
-        }else{
-            echo "";
-        }
-        ?>
-      </div>
-    </div>
-  </div>
-</div>
-
 
   <!-- Modal -->
   

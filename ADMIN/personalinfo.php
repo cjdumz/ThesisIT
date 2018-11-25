@@ -118,18 +118,25 @@ if(isset($_GET['id'])){
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+
           <div class="row">
-            
+              <div class="col-lg-12 grid-margin  stretch-card">
+                <div class="card">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="clientrecords.php">Client Records</a></li>
+                        <li class="breadcrumb-item"><a href="client.php?id=<?php echo $ID ?>"><?php echo $Name ?></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Personal Information</li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+            </div>
+
+          <div class="row">
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="clientrecords.php">Client Records</a></li>
-                            <li class="breadcrumb-item"><a href="client.php?id=<?php echo $ID ?>"><?php echo $Name ?></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Personal Information</li>
-                        </ol>
-                    </nav>
                     <div class="row">
                         <div class="col-11">
                             <p class="card-title" style="font-size:20px;"><i class="fa fa-caret-square-o-left"></i><?php echo $Name ?></p>
