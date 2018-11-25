@@ -104,7 +104,7 @@
               <div class="card">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="vehicle.php">Vehicles</a></li>
+                    <li class="breadcrumb-item"><a href="vehicle.php" style="font-size:18px;">Vehicles</a></li>
                   </ol>
                 </nav>
               </div>
