@@ -167,8 +167,6 @@
                                         </td>
                                     </tr>
 
-
-                                    <!-- Decline Modal -->
                                     <div class="modal fade" id="decline'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="appointmentModalCenterTitle" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -182,9 +180,9 @@
                                             <!-- start -->';
 
                                             $getHistory = $connection->prepare("SELECT *, concat(firstName,' ',middleName,' ',lastName) as 'Name', appointments.date as 'Time' FROM
-                                             `appointments` inner join personalinfo on
-                                            appointments.personalId = personalinfo.personalId
-                                            where vehicleID = $vehicleID limit 10;");
+                                            `appointments` inner join personalinfo on
+                                           appointments.personalId = personalinfo.personalId
+                                           where vehicleID = $vehicleID  AND status = 'Accepted' OR status = 'Done' OR status = 'In-progress' limit 10");
                                             if($getHistory->execute()){
                                                 $dates = $getHistory->get_result();
                                                 while($rows = $dates->fetch_assoc()) {
