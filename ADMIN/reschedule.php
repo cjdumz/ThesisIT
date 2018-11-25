@@ -145,9 +145,12 @@
                                       <div class="col-12">
                                         <input type="hidden" name="command2" value="deny">
                                         <input type="hidden" name="id2" value="'.$row['ID'].'">
+                                        
                                         <button class="btn btn-warning"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
                                         Reschedule</button>
+                                        
                                       </div>
+                                      
                                       <div class="col-12">
                                         <input type="hidden" name="command2" value="decline">
                                         <input type="hidden" name="id2" value="'.$row['ID'].'">

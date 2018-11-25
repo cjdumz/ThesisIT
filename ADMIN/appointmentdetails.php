@@ -34,6 +34,7 @@ if ($query3->execute()){
         ?> <br> Vehicle Problems:<li> <?php echo $rows['serviceName'];?> </li> <?php
     }
 }
+ ?>
 
 
 

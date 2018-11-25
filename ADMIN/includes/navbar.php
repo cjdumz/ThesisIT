@@ -110,6 +110,7 @@
                 <span aria-hidden="true">×</span>
             </button>
             </div>
+            
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
             <a class="btn btn-darkblue" href="process/logout.php"><i class="menu-icon mdi mdi-logout-variant"></i>Logout</a>
