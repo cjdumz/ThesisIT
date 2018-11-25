@@ -2,8 +2,6 @@
 <?php require "process/require/dataconf.php";?>
 <?php require 'process/process.php'; 
 
-
-
 if(isset($_GET['id'])){
     $id = $connection->real_escape_string($_GET["id"]);
     $data = $connection->prepare("SELECT *, concat(firstName, ' ',middleName, ' ',lastName)as 'Name' FROM `personalinfo` WHERE personalId =  $id");
@@ -90,14 +88,7 @@ if(isset($_GET['id'])){
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
-            
-          <li class="nav-item active">
-            <a class="nav-link" href="clientrecords.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Client Records</span>
-            </a>
-          </li>
-            
+                    
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>

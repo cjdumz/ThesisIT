@@ -97,13 +97,6 @@ if(isset($_GET['plate'])){
             </a>
           </li>
             
-          <li class="nav-item active">
-            <a class="nav-link" href="clientrecords.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Client Records</span>
-            </a>
-          </li>
-            
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>

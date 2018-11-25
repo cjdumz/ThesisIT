@@ -74,13 +74,6 @@
             </a>
           </li>
             
-          <li class="nav-item">
-            <a class="nav-link" href="clientrecords.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Client Records</span>
-            </a>
-          </li>
-            
           <li class="nav-item active">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
@@ -101,6 +94,19 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+
+          <div class="row">
+            <div class="col-lg-12 grid-margin  stretch-card">
+              <div class="card">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="accountmanagement.php">Account Management</a></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             
             <div class="col-lg-12 stretch-card">
@@ -146,7 +152,7 @@
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT * FROM `personalinfo` join `vehicles` WHERE personalinfo.personalId = vehicles.personalId GROUP BY id");
+                            $data = $connection->prepare("SELECT * FROM `personalinfo` join `vehicles` WHERE personalinfo.personalId = vehicles.personalId GROUP BY 1");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {

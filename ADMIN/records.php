@@ -5,7 +5,22 @@
         header("Location: error.php");
         exit();
       }else{
-        $id = $_GET['id'];
+        $id = $connection->real_escape_string($_GET["id"]);
+        $data = $connection->prepare("SELECT appointments.id as 'ID', concat(firstName, ' ',middleName, ' ',lastName)as 
+        'Name', plateNumber, appointments.status as 'stat', appointments.date, appointments.modified, appointments.created from 
+        appointments inner join personalinfo on appointments.personalId = personalinfo.personalId inner join vehicles 
+        on personalinfo.personalId = vehicles.personalId where appointments.status = 'Accepted' and appointments.id = '$id';");
+        if($data->execute()){
+            $values = $data->get_result();
+            $row = $values->fetch_assoc();
+
+            if($row['stat'] != "Accepted"){
+              header("Location: error.php");
+            }
+
+        }else{
+            header("Location: error.php");
+        }
       }
 ?>
 
@@ -74,17 +89,10 @@
             </div>
           </li>
             
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
-            </a>
-          </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="clientrecords.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Client Records</span>
             </a>
           </li>
             
@@ -108,6 +116,20 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+
+          <div class="row">
+            <div class="col-lg-12 grid-margin  stretch-card">
+              <div class="card">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="calendar.php">Calendar</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?php echo $id ?></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             
             <div class="col-lg-12 stretch-card">
@@ -122,21 +144,21 @@
 
                     <div class="row"><!-- row-start -->
                       <div class="col-md-2"><p>Owner:</p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%">Juan Tamad</h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['Name'] ?></h5></div>
                       <div class="col-md-2"><p>Date of Request</p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%">10-30-2018</h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['created'] ?></h5></div>
                     </div><!-- row-end -->
                     <div class="row">
                       <div class="col-md-2"><p>Plate Number: </p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%">ABC-123</h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['plateNumber'] ?></h5></div>
                       <div class="col-md-2"><p>Date Approved: </p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%">10-31-2018</h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['modified'] ?></h5></div>
                     </div>
                     <div class="row">
                       <div class="col-md-2"><p>Status</p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%">Accepted</h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['stat'] ?></h5></div>
                       <div class="col-md-2"><p>Date of Appointment</p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%">11-02-2018</h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['date'] ?></h5></div>
                     </div>
                     <div class="row">
                       <div class=" offset-md-1 col-md-2"><p>Progress</p></div>

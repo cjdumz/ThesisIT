@@ -96,13 +96,6 @@ if(isset($_GET['plate'])){
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Client Records</span>
-            </a>
-          </li>
-            
-          <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
@@ -122,6 +115,20 @@ if(isset($_GET['plate'])){
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+
+          <div class="row">
+            <div class="col-lg-12 grid-margin  stretch-card">
+              <div class="card">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="vehicle.php">Vehicles</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?php echo $plate ?></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+          
           <div class="row">
             <!-- start -->
             <div class="col-12 grid-margin stretch-card">
@@ -311,15 +318,17 @@ if(isset($_GET['plate'])){
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT *, concat(firstName,' ',middleName,' ',lastName) as 'Name' FROM `appointments` inner join personalinfo on
-                            appointments.personalId = personalinfo.personalId
-                            where vehicleID = $vehicleID;");
+                            $data = $connection->prepare("SELECT appointments.id as 'ID', concat(firstName, ' ',middleName, ' ',lastName)as 
+                            'Name', plateNumber, appointments.status as 'stat', appointments.date, appointments.modified, appointments.created from 
+                            appointments inner join personalinfo on appointments.personalId = personalinfo.personalId inner join vehicles 
+                            on personalinfo.personalId = vehicles.personalId where appointments.status = 'Accepted' OR appointments.status = 'Done'
+                            OR appointments.status = 'In-Progress' group by 1;");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
                                 echo '
                                     <tr>
-                                        <td>'.$row['id'].'</td>
+                                        <td>'.$row['ID'].'</td>
                                         <td>'.$row['Name'].'</td>
                                         <td>'.$row['date'].'</td>
                                         <td>
@@ -329,16 +338,19 @@ if(isset($_GET['plate'])){
                                             </div>
                                            </div>
                                         </td>
-                                        <td>'.$row['status'].'</td>
-                                        <td class="text-center"><a href="records.php?id='.$row['id'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>
-                                        
-                                        
+                                        <td>'.$row['stat'].'</td>';
+                                        if($row['stat'] != "Accepted"){
+                                          echo '  <td class="text-center"><a href="records.php?id='.$row['ID'].'"><button class="btn btn-primary" disabled><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>';
+                                        }else{
+                                          echo '<td class="text-center"><a href="records.php?id='.$row['ID'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>';
+                                        }
+                                        echo'
                                     </tr>
 
 
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter'.$row['personalId'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModalCenter'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                       <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                           <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">

@@ -6,21 +6,30 @@
 
 <head>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Dashboard</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+    
+    
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/calendar.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -182,99 +191,43 @@
               </div>
             </div>
           </div>
+
+        <!--  Start Calendar  -->
           <div class="row">
-            <div class="col-lg-7 grid-margin stretch-card">
-              <!--weather card-->
-              <div class="card card-weather">
-                <div class="card-body">
-                  <div class="weather-date-location">
-                    <h3>Monday</h3>
-                    <p class="text-gray">
-                      <span class="weather-date">25 October, 2016</span>
-                      <span class="weather-location">London, UK</span>
-                    </p>
-                  </div>
-                  <div class="weather-data d-flex">
-                    <div class="mr-auto">
-                      <h4 class="display-3">21
-                        <span class="symbol">&deg;</span>C</h4>
-                      <p>
-                        Mostly Cloudy
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body p-0">
-                  <div class="d-flex weakly-weather">
-                    <div class="weakly-weather-item">
-                      <p class="mb-0">
-                        Sun
-                      </p>
-                      <i class="mdi mdi-weather-cloudy"></i>
-                      <p class="mb-0">
-                        30°
-                      </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                      <p class="mb-1">
-                        Mon
-                      </p>
-                      <i class="mdi mdi-weather-hail"></i>
-                      <p class="mb-0">
-                        31°
-                      </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                      <p class="mb-1">
-                        Tue
-                      </p>
-                      <i class="mdi mdi-weather-partlycloudy"></i>
-                      <p class="mb-0">
-                        28°
-                      </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                      <p class="mb-1">
-                        Wed
-                      </p>
-                      <i class="mdi mdi-weather-pouring"></i>
-                      <p class="mb-0">
-                        30°
-                      </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                      <p class="mb-1">
-                        Thu
-                      </p>
-                      <i class="mdi mdi-weather-pouring"></i>
-                      <p class="mb-0">
-                        29°
-                      </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                      <p class="mb-1">
-                        Fri
-                      </p>
-                      <i class="mdi mdi-weather-snowy-rainy"></i>
-                      <p class="mb-0">
-                        31°
-                      </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                      <p class="mb-1">
-                        Sat
-                      </p>
-                      <i class="mdi mdi-weather-snowy"></i>
-                      <p class="mb-0">
-                        32°
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--weather card ends-->
-            </div>
-            <div class="col-lg-5 grid-margin stretch-card">
+               <div class="col-lg-8 grid-margin stretch-card">
+                  <div class="card">
+                      <div class="card-body">    
+                      <div class="container">
+
+
+                          <div class="page-header">
+                              <h3></h3>
+
+                              <div class="pull-center form-inline">
+                                  <div class="btn-group">
+                                    <button class="btn btn-primary" data-calendar-nav="today">Today</button>
+                                  </div>
+                                  &nbsp;
+                                  &nbsp;
+                                  <div class="btn-group">
+                                    <button class="btn btn-warning active" data-calendar-view="month">Month</button>
+                                  </div>
+                              </div>
+
+                              <div class="col-md-12">
+                              <br>
+                                  <div id="showEventCalendar"></div>
+                              </div>
+
+                          </div>
+                      </div>
+
+                      </div>
+                   </div>
+               </div> 
+             
+              <!--  Start  -->
+              <div class="col-lg-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h2 class="card-title text-primary mb-5">Performance History</h2>
@@ -318,33 +271,11 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>     
           </div>
-          <div class="row">
-            <div class="col-md-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row d-none d-sm-flex mb-4">
-                    <div class="col-4">
-                      <h5 class="text-primary">Unique Visitors</h5>
-                      <p>34657</p>
-                    </div>
-                    <div class="col-4">
-                      <h5 class="text-primary">Bounce Rate</h5>
-                      <p>45673</p>
-                    </div>
-                    <div class="col-4">
-                      <h5 class="text-primary">Active session</h5>
-                      <p>45673</p>
-                    </div>
-                  </div>
-                  <div class="chart-container">
-                    <canvas id="dashboard-area-chart" height="80"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <br>
+            
+            
           <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
@@ -685,6 +616,15 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
+    
+  <script src="js/jquery.dataTables.js"></script>
+  <script src="js/dataTables.bootstrap4.js"></script>
+  <script src="js/sb-admin-datatables.min.js"></script>
+  <script src="js/script.js"></script>  
+    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript" src="js/calendar.js"></script>
+<script type="text/javascript" src="js/events.js"></script>    
 </body>
 
 </html>

@@ -3,6 +3,17 @@
 if(!isset($_GET['id'])){
   header("Location: error.php");
   exit();
+}else{
+  $id = $connection->real_escape_string($_GET["id"]);
+  $data = $connection->prepare("SELECT *, concat(firstName, ' ',middleName, ' ',lastName)as 'Name' FROM `personalinfo` WHERE personalId =  $id");
+  if($data->execute()){
+      $values = $data->get_result();
+      $row = $values->fetch_assoc();
+      $ID = $row['personalId'];
+      $Name = $row['Name'];
+  }else{
+      header("Location: error.php");
+  }
 }
 
 ?>
@@ -80,13 +91,6 @@ if(!isset($_GET['id'])){
             </a>
           </li>
             
-          <li class="nav-item">
-            <a class="nav-link" href="clientrecords.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Client Records</span>
-            </a>
-          </li>
-            
           <li class="nav-item active">
             <a class="nav-link " href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
@@ -106,6 +110,20 @@ if(!isset($_GET['id'])){
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+
+          <div class="row">
+            <div class="col-lg-12 grid-margin  stretch-card">
+              <div class="card">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="clientrecords.php">Account Management</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?php echo $Name ?></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             
             <!-- start -->
@@ -126,71 +144,52 @@ if(!isset($_GET['id'])){
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title" style="font-size:20px;">Personal Information</p>
-                  <form action="process/server.php" method="POST">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Fist Name</label>
-                          <input type="hidden" name="id" value="<?php echo $id; ?>">
-                          <input type="text" class="form-control" name="first" value="<?php echo $contentx['firstName'] ?>" placeholder="<?php echo $contentx['firstName'] ?>">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Middle Name</label>
-                          <input type="text" class="form-control" name="middle" value="<?php echo $contentx['middleName'] ?>" placeholder="<?php echo $contentx['middleName'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control" name="last" value="<?php echo $contentx['lastName'] ?>" placeholder="<?php echo $contentx['lastName'] ?>">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Suffix</label>
-                          <input type="text" class="form-control" name="suffix" value="<?php echo $contentx['suffix'] ?>" placeholder="<?php echo $contentx['suffix'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control" name="address" value="<?php echo $contentx['address'] ?>" placeholder="<?php echo $contentx['address'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Email Address</label>
-                          <input type="text" class="form-control" name="email" value="<?php echo $contentx['email'] ?>" placeholder="<?php echo $contentx['email'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Mobile Number</label>
-                          <input type="text" class="form-control" name="mobile" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Telephone Number</label>
-                          <input type="text" class="form-control" name="telephone" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
-                        </div>
-                      </div>
-                    </div>
-                    <br><br><br>
-                    <button type="submit" class="btn btn-success" name="submit-user" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update Profile</button>
-                    <div class="clearfix"></div>
-                  </form>
+                <p class="card-title" style="font-size:20px;"><i class="fa fa-caret-square-o-left"></i><?php echo $Name ?></p>
+                <!-- start -->
+                <form class="form-sample">
+                  <p class="card-description">
+                    Personal information
+                  </p>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p >Name </p></div>
+                    <div class="col-md-9"><p style="margin-top: -1%" class="card-title">: <?php echo $row['Name'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p>Address </p></div>
+                    <div class="col-md-9"><p style="margin-top: -1%" class="card-title">: <?php echo $row['address'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p>Mobile Number </p></div>
+                    <div class="col-md-9"><p style="margin-top: -1%" class="card-title">: <?php echo $row['mobileNumber'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p>Telephone Number </p></div>
+                    <div class="col-md-9"><p style="margin-top: -1%" class="card-title">: <?php echo $row['telephoneNumber'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p>Email </p></div>
+                    <div class="col-md-9"><p style="margin-top: -1%" class="card-title">: <?php echo $row['email'] ?></p></div>
+                  </div>
+
+                  <?php 
+                    $count = $connection->prepare("SELECT count(plateNumber) as 'counter' from vehicles where personalId = $id");
+                    if($count->execute()){
+                        $values3 = $count->get_result();
+                        $row3 = $values3->fetch_assoc();
+                        $counter = $row3['counter'];
+                    }
+                  ?>
+                </form>
+              <!-- end -->
+                  <button type="submit" class="btn btn-success" style="float:right"  data-toggle="modal"  data-target="#updateprofilemodal">
+                    <i class="menu-icon mdi mdi-account-convert"></i> Update Profile
+                  </button>
+                  
                 </div>
               </div>
             </div>
@@ -221,7 +220,7 @@ if(!isset($_GET['id'])){
                             echo '
                                 <tr>
                                   <td>'.$row2['plateNumber'].'</td>
-                                  <td class="text-center"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</td>
+                                  <td class="text-center"><a href="viewvehicle.php?plate='.$row2['plateNumber'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</td>
                                 </tr>
                             ';
                             }
@@ -249,7 +248,7 @@ if(!isset($_GET['id'])){
                   
                   <!-- start -->
                   <div class="table-responsive">
-                    <table class="table table-bordered table-dark" id="doctables">
+                    <table class="table table-bordered table-dark" id="doctables2">
                       <thead>
                         <tr class="text-center">
                           <th>#</th>
@@ -263,8 +262,9 @@ if(!isset($_GET['id'])){
                       <tbody class="table-primary" style="color:black;">
                         
                       <?php
-                        $data = $connection->prepare("SELECT *,concat(firstName,' ',middleName,' ',lastName) as 'Name', vehicles.plateNumber, appointments.status as 'stats'  FROM `appointments` join `personalinfo` join vehicles
-                        where personalinfo.personalId = $id and appointments.status = 'Accepted' and personalinfo.personalId = appointments.personalId");
+                        $data = $connection->prepare("SELECT appointments.id as 'id', appointments.date as 'date', concat(firstName,' ',middleName,' ',lastName) as 'Name', vehicles.plateNumber, appointments.status as 'stats'  FROM `appointments` join `personalinfo` join vehicles
+                        where personalinfo.personalId = $id and appointments.status = 'Accepted' and personalinfo.personalId = appointments.personalId group by 1");
+
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {
@@ -287,8 +287,10 @@ if(!isset($_GET['id'])){
                                 <td class="text-center">
                                     <div class="row">
                                       <div class="col-12">
-                                        <button class="btn btn-primary" name="commands1" style="margin-top: 5px; width: 145px; color:white;"  data-toggle="modal" data-target="#appointmentModalCenter'.$row['id'].'"><i class="menu-icon mdi mdi-eye-outline"></i>
-                                        View</button>
+                                        <a href="records.php?id='.$row['id'].'"><button class="btn btn-primary" style="margin-top: 5px; width: 145px; color:white;">
+                                          <i class="menu-icon mdi mdi-eye-outline"></i>
+                                          View
+                                        </button></a>
                                       </div>
                                     </div>
                                     
@@ -326,6 +328,93 @@ if(!isset($_GET['id'])){
   </div>
   <!-- container-scroller -->
 
+  <!-- modal start -->
+  <div class="modal fade" id="updateprofilemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <!-- start -->
+      <p class="card-title" style="font-size:20px;">Personal Information</p>
+      <form action="process/server.php" method="POST">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Fist Name</label>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <input type="text" class="form-control" name="first" value="<?php echo $contentx['firstName'] ?>" placeholder="<?php echo $contentx['firstName'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Middle Name</label>
+              <input type="text" class="form-control" name="middle" value="<?php echo $contentx['middleName'] ?>" placeholder="<?php echo $contentx['middleName'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Last Name</label>
+              <input type="text" class="form-control" name="last" value="<?php echo $contentx['lastName'] ?>" placeholder="<?php echo $contentx['lastName'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Suffix</label>
+              <input type="text" class="form-control" name="suffix" value="<?php echo $contentx['suffix'] ?>" placeholder="<?php echo $contentx['suffix'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="bmd-label-floating">Adress</label>
+              <input type="text" class="form-control" name="address" value="<?php echo $contentx['address'] ?>" placeholder="<?php echo $contentx['address'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="bmd-label-floating">Email Address</label>
+              <input type="text" class="form-control" name="email" value="<?php echo $contentx['email'] ?>" placeholder="<?php echo $contentx['email'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Mobile Number</label>
+              <input type="text" class="form-control" name="mobile" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Telephone Number</label>
+              <input type="text" class="form-control" name="telephone" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
+            </div>
+          </div>
+        </div>
+                    
+        <!-- end -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" name="submit-user" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update Profile</button>
+          <div class="clearfix"></div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <script src="vendors/js/vendor.bundle.addons.js"></script>
@@ -355,59 +444,12 @@ if(!isset($_GET['id'])){
 });
 </script>
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#officegroup').on('change',function(){
-        var ogID = $(this).val();
-        if(ogID){
-            $.ajax({
-                type:'POST',
-                url:'includes/getDeviceData.php',
-                data:'group_id='+ogID,
-                success:function(html){
-                    $('#office').html(html);
-                    $('#computer').html('<option value="">Select office first</option>'); 
-                    $('#part').html('<option value="">Select computer first</option>'); 
-                }
-            }); 
-        }else{
-            $('#office').html('<option value="">Select office group first</option>');
-            $('#computer').html('<option value="">Select office first</option>'); 
-            $('#part').html('<option value="">Select computer first</option>'); 
-        }
-    });
-    
-    $('#office').on('change',function(){
-        var officeID = $(this).val();
-        if(officeID){
-            $.ajax({
-                type:'POST',
-                url:'includes/getDeviceData.php',
-                data:'office_id='+officeID,
-                success:function(html){
-                    $('#computer').html(html);
-                    $('#part').html('<option value="">Select computer first</option>');
-                }
-            }); 
-        }else{
-          $('#computer').html('<option value="">Select office first</option>'); 
-          $('#part').html('<option value="">Select computer first</option>'); 
-        }
-    });
-          $('#computer').on('change',function(){
-              var computerID = $(this).val();
-              if(computerID){
-                  $.ajax({
-                      type:'POST',
-                      url:'includes/getDeviceData.php',
-                      data:'computer_id='+computerID,
-                      success:function(html){
-                          $('#part').html(html);
-                      }
-                  }); 
-              }else{
-                  $('#part').html('<option value="">Select computer first</option>');
-              }          
-      });
+<script>
+  var table = $('#doctables2').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+
 });
 </script>
+
+
