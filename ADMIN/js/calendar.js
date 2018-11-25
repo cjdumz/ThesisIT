@@ -29,8 +29,7 @@ Date.prototype.getMonthFormatted = function() {
 };
 Date.prototype.getDateFormatted = function() {
 	var date = this.getDate();
-	return date < 10 ? '0' + date :
-    date;
+	return date < 10 ? '0' + date : date;
 };
 
 if(!String.prototype.format) {
@@ -60,7 +59,7 @@ if(!String.prototype.formatNum) {
 		// Initial view (can be 'month', 'week', 'day')
 		view: 'month',
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
-		day: 'now',
+		day: 'today',
 		// Day Start time and end time with time intervals. Time split 10, 15 or 30.
 		time_start: '06:00',
 		time_end: '22:00',
@@ -105,7 +104,7 @@ if(!String.prototype.formatNum) {
 			}
 		},
 		// ID of the element of modal window. If set, events URLs will be opened in modal windows.
-		modal: null,
+		modal: 'null',
 		//	modal handling setting, one of "iframe", "ajax" or "template"
 		modal_type: "iframe",
 		//	function to set modal title, will be passed the event as a parameter
@@ -173,8 +172,22 @@ if(!String.prototype.formatNum) {
 		holidays: {
 			// January 1
 			'01-01': "New Year's Day",
+			// Third (+3*) Monday (1) in January (01)
+			'01+3*1': "Birthday of Dr. Martin Luther King, Jr.",
+			// Third (+3*) Monday (1) in February (02)
+			'02+3*1': "Washington's Birthday",
+			// Last (-1*) Monday (1) in May (05)
+			'05-1*1': "Memorial Day",
+			// July 4
+			'04-07': "Independence Day",
+			// First (+1*) Monday (1) in September (09)
+			'09+1*1': "Labor Day",
+			// Second (+2*) Monday (1) in October (10)
+			'10+2*1': "Columbus Day",
+			// November 11
+			'11-11': "Veterans Day",
 			// Fourth (+4*) Thursday (4) in November (11)
-			'01-11': "All Saints Day",
+			'11+4*4': "Thanksgiving Day",
 			// December 25
 			'25-12': "Christmas"
 		}
