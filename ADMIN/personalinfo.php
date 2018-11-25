@@ -126,17 +126,104 @@ if(isset($_GET['id'])){
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="clientrecords.php">Client Records</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><?php echo $Name ?></li>
+                            <li class="breadcrumb-item"><a href="client.php?id=<?php echo $ID ?>"><?php echo $Name ?></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Personal Information</li>
                         </ol>
                     </nav>
                     <div class="row">
                         <div class="col-11">
                             <p class="card-title" style="font-size:20px;"><i class="fa fa-caret-square-o-left"></i><?php echo $Name ?></p>
+                            <!-- start -->
+                              <form class="form-sample">
+                                <p class="card-description">
+                                  Personal information
+                                </p>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">First Name</label>
+                                      <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">Last Name</label>
+                                      <div class="col-sm-9">
+                                        <input type="text" class="form-control" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
 
-                            <a href="personalinfo.php?id=<?php echo $ID ?>"><button type="button" class="btn btn-info btn-block">Personal Information</button>
-                            <button type="button" class="btn btn-info btn-block">Vehicle Information</button>
-                            <button type="button" class="btn btn-info btn-block">Daily Task Form</button>
-                            <button type="button" class="btn btn-info btn-block">History if Vehicle</button>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">Gender</label>
+                                      <div class="col-sm-9">
+                                        <select class="form-control">
+                                          <option>Male</option>
+                                          <option>Female</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">Date of Birth</label>
+                                      <div class="col-sm-9">
+                                        <input class="form-control" placeholder="dd/mm/yyyy" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">Category</label>
+                                      <div class="col-sm-9">
+                                        <select class="form-control">
+                                          <option>Category1</option>
+                                          <option>Category2</option>
+                                          <option>Category3</option>
+                                          <option>Category4</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">Membership</label>
+                                      <div class="col-sm-4">
+                                        <div class="form-radio">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked> Free
+                                          </label>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-5">
+                                        <div class="form-radio">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2"> Professional
+                                          </label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <p class="card-description">
+                                  Address
+                                </p>
+
+
+
+
+
+                              </form>
+                           <!-- end -->
 
                         </div>
                     </div>

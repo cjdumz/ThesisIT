@@ -119,7 +119,7 @@
                             <th style="font-size:15px;">Service</th>
                             <th style="font-size:15px;">Plate Number</th>
                             <th style="font-size:15px;">Status</th>
-                            <th style="font-size:15px;">Date</th>
+                            <th style="font-size:15px;">Date of Appointment</th>
                             <th style="font-size:15px;" class="text-center">Message</th>
                         </tr>
                       </thead>

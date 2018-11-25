@@ -116,7 +116,6 @@
                       <thead>
                         <tr class="grid">
                             <th style="font-size:15px;">Customer Name</th>
-                            <th style="font-size:15px;">Service</th>
                             <th style="font-size:15px;">Plate Number</th>
                             <th style="font-size:15px;">Status</th>
                             <th style="font-size:15px;">Date</th>
@@ -137,7 +136,6 @@
                             echo '
                                 <tr>
                                 <td>'.$row['Name'].'</td>
-                                <td><a href="#"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>
                                 <td>'.$row['plateNumber'].'</td>
                                 <td>'.$row['status'].'</td>
                                 <td>'; echo date('M d, Y',strtotime($date)); echo '</td>

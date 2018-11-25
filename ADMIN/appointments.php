@@ -118,8 +118,8 @@
                             <th>Name</th>
                             <th>Plate Number</th>
                             <th>Status</th>
-                            <th>Date</th>
-                            <th>Date</th>
+                            <th>Date of Request</th>
+                            <th>Date of Appointment</th>
                             <th style="font-size:15px;" class="text-center">Action</th>
                         </tr>
                       </thead>
