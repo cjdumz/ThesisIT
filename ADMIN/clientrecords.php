@@ -58,7 +58,7 @@
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Reschedule</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -122,13 +122,11 @@
                       <thead>
                         <tr class="grid">
                             <th style="font-size:15px;">Customer Name</th>
-                            <th style="font-size:15px;">Vehicles</th>
-                            <th style="font-size:15px;">Transactions</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                       <?php
-                        $data = $connection->prepare("select  concat(firstName,' ',middleName,' ',lastName) as 'Name' , count(vehicles.personalId) as 'Vehicles' from vehicles join personalinfo 
+                        $data = $connection->prepare("select  personalinfo.personalId as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name' , count(vehicles.personalId) as 'Vehicles', plateNumber from vehicles join personalinfo 
                         where vehicles.personalId = personalinfo.personalId
                         group by 1");
                         if($data->execute()){
@@ -139,9 +137,9 @@
                             // $date = $dateTimeSplit[0];
                             echo '
                                 <tr>
-                                <td>'.$row['Name'].'</td>
-                                <td class="text-center"><button class="btn btn-primary text-center" style="width: 155px;"><i class="menu-icon mdi mdi-car"></i> Vehicles</button></td>
-                                <td class="text-center"><button class="btn btn-success text-center" style="width: 155px;"><i class="menu-icon mdi mdi-swap-horizontal"></i> Transactions</button></td>
+                                <td><a href="client.php?id='.$row['ID'].'">'.$row['Name'].'</a></td>
+                                
+                          
                                 
 
    

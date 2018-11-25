@@ -58,7 +58,7 @@
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Reschedule</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -115,17 +115,17 @@
                     <table class="table table-bordered table-dark" id="doctables">
                       <thead>
                         <tr class="grid">
-                            <th style="font-size:15px;">Customer Name</th>
-                            <th style="font-size:15px;">Service</th>
-                            <th style="font-size:15px;">Plate Number</th>
-                            <th style="font-size:15px;">Status</th>
-                            <th style="font-size:15px;">Date</th>
+                            <th>Name</th>
+                            <th>Plate Number</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Date</th>
                             <th style="font-size:15px;" class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                       <?php
-                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
+                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,appointments.created as 'created',
                         yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message' from appointments join personalinfo on appointments.personalId
                         = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Pending' OR appointments.status = 'Rescheduled' AND (NOW() = date OR NOW() < date )");
                         if($data->execute()){
@@ -134,12 +134,16 @@
                             $dateTime = $row['date'];
                             $dateTimeSplit = explode(" ",$dateTime);
                             $date = $dateTimeSplit[0];
+
+                            $dateTime2 = $row['created'];
+                            $dateTimeSplit2 = explode(" ",$dateTime2);
+                            $date2 = $dateTimeSplit2[0];
                             echo '
                                 <tr>
                                 <td>'.$row['Name'].'</td>
-                                <td><a href="#"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>
                                 <td>'.$row['plateNumber'].'</td>
                                 <td>'.$row['status'].'</td>
+                                <td>'; echo date('M d, Y',strtotime($date2)); echo '</td>
                                 <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
                                 <td class="text-center">
                                 

@@ -1,16 +1,17 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
+<?php require "process/check/appointmentcheck.php";?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Account Management</title>
+  <title>Reschedule Request</title>
   <link rel="icon" href="images/Logo.png">
+    
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -33,13 +34,13 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
-        
+    
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed;">
+        <ul class="nav">
         <hr class="style2">
             
           <li class="nav-item">
-            <a class="nav-link" id="active" href="dashboard.php">
+            <a class="nav-link" href="dashboard.php">
               <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
@@ -47,7 +48,7 @@
             
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-inbox"></i>
+              <i class="menu-icon mdi mdi-content-copy"></i>
               <span class="menu-title" style="font-size:14px;">Request</span>
               <i class="menu-arrow"></i>
             </a>
@@ -57,7 +58,7 @@
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Reschedule</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -74,7 +75,7 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="clientrecords.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Client Records</span>
             </a>
@@ -96,6 +97,7 @@
             
         </ul>
       </nav>
+
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -104,10 +106,11 @@
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title" style="font-size:20px;">Reschedule</p>
+                  <p class="card-title" style="font-size:20px;">Overdue</p>
                   <p class="card-description">
-                    List of pending appointments to be rescheduled
+                    List of Overdue Appointments
                   </p>
+                    
                   <div class="table-responsive">
                     <table class="table table-bordered table-dark" id="doctables">
                       <thead>
@@ -116,137 +119,228 @@
                             <th style="font-size:15px;">Service</th>
                             <th style="font-size:15px;">Plate Number</th>
                             <th style="font-size:15px;">Status</th>
-                            <th style="font-size:15px;">Previous Date</th>
-                            <th style="font-size:15px;">Action</th>
-                          
+                            <th style="font-size:15px;">Date</th>
+                            <th style="font-size:15px;" class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
-                        <?php
-                            $data = $connection->prepare("SELECT appointments.id as 'ID', personalinfo.personalId as 'personID',
-                                concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series, yearModel,plateNumber,serviceType,serviceName
-                                as 'sername',appointments.status,date from appointments join personalinfo on appointments.personalId
-                                = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id join services on
-                                appointments.serviceId = services.serviceId  where  appointments.status = 'Overdue'");
-                            if($data->execute()){
-                                $values = $data->get_result();
-                                while($row = $values->fetch_assoc()) {
-                                    $dateTime = $row['date'];
-                                    $dateTimeSplit = explode(" ",$dateTime);
-                                    $date = $dateTimeSplit[0];
-                                echo '
-                                    <tr>
-                                        
-                                        <td><a href="user.php?id='.$row['personID'].'" class="rowlink">'.$row['Name'].'</a></td>
-                                        <td>'.$row['sername'].'</td>
-                                        <td>'.$row['plateNumber'].'</td>
-                                        <td>'.$row['status'].'</td>
-                                        <td>'; echo "".date('M d, Y',strtotime($date)); echo '</td>
-                                        <td>
+                      <?php
+                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
+                        yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message' from appointments join personalinfo on appointments.personalId
+                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Overdue'");
+                        if($data->execute()){
+                            $values = $data->get_result();
+                            while($row = $values->fetch_assoc()) {
+                            $dateTime = $row['date'];
+                            $dateTimeSplit = explode(" ",$dateTime);
+                            $date = $dateTimeSplit[0];
+                            echo '
+                                <tr>
+                                <td>'.$row['Name'].'</td>
+                                <td><a href="#"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>
+                                <td>'.$row['plateNumber'].'</td>
+                                <td>'.$row['status'].'</td>
+                                <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
+                                <td class="text-center">
+                                
+                                  <div class="row">
+                                      <div class="col-12">
+                                        <input type="hidden" name="command2" value="deny">
+                                        <input type="hidden" name="id2" value="'.$row['ID'].'">
+                                        <button class="btn btn-warning"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
+                                        Reschedule</button>
+                                      </div>
+                                      <div class="col-12">
+                                        <input type="hidden" name="command2" value="decline">
+                                        <input type="hidden" name="id2" value="'.$row['ID'].'">
+                                        <button class="btn btn-danger"  name="commands2" style="margin-top: 5px; width: 145px; color:white;" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-remove"></i>
+                                        Decline</button>
+                                      </div>
+                                    </div>';
+                                    
+                                    if($row['status'] == 'Rescheduled'){
+                                      echo '<p style="margin-top: 10px; color: red;">Note: Appointment date is <br> waiting for Client approval</p>';
+                                      }
+                                      echo '
+                                    
+                                </td>
 
-                                            <div class="col-12">
+                                </tr>
 
-                                                
-                                                    <input type="hidden" name="command" value="deny">
-                                                    <input type="hidden" name="id" value="'.$row['ID'].'">
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-warning" style="color: white;" data-toggle="modal" data-target="#exampleModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-calendar-clock"></i>
-                                                      Reschedule
-                                                    </button>
-                                                </form>
-                                            
-                                            </div>
-                                                
-                                        </td>
-                                        
-                                    </tr>
-
-
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                      <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                          <div class="modal-header"  style="background-color: #FFAF00; color: white; border: 3px solid #FFAF00;">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                            </button>
+                                <!-- Reschedule Modal -->
+                                <div class="modal fade" id="exampleModalCenter'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header" style="background-color: #FFAF00; color: white; border: 3px solid #FFAF00;">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <!-- start -->
+                                        <div class="row">
+                                          <div class="col-4">
+                                            <h4 class="card-title">Customer Name:</h4>                                            
                                           </div>
-                                          <div class="modal-body">
-                                            <!-- start -->
-                                            <div class="row">
-                                              <div class="col-6">
-                                                <h4 class="card-title">Customer Name:</h4>                                            
-                                              </div>
-                                              <div class="col-6">
-                                                <h4 class="card-title">'.$row['Name'].'</h4>
-                                              </div>
-                                            </div>
-                                            <div class="row">
-                                              <div class="col-6">
-                                                <h4 class="card-title">Plate Number:</h4>                                            
-                                              </div>
-                                              <div class="col-6">
-                                                <h4 class="card-title">'.$row['plateNumber'].'</h4>
-                                              </div>
-                                            </div>
-                                            <div class="row">
-                                              <div class="col-6">
-                                                <h4 class="card-title">Status:</h4>                                            
-                                              </div>
-                                              <div class="col-6">
-                                                <h4 class="card-title">'.$row['status'].'</h4>
-                                              </div>
-                                            </div>
-                                            <div class="row">
-                                              <div class="col-6">
-                                                <h4 class="card-title">Services:</h4>                                            
-                                              </div>
-                                              <div class="col-6">
-                                                <h4 class="card-title">'.$row['sername'].'</h4>
-                                              </div>
-                                            </div>
-                                            <form method="POST" action="process/server.php" enctype="multipart/form-data">
-                                              <div class="form-group row">
-                                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label card-title">Previous Date</label>
-                                                <div class="col-sm-9">
-                                                  <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
-                                                </div>
-                                              </div>
-                                              <div class="form-group row">
-                                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Proposed Date</label>
-                                                <div class="col-sm-9">
-                                                  <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="">
-                                                </div>
-                                              </div>
-                                              <div class="form-group row">
-                                              <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Message</label>
-                                              <div class="col-sm-9">
-                                              <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
-                                              </div>
-                                            </div>
-                                            <!-- end -->
-                                          </div>
-                                          <input type="hidden" name="id" value="'.$row['ID'].'">
-                                          <input type="hidden" name="location" value="reschedule">
-                                          <div class="modal-footer" >
-                                          
-                                            <button type="submit" name="resubmit" class="btn btn-warning"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
-                                            
-                                            </form>
+                                          <div class="col-8">
+                                            <h4 class="card-title">'.$row['Name'].'</h4>
                                           </div>
                                         </div>
+                                        <div class="row">
+                                          <div class="col-4">
+                                            <h4 class="card-title">Plate Number:</h4>                                            
+                                          </div>
+                                          <div class="col-8">
+                                            <h4 class="card-title">'.$row['plateNumber'].'</h4>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-4">
+                                            <h4 class="card-title">Status:</h4>                                            
+                                          </div>
+                                          <div class="col-8">
+                                            <h4 class="card-title">'.$row['status'].'</h4>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-4">
+                                            <h4 class="card-title">Services:</h4>                                            
+                                          </div>
+                                          <div class="col-8">
+                                            <h4 class="card-title"></h4>
+                                          </div>
+                                        </div>';
+                                        if($row['status'] == 'Rescheduled'){
+                                          echo '<div class="row">
+                                                  <div class="col-4">
+                                                    <h4 class="card-title">Previous Message:</h4>                                            
+                                                  </div>
+                                                  <div class="col-8">
+                                                    <h4 class="card-title">'.$row['message'].'</h4>
+                                                  </div>
+                                                </div>';
+                                        }
+                                        echo'
+                                        <form method="POST" action="process/server.php" enctype="multipart/form-data">
+                                          <div class="form-group row">
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label card-title">Previous Date</label>
+                                            <div class="col-sm-9">
+                                              <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Proposed Date</label>
+                                            <div class="col-sm-9">
+                                              <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="" required>
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Message</label>
+                                            <div class="col-sm-9">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3" required></textarea>
+                                            </div>
+                                          </div>
+                                        <!-- end -->
+                                      </div>
+                                      
+                                      
+                                      <input type="hidden" name="id" value="'.$row['ID'].'">
+                                      <input type="hidden" name="location" value="appointment">
+                                      <div class="modal-footer" >
+                                      
+                                        <button type="submit" name="resubmit" class="btn btn-warning"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
+                                        
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
+                                        
+                                        </form>
                                       </div>
                                     </div>
-                                ';
-                                }
-                            }else{
-                                echo "<tr>
-                                        <td colspan='7'>No Available Data</td>
-                                    </tr>";
+                                  </div>
+                                </div>
+
+                                <!-- Decline Modal -->
+                                <div class="modal fade" id="decline'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="appointmentModalCenterTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header" style="background-color: #F44336; color: white; border: 3px solid #F44336;">
+                                        <h5 class="modal-title" id="appointmentModalCenterTitle">Decline</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <!-- start -->
+                                        <div class="row">
+                                          <div class="col-6">
+                                            <h4 class="card-title">Customer Name:</h4>                                            
+                                          </div>
+                                          <div class="col-6">
+                                            <h4 class="card-title">'.$row['Name'].'</h4>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-6">
+                                            <h4 class="card-title">Plate Number:</h4>                                            
+                                          </div>
+                                          <div class="col-6">
+                                            <h4 class="card-title">'.$row['plateNumber'].'</h4>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-6">
+                                            <h4 class="card-title">Status:</h4>                                            
+                                          </div>
+                                          <div class="col-6">
+                                            <h4 class="card-title">'.$row['status'].'</h4>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-12">
+                                            <h4 class="card-title">Services:</h4>                                            
+                                          </div>
+                                          <div class="col-12">
+                                            <h4 class="card-title"></h4>
+                                          </div>
+                                        </div>
+                                       
+                                          <div class="form-group row">
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Proposed Date</label>
+                                            <div class="col-sm-9">
+                                              <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
+                                            </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <form action="process/server.php" method="post">
+                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Message</label>
+                                            <div class="col-sm-9">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3" required></textarea>
+                                            </div>
+                                          </div>
+                                        <!-- end -->
+                                      </div>
+
+                                      <div class="modal-footer" >
+                                        
+                                        <input type="hidden" name="command1" value="decline">
+                                        <input type="hidden" name="id1" value="'.$row['ID'].'">
+                                        
+                                          <button class="btn btn-danger" type="submit" name="commands1" style="margin-top: 5px; width: 145px; color:white;"><i class="menu-icon mdi mdi-calendar-remove"></i>
+                                          Decline</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
+                                    
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            ';
                             }
+                        }else{
+                            echo "<tr>
+                                    <td colspan='7'>No Available Data</td>
+                                </tr>";
+                        }
                         ?>
                       </tbody>
                     </table>
@@ -281,40 +375,13 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
+  <script src="js/jquery.min.js"></script>
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
-  <script src="js/jquery.min.js"></script>
-  <script>
-    $('form.ajax').on('submit', function(){
-      var that = $(this),
-          url = that.attr('action'),
-          type = that.attr('method'),
-          data = {};
 
-      that.find('[name]').each(function(index, value){
-          var that = $(this),
-              name = that.attr('name'),
-              value = that.val();
 
-          data[name] = value;
-      });
-
-      $.ajax({
-          url: url,
-          type: type,
-          data: data,
-          success: function(response){
-              console.log(response);
-          }
-
-      });
-
-      return false;
-
-  });
-  </script>
+  
 </body>
 
 </html>
@@ -326,5 +393,33 @@
 
 });
 </script>
+<!-- <script>
+$('form.ajax').on('submit', function(){
+    var that = $(this),
+        url = that.attr('action'),
+        type = that.attr('method'),
+        data = {};
 
+    that.find('[name]').each(function(index, value){
+        var that = $(this),
+            name = that.attr('name'),
+            value = that.val();
 
+        data[name] = value;
+    });
+
+    $.ajax({
+        url: url,
+        type: type,
+        data: data,
+        success: function(response){
+            console.log(response);
+        }
+
+    });
+
+    return false;
+
+});
+<<<<<<< HEAD
+</script> -->

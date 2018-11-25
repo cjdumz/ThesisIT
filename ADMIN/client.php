@@ -1,17 +1,34 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require "process/check/appointmentcheck.php";?>
+<?php require 'process/process.php'; 
 
+
+
+if(isset($_GET['id'])){
+    $id = $connection->real_escape_string($_GET["id"]);
+    $data = $connection->prepare("SELECT *, concat(firstName, ' ',middleName, ' ',lastName)as 'Name' FROM `personalinfo` WHERE personalId =  $id");
+    if($data->execute()){
+        $values = $data->get_result();
+        $row = $values->fetch_assoc();
+
+        $Name = $row['Name'];
+    }else{
+        header("Location: error.php");
+    }
+}else{
+    header("Location: error.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Declined Request</title>
+  <title>Client Records</title>
   <link rel="icon" href="images/Logo.png">
-    
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -34,13 +51,13 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
-    
+        
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">
+            <a class="nav-link" id="active" href="dashboard.php">
               <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
@@ -48,7 +65,7 @@
             
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-content-copy"></i>
+              <i class="menu-icon mdi mdi-inbox"></i>
               <span class="menu-title" style="font-size:14px;">Request</span>
               <i class="menu-arrow"></i>
             </a>
@@ -74,7 +91,7 @@
             </a>
           </li>
             
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="clientrecords.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Client Records</span>
@@ -97,7 +114,7 @@
             
         </ul>
       </nav>
-
+        
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -106,57 +123,15 @@
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <p class="card-title" style="font-size:20px;">Declined</p>
-                  <p class="card-description">
-                    List of Declined Request
-                  </p>
+
+                    <div class="row">
+                        <div class="col-11">
+                            <p class="card-title" style="font-size:20px;"><?php echo $Name ?></p>
+
+                        </div>
+                    </div>
                     
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-dark" id="doctables">
-                      <thead>
-                        <tr class="grid">
-                            <th style="font-size:15px;">Customer Name</th>
-                            <th style="font-size:15px;">Service</th>
-                            <th style="font-size:15px;">Plate Number</th>
-                            <th style="font-size:15px;">Status</th>
-                            <th style="font-size:15px;">Date</th>
-                            <th style="font-size:15px;" class="text-center">Message</th>
-                        </tr>
-                      </thead>
-                      <tbody class="table-primary" style="color:black;">
-                      <?php
-                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
-                        yearModel,plateNumber, appointments.status,date , appointments.additionalMessage as 'Message'
-                         from appointments join personalinfo on appointments.personalId = personalinfo.personalId join vehicles on appointments.vehicleId 
-                         = vehicles.id where  appointments.status = 'Declined' order by date asc ;");
-                        if($data->execute()){
-                            $values = $data->get_result();
-                            while($row = $values->fetch_assoc()) {
-                            $dateTime = $row['date'];
-                            $dateTimeSplit = explode(" ",$dateTime);
-                            $date = $dateTimeSplit[0];
-                            echo '
-                                <tr>
-                                <td>'.$row['Name'].'</td>
-                                <td></td>
-                                <td>'.$row['plateNumber'].'</td>
-                                <td>'.$row['status'].'</td>
-                                <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
-                                <td>'.$row['Message'].'</td>
-
-                                </tr>
-
-                            ';
-                            }
-                        }else{
-                            echo "<tr>
-                                    <td colspan='7'>No Available Data</td>
-                                </tr>";
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -172,6 +147,9 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+
+  <!-- Modal -->
+  
   <!-- container-scroller -->
 
   <!-- plugins:js -->
@@ -187,16 +165,41 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
-  <script src="js/jquery.min.js"></script>
+
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
-
-
-  
-</body>
-
-</html>
+   <script src="js/script.js"></script>
+  <!-- AJAX Link -->
+ <script>
+$(document).ready(function(){
+  $("#submit").click(function(){
+    var exampleInputName1 = $("#exampleInputName1").val();
+    var exampleInputName2 = $("#exampleInputName2").val();
+    var exampleInputName3 = $("#exampleInputName3").val();
+    var exampleInputPlate = $("#exampleInputPlate").val();
+    var exampleInputEmail = $("#exampleInputEmail").val();
+    var exampleInputMobile = $("#exampleInputMobile").val();
+    var exampleInputTel = $("#exampleInputTel").val();
+    var exampleInputAddress = $("#exampleInputAddress").val();
+    var dataString = 'exampleInputName1=' + exampleInputName1 + '&exampleInputName2=' + exampleInputName2;
+    if(exampleInputName1=='' || exampleInputName2=='' || exampleInputName3=='' || exampleInputNPlate=='' || exampleInputEmail==''
+      || exampleInputMobile=='' || exampleInputTel=='' || exampleInputAddress==''){
+      alert('Fill all fields')
+      $("#display").html("");
+    } else {
+    $.ajax({
+      type: "POST",
+      cache: false,
+      success: function(result){
+       $("#display").html(result);
+      }
+    });
+    }
+    return false;
+  }); 
+});
+</script>
 
 <script>
   var table = $('#doctables').DataTable({
@@ -205,32 +208,8 @@
 
 });
 </script>
-<!-- <script>
-$('form.ajax').on('submit', function(){
-    var that = $(this),
-        url = that.attr('action'),
-        type = that.attr('method'),
-        data = {};
+</body>
 
-    that.find('[name]').each(function(index, value){
-        var that = $(this),
-            name = that.attr('name'),
-            value = that.val();
 
-        data[name] = value;
-    });
 
-    $.ajax({
-        url: url,
-        type: type,
-        data: data,
-        success: function(response){
-            console.log(response);
-        }
-
-    });
-
-    return false;
-
-});
-</script> -->
+</html>
