@@ -90,6 +90,13 @@ if(!isset($_GET['id'])){
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
+         
+         <li class="nav-item">
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-file"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li>
             
           <li class="nav-item active">
             <a class="nav-link " href="accountmanagement.php">
