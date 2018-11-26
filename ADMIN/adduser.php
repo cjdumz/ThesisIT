@@ -118,7 +118,7 @@
                                           <div class="col-md-6">
                                             <div class="form-group">
                                               <label class="bmd-label-floating">Middle Name</label>
-                                              <input type="text" class="form-control" name="middle" required>
+                                              <input type="text" class="form-control" name="middle">
                                             </div>
                                           </div>
                                         </div>
@@ -148,7 +148,7 @@
                                           <div class="col-md-12">
                                             <div class="form-group">
                                               <label class="bmd-label-floating">Email Address</label>
-                                              <input type="text" class="form-control" name="email" required>
+                                              <input type="text" class="form-control" name="email">
                                             </div>
                                           </div>
                                         </div>

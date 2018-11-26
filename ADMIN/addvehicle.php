@@ -118,7 +118,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Body Type</label>
-                                                  <input type="text" class="form-control" name="bodyType" required>
+                                                  <input type="text" class="form-control" name="bodyType">
                                                 </div>
                                               </div>
                                             </div>
@@ -140,7 +140,7 @@
                                               <div class="col-md-12">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Engine Classification</label>
-                                                  <input type="text" class="form-control" name="engineClassification" required>
+                                                  <input type="text" class="form-control" name="engineClassification">
                                                 </div>
                                               </div>
                                             </div>
@@ -148,7 +148,7 @@
                                               <div class="col-md-12">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Number of Cylinders</label>
-                                                  <input type="text" class="form-control" name="numberOfCylinders" required>
+                                                  <input type="text" class="form-control" name="numberOfCylinders">
                                                 </div>
                                               </div>
                                             </div>
@@ -156,7 +156,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Type of Drive Train</label>
-                                                  <input type="text" class="form-control" name="typeOfDriveTrain" required>
+                                                  <input type="text" class="form-control" name="typeOfDriveTrain">
                                                 </div>
                                               </div>
                                               <div class="col-md-6">
@@ -176,7 +176,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Color</label>
-                                                  <input type="text" class="form-control" name="color">
+                                                  <input type="text" class="form-control" name="color" required>
                                                 </div>
                                               </div>
                                             </div>
@@ -184,7 +184,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Engine Number</label>
-                                                  <input type="text" class="form-control" name="engineNumber" required>
+                                                  <input type="text" class="form-control" name="engineNumber">
                                                 </div>
                                               </div>
                                               <div class="col-md-6">
@@ -198,7 +198,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Engine Displacement</label>
-                                                  <input type="text" class="form-control" name="engineDisplacement" required>
+                                                  <input type="text" class="form-control" name="engineDisplacement">
                                                 </div>
                                               </div>
                                             </div>
