@@ -245,7 +245,7 @@ if(!isset($_GET['id'])){
                                 <div class="offset-1 col-md-2"><p >Password</p></div>
                                 <div class="col-md-9">
                                   <p style="margin-top: -1%" class="card-title"> 
-                                    <button class="btn btn-success">Change Password</button>
+                                    <button class="btn btn-success"><i class="menu-icon mdi mdi-lock-reset"></i> Change Password</button>
                                   </p>
                                 </div>
                               </div>
@@ -310,7 +310,7 @@ if(!isset($_GET['id'])){
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Records</h4>
+                  <h4 class="card-title" style="font-size:20px;">Records</h4>
                   
                   <!-- start -->
                   <div class="table-responsive">
