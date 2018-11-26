@@ -313,11 +313,9 @@ if(isset($_GET['plate'])){
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT appointments.id as 'ID', concat(firstName, ' ',middleName, ' ',lastName)as 
-                            'Name', plateNumber, appointments.status as 'stat', appointments.date, appointments.modified, appointments.created from 
-                            appointments inner join personalinfo on appointments.personalId = personalinfo.personalId inner join vehicles 
-                            on personalinfo.personalId = vehicles.personalId where appointments.status = 'Accepted' OR appointments.status = 'Done'
-                            OR appointments.status = 'In-Progress' AND plateNumber = '$plate' group by 1;");
+                            $data = $connection->prepare("SELECT appointments.id, personalinfo.firstName, appointments.date, appointments.status, appointments.actualEndDate FROM `appointments` 
+                            JOIN personalinfo on appointments.personalId = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id 
+                            where (appointments.status = 'Accepted' or appointments.status = 'Done' or appointments.status = 'In-Progress') and plateNumber = 'ayb-123';");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
