@@ -6,7 +6,7 @@
     $profile->user_profile($username);
     $username=$_SESSION['username'];
      $id = $_SESSION['id'];
-     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+     $pdo = new PDO('mysql:host=localhost;dbname=thesislatest', 'root', '');
      $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
      $_SESSION['personalId'] = $result;
 
@@ -197,19 +197,23 @@
        if ($pendingRequestsresultCheck > 0) {
         while ($appointmentpending = mysqli_fetch_assoc($pendingRequestsresult)) {
       ?>
-      <div class="well well-sm" style="margin: 0;">  
+      <div class="well well-sm" style="margin: 0;"> 
+      <br> 
       <b><?= $appointmentpending['plateNumber']; ?> <?= $appointmentpending['make']; ?> <?= $appointmentpending['series']; ?> <?= $appointmentpending['yearModel']; ?></b>
       <?php if ($appointmentpending['status'] == "Pending"){ ?>
         <div class="pull-right">
         <label for="Pending">Status:</label>
         <b style="color:orange;"><?= $appointmentpending['status']; ?></b>
         </div>
-               <div class="row">
+
+        <div class="row">
        <div class="col-sm-6 col-md-6">
-       <label for="desiredDate">Desired Date:</label>
+       <br>
+       <label for="desiredDate">Date:</label>
        <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
       </div>
       <div class="col-md-6 col-sm-6">
+      <br>
       <br>
       <div class="pull-right">
       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pendingModal<?= $appointmentpending['id']; ?>"> More Details...</button>
@@ -245,13 +249,14 @@
         <div class="pull-right">
         <label for="Pending">Status:</label>
         <b style="color:red;"><?= $appointmentpending['status']; ?></b>
-        </div>
+        </div><hr style="padding: 0px;margin: 0px;">
         <div class="row">
        <div class="col-sm-6 col-md-6">
-       <label for="desiredDate">Recommended Date:</label>
+       <br>
+       <label for="desiredDate">Date:</label>
        <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
        <label for="desiredDate">Reason:</label>
-       <?= $appointmentpending['reason']; ?><hr style="padding: 0px;margin: 0px;">
+       <?= $appointmentpending['reason']; ?>
       </div>
       <div class="col-md-6 col-sm-6">
       <br>
@@ -275,7 +280,7 @@
                 <label for="services">Services Requested:</label><br>
                 <?= preg_replace("/[,]/" , "<br>",$appointmentpending['services']); ?><hr style="padding: 0px;margin: 0px;">   
                <label for="otherServices">Other Services:</label>
-                <?= $appointmentpending['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+                <?= $appointmentpending['otherServices']; ?>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i> Close</button>
@@ -288,21 +293,25 @@
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
-            <div class="modal-header" style="background-color: #286090;color: white;">
+            <div class="modal-header" style="background-color: #4caf50;color: white;">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h5 class="modal-title"><i class="fas fa-concierge-bell"></i> Approve Date</h5>
+              <h5 class="modal-title"><i class="fas fa-check-square"></i> Approve Date</h5>
             </div>
             <div class="modal-body">
-                <label for="services">Services Requested:</label><br>
-                <?= preg_replace("/[,]/" , "<br>",$appointmentpending['services']); ?><hr style="padding: 0px;margin: 0px;">   
-               <label for="otherServices">Other Services:</label>
-                <?= $appointmentpending['otherServices']; ?><hr style="padding: 0px;margin: 0px;">ffffffffffff
-                <label for="created">The Date Recommended was:</label>
-                <?= date("F d, Y h:i A",strtotime($appointmentpending['created'])); ?><hr style="padding: 0px;margin: 0px;">
-                
+              <form action="process/process.php" method="POST">
+                <input type="hidden" name="appointmentId" value="<?= $appointmentpending['id']; ?><hr style="padding: 0px;margin: 0px;">
+                <label for="created">Date Requested:</label>
+                <?= date("F d, Y",strtotime($appointmentpending['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
+                <br>
+                <label for="created">Date Available:</label>
+                <?= date("F d, Y",strtotime($appointmentpending['adminDate'])); ?>       
+                  <h5>Would you like to choose this date for your appointment?</h5>
+                <br>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i> Close</button>
+              <button type="button" class="btn btn-success btn-sm" ><i class="fas fa-check"></i> Yes</button>
+              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
+             </form>
             </div>
           </div>
         </div>
@@ -334,7 +343,8 @@
        if ($acceptedRequestsresultCheck > 0) {
         while ($appointmentaccepted = mysqli_fetch_assoc($acceptedRequestsresult)) {
       ?>
-      <div class="well well-sm" style="margin: 0;">  
+      <div class="well well-sm" style="margin: 0;"> 
+      <br> 
       <b><?= $appointmentaccepted['plateNumber']; ?> <?= $appointmentaccepted['make']; ?> <?= $appointmentaccepted['series']; ?> <?= $appointmentaccepted['yearModel']; ?></b>
       <div class="pull-right">
       <label for="Pending">Status:</label>
@@ -343,17 +353,39 @@
      <hr style="padding-bottom: 10px;margin: 0px;">
        <div class="row">
        <div class="col-sm-6 col-md-6">
-       <label for="desiredDate">Desired Date:</label>
+       <label for="desiredDate">Date:</label>
        <?= date('F d, Y', strtotime($appointmentaccepted['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
        <label for="created">Date Requested:</label>
        <?= date("m/d/y h:i A",strtotime($appointmentaccepted['created'])); ?>
       </div>
-       <div class="col-md-6 col-sm-6">
-       <label for="services">Services Requested:</label>
-       <?=  $appointmentaccepted['services']; ?><hr style="padding: 0px;margin: 0px;">
-
-       <label for="otherServices">Other Services:</label>
-       <?= $appointmentaccepted['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+      <br>
+      <br>
+      <div class="col-md-6 col-sm-6">
+      <div class="pull-right">
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#acceptedcheduleModal<?= $appointmentaccepted['id']; ?>"> More Details...</button>
+      </div> 
+      </div>
+      <div id="acceptedcheduleModal<?= $appointmentaccepted['id']; ?>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #286090;color: white;">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h5 class="modal-title"><i class="fas fa-concierge-bell"></i> Service Request</h5>
+            </div>
+            <div class="modal-body">
+                <label for="created">Date Requested:</label>
+                <?= date("F d, Y h:i A",strtotime($appointmentaccepted['created'])); ?><hr style="padding: 0px;margin: 0px;">
+                <label for="services">Services Requested:</label><br>
+                <?= preg_replace("/[,]/" , "<br>",$appointmentaccepted['services']); ?><hr style="padding: 0px;margin: 0px;">   
+               <label for="otherServices">Other Services:</label>
+                <?= $appointmentaccepted['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i> Close</button>
+            </div>
+          </div>
+        </div>
       </div>
       </div>
       </div>
@@ -376,12 +408,18 @@
     <div class="col-md-6 col-sm-6">
     <div class="panel panel-default" id="headings">
       <div class="panel-heading" style="background-color: #b80011;color: white;"><i class="fas fa-times-circle"></i> Declined Requests</div>
-      <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 460px;">     
+      <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 460px;">   
       <?php
        if ($declinedRequestsresultCheck > 0) {
         while ($appointmentdeclined = mysqli_fetch_assoc($declinedRequestsresult)) {
       ?>
-      <div class="well well-sm" style="margin: 0;">  
+      <div class="well well-sm" style="margin: 0;">
+      <div class="form-group">
+      <form method="POST" action="process/server.php">
+      <input type="hidden" name="appointmentId" value="<?= $appointmentdeclined['id']; ?>">
+      <button type="submit" class="close" name="appointmentDelete">&times;</button>
+      </form> 
+      </div> 
       <b><?= $appointmentdeclined['plateNumber']; ?> <?= $appointmentdeclined['make']; ?> <?= $appointmentdeclined['series']; ?> <?= $appointmentdeclined['yearModel']; ?></b>
       <div class="pull-right">
       <label for="Pending">Status:</label>
@@ -390,20 +428,40 @@
       <hr style="padding-bottom: 10px;margin: 0px;">
        <div class="row">
        <div class="col-sm-6 col-md-6">
-       <label for="desiredDate">Desired Date:</label>
-       <?= $appointmentdeclined['desiredDate']; ?><hr style="padding: 0px;margin: 0px;">
+       <label for="reason">Reason:</label>
+       <?= $appointmentdeclined['reason']; ?><hr style="padding: 0px;margin: 0px;">
        <label for="created">Date Requested:</label>
        <?= date("m/d/y h:i A",strtotime($appointmentdeclined['created'])); ?>
       </div>
-       <div class="col-md-6 col-sm-6">
-       <label for="services">Services Requested:</label>
-       <?= $appointmentdeclined['services']; ?>
-       <?php 
-         $_SESSION['sessionId'] = explode(",", $appointmentdeclined['services']);  
-       ?>
-       <hr style="padding: 0px;margin: 0px;">
-       <label for="otherServices">Other Services:</label>
-       <?= $appointmentdeclined['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+      <div class="col-md-6 col-sm-6">
+      <br>
+      <br>
+      <div class="pull-right">
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#declinedcheduleModal<?= $appointmentdeclined['id']; ?>"> More Details...</button>
+
+      </div> 
+      </div>
+      <div id="declinedcheduleModal<?= $appointmentdeclined['id']; ?>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #286090;color: white;">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h5 class="modal-title"><i class="fas fa-concierge-bell"></i> Service Request</h5>
+            </div>
+            <div class="modal-body">
+                <label for="created">Date Requested:</label>
+                <?= date("F d, Y h:i A",strtotime($appointmentdeclined['created'])); ?><hr style="padding: 0px;margin: 0px;">
+                <label for="services">Services Requested:</label><br>
+                <?= preg_replace("/[,]/" , "<br>",$appointmentdeclined['services']); ?><hr style="padding: 0px;margin: 0px;">   
+               <label for="otherServices">Other Services:</label>
+                <?= $appointmentdeclined['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i> Close</button>
+            </div>
+          </div>
+        </div>
       </div>
       </div>
       </div>

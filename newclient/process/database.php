@@ -3,7 +3,7 @@ class database{
 	public $host="localhost";
 	public $username="root";
 	public $pass="";
-	public $db_name="thesis";
+	public $db_name="thesislatest";
 	public $conn;
 	public $data;
 	public $service;
@@ -121,7 +121,9 @@ class database{
 
 
 }
-	 $db = mysqli_connect('localhost', 'root', '', 'thesis');
+
+
+	 $db = mysqli_connect('localhost', 'root', '', 'thesislatest');
     //Personal Info
     $query = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
     $res = mysqli_query($db,$query);
@@ -132,15 +134,15 @@ class database{
     $vehicleinforesultCheck = mysqli_num_rows($vehicleinforesult);
 
     //Pending Requests
-    $querypendingRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.created as created, appointments.additionalMessage as reason, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color  FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId WHERE appointments.personalId = '$personalId' AND appointments.status = 'Reschedule' OR appointments.status = 'Pending' ORDER BY `appointments`.`created` DESC";
+    $querypendingRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.created as created, appointments.additionalMessage as reason, appointments.adminDate as adminDate, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color FROM appointments JOIN vehicles ON appointments.vehicleId = vehicles.id JOIN personalinfo on appointments.personalId = personalinfo.personalId WHERE appointments.personalId = '$personalId' AND appointments.status = 'Reschedule' OR appointments.status = 'Pending' ORDER BY `appointments`.`created` DESC";
     $pendingRequestsresult  = mysqli_query($db,$querypendingRequests);
     $pendingRequestsresultCheck = mysqli_num_rows($pendingRequestsresult);
 
-   $queryacceptedRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.created as created, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color  FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId WHERE appointments.personalId = '$personalId' AND appointments.status = 'Accepted' ORDER BY `appointments`.`created` DESC";
+   $queryacceptedRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.created as created, appointments.additionalMessage as reason, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color FROM appointments JOIN vehicles ON appointments.vehicleId = vehicles.id JOIN personalinfo on appointments.personalId = personalinfo.personalId WHERE appointments.personalId = '$personalId' AND appointments.status = 'Accepted' ORDER BY `appointments`.`created` DESC";
     $acceptedRequestsresult  = mysqli_query($db,$queryacceptedRequests);
     $acceptedRequestsresultCheck = mysqli_num_rows($acceptedRequestsresult);
 
-   $querydeclinedRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.created as created, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color  FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId WHERE appointments.personalId = '$personalId' AND appointments.status = 'Declined' ORDER BY `appointments`.`created` DESC";
+   $querydeclinedRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.created as created, appointments.additionalMessage as reason, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color FROM appointments JOIN vehicles ON appointments.vehicleId = vehicles.id JOIN personalinfo on appointments.personalId = personalinfo.personalId WHERE appointments.personalId = '$personalId' AND appointments.status = 'Declined' ORDER BY `appointments`.`created` DESC";
     $declinedRequestsresult  = mysqli_query($db,$querydeclinedRequests);
     $declinedRequestsresultCheck = mysqli_num_rows($declinedRequestsresult);
     

@@ -14,7 +14,6 @@ $('document').ready(function(){
  var yearModel_state = false;
  var color_state = false;
 
-
  //For Appointment
  $("#mechanical").click(function(){
         $("#mechanical_service").toggle();
@@ -88,6 +87,7 @@ $('document').ready(function(){
         $("#activeContent").hide();
 
     });
+
 
 
 
@@ -244,6 +244,8 @@ $('#contactNumber').on('blur', function(){
       }
   });
  });
+
+
 
 
 $('#password, #confirm_password').on('keyup', function () {

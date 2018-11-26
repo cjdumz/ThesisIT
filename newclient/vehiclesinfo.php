@@ -4,7 +4,7 @@
     include 'process/server.php';
      $username=$_SESSION['username'];
      $id = $_SESSION['id'];
-     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+     $pdo = new PDO('mysql:host=localhost;dbname=thesislatest', 'root', '');
      $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
      $_SESSION['personalId'] = $result;
      $profile =new database;
@@ -45,6 +45,7 @@
      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
+     <script src="js/script.js"></script>
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -180,9 +181,19 @@
           >
         </div>
         <div class="form-group">
+         <div id="make">
           <label for="make">Make</label><span style="color:red;"> *</span>
-          <input type="text" class="form-control input-xs" id="make" aria-describedby="make" name="make" required="" oninvalid="this.setCustomValidity('Make is Empty.')" oninput="setCustomValidity('')" >
+            <select class="form-control" name="make" id="make">
+              <option value="" selected disabled>Choose your Make</option>
+              <option value="Mitsubishi">Toyota</option>
+              <option value="Toyota">Mitsubishi</option>                                   
+            </select>
+          </div>
+          <div id="othersMake">
+          <label for="make">Other Make:</label><span style="color:red;"> *</span>
+          <input type="text" class="form-control input-xs" id="otherMake" aria-describedby="otherMake" name="otherMake" required="" oninvalid="this.setCustomValidity('Make is Empty.')" oninput="setCustomValidity('')" >
           <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
+          </div>
         </div>
          <div class="form-group">
           <label for="series">Series</label><span style="color:red;"> *</span>
@@ -571,6 +582,7 @@
      </footer>
   
      <!-- SCRIPTS -->
+
      <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>

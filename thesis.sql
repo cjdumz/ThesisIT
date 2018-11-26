@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 25, 2018 at 10:44 AM
+-- Generation Time: Nov 26, 2018 at 06:06 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `thesis`
+-- Database: `thesisnila`
 --
 
 -- --------------------------------------------------------
@@ -64,10 +64,12 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `additionalMessage` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL,
   `date` date NOT NULL,
+  `adminDate` varchar(255) DEFAULT NULL,
   `targetEndDate` datetime DEFAULT NULL,
   `actualEndDate` datetime DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
+  `notification` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `personalId3` (`personalId`),
   KEY `serviceId` (`serviceId`),
@@ -78,23 +80,23 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `targetEndDate`, `actualEndDate`, `created`, `modified`) VALUES
-(1, 1, 1, 1, NULL, 'choose another date', 'Declined', '2018-11-29', NULL, NULL, '2018-09-24 00:33:35', '2018-11-22 16:35:22'),
-(3, 1, 1, 3, NULL, NULL, 'Accepted', '2018-12-10', NULL, NULL, '2018-09-24 15:51:21', '2018-11-22 16:37:20'),
-(5, 1, 1, 3, NULL, NULL, 'Accepted', '2018-11-25', NULL, NULL, '2018-09-24 16:44:33', '2018-11-22 16:34:30'),
-(6, 1, 1, 3, NULL, '', 'Rescheduled', '2018-11-21', NULL, NULL, '2018-09-24 16:44:57', NULL),
-(7, 5, 1, 3, NULL, NULL, 'Declined', '2018-10-05', NULL, NULL, '2018-10-03 02:34:14', NULL),
-(8, 1, 1, 3, NULL, NULL, 'pending', '2018-12-03', NULL, NULL, '2018-10-03 14:16:03', NULL),
-(9, 1, 1, 3, NULL, NULL, 'Declined', '2018-10-17', NULL, NULL, '2018-10-03 14:16:28', NULL),
-(10, 3, 1, 3, '', '', 'Declined', '2018-10-11', NULL, NULL, '2018-10-03 14:25:15', NULL),
-(11, 3, 1, 3, 'Please check my wiper as well', '', 'Overdue', '2018-11-18', NULL, NULL, '2018-10-03 14:27:36', NULL),
-(12, 3, 1, 3, 'Please check my wiper as well', 'choose another date', 'Rescheduled', '2018-11-25', NULL, NULL, '2018-10-03 14:28:00', NULL),
-(13, 8, 1, 3, 'Hello', 'hehe', 'Declined', '2018-10-10', NULL, NULL, '2018-10-03 15:42:56', NULL),
-(14, 6, 1, 3, '', '', 'Declined', '2018-10-17', NULL, NULL, '2018-10-03 16:00:21', NULL),
-(15, 4, 1, 3, '', '', 'Accepted', '2018-10-20', NULL, NULL, '2018-10-03 16:01:20', NULL),
-(16, 2, 1, 3, '', '', 'Overdue', '2018-10-11', NULL, NULL, '2018-10-03 17:02:16', NULL),
-(18, 10, 1, 34, 'sadas', 'asdsad', 'Overdue', '2018-10-31', NULL, NULL, '2018-10-16 13:58:21', NULL),
-(19, 10, 1, 34, 'sadas', 'Pending', 'asdasd', '2018-10-31', NULL, NULL, '2018-10-16 13:59:10', NULL);
+INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `adminDate`, `targetEndDate`, `actualEndDate`, `created`, `modified`, `notification`) VALUES
+(1, 1, 1, 1, NULL, 'choose another date', 'Declined', '2018-11-29', NULL, NULL, NULL, '2018-09-24 00:33:35', '2018-11-22 16:35:22', 0),
+(3, 1, 1, 3, NULL, NULL, 'Accepted', '2018-12-10', NULL, NULL, NULL, '2018-09-24 15:51:21', '2018-11-22 16:37:20', 0),
+(5, 1, 1, 3, NULL, NULL, 'Accepted', '2018-11-25', NULL, NULL, NULL, '2018-09-24 16:44:33', '2018-11-22 16:34:30', 0),
+(6, 1, 1, 3, NULL, '', 'Rescheduled', '2018-11-21', NULL, NULL, NULL, '2018-09-24 16:44:57', NULL, 0),
+(7, 5, 1, 3, NULL, NULL, 'Declined', '2018-10-05', NULL, NULL, NULL, '2018-10-03 02:34:14', NULL, 0),
+(8, 1, 1, 3, NULL, NULL, 'pending', '2018-12-03', NULL, NULL, NULL, '2018-10-03 14:16:03', NULL, 0),
+(9, 1, 1, 3, NULL, NULL, 'Declined', '2018-10-17', NULL, NULL, NULL, '2018-10-03 14:16:28', NULL, 0),
+(10, 3, 1, 3, '', '', 'Declined', '2018-10-11', NULL, NULL, NULL, '2018-10-03 14:25:15', NULL, 0),
+(11, 3, 1, 3, 'Please check my wiper as well', '', 'Overdue', '2018-11-18', NULL, NULL, NULL, '2018-10-03 14:27:36', NULL, 0),
+(12, 3, 1, 3, 'Please check my wiper as well', 'choose another date', 'Rescheduled', '2018-11-25', NULL, NULL, NULL, '2018-10-03 14:28:00', NULL, 0),
+(13, 8, 1, 3, 'Hello', 'hehe', 'Declined', '2018-10-10', NULL, NULL, NULL, '2018-10-03 15:42:56', NULL, 0),
+(14, 6, 1, 3, '', '', 'Declined', '2018-10-17', NULL, NULL, NULL, '2018-10-03 16:00:21', NULL, 0),
+(15, 4, 1, 3, '', '', 'Accepted', '2018-10-20', NULL, NULL, NULL, '2018-10-03 16:01:20', NULL, 0),
+(16, 2, 1, 3, '', '', 'Overdue', '2018-10-11', NULL, NULL, NULL, '2018-10-03 17:02:16', NULL, 0),
+(18, 10, 1, 34, 'sadas', 'asdsad', 'Overdue', '2018-10-31', NULL, NULL, NULL, '2018-10-16 13:58:21', NULL, 0),
+(19, 10, 1, 34, 'sadas', 'Pending', 'asdasd', '2018-10-31', NULL, NULL, NULL, '2018-10-16 13:59:10', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -452,7 +454,6 @@ INSERT INTO `vehicles` (`id`, `personalId`, `plateNumber`, `bodyType`, `yearMode
 --
 ALTER TABLE `appointments`
   ADD CONSTRAINT `personalId3` FOREIGN KEY (`personalId`) REFERENCES `personalinfo` (`personalId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `serviceId` FOREIGN KEY (`serviceId`) REFERENCES `services` (`serviceId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `vehicleId` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

@@ -2,7 +2,7 @@
 //insert.php
 if(isset($_POST["vehicle"]))
 {
- $db = mysqli_connect('localhost', 'root', '','thesis');
+ $db = mysqli_connect('localhost', 'root', '','thesislatest');
  $vehicle = mysqli_real_escape_string($db, $_POST["vehicle"]);
  $personalId = mysqli_real_escape_string($db, $_POST["personalId"]);
  $additionalMessage = mysqli_real_escape_string($db, $_POST["additionalMessage"]);

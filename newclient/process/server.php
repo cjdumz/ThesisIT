@@ -10,7 +10,7 @@ $contactNumber = "";
 $address = "";
 $errors = array(); 
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'thesis');
+$db = mysqli_connect('localhost', 'root', '', 'thesislatest');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
@@ -144,7 +144,7 @@ if (isset($_POST['login_user'])) {
 }
 
 if (isset($_POST['account_edit'])) { 
-  $db = mysqli_connect('localhost', 'root', '', 'thesis');
+  $db = mysqli_connect('localhost', 'root', '', 'thesislatest');
   $firstName = mysqli_real_escape_string($db, $_POST['firstName']);
   $lastName = mysqli_real_escape_string($db, $_POST['lastName']);
   $middleName = mysqli_real_escape_string($db, $_POST['middleName']);
@@ -163,7 +163,7 @@ if (isset($_POST['account_edit'])) {
   }
 
   if (isset($_POST['vehiclesinfo_edit'])) { 
-  $db = mysqli_connect('localhost', 'root', '', 'thesis');
+  $db = mysqli_connect('localhost', 'root', '', 'thesislatest');
   $plateNumber = mysqli_real_escape_string($db, $_POST['plateNumber']);
   $make = mysqli_real_escape_string($db, $_POST['make']);
   $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
@@ -184,7 +184,7 @@ if (isset($_POST['account_edit'])) {
   }
 
   if (isset($_POST['vehicle_add'])) { 
-  $db = mysqli_connect('localhost', 'root', '', 'thesis');
+  $db = mysqli_connect('localhost', 'root', '', 'thesislatest');
   $plateNumber = mysqli_real_escape_string($db, $_POST['plateNumber']);
   $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
   $make = mysqli_real_escape_string($db, $_POST['make']);
@@ -217,6 +217,14 @@ if (isset($_POST['account_edit'])) {
    VALUES ('$service', '$vehicle', '$personalId', '$additionalMessage', '$date', 'Pending', '0')
    ";
    mysqli_query($db, $query);
+  }
+
+  if(isset($_POST["appointmentDelete"]))
+  {
+   $appointmentId = $_POST['appointmentId'];
+   $query = "DELETE FROM appointments WHERE id = $appointmentId";
+   mysqli_query($db, $query);
+   header('location: ../requeststatus.php');
   }
 
 
