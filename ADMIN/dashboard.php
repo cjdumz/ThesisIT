@@ -202,16 +202,7 @@
                           <div class="page-header">
                               <h3></h3>
 
-                              <div class="pull-center form-inline">
-                                  <div class="btn-group">
-                                    <button class="btn btn-primary" data-calendar-nav="today">Today</button>
-                                  </div>
-                                  &nbsp;
-                                  &nbsp;
-                                  <div class="btn-group">
-                                    <button class="btn btn-warning active" data-calendar-view="month">Month</button>
-                                  </div>
-                              </div>
+                              
 
                               <div class="col-md-12">
                               <br>

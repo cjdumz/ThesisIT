@@ -10,7 +10,7 @@ if ($sqlEvents->execute()){
         $calendar[] = array(
             'id' =>$rows['id'],
             'title' => $rows['plateNumber'],
-            'url' => "appointmentdetails.php?id=".$rows['personalId']."&amp;appid=".$rows['id']."&amp;serviceid=".$rows['serviceId']."",
+            'url' => "records.php?id=".$rows['id']."",
             "class" => 'event-important',
             'start' => "$start",
         );
