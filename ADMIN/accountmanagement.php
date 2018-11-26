@@ -152,7 +152,8 @@
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT * FROM `personalinfo` join `vehicles` WHERE personalinfo.personalId = vehicles.personalId GROUP BY 1");
+                            $data = $connection->prepare("SELECT * FROM `personalinfo` join `vehicles` WHERE personalinfo.personalId 
+                            = vehicles.personalId GROUP BY 1");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
@@ -164,8 +165,7 @@
                                         <td style="text-align: right;">'.$row['mobileNumber'].'</td>
                                         <td class="text-center">
                                           <a href="user.php?id='.$row['personalId'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a>
-                                          
-                                          
+                      
                                           <button type="button" class="btn btn-darkblue" data-toggle="modal" data-target="#exampleModal'.$row['personalId'].'"><i class="menu-icon mdi mdi-email-outline"></i> Send SMS</button>
                                         </td>
                                     </tr>

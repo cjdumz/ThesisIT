@@ -143,22 +143,22 @@
                   <div class="form-group">
 
                     <div class="row"><!-- row-start -->
-                      <div class="col-md-2"><p>Owner:</p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['Name'] ?></h5></div>
+                      <div class="col-md-2"><p>Owner</p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">: <?php echo $row['Name'] ?></h5></div>
                       <div class="col-md-2"><p>Date of Request</p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['created'] ?></h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">: <?php echo $row['created'] ?></h5></div>
                     </div><!-- row-end -->
                     <div class="row">
-                      <div class="col-md-2"><p>Plate Number: </p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['plateNumber'] ?></h5></div>
-                      <div class="col-md-2"><p>Date Approved: </p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['modified'] ?></h5></div>
+                      <div class="col-md-2"><p>Plate Number </p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">: <?php echo $row['plateNumber'] ?></h5></div>
+                      <div class="col-md-2"><p>Date Approved </p></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">: <?php echo $row['modified'] ?></h5></div>
                     </div>
                     <div class="row">
                       <div class="col-md-2"><p>Status</p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['stat'] ?></h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">: <?php echo $row['stat'] ?></h5></div>
                       <div class="col-md-2"><p>Date of Appointment</p></div>
-                      <div class="col-md-4"><h5 style="margin-top: -1%"><?php echo $row['date'] ?></h5></div>
+                      <div class="col-md-4"><h5 style="margin-top: -1%">: <?php echo $row['date'] ?></h5></div>
                     </div>
                     <div class="row">
                       <div class=" offset-md-1 col-md-2"><p>Progress</p></div>

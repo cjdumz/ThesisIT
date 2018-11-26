@@ -190,6 +190,47 @@ if(!isset($_GET['id'])){
                     <i class="menu-icon mdi mdi-account-convert"></i> Update Profile
                   </button>
                   
+                  <br><br>
+
+                  <p class="card-description">
+                    Account information
+                  </p>
+
+                  <?php
+                      if(empty($row['user_id'])){
+                        echo '
+                              <div class="row">
+                                <div class="offset-1 col-md-2"><p >Status </p></div>
+                                <div class="col-md-9">
+                                  <p style="margin-top: -1%" class="card-title">: 
+                                    No Account
+                                  </p>
+                                </div>
+                              </div>
+
+                              <form action="process/server.php" method="POST">
+                                <button type="submit" name="generate" class="btn btn-success" style="float:right" >
+                                  <i class="menu-icon mdi mdi-account-convert"></i> Generate Account
+                                </button>
+                              </form>
+                        ';
+                      }else{
+                        echo '
+                              <div class="row">
+                                <div class="offset-1 col-md-2"><p >Status </p></div>
+                                <div class="col-md-9">
+                                  <p style="margin-top: -1%" class="card-title">: 
+                                    Activate/Deactivate
+                                  </p>
+                                </div>
+                              </div>
+                          ';
+                      }
+                    ?>
+
+
+                
+                  
                 </div>
               </div>
             </div>
@@ -251,7 +292,6 @@ if(!isset($_GET['id'])){
                     <table class="table table-bordered table-dark" id="doctables2">
                       <thead>
                         <tr class="text-center">
-                          <th>#</th>
                           <th>Plate Number</th>
                           <th>Date</th>
                           <th>Status</th>
@@ -273,7 +313,6 @@ if(!isset($_GET['id'])){
                             $date = $dateTimeSplit[0];
                             echo '
                                 <tr>
-                                <td>'.$row['id'].'</td>
                                 <td>'.$row['plateNumber'].'</td>
                                 <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
                                 <td>'.$row['stats'].'</td>
