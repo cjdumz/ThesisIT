@@ -3,6 +3,10 @@
     include 'process/database.php';
     include 'process/server.php';
      $username=$_SESSION['username'];
+     $id = $_SESSION['id'];
+     $pdo = new PDO('mysql:host=localhost;dbname=thesislatest', 'root', '');
+     $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
+     $_SESSION['personalId'] = $result;
      $profile =new database;
      $profile->user_profile($username);
      $personalinfo =new database;
@@ -29,32 +33,36 @@
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
      <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
+     <!-- Font Awesome Version 5.0 -->
+     <link rel="stylesheet" href="css/all.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
+     <link rel="stylesheet" href="css/all.css">
+     <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+     <script src="js/jquery.js"></script>
+     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
+     <script src="js/script.js"></script>
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
-
-
 
      <header>
           <div class="container" >
                <div class="row">
          
           <div class="col-md-4 col-sm-5">
-
-                       <a href="index.html" class="navbar-brand" >EAS Customs</a>
+                       <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
+                       <a href="home.php" class="navbar-brand" >EAS Customs</a>
           </div>
 
               <div class="col-md-8 col-sm-7 text-align-right">
                          <span class="phone-icon"><i class="fa fa-phone"></i>  09257196568 / 09304992021</span>
                          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Sat)</span>
-                         <span class="email-icon"><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
+                         <span class="email-icon"><i class="fab fa-facebook"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
                     </div>
 
 
@@ -64,7 +72,13 @@
           
 
      </header>
+          <section class="preloader">
+          <div class="spinner">
 
+               <span class="spinner-rotate"></span>
+               
+          </div>
+     </section>
 
      <!-- MENU -->
      <section class="navbar navbar-default navbar-static-top" role="navigation" >
@@ -72,6 +86,7 @@
 
                <div class="navbar-header">
                     <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
                          <span class="icon icon-bar"></span>
@@ -85,22 +100,33 @@
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
-                     <ul class="nav navbar-nav navbar-right">
+                     <ul class="nav navbar-nav ">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p><i class="fas fa-user-circle"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
-                  <ul class="dropdown-menu">
-                     <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;">Account Settings</a></li>
-              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;">Logout</a>
+                  <ul class="dropdown-menu" id="dropdownaccount">
+                     <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
+              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
+                  <?php endif ?>
              </ul>
-                    <?php endif ?>
-                    <ul class="nav navbar-nav">
-                          <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
-                          <li><a href="vehicleshistory.php" class="smoothScroll">Vehicle History</a></li>
-                         <li><a href="vehiclesinfo.php" class="smoothScroll">Your Vehicles</a></li>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                          
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
+                        <li class="dropdown">
+                        <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
+                        <li class="dropdown">
+                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" aria-hidden="true" style="font-size: 20px;padding: 0;"></i>  <span class="label label-pill label-danger count" style="border-radius:10px;"></span></a>
+                         <ul class="dropdown-menu" id="dropdownnotif" aria-labelledby="dropdownMenuDivider"></ul>
+                        </li>          
+                        <li class="appointment-btn" ><a href="appointment.php">Make an appointment</a></li>
+
+                          
+                           
                     </ul>
                </div>
 
@@ -127,9 +153,11 @@
      
      
   <div class="row">
-  <div class="container">  
+  <div class="card" style="width: auto; margin-left: 0px; margin-right: 0px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  <div class="container" >  
   <h3>Vehicle Information</h3><br>
-    <button type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#addVehicle"><i class="fa fa-car" aria-hidden="true"></i> Add Vehicle</button>
+    <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#addVehicle" style="background-color: #B80011;color: white"><i class="fa fa-car" aria-hidden="true"></i>  Add Vehicle</button>
   </br>
   <!--MODAL ADD VEHICLES-->
   <div class="modal fade" id="addVehicle" role="dialog">
@@ -146,7 +174,7 @@
         <small id="reminder" class="form-text text-muted">Please fill out the required fields.</small>
         <div class="form-group">
          <?php 
-         foreach($personalinfo->personalinfo as $personalinfo){
+         foreach($personalinfo->personal_info as $personalinfo){
          ?> 
            <input type="hidden" name="personalId" value="<?php echo $personalinfo['personalId']; ?>">
          <?php
@@ -155,29 +183,40 @@
         </div>
         <div class="form-group">
           <label for="plateNumber">Plate Number</label><span style="color:red;"> *</span>
-          <input type="text" class="form-control input-xs" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber" >
+          <input type="text" class="form-control input-xs" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber" required="" oninvalid="this.setCustomValidity('Plate Number Invalid or Empty.')" oninput="setCustomValidity('')" pattern="[A-Za-z]{3}-[0-9]{3,}" 
+          >
         </div>
         <div class="form-group">
+         <div id="make">
           <label for="make">Make</label><span style="color:red;"> *</span>
-          <input type="text" class="form-control input-xs" id="make" aria-describedby="make" name="make" >
+            <select class="form-control" name="make" id="make">
+              <option value="" selected disabled>Choose your Make</option>
+              <option value="Mitsubishi">Toyota</option>
+              <option value="Toyota">Mitsubishi</option>                                   
+            </select>
+          </div>
+          <div id="othersMake">
+          <label for="make">Other Make:</label><span style="color:red;"> *</span>
+          <input type="text" class="form-control input-xs" id="otherMake" aria-describedby="otherMake" name="otherMake" required="" oninvalid="this.setCustomValidity('Make is Empty.')" oninput="setCustomValidity('')" >
           <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
+          </div>
         </div>
          <div class="form-group">
           <label for="series">Series</label><span style="color:red;"> *</span>
-          <input class="form-control input-sm" type="text" class="form-control" name="series">
+          <input class="form-control input-sm" type="text" class="form-control" name="series" required="" invalid="this.setCustomValidity('Series is Empty.')" oninput="setCustomValidity('')">
         </div>
         <div class="form-group">
           <label for="yearModel">Year Model</label><span style="color:red;"> *</span>
-          <input class="form-control input-sm" type="text" class="form-control" id="yearModel" name="yearModel">
+          <input class="form-control input-sm" type="number" class="form-control" id="yearModel" name="yearModel" required="" invalid="this.setCustomValidity('Year Model is Empty.')" oninput="setCustomValidity('')">
         </div>
          <div class="form-group">
           <label for="color">Color</label><span style="color:red;"> *</span>
-          <input class="form-control input-sm" type="text" name="color">
+          <input class="form-control input-sm" type="text" name="color" required="" invalid="this.setCustomValidity('Color is Empty.')" oninput="setCustomValidity('')">
         </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" name="vehicle_add">Add Vehicle</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-sm " name="vehicle_add" style="background-color: #B80011;color: white"><i class="fa fa-motorcycle" aria-hidden="true"></i> Add Vehicle</button>
+          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="color:black;"><i class="fas fa-times-circle"></i> Cancel</button>
         </div>
       </div>
       </form>
@@ -195,8 +234,8 @@
           ?>
     <?php endif ?>
     </div>
-    <table class="table table-hover table-bordered ">
-      <thead>
+    <table class="table table-hover table-bordered " id="doctables" >
+      <thead style="background-color: #B80011;color: white;">
         <tr>
           <th>Plate Number</th>
           <th>Make</th>
@@ -213,33 +252,25 @@
   <!-- MAIN VIEW VEHICLES -->
   
      <?php
-            $db = mysqli_connect('localhost', 'root', '', 'thesis');
-            $query = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
-            $res = mysqli_query($db,$query);
-            $row = mysqli_fetch_assoc($res);
-            $personalid = $row['personalId'];
-            
-            $query1 = "SELECT * from vehicles where personalId = '$personalid' ORDER BY modified DESC";
-            $res = mysqli_query($db,$query1);
-            $resultCheck = mysqli_num_rows($res);
-                   if ($resultCheck > 0) {
-                    while ($row = mysqli_fetch_assoc($res)) {
 
-              
-            ?>
-      
+         if ($vehicleinforesultCheck > 0) {
+          while ($row = mysqli_fetch_assoc($vehicleinforesult)) {
+      ?>
       <tr>
         <?php echo "<td align = 'center'>".$row['plateNumber']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['make']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['series']."</td>"; ?>
-        <?php echo "<td align = 'center'>".$row['color']."</td>"; ?>
-        <?php echo "<td align = 'center'>".date('m-d-Y', strtotime($row['created']))."</td>"; ?>
-        <?php echo "<td align = 'center'>".date('m-d-Y', strtotime($row['modified']))."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['make'])."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['series'])."</td>"; ?>
+        <?php echo "<td align = 'center'>".ucfirst($row['color'])."</td>"; ?>
+        <?php echo "<td align = 'center'>".date('F d, Y', strtotime($row['created']))."</td>"; ?>
+        <?php if (isset($row['modified'])) {
+              echo "<td align = 'center'>".date('F d, Y', strtotime($row['modified']))."</td>"; 
+            }else
+              echo "<td align = 'center'>No Value.</td> ";
+        ?>
         <td>
         
         <button type="button" class="btn btn-sm btn-primary " data-toggle="modal" data-target="#viewVehicle<?php echo $row['id']; ?>"><i class="fa fa-address-card" aria-hidden="true"></i> View Info</button>
         <button type="button" class="btn btn-sm btn-success " data-toggle="modal" data-target="#editVehicle<?php echo $row['id']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Edit</button>
-        <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#deleteVehicle<?php echo $row['id']; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i>  Delete</button>
       </td>
 
 
@@ -251,11 +282,13 @@
         
           <!-- Modal content-->
           <div class="modal-content">
-            <div class="modal-header" style="background-color:#B80011; color: #ffffff;">
+            <div class="modal-header" style="background-color:#337AB7; color: #ffffff;">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h5 class="modal-title"><?php echo $row['make'].' '.$row['series'].' '.$row['yearModel']; ?></h5>
             </div>
             <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
               <div class="form-group">
                 <label for="plateNumber">Plate Number</label>
                 <p><?php echo $row['plateNumber']; ?></p>
@@ -276,41 +309,93 @@
                 <label for="color">Color</label>
                 <p><?php echo $row['color']; ?></p>
               </div>
+              </div>
+              <div class="col-md-6 col-sm-6">
               <div class="form-group">
                 <label for="bodyType">Body Type</label>
-                <p><?php echo $row['bodyType']; ?></p>
+                <p><?php 
+                if (isset($row['modified'])) {
+                    echo $row['bodyType'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                 </p>
               </div>
               <div class="form-group">
                 <label for="chasisNumber">Chasis Number</label>
-                <p><?php echo $row['chasisNumber']; ?></p>
+                <p><?php 
+                if (isset($row['chasisNumber'])) {
+                    echo $row['chasisNumber'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                </p>
               </div>
               <div class="form-group">
                 <label for="numberOfCylinders">Number of Cylinders</label>
-                <p><?php echo $row['numberOfCylinders']; ?></p>
+                <p><?php 
+                if (isset($row['numberOfCylinders'])) {
+                    echo $row['numberOfCylinders'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                </p>
               </div>
                <div class="form-group">
                 <label for="engineClassification">Engine Classification</label>
-                <p><?php echo $row['engineClassification']; ?></p>
+                <p><?php 
+                if (isset($row['engineClassification'])) {
+                    echo $row['engineClassification'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                </p>
               </div>
                <div class="form-group">
                 <label for="typeOfDriveTrain">Type of Drive Train</label>
-                <p><?php echo $row['typeOfDriveTrain']; ?></p>
+                <p><?php 
+                if (isset($row['typeOfDriveTrain'])) {
+                    echo $row['typeOfDriveTrain'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                </p>
               </div>
                <div class="form-group">
                 <label for="engineDisplacement">Engine Displacement</label>
-                <p><?php echo $row['engineDisplacement']; ?></p>
+                <p><?php 
+                if (isset($row['engineDisplacement'])) {
+                    echo $row['engineDisplacement'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                </p>
               </div>
               <div class="form-group">
                 <label for="typeOfEngine">Type of Engine</label>
-                <p><?php echo $row['typeOfEngine']; ?></p>
+                <p><?php 
+                if (isset($row['typeOfEngine'])) {
+                    echo $row['typeOfEngine'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                </p>
               </div>
                <div class="form-group">
                 <label for="engineNumber">Engine Number</label>
-                <p><?php echo $row['engineNumber']; ?></p>
+                <p><?php 
+                if (isset($row['engineNumber'])) {
+                    echo $row['engineNumber'];
+                   }else
+                   echo "No Value.";   
+                ?>
+                </p>
+              </div>
+              </div>
               </div> 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" style="color: white;"><i class="fas fa-times-circle"></i> Close</button>
             </div>
           </div>
           
@@ -324,7 +409,7 @@
         
           <!-- Modal content-->
           <div class="modal-content">
-            <div class="modal-header" style="background-color:#B80011; color: #ffffff;">
+            <div class="modal-header" style="background-color:#4caf50; color: #ffffff;">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h5 class="modal-title"><?php echo $row['make'].' '.$row['series'].' '.$row['yearModel']; ?></h5>
             </div>
@@ -353,7 +438,7 @@
           <div class="col-sm-6">
             <div class="form-group">
             <label for="yearModel">Year Model</label>
-            <input type="text" class="form-control input-xs" id="yearModel" name="yearModel" value="<?php echo $row['yearModel']; ?>" >
+            <input type="number" class="form-control input-xs" id="yearModel" name="yearModel" value="<?php echo $row['yearModel']; ?>" >
           </div>
           </div>
            <div class="col-sm-6">
@@ -362,59 +447,13 @@
             <input type="text" class="form-control input-xs" id="color" name="color" value="<?php echo $row['color']; ?>" >
           </div>
           </div>
-          <div class="col-sm-6">
-          <div class="form-group">
-            <label for="bodyType">Body Type</label>
-            <input type="text" class="form-control input-sm" id="bodyType"  name="bodyType" value="<?php echo $row['bodyType']; ?>">
-          </div>
-          </div>
-         <div class="col-sm-6">
-          <div class="form-group">
-            <label for="chasisNumber">Chasis Number</label>
-            <input type="text" class="form-control" id="chasisNumber" name="chasisNumber" value="<?php echo $row['chasisNumber']; ?>" >
-          </div>
-         </div>
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="numberOfCylinders">Number of Cylinders</label>
-            <input type="number" class="form-control" id="numberOfCylinders" name="numberOfCylinders"value="<?php echo $row['numberOfCylinders']; ?>">
-           </div>
-           </div>
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="typeOfDriveTrain">Type of Drive Train</label>
-            <input type="number" class="form-control" id="typeOfDriveTrain" name="typeOfDriveTrain" value="<?php echo $row['typeOfDriveTrain']; ?>">
-          </div>
-          </div>
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="engineNumber">Engine Number</label>
-            <input type="text" class="form-control" id="engineNumber" name="engineNumber" value="<?php echo $row['engineNumber']; ?>">
-          </div>
-          </div>
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="engineDisplacement">Engine Displacement</label>
-            <input type="number" class="form-control" id="engineDisplacement" name="engineDisplacement" value="<?php echo $row['engineDisplacement']; ?>">
-          </div>  
-           </div> 
-           <div class="col-sm-6">
-           <div class="form-group">
-            <label for="engineClassification">Engine Classification</label>
-            <input type="text" class="form-control" id="engineClassification" name="engineClassification" value="<?php echo $row['engineClassification']; ?>">
-          </div>
-          </div>
-          <div class="col-sm-6">
-          <div class="form-group">
-            <label for="typeofEngine">Type of Engine</label>
-            <input type="text" class="form-control" id="typeOfEngine" name="typeOfEngine" value="<?php echo $row['typeOfEngine']; ?>">
-          </div>
-          </div>
+
+
           </div>   
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-sm btn-primary" name="vehiclesinfo_edit">Edit Vehicle</button>
-              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-sm btn-success" name="vehiclesinfo_edit" style="background-color: #4caf50;"><i class="fas fa-edit"></i> Edit Vehicle</button>
+              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
             </div>
           </div>
          </form>
@@ -422,31 +461,7 @@
         </div>
       </div>
 
-     <!--MODAL DELETE VEHICLES-->
-      <div class="modal fade" id="deleteVehicle<?php echo $row['id']; ?>" role="dialog">
-        <div class="modal-dialog">
-        
-          <!-- Modal content-->
-          <form action="vehiclesinfo.php" method="post">
-          <div class="modal-content">
-            <div class="modal-header" style="background-color:#B80011; color: #ffffff;">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h5 class="modal-title"> <?php echo $row['make'].' '.$row['series'].' '.$row['yearModel']; ?>?</h5>
-            </div>
-            <div class="modal-body">
-              <h5>Are you sure?All data about <?php echo $row['make'].' '.$row['series'].' '.$row['yearModel']; ?> will be deleted?</h5>
-            <input type="hidden" name="vehicleId" value="<?php echo $row['id']; ?>">
-            </div>
-          
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-sm btn-success" name="vehicle_delete">Yes</button>
-              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
-            </div>
-          </div>
-          </form>
-          
-        </div>
-      </div>
+
         <?php 
          }
         }else{
@@ -462,10 +477,28 @@
 
     </tbody>
   </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
    
          </div>
         </div>
+      </div>
     </div>
 
      <!-- FOOTER -->
@@ -553,10 +586,10 @@
                </div>
           </div>
      </footer>
-
+  
      <!-- SCRIPTS -->
-     <script src="js/script.js"></script>
-     <script src="js/jquery.js"></script>
+
+     <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>
@@ -564,6 +597,22 @@
      <script src="js/smoothscroll.js"></script>
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
+    <!-- FOR TABLE -->
+     <script src="js/jquery.dataTables.js"></script>
+     <script src="js/dataTables.bootstrap4.js"></script>
+     <script src="js/sb-admin-datatables.min.js"></script>
+
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <script src="vendors/js/vendor.bundle.addons.js"></script>
+ 
+
+     <script>
+      var table = $('#doctables').DataTable({
+      // PAGELENGTH OPTIONS
+      "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+
+      });
+    </script>
 
 </body>
 </html>
