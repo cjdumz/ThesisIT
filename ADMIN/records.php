@@ -147,7 +147,7 @@
                         if ($row['targetEndDate'] == null){
                     ?>
                     <form method = "post" action="addenddate.php?id=<?php echo $id;?>">      
-                        <p class="card-title" style="font-size:20px; float:right;" >Target End Date : <input type ="date" name="enddate"><button type="submit" name="submit"> SUBMIT</button></p></form>
+                        <p class="card-title" style="font-size:20px; float:right;" >Target End Date : <input type ="date" name="enddate"> <button class="btn btn-primary" type="submit" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button></p></form>
                     <?php
                         }else{
                             ?><p class="card-title" style="font-size:20px; float:right;" > Target End Date : <?php echo date('F j, Y',strtotime ($row['targetEndDate']));?>
