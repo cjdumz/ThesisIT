@@ -277,18 +277,6 @@ if(isset($_GET['plate'])){
                         <div class="clearfix"></div>
                     </form>
                     </div>
-                    <div class="card-footer small text-muted">
-                    <?php 
-                      $timequery = $connection->query("SELECT modified FROM `vehicles` where id = $vehicleID;");
-                      $row2 = $timequery->fetch_assoc();
-                      $dateTime = $row2['modified'];
-                      $dateTimeSplit = explode(" ",$dateTime);
-                      $date = $dateTimeSplit[0];
-                      $time = $dateTimeSplit[1];
-                      echo "Updated on ".date('M d, Y',strtotime($date));
-                      echo "  ".date('h:i:s A',strtotime($time));
-                    ?>
-                    </div>
                 </div>
             </div>
             <!-- end -->
@@ -329,7 +317,7 @@ if(isset($_GET['plate'])){
                             'Name', plateNumber, appointments.status as 'stat', appointments.date, appointments.modified, appointments.created from 
                             appointments inner join personalinfo on appointments.personalId = personalinfo.personalId inner join vehicles 
                             on personalinfo.personalId = vehicles.personalId where appointments.status = 'Accepted' OR appointments.status = 'Done'
-                            OR appointments.status = 'In-Progress' group by 1;");
+                            OR appointments.status = 'In-Progress' AND plateNumber = '$plate' group by 1;");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {

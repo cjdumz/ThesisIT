@@ -231,6 +231,24 @@ if(!isset($_GET['id'])){
                                   </p>
                                 </div>
                               </div>
+
+                              <div class="row">
+                                <div class="offset-1 col-md-2"><p >Username</p></div>
+                                <div class="col-md-9">
+                                  <p style="margin-top: -1%" class="card-title">: 
+                                    Sample
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="offset-1 col-md-2"><p >Password</p></div>
+                                <div class="col-md-9">
+                                  <p style="margin-top: -1%" class="card-title"> 
+                                    <button class="btn btn-success">Change Password</button>
+                                  </p>
+                                </div>
+                              </div>
                           ';
                       }
                     ?>
