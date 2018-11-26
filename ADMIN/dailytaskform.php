@@ -1,27 +1,35 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require 'process/process.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Client Records</title>
+  <title>Dashboard</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+    
+    
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/calendar.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -40,7 +48,7 @@
         <hr class="style2">
             
           <li class="nav-item">
-            <a class="nav-link" id="active" href="dashboard.php">
+            <a class="nav-link" href="dashboard.php">
               <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
@@ -74,7 +82,7 @@
             </a>
           </li>
             
-          <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" href="dailytaskform.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
@@ -100,81 +108,18 @@
         
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-            
-            <div class="col-lg-12 stretch-card">
-              <div class="card">
-                <div class="card-body">
 
-                    <div class="row">
-                        <div class="col-11">
-                            <p class="card-title" style="font-size:20px;">Client Records</p>
-                            <p class="card-description">
-                                List of Accepted Request
-                            </p>
-                        </div>
-                    </div>
-                    
-                  <div class="table-responsive">
-                  <!-- start -->
-                  <table class="table table-bordered table-dark" id="doctables">
-                      <thead>
-                        <tr class="grid">
-                            <th style="font-size:15px;">Customer Name</th>
-                        </tr>
-                      </thead>
-                      <tbody class="table-primary" style="color:black;">
-                      <?php
-                        $data = $connection->prepare("select  personalinfo.personalId as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name' , count(vehicles.personalId) as 'Vehicles', plateNumber from vehicles join personalinfo 
-                        where vehicles.personalId = personalinfo.personalId
-                        group by 1");
-                        if($data->execute()){
-                            $values = $data->get_result();
-                            while($row = $values->fetch_assoc()) {
-                            // $dateTime = $row['date'];
-                            // $dateTimeSplit = explode(" ",$dateTime);
-                            // $date = $dateTimeSplit[0];
-                            echo '
-                                <tr>
-                                <td><a href="client.php?id='.$row['ID'].'">'.$row['Name'].'</a></td>
-                                
-                          
-                                
-
-   
-
-                                </tr>
-                            ';
-                            }
-                        }else{
-                            echo "<tr>
-                                    <td colspan='7'>No Available Data</td>
-                                </tr>";
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                  <!-- end -->
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
         <!-- content-wrapper ends -->
+          
         <!-- partial:partials/_footer.html -->
         <?php include "includes/footer.php";?>
         <!-- partial -->
+          
       </div>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-
-  <!-- Modal -->
-  
   <!-- container-scroller -->
 
   <!-- plugins:js -->
@@ -190,51 +135,15 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
+    
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
-   <script src="js/script.js"></script>
-  <!-- AJAX Link -->
- <script>
-$(document).ready(function(){
-  $("#submit").click(function(){
-    var exampleInputName1 = $("#exampleInputName1").val();
-    var exampleInputName2 = $("#exampleInputName2").val();
-    var exampleInputName3 = $("#exampleInputName3").val();
-    var exampleInputPlate = $("#exampleInputPlate").val();
-    var exampleInputEmail = $("#exampleInputEmail").val();
-    var exampleInputMobile = $("#exampleInputMobile").val();
-    var exampleInputTel = $("#exampleInputTel").val();
-    var exampleInputAddress = $("#exampleInputAddress").val();
-    var dataString = 'exampleInputName1=' + exampleInputName1 + '&exampleInputName2=' + exampleInputName2;
-    if(exampleInputName1=='' || exampleInputName2=='' || exampleInputName3=='' || exampleInputNPlate=='' || exampleInputEmail==''
-      || exampleInputMobile=='' || exampleInputTel=='' || exampleInputAddress==''){
-      alert('Fill all fields')
-      $("#display").html("");
-    } else {
-    $.ajax({
-      type: "POST",
-      cache: false,
-      success: function(result){
-       $("#display").html(result);
-      }
-    });
-    }
-    return false;
-  }); 
-});
-</script>
-
-<script>
-  var table = $('#doctables').DataTable({
-    // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
-
-});
-</script>
+  <script src="js/script.js"></script>  
+    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript" src="js/calendar.js"></script>
+<script type="text/javascript" src="js/events.js"></script>    
 </body>
 
-
->>>>>>> 59108eff68da1b1a5f3f6f52e44accea984566e7
 </html>

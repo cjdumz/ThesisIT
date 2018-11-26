@@ -90,6 +90,13 @@ if(!isset($_GET['id'])){
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
+         
+         <li class="nav-item">
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-file"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li>
             
           <li class="nav-item active">
             <a class="nav-link " href="accountmanagement.php">
@@ -116,8 +123,8 @@ if(!isset($_GET['id'])){
               <div class="card">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="clientrecords.php">Account Management</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?php echo $Name ?></li>
+                    <li class="breadcrumb-item"><a href="clientrecords.php" style="font-size:18px;">Account Management</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;"><?php echo $Name ?></li>
                   </ol>
                 </nav>
               </div>
@@ -371,7 +378,7 @@ if(!isset($_GET['id'])){
   <div class="modal fade" id="updateprofilemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
       <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #4caf50; color: white; border: 3px solid #4caf50;">
         <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -444,8 +451,8 @@ if(!isset($_GET['id'])){
         <!-- end -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success" name="submit-user" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update Profile</button>
+            <button type="submit" class="btn btn-success" name="submit-user" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update Profile</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Close</button>
           <div class="clearfix"></div>
         </form>
         </div>

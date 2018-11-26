@@ -82,6 +82,13 @@
             </a>
           </li>
             
+        <li class="nav-item">
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-file"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li>
+            
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
@@ -191,7 +198,6 @@
                   <div class="card">
                       <div class="card-body">    
                       <div class="container">
-
 
                           <div class="page-header">
                               <h3></h3>
@@ -448,7 +454,7 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title mb-4">Manage Tickets</h5>
+                  <h5 class="card-title mb-4">Feedbacks</h5>
                   <div class="fluid-container">
                     <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
                       <div class="col-md-1">
