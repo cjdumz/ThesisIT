@@ -1,17 +1,16 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require "process/check/appointmentcheck.php";?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Reschedule Request</title>
+  <title>Dashboard</title>
   <link rel="icon" href="images/Logo.png">
-    
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -34,9 +33,9 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
-    
+        
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -48,7 +47,7 @@
             
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-content-copy"></i>
+              <i class="menu-icon mdi mdi-inbox"></i>
               <span class="menu-title" style="font-size:14px;">Request</span>
               <i class="menu-arrow"></i>
             </a>
@@ -97,7 +96,7 @@
             
         </ul>
       </nav>
-
+      
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -357,12 +356,10 @@
         <?php include "includes/footer.php";?>
         <!-- partial -->
       </div>
-      <!-- main-panel ends -->
+      </div>
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-
+        
+    
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <script src="vendors/js/vendor.bundle.addons.js"></script>
