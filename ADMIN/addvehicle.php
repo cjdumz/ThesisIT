@@ -112,7 +112,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Plate Number</label>
-                                                  <input type="text" class="form-control" name="plateNumber" required>
+                                                  <input type="text" class="form-control" name="plateNumber" pattern="[A-Z]{3}-[0-9]{3}" required>
                                                 </div>
                                               </div>
                                               <div class="col-md-6">
@@ -205,7 +205,7 @@
                                             <br><br>
                                             <button type="submit" class="btn btn-primary" name="submit-vehicle" style="float:right"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button>
                                              
-                                            <button onclick="location.href='adduser.php'" type="submit" class="btn btn-primary" style="float:left"><i class="menu-icon mdi mdi-chevron-left"></i> Previous</button>
+                                            <!-- <button onclick="location.href='adduser.php'" name="previous" type="submit" class="btn btn-primary" style="float:left"><i class="menu-icon mdi mdi-chevron-left"></i> Previous</button> -->
                                             <div class="clearfix"></div>      
                                       </form>
                               </div>
