@@ -108,13 +108,6 @@
             </a>
           </li>
             
-        <li class="nav-item">
-            <a class="nav-link"  href="chargeinvoice.php">
-              <i class="menu-icon mdi mdi-receipt"></i>
-              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
-            </a>
-          </li>
-            
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
@@ -396,7 +389,7 @@
                                                 <form action="process/server.php" method="POST">
                                                   <input type="hidden" name="task_id" value="'.$rows['id'].'">
                                                   <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                                  <button class="btn btn-success" type="submit" name="finishTask">Start Task</button>
+                                                  <button class="btn btn-success" type="submit" name="finishTask">Finish Task</button>
                                                 </form>
                                                 ';
                                         }else{
@@ -442,6 +435,8 @@
                                         </div>
                                       </div>
                                       <!-- end -->
+
+                                      
                                     ';
                                   }                                
                                 }
@@ -466,13 +461,36 @@
                                 <div class="modal-body">
                                   <form>
                                     <div class="form-group">
-                                      <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                      <input type="text" class="form-control" id="recipient-name">
+
+                                      <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Select Service</label>
+                                        <select name="service" type="text" class="form-control  chzn-select" name="owner" tabindex="2">
+                                          <option hidden selected >Select Service</option>
+                                          ';
+                                            $data = $connection->prepare("SELECT * FROM services;");
+                                            if($data->execute()){
+                                                $values = $data->get_result();
+                                                while( $row = $values->fetch_assoc()){
+                                                  echo '<option >'.$row['serviceName'].'</option>';
+                                               }
+                                                
+                                            }
+                                          echo'
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Password:</label>
+                                        <input type="password" class="form-control" name="p1"  id="password" placeholder="Password"  onkeyup="check();" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Confirm Password:</label>
+                                        <input type="password" class="form-control" name="p2"  id="confirm_password" placeholder="Confirm Password" onkeyup="check();" required>
+                                        <span id="message">
+                                      </div>';?>
+
+                                      <?php echo'
                                     </div>
-                                    <div class="form-group">
-                                      <label for="message-text" class="col-form-label">Message:</label>
-                                      <textarea class="form-control" id="message-text"></textarea>
-                                    </div>
+                            
                                   </form>
                                 </div>
                                 <div class="modal-footer">
@@ -483,9 +501,6 @@
                             </div>
                           </div>
                           <!-- end -->
-
-                          <!-- start modal -->
-
 
                         ';
                       }
@@ -531,6 +546,21 @@
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
+
+  <script>
+    var check = function() {
+    if (document.getElementById('password').value ==
+      document.getElementById('confirm_password').value) {
+      document.getElementById('message').style.color = 'green';
+      document.getElementById('message').innerHTML = 'matching';
+      $('#Submit').prop('disabled',false);
+    } else {
+      document.getElementById('message').style.color = 'red';
+      document.getElementById('message').innerHTML = 'not matching';
+      $('#Submit').prop('disabled',true);
+      }
+    }
+  </script>
   
 </body>
 

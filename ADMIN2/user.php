@@ -97,13 +97,6 @@ if(!isset($_GET['id'])){
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
           </li>
-        
-        <li class="nav-item">
-            <a class="nav-link"  href="chargeinvoice.php">
-              <i class="menu-icon mdi mdi-receipt"></i>
-              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
-            </a>
-          </li>
             
           <li class="nav-item active">
             <a class="nav-link " href="accountmanagement.php">
@@ -313,6 +306,79 @@ if(!isset($_GET['id'])){
             </div>
             <!-- end -->
 
+            <!-- start -->
+            <div class="col-lg-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Records</h4>
+                  
+                  <!-- start -->
+                  <div class="table-responsive">
+                    <table class="table table-borderless table-dark" id="doctables2">
+                      <thead>
+                        <tr class="text-center">
+                          <th>Plate Number</th>
+                          <th>Date</th>
+                          <th>Status</th>
+                          <th>Progress</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-primary" style="color:black;">
+                        
+                      <?php
+                        $data = $connection->prepare("SELECT appointments.id as 'id', appointments.date as 'date', concat(firstName,' ',middleName,' ',lastName) as 'Name', vehicles.plateNumber, appointments.status as 'stats'  FROM `appointments` join `personalinfo` join vehicles
+                        where personalinfo.personalId = $id and appointments.status = 'Accepted' and personalinfo.personalId = appointments.personalId group by 1");
+
+                        if($data->execute()){
+                            $values = $data->get_result();
+                            while($row = $values->fetch_assoc()) {
+                            $dateTime = $row['date'];
+                            $dateTimeSplit = explode(" ",$dateTime);
+                            $date = $dateTimeSplit[0];
+                            echo '
+                                <tr>
+                                <td>'.$row['plateNumber'].'</td>
+                                <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
+                                <td>'.$row['stats'].'</td>
+                                <td>
+                                  <div class="progress">
+                                    <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                                      aria-valuemax="100">
+                                    </div>
+                                  </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <a href="records.php?id='.$row['id'].'"><button class="btn btn-primary" style="margin-top: 5px; width: 145px; color:white;">
+                                          <i class="menu-icon mdi mdi-eye-outline"></i>
+                                          View
+                                        </button></a>
+                                      </div>
+                                    </div>
+                                    
+                                </td>
+
+                                </tr>
+                            ';
+                            }
+                        }else{
+                            echo "<tr>
+                                    <td colspan='7'>No Available Data</td>
+                                </tr>";
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- end -->
+
+                </div>
+              </div>
+            </div>
+            <!-- end -->
+
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -366,6 +432,7 @@ if(!isset($_GET['id'])){
             <div class="form-group">
               <label class="bmd-label-floating">Suffix</label>
               <input type="text" class="form-control" name="suffix" value="<?php echo $contentx['suffix'] ?>" placeholder="<?php echo $contentx['suffix'] ?>">
+              <span style="font-size: 10px">(Ex. II)</span>
             </div>
           </div>
         </div>
@@ -389,13 +456,15 @@ if(!isset($_GET['id'])){
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Mobile Number</label>
-              <input type="text" class="form-control" name="mobile" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
+              <input type="text" class="form-control" name="mobile" pattern="[0-9]{4}[0-9]{3}[0-9]{4}" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
+              <span style="font-size: 10px">(Ex. 09*********)</span>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Telephone Number</label>
-              <input type="text" class="form-control" name="telephone" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
+              <input type="text" class="form-control" name="telephone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
+              <span style="font-size: 10px">(Ex. 074 *** ****)</span>
             </div>
           </div>
         </div>
@@ -437,7 +506,7 @@ if(!isset($_GET['id'])){
 <script>
   var table = $('#doctables').DataTable({
     // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 
 });
 </script>
@@ -445,7 +514,7 @@ if(!isset($_GET['id'])){
 <script>
   var table = $('#doctables2').DataTable({
     // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 
 });
 </script>
