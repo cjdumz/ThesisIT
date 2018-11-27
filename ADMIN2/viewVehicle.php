@@ -102,6 +102,13 @@ if(isset($_GET['plate'])){
             </a>
           </li>
             
+           <li class="nav-item">
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
+            </a>
+          </li>
+            
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
