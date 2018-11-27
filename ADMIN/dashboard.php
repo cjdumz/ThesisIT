@@ -1,5 +1,6 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
+<?php require "process/check/dashboardcheck.php";?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +67,7 @@
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -82,10 +83,10 @@
             </a>
           </li>
             
-        <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
+          <li class="nav-item">
+            <a class="nav-link"  href="clientrecords.php">
               <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+              <span class="menu-title" style="font-size:14px;">Client Records</span>
             </a>
           </li>
             
@@ -118,9 +119,9 @@
                       <i class="mdi mdi-cube text-danger icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">Total Revenue</p>
+                      <p class="mb-0 text-right">Appointment Requests for today</p>
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0">$65,650</h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $box1['count']?></h3>
                       </div>
                     </div>
                   </div>
@@ -138,9 +139,9 @@
                       <i class="mdi mdi-receipt text-warning icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">Orders</p>
+                      <p class="mb-0 text-right">Vehicles to be repaired today</p>
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0">3455</h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $box2['count'];?></h3>
                       </div>
                     </div>
                   </div>
@@ -158,9 +159,9 @@
                       <i class="mdi mdi-poll-box text-success icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">Sales</p>
+                      <p class="mb-0 text-right">Total vehicles in progress</p>
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0">5693</h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $box3['count'];?></h3>
                       </div>
                     </div>
                   </div>
@@ -178,9 +179,9 @@
                       <i class="mdi mdi-account-location text-info icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">Employees</p>
+                      <p class="mb-0 text-right">Total repaired vehicles</p>
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0">246</h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $box4['count']?></h3>
                       </div>
                     </div>
                   </div>
@@ -199,10 +200,9 @@
                       <div class="card-body">    
                       <div class="container">
 
+
                           <div class="page-header">
                               <h3></h3>
-
-                              
 
                               <div class="col-md-12">
                               <br>
@@ -219,46 +219,27 @@
               <!--  Start  -->
               <div class="col-lg-4 grid-margin stretch-card">
               <div class="card">
-                <div class="card-body">
-                  <h2 class="card-title text-primary mb-5">Performance History</h2>
-                  <div class="wrapper d-flex justify-content-between">
-                    <div class="side-left">
-                      <p class="mb-2">The best performance</p>
-                      <p class="display-3 mb-4 font-weight-light">+45.2%</p>
-                    </div>
-                    <div class="side-right">
-                      <small class="text-muted">2017</small>
-                    </div>
-                  </div>
-                  <div class="wrapper d-flex justify-content-between">
-                    <div class="side-left">
-                      <p class="mb-2">Worst performance</p>
-                      <p class="display-3 mb-5 font-weight-light">-35.3%</p>
-                    </div>
-                    <div class="side-right">
-                      <small class="text-muted">2015</small>
-                    </div>
-                  </div>
-                  <div class="wrapper">
-                    <div class="d-flex justify-content-between">
-                      <p class="mb-2">Sales</p>
-                      <p class="mb-2 text-primary">88%</p>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 88%" aria-valuenow="88"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="wrapper mt-4">
-                    <div class="d-flex justify-content-between">
-                      <p class="mb-2">Visits</p>
-                      <p class="mb-2 text-success">56%</p>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 56%" aria-valuenow="56"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
+                
+                  <div class="card-body" >
+                  <h5 class="card-title text-primary mb-5">Feedback</h5>
+                  
+                <?php $feedback = $connection->prepare("SELECT * FROM feedback");
+                    if($feedback->execute()){
+                      $result=$feedback->get_result();
+                      while($feed = $result->fetch_assoc()){?>
+                          <div class="wrapper d-flex justify-content-between">
+                            <div class="side-left">
+                              <p class="mb-2" style="font-weight:bold"><?php echo $feed['name'];?></p>
+                              <p class="display-7 mb-4 font-weight-light"><?php echo $feed['message'];?></p>
+                            </div>
+                            <div class="side-right">
+                              <small class="text-muted"><?php echo $feed['email']?></small>
+                               <br> <small class="text-muted"><?php echo $feed['phoneNumber']?></small>
+                            </div>
+                          </div>
+                      <hr>
+                    <?php }
+                    }?>
                 </div>
               </div>
             </div>     
@@ -445,7 +426,7 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title mb-4">Feedbacks</h5>
+                  <h5 class="card-title mb-4">Manage Tickets</h5>
                   <div class="fluid-container">
                     <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
                       <div class="col-md-1">
