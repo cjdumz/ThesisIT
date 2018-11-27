@@ -7,14 +7,19 @@
       }else{
         $id = $connection->real_escape_string($_GET["id"]);
         $data = $connection->prepare("SELECT appointments.id as 'ID', concat(firstName, ' ',middleName, ' ',lastName)as 
-        'Name', plateNumber, appointments.status as 'stat', appointments.date, appointments.modified, appointments.created,  appointments.targetEndDate from 
+        'Name', plateNumber, appointments.status as 'stat', appointments.date, appointments.modified, appointments.created,
+         appointments.targetEndDate, appointments.serviceId as 'service', appointments.otherService as 'others',
+         appointments.date as 'date' from 
         appointments inner join personalinfo on appointments.personalId = personalinfo.personalId inner join vehicles 
-        on personalinfo.personalId = vehicles.personalId where appointments.status = 'Accepted' and appointments.id = '$id';");
+        on personalinfo.personalId = vehicles.personalId where  appointments.id = '$id'
+        group by 1;");
         if($data->execute()){
             $values = $data->get_result();
             $row = $values->fetch_assoc();
 
-            if($row['stat'] != "Accepted"){
+            if($row['stat'] == "Pending"){
+              header("Location: error.php");
+            }elseif($row['stat'] == "Rescheduled"){
               header("Location: error.php");
             }
 
@@ -130,7 +135,7 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="calendar.php" style="font-size:18px;">Calendar</a></li>
-                    <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;"><?php echo $id ?></li>
+                    <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;"><?php echo '(',date('F j, Y',strtotime ($row['date'])), '&nbsp-&nbsp',$row['Name'] ,')' ?></li>
                   </ol>
                 </nav>
               </div>
@@ -183,84 +188,302 @@
                       <div class=" offset-md-1 col-md-2"><p>Progress</p></div>
                       <div class="col-md-7">
                         <div class="progress">
-                          <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                        <?php
+                          $progress = 0;
+                          if($row['stat'] != 'Accepted'){
+                            $allTask;
+                            $finishedTask;
+                            $all_task = $connection->prepare("SELECT count(id) as 'All' FROM `task` WHERE appointmentId = $id");
+                            if($all_task->execute()){
+                            $values = $all_task->get_result();
+                            $rowd = $values->fetch_assoc(); 
+                              $allTask = $rowd['All'];
+                            }
+                            $finished_task = $connection->prepare("SELECT count(status) as 'All' FROM `task` WHERE appointmentID = $id AND status = 'Done'");
+                            if($finished_task->execute()){
+                            $values = $finished_task->get_result();
+                            $rowb = $values->fetch_assoc(); 
+                              $finishedTask = $rowb['All'];
+                            }
+  
+                            $progress = ($finishedTask / $allTask)*100;
+                            if($progress == '100'){
+                              $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'Done' WHERE `appointments`.`id` = $id;");
+                              $checkprogress->execute();
+                            }
+                          }
+                          
+
+                        ?>
+                          <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $progress;?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
                           </div>
                         </div>
                       </div>
                     </div>
+                  
+                    <?php 
+                      if($row['stat'] == 'Accepted'){
+                        echo '  
+                              <form action="process/server.php" method="POST">
+                                <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                <button type="submit" class="btn btn-success" name="start" style="float:right">
+                                  <i class="menu-icon mdi mdi-account-convert"></i> Start
+                                </button>
+                              </form>
+                              
+                              
+                                <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                <button type="submit" class="btn btn-warning" style="float:right; margin-right: 10px;"  data-toggle="modal"  data-target="#reschedule">
+                                  <i class="menu-icon mdi mdi-account-convert"></i> Reschedule
+                                </button>
 
-                    <!-- start -->
-                   <hr>
-                   <div class="row">
-                      <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
-                      <div class="col-md-2 offset-md-8" style="margin">
-                        <h5 style="margin-top: 20px;">
-                          <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>
-                        </h5>
-                      </div>
-                    </div>
-                    
-                   
-                    <div class="table-responsive">
-                      <table class="table table-bordered table-dark" id="doctables">
-                        <thead>
-                          <tr class="grid">
-                            <th scope="col" style="font-size:15px;">#</th>
-                            <th scope="col" style="font-size:15px;">Task</th>
-                            <th scope="col" style="font-size:15px;">Type</th>
-                            <th scope="col" style="font-size:15px;">Status</th>
-                            <th scope="col" style="font-size:15px;">Start Date</th>
-                            <th scope="col" style="font-size:15px;">End Date</th>
-                            <th scope="col" style="font-size:15px;">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-primary" style="color:black;">
-                          <tr class="text-center">
-                            <th scope="row">1</th>
-                            <td>Change Oil</td>
-                            <td>Mechanical</td>
-                            <td>Pending</td>
-                            <td>11-03-2018</td>
-                            <td>11-03-2018</td>
-                            <td><input type="checkbox" aria-label="Checkbox for following text input"></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <br>
-                    
-                    <!-- Button trigger modal -->
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                              <!-- reschedule Modal -->
+                              <div class="modal fade" id="reschedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header" style="background-color: #FFAF00; color: white; border: 3px solid #FFAF00;">
+                                      <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <!-- start -->
+                                      <div class="row">
+                                        <div class="col-4">
+                                          <h4 class="card-title">Customer Name:</h4>                                            
+                                        </div>
+                                        <div class="col-8">
+                                          <h4 class="card-title">'.$row['Name'].'</h4>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-4">
+                                          <h4 class="card-title">Plate Number:</h4>                                            
+                                        </div>
+                                        <div class="col-8">
+                                          <h4 class="card-title">'.$row['plateNumber'].'</h4>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-4">
+                                          <h4 class="card-title">Status:</h4>                                            
+                                        </div>
+                                        <div class="col-8">
+                                          <h4 class="card-title">'.$row['stat'].'</h4>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-4">
+                                          <h4 class="card-title">Services:</h4>                                            
+                                        </div>
+                                        <div class="col-8">
+                                          <h4 class="card-title">'.$row['service'].'&nbsp,'.$row['others'].'</h4>
+                                        </div>
+                                      </div>';
+                                      if($row['stat'] == 'Rescheduled'){
+                                        echo '<div class="row">
+                                                <div class="col-4">
+                                                  <h4 class="card-title">Previous Message:</h4>                                            
+                                                </div>
+                                                <div class="col-8">
+                                                  <h4 class="card-title">'.$row['message'].'</h4>
+                                                </div>
+                                              </div>';
+                                      }
+                                      echo'
+                                      <form method="POST" action="process/server.php" enctype="multipart/form-data">
+                                        <div class="form-group row">
+                                          <label for="exampleInputEmail2" class="col-sm-3 col-form-label card-title">Previous Date</label>
+                                          <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($row['date'])); echo ' ">
+                                          </div>
+                                        </div>
+                                        <div class="form-group row">
+                                          <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Proposed Date</label>
+                                          <div class="col-sm-9">
+                                            <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="" required>
+                                          </div>
+                                        </div>
+                                        <div class="form-group row">
+                                          <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Message</label>
+                                          <div class="col-sm-9">
+                                          <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3" required></textarea>
+                                          </div>
+                                        </div>
+                                      <!-- end -->
+                                    </div>
+                                    
+                                    
+                                    <input type="hidden" name="id" value="'.$row['ID'].'">
+                                    <input type="hidden" name="location" value="appointment">
+                                    <div class="modal-footer" >
+                                    
+                                      <button type="submit" name="resubmit" class="btn btn-warning"><i class="menu-icon mdi mdi-calendar-clock"></i>Reschedule</button>
+                                      
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
+                                      
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="form-group">
-                                <label for="message-text" class="col-form-label">Message:</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                              <!-- end modal -->
+                              ';
+                      }else{
+                        echo '
+                        <!-- start -->
+                        <hr>
+                        <div class="row">
+                          <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
+                            <div class="col-md-2 offset-md-8" style="margin">
+                              <h5 style="margin-top: 20px;">
+                                <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>
+                              </h5>
+                            </div>
+                          </div>
+                          
+                        
+                          <div class="table-responsive">
+                            <table class="table table-bordered table-dark" id="doctables">
+                              <thead>
+                                <tr class="grid">
+                                  <th scope="col" style="font-size:15px;">Task</th>
+                                  <th scope="col" style="font-size:15px;">Status</th>
+                                  <th scope="col" style="font-size:15px;">Start Date</th>
+                                  <th scope="col" style="font-size:15px;">End Date</th>
+                                  <th scope="col" style="font-size:15px;">Action</th>
+                                </tr>
+                              </thead>
+                              <tbody class="table-primary" style="color:black;">
+                               
+                                ';
+                                $table = $connection->prepare("SELECT * FROM `task` WHERE appointmentID = $id");
+                                if($table->execute()){
+                                  $content = $table->get_result();
+                                  while($rows = $content->fetch_assoc()){
+                                    echo '
+                                    <tr class="text-center">
+                                        <td>'.$rows['service'].'</td>
+                                        <td>'.$rows['status'].'</td>
+                                        <td>
+                                        ';
+                                        if(empty($rows['dateStart'])){
+                                          echo '<form action="process/server.php" method="POST">
+                                                  <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                                  <button class="btn btn-success" type="submit" name="startTask">Start Task</button>
+                                                </form>
+                                                ';
+                                        }else{
+                                          echo date('F j, Y',strtotime($rows['dateStart']));
+                                        }
+                                        echo '
+                                        </td>
+                                        <td>';
+                                        if(empty($rows['dateStart'])){
+                                          echo '<button class="btn btn-success" disabled>Finish Task</button>';
+                                        }elseif(empty($rows['dateEnd'])){
+                                          echo '
+                                                <form action="process/server.php" method="POST">
+                                                  <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                                  <button class="btn btn-success" type="submit" name="finishTask">Start Task</button>
+                                                </form>
+                                                ';
+                                        }else{
+                                          echo date('F j, Y',strtotime($rows['dateEnd']));
+                                        }
+                                        echo '
+                                        </td>
+                                        <td>
+                                          <!-- Button trigger modal -->
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'">
+                                            Edit
+                                          </button>
+                                        </td>
+                                      </tr>
+
+                                      <!-- Add Modal -->
+                                      <div class="modal fade" id="exampleModalCenter'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
+                                              <h5 class="modal-title" id="exampleModalLabel">Add Task '.$rows['id'].'</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <form>
+                                                <div class="form-group">
+                                                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                  <input type="text" class="form-control" id="recipient-name">
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="message-text" class="col-form-label">Message:</label>
+                                                  <textarea class="form-control" id="message-text"></textarea>
+                                                </div>
+                                              </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-darkred"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- end -->
+                                    ';
+                                  }                                
+                                }
+                                echo'
+                              </tbody>
+                            </table>
+                          </div>
+                          <br>
+                          
+                          <!-- Button trigger modal -->
+
+                          <!-- Add Modal -->
+                          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
+                                  <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form>
+                                    <div class="form-group">
+                                      <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                      <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="message-text" class="col-form-label">Message:</label>
+                                      <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-darkred"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                </div>
                               </div>
-                            </form>
+                            </div>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-darkred"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- end -->
+                          <!-- end -->
+
+                          <!-- start modal -->
+
+
+                        ';
+                      }
+                    ?>
+                    
                     
 
                     

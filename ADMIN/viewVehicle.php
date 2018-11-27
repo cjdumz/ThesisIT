@@ -79,7 +79,7 @@ if(isset($_GET['plate'])){
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -277,6 +277,7 @@ if(isset($_GET['plate'])){
                         <div class="clearfix"></div>
                     </form>
                     </div>
+                   
                 </div>
             </div>
             <!-- end -->
@@ -313,12 +314,29 @@ if(isset($_GET['plate'])){
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT appointments.id, personalinfo.firstName, appointments.date, appointments.status, appointments.actualEndDate FROM `appointments` 
-                            JOIN personalinfo on appointments.personalId = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id 
-                            where (appointments.status = 'Accepted' or appointments.status = 'Done' or appointments.status = 'In-Progress') and plateNumber = 'ayb-123';");
+                            $data = $connection->prepare("SELECT appointments.id as 'ID', appointments.date as 'date', concat(firstName, ' ', middleName, ' ', lastName)
+                             as 'Name', appointments.status as 'stat' from appointments inner join personalinfo on appointments.personalId = personalinfo.personalId
+                            where (appointments.status = 'Accepted' OR appointments.status = 'In-Progress' OR appointments.status = 'Done') AND vehicleId = $vehicleID;");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
+                                  $allTask;
+                                  $finishedTask;
+                                  $app_ID = $row['ID'];
+                                  $all_task = $connection->prepare("SELECT count(id) as 'All' FROM `task` WHERE appointmentId = $app_ID");
+                                  if($all_task->execute()){
+                                  $values = $all_task->get_result();
+                                  $rowd = $values->fetch_assoc(); 
+                                    $allTask = $rowd['All'];
+                                  }
+                                  $finished_task = $connection->prepare("SELECT count(status) as 'All' FROM `task` WHERE appointmentID = $app_ID AND status = 'Done'");
+                                  if($finished_task->execute()){
+                                  $values = $finished_task->get_result();
+                                  $rowb = $values->fetch_assoc(); 
+                                    $finishedTask = $rowb['All'];
+                                  }
+                                  $progress = ($finishedTask / $allTask)*100;
+      
                                 echo '
                                     <tr>
                                         <td>'.$row['ID'].'</td>
@@ -326,17 +344,21 @@ if(isset($_GET['plate'])){
                                         <td>'.$row['date'].'</td>
                                         <td>
                                           <div class="progress">
-                                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: '.$progress.'%" aria-valuenow="0" aria-valuemin="0"
                                               aria-valuemax="100">
                                             </div>
                                            </div>
                                         </td>
-                                        <td>'.$row['stat'].'</td>';
-                                        if($row['stat'] != "Accepted"){
-                                          echo '  <td class="text-center"><a href="records.php?id='.$row['ID'].'"><button class="btn btn-primary" disabled><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>';
-                                        }else{
-                                          echo '<td class="text-center"><a href="records.php?id='.$row['ID'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>';
-                                        }
+                                        <td>'.$row['stat'].'</td>
+                                        <td class="text-center">
+                                          <a href="records.php?id='.$row['ID'].'">
+                                            <button class="btn btn-primary">
+                                              <i class="menu-icon mdi mdi-eye-outline"></i>
+                                              View
+                                            </button>
+                                          </a>
+                                        </td>';
+                                        
                                         echo'
                                     </tr>
 
