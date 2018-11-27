@@ -57,7 +57,7 @@
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -74,9 +74,9 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link"  href="clientrecords.php">
+            <a class="nav-link" href="dailytaskform.php">
               <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Client Records</span>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
           </li>
             
@@ -97,62 +97,80 @@
         </ul>
       </nav>
       
-            <div class="main-panel">
-               <div class="content-wrapper">
-                   <div class="row">
-                       
-                       
-                       <div class="col-lg-12 stretch-card">
-                          <div class="card">
-                              <div class="card-body">
-                                <p class="card-title" style="font-size:20px;">Daily Task Form</p>
-                                <p class="card-description">List of Daily Tasks</p>
-                               
-                                <div class="table-responsive">
-                                   <table class="table table-bordered table-dark" id="doctables">
-                                      <thead>
-                                          <tr class="grid">
-                                              <th>Job to do</th>
-                                              <th>Person</th>
-                                              <th>No. of person/s</th>
-                                              <th>Targeted start date</th>
-                                              <th>Target finish date</th>
-                                              <th>Date Started</th>
-                                              <th>Time Started</th>
-                                              <th>Time Finished</th>
-                                              <th>Date Finished</th>
-                                              <th>Man Hour</th>
-                                          </tr>
-                                       </thead> 
-                                       <tbody class="table-primary" style="color:black;">
-                                        <?php
-                                           $data = $connection->prepare("SELECT")
-                                       
-                                       
-                                        ?>
-                                       </tbody>
+        <div class="main-panel">
+        <div class="content-wrapper">
+         
+        <div class="row">
+            <div class="col-lg-12 grid-margin  stretch-card">
+              <div class="card">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="restrictdate.php" style="font-size:18px;">Date Restrict</a></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        <!--  Start Calendar  -->
+          <div class="row">
+               <div class="col-lg-6 grid-margin stretch-card">
+                  <div class="card">
+                      <div class="card-body">    
+                      <div class="container">
+                        <form method = "post" action="rDate.php"> 
+                            <p class="card-title" style="font-size:20px; float:right;" >Select Date : <input type ="date" name="rdate" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2"> <button class="btn btn-primary" type="submit" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Restrict</button></p>
+                          </form>
+                          
+                      </div>
 
-                                       
-                                        
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                       
-                                 
-                                    </table>
-                                </div>
-                                 
-                              </div>
-                           </div>
-                       </div>   
+                      </div>
                    </div>
+               </div> 
+             
+            <!-- start -->
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+
+                <!-- start -->
+                <p class="card-title" style="font-size:20px;">Restricted Dates</p>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-dark" id="doctables">
+                      <thead>
+                        <tr class="text-center">
+                          <th>Date Restricted</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-primary" style="color:black;">
+                    <?php
+                        $datas = $connection->prepare("Select id,date from `daterestricted`;");
+                        if($datas->execute()){
+                            $valuess = $datas->get_result();
+                            while($row = $valuess->fetch_assoc()) {
+                            echo '
+                                <tr>
+                                  <td>'.$row['date'].'</td>
+                                  <td class="text-center"><a href="unrestrict.php?id='.$row['id'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> Unrestrict</td>
+                                </tr>
+                            ';
+                            }
+                        }else{
+                            echo "<tr>
+                                    <td colspan='7'>No Available Data</td>
+                                </tr>";
+                        }
+                        ?>  
+                          
+                      </tbody>
+                    </table>
+                  </div>
+                <!-- end -->
+                 
+                </div>
+              </div>
+            </div>    
+          </div>
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->

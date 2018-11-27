@@ -103,7 +103,9 @@
                                   
                                   <div class="page-header">
                                       <h3></h3>
-                                      
+                                              
+                                            <p class="card-title" style="font-size:20px; float:right;" ><button onclick="location.href='restrictdate.php'" class="btn btn-success" type="submit" name="submit"><i class="menu-icon mdi mdi-calendar-remove"></i> Restrict Date</button></p>
+
                                       <div class="pull-center form-inline">
                                           <div class="btn-group">
                                             <button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
