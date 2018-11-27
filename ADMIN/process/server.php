@@ -89,12 +89,14 @@ if(isset($_POST["start"])){
       $values = $data->get_result();
       while($row = $values->fetch_assoc()){
           $services = $row['serviceId'];
-          $other = $row['otherService'];
           $id = $row['id'];
 
-          $query2 = $connection->prepare("INSERT INTO `task`(`service`, `appointmentID`, `modified`)
-          VALUES ('$other', $id, now() )");
-          $query2->execute();
+          if($row['otherServices'] != ""){
+            $other = $row['otherService'];
+            $query2 = $connection->prepare("INSERT INTO `task`(`service`, `appointmentID`, `modified`)
+            VALUES ('$other', $id, now() )");
+            $query2->execute();
+          }
 
           $task = explode(",", $services);
           for ($i = 0; $i < count($task); $i++) {
@@ -112,5 +114,29 @@ if(isset($_POST["start"])){
           echo '<br>';
       }
   }
+}
+
+if(isset($_POST["startTask"])){
+  $task = $connection->real_escape_string($_POST["task_id"]);
+  $app = $connection->real_escape_string($_POST["app_id"]);
+  $start_task = $connection->prepare("UPDATE `task` SET `dateStart` = NOW() WHERE `task`.`id` = $task;");
+  if($start_task->execute()){
+    header("Location: ../records.php?id=$app");
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+if(isset($_POST["finishTask"])){
+  $task = $connection->real_escape_string($_POST["task_id"]);
+  $app = $connection->real_escape_string($_POST["app_id"]);
+  $start_task = $connection->prepare("UPDATE `task` SET `dateEnd` = NOW(),`status`= 'Done' WHERE `task`.`id` = $task;");
+  if($start_task->execute()){
+    header("Location: ../records.php?id=$app");
+  }else{
+    header("Location: ../error.php");
+  }
+
 }
 ?>

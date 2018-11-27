@@ -320,6 +320,23 @@ if(isset($_GET['plate'])){
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {
+                                  $allTask;
+                                  $finishedTask;
+                                  $app_ID = $row['ID'];
+                                  $all_task = $connection->prepare("SELECT count(id) as 'All' FROM `task` WHERE appointmentId = $app_ID");
+                                  if($all_task->execute()){
+                                  $values = $all_task->get_result();
+                                  $rowd = $values->fetch_assoc(); 
+                                    $allTask = $rowd['All'];
+                                  }
+                                  $finished_task = $connection->prepare("SELECT count(status) as 'All' FROM `task` WHERE appointmentID = $app_ID AND status = 'Done'");
+                                  if($finished_task->execute()){
+                                  $values = $finished_task->get_result();
+                                  $rowb = $values->fetch_assoc(); 
+                                    $finishedTask = $rowb['All'];
+                                  }
+                                  $progress = ($finishedTask / $allTask)*100;
+      
                                 echo '
                                     <tr>
                                         <td>'.$row['ID'].'</td>
@@ -327,17 +344,21 @@ if(isset($_GET['plate'])){
                                         <td>'.$row['date'].'</td>
                                         <td>
                                           <div class="progress">
-                                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: '.$progress.'%" aria-valuenow="0" aria-valuemin="0"
                                               aria-valuemax="100">
                                             </div>
                                            </div>
                                         </td>
-                                        <td>'.$row['stat'].'</td>';
-                                        if($row['stat'] != "Accepted"){
-                                          echo '  <td class="text-center"><a href="records.php?id='.$row['ID'].'"><button class="btn btn-primary" disabled><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>';
-                                        }else{
-                                          echo '<td class="text-center"><a href="records.php?id='.$row['ID'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>';
-                                        }
+                                        <td>'.$row['stat'].'</td>
+                                        <td class="text-center">
+                                          <a href="records.php?id='.$row['ID'].'">
+                                            <button class="btn btn-primary">
+                                              <i class="menu-icon mdi mdi-eye-outline"></i>
+                                              View
+                                            </button>
+                                          </a>
+                                        </td>';
+                                        
                                         echo'
                                     </tr>
 

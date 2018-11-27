@@ -221,7 +221,13 @@
                                             <h4 class="card-title">Services:</h4>                                            
                                           </div>
                                           <div class="col-6">
-                                            <h4 class="card-title"></h4>
+                                            <h4 class="card-title">'.$row['service'].'&nbsp
+                                            ';
+                                              if(!empty($row['otherService'])){
+                                                echo ', ',$row['otherService'];
+                                              }
+                                            echo'
+                                            </h4>
                                           </div>
                                         </div>
                                        
@@ -290,7 +296,13 @@
                                             <h4 class="card-title">Services:</h4>                                            
                                           </div>
                                           <div class="col-8">
-                                            <h4 class="card-title">'.$row['service'].'&nbsp,'.$row['others'].'</h4>
+                                            <h4 class="card-title">'.$row['service'].'&nbsp
+                                            ';
+                                              if(!empty($row['otherService'])){
+                                                echo ', ',$row['otherService'];
+                                              }
+                                            echo'
+                                            </h4>
                                           </div>
                                         </div>';
                                         if($row['status'] == 'Rescheduled'){
@@ -378,11 +390,17 @@
                                           </div>
                                         </div>
                                         <div class="row">
-                                          <div class="col-12">
+                                          <div class="col-6">
                                             <h4 class="card-title">Services:</h4>                                            
                                           </div>
-                                          <div class="col-12">
-                                            <h4 class="card-title"></h4>
+                                          <div class="col-6">
+                                            <h4 class="card-title">'.$row['service'].'&nbsp
+                                            ';
+                                              if($row['otherService'] = ""){
+                                                echo ', ',$row['otherService'];
+                                              }
+                                            echo'
+                                            </h4>
                                           </div>
                                         </div>
                                        
