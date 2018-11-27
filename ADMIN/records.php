@@ -15,7 +15,7 @@
             $row = $values->fetch_assoc();
 
             if($row['stat'] != "Accepted"){
-              header("Location: error.php");
+              //header("Location: error.php");
             }
 
         }else{
@@ -188,79 +188,95 @@
                         </div>
                       </div>
                     </div>
+                  
+                    <?php 
+                      if($row['stat'] == 'Accepted'){
+                        echo '  
+                              <form action="process/server.php" method="POST">
+                                <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                <button type="submit" class="btn btn-success" name="start" style="float:right"  data-toggle="modal"  data-target="#updateprofilemodal">
+                                  <i class="menu-icon mdi mdi-account-convert"></i> Start
+                                </button>
+                                
+                              </form>';
+                      }else{
+                        echo '
+                        <!-- start -->
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
+                            <div class="col-md-2 offset-md-8" style="margin">
+                              <h5 style="margin-top: 20px;">
+                                <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>
+                              </h5>
+                            </div>
+                          </div>
+                          
+                        
+                          <div class="table-responsive">
+                            <table class="table table-bordered table-dark" id="doctables">
+                              <thead>
+                                <tr class="grid">
+                                  <th scope="col" style="font-size:15px;">#</th>
+                                  <th scope="col" style="font-size:15px;">Task</th>
+                                  <th scope="col" style="font-size:15px;">Type</th>
+                                  <th scope="col" style="font-size:15px;">Status</th>
+                                  <th scope="col" style="font-size:15px;">Start Date</th>
+                                  <th scope="col" style="font-size:15px;">End Date</th>
+                                  <th scope="col" style="font-size:15px;">Action</th>
+                                </tr>
+                              </thead>
+                              <tbody class="table-primary" style="color:black;">
+                                <tr class="text-center">
+                                  <th scope="row">1</th>
+                                  <td>Change Oil</td>
+                                  <td>Mechanical</td>
+                                  <td>Pending</td>
+                                  <td>11-03-2018</td>
+                                  <td>11-03-2018</td>
+                                  <td><input type="checkbox" aria-label="Checkbox for following text input"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <br>
+                          
+                          <!-- Button trigger modal -->
 
-                    <!-- start -->
-                   <hr>
-                   <div class="row">
-                      <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
-                      <div class="col-md-2 offset-md-8" style="margin">
-                        <h5 style="margin-top: 20px;">
-                          <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>
-                        </h5>
-                      </div>
-                    </div>
-                    
-                   
-                    <div class="table-responsive">
-                      <table class="table table-bordered table-dark" id="doctables">
-                        <thead>
-                          <tr class="grid">
-                            <th scope="col" style="font-size:15px;">#</th>
-                            <th scope="col" style="font-size:15px;">Task</th>
-                            <th scope="col" style="font-size:15px;">Type</th>
-                            <th scope="col" style="font-size:15px;">Status</th>
-                            <th scope="col" style="font-size:15px;">Start Date</th>
-                            <th scope="col" style="font-size:15px;">End Date</th>
-                            <th scope="col" style="font-size:15px;">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-primary" style="color:black;">
-                          <tr class="text-center">
-                            <th scope="row">1</th>
-                            <td>Change Oil</td>
-                            <td>Mechanical</td>
-                            <td>Pending</td>
-                            <td>11-03-2018</td>
-                            <td>11-03-2018</td>
-                            <td><input type="checkbox" aria-label="Checkbox for following text input"></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <br>
-                    
-                    <!-- Button trigger modal -->
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form>
-                              <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
+                                  <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form>
+                                    <div class="form-group">
+                                      <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                      <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="message-text" class="col-form-label">Message:</label>
+                                      <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-darkred"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                </div>
                               </div>
-                              <div class="form-group">
-                                <label for="message-text" class="col-form-label">Message:</label>
-                                <textarea class="form-control" id="message-text"></textarea>
-                              </div>
-                            </form>
+                            </div>
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-darkred"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- end -->
+                          <!-- end -->
+                        ';
+                      }
+                    ?>
+                    
                     
 
                     

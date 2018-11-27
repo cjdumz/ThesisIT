@@ -71,9 +71,46 @@ if(isset($_POST["submit-user"])){
   if($update->execute()){ 
     header("Location: ../user.php?id=$id");
     echo "Gumana";
-  }else{
+  }else{  
     header("Location: ../error.php");
     exit();
+  }
 }
+
+if(isset($_POST["start"])){
+
+  $app = $connection->real_escape_string($_POST["app_id"]);
+
+  $query1 = $connection->prepare("UPDATE `appointments` SET `status`= 'In-Progress',`modified`= now() WHERE appointments.id = $app");
+  $query1->execute();
+
+  $data = $connection->prepare("SELECT * FROM appointments WHERE status = 'In-Progress' AND appointments.id = $app");
+  if($data->execute()){
+      $values = $data->get_result();
+      while($row = $values->fetch_assoc()){
+          $services = $row['serviceId'];
+          $other = $row['otherService'];
+          $id = $row['id'];
+
+          $query2 = $connection->prepare("INSERT INTO `task`(`service`, `appointmentID`, `modified`)
+          VALUES ('$other', $id, now() )");
+          $query2->execute();
+
+          $task = explode(",", $services);
+          for ($i = 0; $i < count($task); $i++) {
+              echo  $task[$i];
+              $query3 = $connection->prepare("INSERT INTO `task`(`service`, `appointmentID`, `modified`)
+               VALUES ('$task[$i]', $id, now() )");
+               if($query3->execute()){ 
+                  header("Location: ../records.php?id=$app");
+                }else{  
+                  header("Location: ../error.php");
+                }
+
+          }
+
+          echo '<br>';
+      }
+  }
 }
 ?>

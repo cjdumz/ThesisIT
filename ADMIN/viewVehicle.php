@@ -79,7 +79,7 @@ if(isset($_GET['plate'])){
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -277,6 +277,7 @@ if(isset($_GET['plate'])){
                         <div class="clearfix"></div>
                     </form>
                     </div>
+                   
                 </div>
             </div>
             <!-- end -->
@@ -313,9 +314,9 @@ if(isset($_GET['plate'])){
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT appointments.id, personalinfo.firstName, appointments.date, appointments.status, appointments.actualEndDate FROM `appointments` 
-                            JOIN personalinfo on appointments.personalId = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id 
-                            where (appointments.status = 'Accepted' or appointments.status = 'Done' or appointments.status = 'In-Progress') and plateNumber = 'ayb-123';");
+                            $data = $connection->prepare("SELECT appointments.id as 'ID', appointments.date as 'date', concat(firstName, ' ', middleName, ' ', lastName)
+                             as 'Name', appointments.status as 'stat' from appointments inner join personalinfo on appointments.personalId = personalinfo.personalId
+                            where (appointments.status = 'Accepted' OR appointments.status = 'In-Progress' OR appointments.status = 'Done') AND vehicleId = $vehicleID;");
                             if($data->execute()){
                                 $values = $data->get_result();
                                 while($row = $values->fetch_assoc()) {

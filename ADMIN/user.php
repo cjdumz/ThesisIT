@@ -75,7 +75,7 @@ if(!isset($_GET['id'])){
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -123,7 +123,7 @@ if(!isset($_GET['id'])){
               <div class="card">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="clientrecords.php" style="font-size:18px;">Account Management</a></li>
+                    <li class="breadcrumb-item"><a href="accountmanagement.php" style="font-size:18px;">Account Management</a></li>
                     <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;"><?php echo $Name ?></li>
                   </ol>
                 </nav>
@@ -245,7 +245,7 @@ if(!isset($_GET['id'])){
                                 <div class="offset-1 col-md-2"><p >Password</p></div>
                                 <div class="col-md-9">
                                   <p style="margin-top: -1%" class="card-title"> 
-                                    <button class="btn btn-success"><i class="menu-icon mdi mdi-lock-reset"></i> Change Password</button>
+                                    <button class="btn btn-success">Change Password</button>
                                   </p>
                                 </div>
                               </div>
@@ -310,7 +310,7 @@ if(!isset($_GET['id'])){
             <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title" style="font-size:20px;">Records</h4>
+                  <h4 class="card-title">Records</h4>
                   
                   <!-- start -->
                   <div class="table-responsive">
