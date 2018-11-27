@@ -9,13 +9,16 @@
         $data = $connection->prepare("SELECT appointments.id as 'ID', concat(firstName, ' ',middleName, ' ',lastName)as 
         'Name', plateNumber, appointments.status as 'stat', appointments.date, appointments.modified, appointments.created,  appointments.targetEndDate from 
         appointments inner join personalinfo on appointments.personalId = personalinfo.personalId inner join vehicles 
-        on personalinfo.personalId = vehicles.personalId where appointments.status = 'Accepted' and appointments.id = '$id';");
+        on personalinfo.personalId = vehicles.personalId where  appointments.id = '$id'
+        group by 1;");
         if($data->execute()){
             $values = $data->get_result();
             $row = $values->fetch_assoc();
 
-            if($row['stat'] != "Accepted"){
-              //header("Location: error.php");
+            if($row['stat'] == "Pending"){
+              header("Location: error.php");
+            }elseif($row['stat'] == "Rescheduled"){
+              header("Location: error.php");
             }
 
         }else{
