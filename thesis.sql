@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 26, 2018 at 03:40 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Host: 127.0.0.1:3306
+-- Generation Time: Nov 27, 2018 at 09:26 PM
+-- Server version: 5.7.19
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `thesis`
+-- Database: `thesislatest`
 --
 
 -- --------------------------------------------------------
@@ -28,16 +28,18 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
-  `id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `middleName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -52,44 +54,39 @@ INSERT INTO `admin` (`id`, `username`, `password`, `firstName`, `middleName`, `l
 -- Table structure for table `appointments`
 --
 
-CREATE TABLE `appointments` (
-  `id` int(255) NOT NULL,
-  `serviceId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `appointments`;
+CREATE TABLE IF NOT EXISTS `appointments` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `serviceId` varchar(255) NOT NULL,
   `vehicleId` int(255) NOT NULL,
   `personalId` int(11) NOT NULL,
   `otherService` varchar(255) DEFAULT NULL,
   `additionalMessage` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL,
-  `date` date NOT NULL,
+  `date` varchar(255) NOT NULL,
   `adminDate` varchar(255) DEFAULT NULL,
-  `targetEndDate` datetime DEFAULT NULL,
-  `actualEndDate` datetime DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
-  `notification` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `notification` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `personalId3` (`personalId`),
+  KEY `serviceId` (`serviceId`),
+  KEY `vehicleId` (`vehicleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `adminDate`, `targetEndDate`, `actualEndDate`, `created`, `modified`, `notification`) VALUES
-(1, 1, 1, 1, NULL, 'choose another date', 'Declined', '2018-11-29', NULL, NULL, NULL, '2018-09-24 00:33:35', '2018-11-22 16:35:22', 0),
-(3, 1, 1, 3, NULL, NULL, 'Accepted', '2018-12-10', NULL, NULL, NULL, '2018-09-24 15:51:21', '2018-11-22 16:37:20', 0),
-(5, 1, 1, 3, NULL, NULL, 'Accepted', '2018-11-25', NULL, NULL, NULL, '2018-09-24 16:44:33', '2018-11-22 16:34:30', 0),
-(6, 1, 1, 3, NULL, '', 'Rescheduled', '2018-11-21', NULL, NULL, NULL, '2018-09-24 16:44:57', NULL, 0),
-(7, 5, 1, 3, NULL, NULL, 'Declined', '2018-10-05', NULL, NULL, NULL, '2018-10-03 02:34:14', NULL, 0),
-(8, 1, 1, 3, NULL, NULL, 'pending', '2018-12-03', NULL, NULL, NULL, '2018-10-03 14:16:03', NULL, 0),
-(9, 1, 1, 3, NULL, NULL, 'Declined', '2018-10-17', NULL, NULL, NULL, '2018-10-03 14:16:28', NULL, 0),
-(10, 3, 1, 3, '', '', 'Declined', '2018-10-11', NULL, NULL, NULL, '2018-10-03 14:25:15', NULL, 0),
-(11, 3, 1, 3, 'Please check my wiper as well', '', 'Overdue', '2018-11-18', NULL, NULL, NULL, '2018-10-03 14:27:36', NULL, 0),
-(12, 3, 1, 3, 'Please check my wiper as well', 'choose another date', 'Rescheduled', '2018-11-25', NULL, NULL, NULL, '2018-10-03 14:28:00', NULL, 0),
-(13, 8, 1, 3, 'Hello', 'hehe', 'Declined', '2018-10-10', NULL, NULL, NULL, '2018-10-03 15:42:56', NULL, 0),
-(14, 6, 1, 3, '', '', 'Declined', '2018-10-17', NULL, NULL, NULL, '2018-10-03 16:00:21', NULL, 0),
-(15, 4, 1, 3, '', '', 'Accepted', '2018-10-20', NULL, NULL, NULL, '2018-10-03 16:01:20', NULL, 0),
-(16, 2, 1, 3, '', '', 'Overdue', '2018-10-11', NULL, NULL, NULL, '2018-10-03 17:02:16', NULL, 0),
-(18, 10, 1, 34, 'sadas', 'asdsad', 'Overdue', '2018-10-31', NULL, NULL, NULL, '2018-10-16 13:58:21', NULL, 0),
-(19, 10, 1, 34, 'sadas', 'Pending', 'asdasd', '2018-10-31', NULL, NULL, NULL, '2018-10-16 13:59:10', NULL, 0);
+INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `adminDate`, `created`, `modified`, `notification`) VALUES
+(73, 'Change Oil,Check headlights', 8, 36, 'Check my Headlights please', NULL, '', '2018-11-28', '2018-11-30', '2018-11-26 22:26:08', NULL, 1),
+(74, 'Change Oil,Check headlights', 8, 36, 'Check My Wheels please\r\n', 'Not Enough Time', 'Accepted', '2018-11-29', '1977', '2018-11-26 22:41:46', NULL, 1),
+(75, 'Change Oil,Check brakes', 9, 36, 'Kewl', NULL, 'Accepted', '2018-11-29', '', '2018-11-24 00:56:21', NULL, 1),
+(78, 'Change Oil,Check fuel filter', 8, 36, 'Whahaha', NULL, 'Pending', '2018-11-28', NULL, '2018-11-26 02:51:38', NULL, 1),
+(79, 'Check headlights,Check tail lights', 9, 36, 'Whahahah', 'Maximum Limit', 'Declined', '2018-11-29', NULL, '2018-11-26 02:54:32', NULL, 1),
+(80, 'Change Oil,Check brakes', 8, 36, 'wahaha', NULL, 'Pending', '2018-11-28', NULL, '2018-11-26 20:01:40', NULL, 1),
+(81, 'Change Oil', 9, 36, 'Ngaoyn', NULL, 'Pending', '2018-11-28', NULL, '2018-11-26 21:30:33', NULL, 1),
+(82, 'Change Oil,Check brakes', 8, 36, 'Whahaha', NULL, 'Pending', '2018-11-29', NULL, '2018-11-27 22:55:51', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -97,8 +94,9 @@ INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `other
 -- Table structure for table `chargeinvoice`
 --
 
-CREATE TABLE `chargeinvoice` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `chargeinvoice`;
+CREATE TABLE IF NOT EXISTS `chargeinvoice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `vehicleId` int(11) NOT NULL,
   `personalId` int(11) NOT NULL,
   `scopeId` int(11) DEFAULT NULL,
@@ -106,8 +104,13 @@ CREATE TABLE `chargeinvoice` (
   `date` date NOT NULL,
   `TotalPrice` int(11) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `personal` (`vehicleId`),
+  KEY `personal2` (`personalId`),
+  KEY `scope` (`scopeId`),
+  KEY `sparepart` (`sparePartsId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `chargeinvoice`
@@ -123,21 +126,60 @@ INSERT INTO `chargeinvoice` (`id`, `vehicleId`, `personalId`, `scopeId`, `spareP
 -- Table structure for table `daterestricted`
 --
 
-CREATE TABLE `daterestricted` (
-  `id` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `status` varchar(255) NOT NULL DEFAULT 'Restricted',
+DROP TABLE IF EXISTS `daterestricted`;
+CREATE TABLE IF NOT EXISTS `daterestricted` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `daterestricted`
 --
 
 INSERT INTO `daterestricted` (`id`, `date`, `status`, `modified`, `created`) VALUES
-(1, '2018-11-29', 'Restricted', NULL, '2018-11-25 18:42:55'),
-(2, '2018-11-30', 'Restricted', NULL, '2018-11-25 18:42:55');
+(1, '2018-12-12', 'Accepted', NULL, '2018-11-25 00:57:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+DROP TABLE IF EXISTS `events`;
+CREATE TABLE IF NOT EXISTS `events` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `start_date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `end_date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=Active, 0=Block'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `title`, `description`, `start_date`, `end_date`, `created`, `status`) VALUES
+(1, 'This is a special events about web development', '', '2018-02-12 00:00:00', '2018-02-16 00:00:00', '2018-02-10 00:00:00', 1),
+(2, 'PHP Seminar 2018', '', '2018-02-11 00:00:00', '2018-02-17 00:00:00', '2018-02-10 00:00:00', 1),
+(3, 'Bootstrap events 2018', '', '2018-02-4 00:00:00', '2018-02-4 00:00:00', '2018-02-01 00:00:00', 1),
+(4, 'Developers events', '', '2018-02-04 00:00:00', '2018-02-04 00:00:00', '2018-02-01 00:00:00', 1),
+(5, 'Annual Conference 2018', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
+(6, 'Bootstrap Annual events 2018', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
+(7, 'HTML5 events', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
+(8, 'PHP conference events 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-02 00:00:00', 1),
+(9, 'Web World events', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-01 00:00:00', 1),
+(10, 'Wave PHP 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-02 00:00:00', 1),
+(11, 'Dev PHP 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-01 00:00:00', 1),
+(12, 'Seminar ', '', '2018-11-13 00:00:00', '2018-11-13 00:00:00', '2018-11-13 00:00:00', 1),
+(13, 'fieldtrip', '', '2018-11-14 00:00:00', '2018-11-14 00:00:00', '2018-11-13 00:00:00', 0),
+(15, 'Divisoria', '', '2018-11-16 00:00:00', '2018-11-16 00:00:00', '2018-11-13 00:00:00', 1),
+(16, 'Byahe', '', '2018-11-14 00:00:00', '2018-11-15 00:00:00', '2018-11-14 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -145,14 +187,55 @@ INSERT INTO `daterestricted` (`id`, `date`, `status`, `modified`, `created`) VAL
 -- Table structure for table `feedback`
 --
 
-CREATE TABLE `feedback` (
-  `id` int(11) NOT NULL,
-  `personalId` int(11) NOT NULL,
-  `message` int(255) NOT NULL,
-  `phoneNumber` int(11) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE IF NOT EXISTS `feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `phoneNumber` varchar(20) DEFAULT NULL,
+  `message` varchar(250) NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `name`, `email`, `phoneNumber`, `message`, `date`) VALUES
+(1, 'Albert Lacap Jr.', 'lacapalbert22@gmail.com', '09872345678', 'PAWER!', '2018-11-28 00:58:21'),
+(2, '', '', '', 'hello', '2018-11-28 01:11:14'),
+(3, '', '', '', 'try', '2018-11-28 01:11:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `make_series`
+--
+
+DROP TABLE IF EXISTS `make_series`;
+CREATE TABLE IF NOT EXISTS `make_series` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `make` varchar(255) DEFAULT NULL,
+  `series` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `make_series`
+--
+
+INSERT INTO `make_series` (`id`, `make`, `series`) VALUES
+(1, 'Mitsubishi', 'Lancer'),
+(2, 'Honda', 'Civic'),
+(3, 'Toyota', 'Fortuner'),
+(4, 'Hyundai', 'Grand Starex'),
+(5, 'Toyota', 'Hiace'),
+(6, 'Toyota', 'Innova'),
+(7, 'Toyota', '`Land Cruiser'),
+(8, 'Mitsubishi', 'Adventure'),
+(9, 'Mitsubishi', 'Mirage'),
+(10, 'Ford', 'Ecosport');
 
 -- --------------------------------------------------------
 
@@ -160,8 +243,9 @@ CREATE TABLE `feedback` (
 -- Table structure for table `personalinfo`
 --
 
-CREATE TABLE `personalinfo` (
-  `personalId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `personalinfo`;
+CREATE TABLE IF NOT EXISTS `personalinfo` (
+  `personalId` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `firstName` varchar(250) NOT NULL,
   `lastName` varchar(250) NOT NULL,
@@ -172,8 +256,10 @@ CREATE TABLE `personalinfo` (
   `telephoneNumber` varchar(255) DEFAULT NULL,
   `email` varchar(250) DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`personalId`),
+  KEY `userId` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `personalinfo`
@@ -212,15 +298,17 @@ INSERT INTO `personalinfo` (`personalId`, `user_id`, `firstName`, `lastName`, `m
 -- Table structure for table `scope`
 --
 
-CREATE TABLE `scope` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `scope`;
+CREATE TABLE IF NOT EXISTS `scope` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `scopeWork` varchar(255) NOT NULL,
   `subScope` varchar(255) DEFAULT NULL,
   `subsubscope` varchar(255) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `scope`
@@ -276,13 +364,15 @@ INSERT INTO `scope` (`id`, `scopeWork`, `subScope`, `subsubscope`, `price`, `cre
 -- Table structure for table `services`
 --
 
-CREATE TABLE `services` (
-  `serviceId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `services`;
+CREATE TABLE IF NOT EXISTS `services` (
+  `serviceId` int(11) NOT NULL AUTO_INCREMENT,
   `serviceName` varchar(420) NOT NULL,
   `serviceType` varchar(420) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`serviceId`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `services`
@@ -318,13 +408,15 @@ INSERT INTO `services` (`serviceId`, `serviceName`, `serviceType`, `created`, `m
 -- Table structure for table `spareparts`
 --
 
-CREATE TABLE `spareparts` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `spareparts`;
+CREATE TABLE IF NOT EXISTS `spareparts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `spareparts`
@@ -339,45 +431,46 @@ INSERT INTO `spareparts` (`id`, `name`, `price`, `created`, `modified`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
-  `status` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `created`, `modified`, `status`) VALUES
-(1, 'wengweng03', 'wengweng', '2018-09-24 00:21:11', NULL, ''),
-(2, 'jelly', 'jelly', '2018-09-24 00:21:11', NULL, ''),
-(17, 'jeli', '$2y$10$WygNZITR4WU/KYP./CX3iOG2dts33j4Hbi1YXJvQ8IAzuTz./z4Oy', '2018-09-24 03:44:08', NULL, ''),
-(20, 'flower', '$2y$10$Nfm4KbkvdFYjc5A8LQKvO.Vkc8db44C2Fw19RswxQ2tvWkWGrod2K', '2018-09-26 14:49:12', NULL, ''),
-(21, 'tutubi', '$2y$10$mu7jSfX6JUDvL83pfbf8uefRkHm5UfWloedRVrbpfXwdMq.dJbMTW', '2018-09-26 14:55:33', NULL, ''),
-(23, 'bumblebee', '$2y$10$WOjuyho7B7xa3MJWB6SKOub.v8CTYss/YxxJvuD1/EKeXM3gs65Ie', '2018-09-26 15:26:35', NULL, ''),
-(24, 'hehe', '$2y$10$Rd4Qa2U0Ka0gRQ0jm.Ohwu3IU54a9gGHz/FqIjINKumi/eHMpmCwi', '2018-09-26 15:41:54', NULL, ''),
-(43, 'hayts', '$2y$10$JcGM9gyaHgqTCSL7elM97e9RQRTR6mqQqQc//DVmE8230iqEJwl.K', '2018-09-26 21:10:54', NULL, ''),
-(44, 'sawakas', '$2y$10$4vvjaN3UC1jUIR29qP.cXeuHVsk5aXa.hfsO1lR8bjGO1dVFrQb36', '2018-09-26 21:19:19', NULL, ''),
-(45, 'joshua', '$2y$10$8hovWWv2g0PmWeRHwA.a7OKD/GVtHwebPfa4MeZPJVlmYlGMM/HM2', '2018-09-26 21:40:10', NULL, ''),
-(46, 'albert', '$2y$10$auWbjxhv57Tq8Vzy0GtdUul1VgXkm/WnkEnxqA.7pnQbs.WPUFtuK', '2018-09-26 21:56:57', NULL, ''),
-(47, 'wengz', '$2y$10$B6IzcdMUrjI4KAncSrein.sPtuU6EMvI8w3BjGcuvWgOZvfsQT1j.', '2018-09-27 13:36:59', NULL, ''),
-(48, 'windee', '$2y$10$J1Kif.866jSGY5o7YElkvOHlVk5h8vecm20kMFK0PBGHqK7CGR3bS', '2018-09-27 13:38:50', NULL, ''),
-(49, 'jellybee', '$2y$10$rd1P/i5IL5T0cageTuYBz.G8vm0ik1syeFZGJLpZ6wLQ9OtjQlLv.', '2018-09-27 13:53:13', NULL, ''),
-(54, '123', '$2y$10$5LVdIgpZwaP8x2.Ut4YM5OW0qClq0VIlg4KlXmTGmTvjv/lGvqgBi', '2018-10-02 00:55:44', NULL, ''),
-(55, 'jellybeef', '$2y$10$a3EWcg1FwEiGw8d5bq08YOzSGcSHOzm0Stc8yOd39QfKuJftQVazO', '2018-10-02 00:56:55', NULL, ''),
-(56, 'aa222', '$2y$10$ejPNP9aHzL8GIdv1RnAcpeKpWEGGA75og7xWCUe6utVdRsysfr2Yy', '2018-10-02 00:59:25', NULL, ''),
-(57, 'ddddd', '$2y$10$gp7WZnkp.mKjJoQv2l1C6.xMQSGrdvNXUDR4Z7jA7xBntdH7/JqUS', '2018-10-02 01:00:21', NULL, ''),
-(58, 'queen', 'f9677754bc6f99407c8b87f4150229a2', '2018-10-03 12:44:00', NULL, ''),
-(59, 'angelica', '$2y$10$mGimxaQ7zuMFrdLUr1iESuRp.fOD6vExmZKK2EK6.KlxWICNGADb6', '2018-10-03 15:01:19', NULL, ''),
-(60, 'ivy1998', '$2y$10$H7Y/RRe5uQoq4A1k.m7owesbUbl3DVPaomYuXArLPDdB/u5W86VK6', '2018-10-03 15:48:37', NULL, ''),
-(61, 'lacap22', '$2y$10$DPLFNks35QMc8lmppfmDOOW9uYXP63Tlwv1SsljtsMUXL5nswpqI6', '2018-10-03 16:34:25', NULL, ''),
-(63, 'aybiaybi', '$2y$10$SRC4dYoPKgEEP8oUlIyHBeFEIy1.PMXCLInYTvl53C1AY1M1bOiEq', '2018-10-05 12:22:13', NULL, ''),
-(64, 'albert22', '$2y$10$5lXxj4vkgRXJwpBEB77qfuyjZ5LXTcX2vu/QlH6rPjhUZaR7tpWQC', '2018-11-11 18:23:48', NULL, ''),
-(65, 'jellybeebee', '$2y$10$URXiZpC8qvM9hDfsMIEqN.3p9C.RMWvAKRcviRU0oY05j4O62I4c.', '2018-11-12 16:17:27', NULL, '');
+INSERT INTO `users` (`id`, `username`, `password`, `created`, `modified`) VALUES
+(1, 'wengweng03', 'wengweng', '2018-09-24 00:21:11', NULL),
+(2, 'jelly', 'jelly', '2018-09-24 00:21:11', NULL),
+(17, 'jeli', '$2y$10$WygNZITR4WU/KYP./CX3iOG2dts33j4Hbi1YXJvQ8IAzuTz./z4Oy', '2018-09-24 03:44:08', NULL),
+(20, 'flower', '$2y$10$Nfm4KbkvdFYjc5A8LQKvO.Vkc8db44C2Fw19RswxQ2tvWkWGrod2K', '2018-09-26 14:49:12', NULL),
+(21, 'tutubi', '$2y$10$mu7jSfX6JUDvL83pfbf8uefRkHm5UfWloedRVrbpfXwdMq.dJbMTW', '2018-09-26 14:55:33', NULL),
+(23, 'bumblebee', '$2y$10$WOjuyho7B7xa3MJWB6SKOub.v8CTYss/YxxJvuD1/EKeXM3gs65Ie', '2018-09-26 15:26:35', NULL),
+(24, 'hehe', '$2y$10$Rd4Qa2U0Ka0gRQ0jm.Ohwu3IU54a9gGHz/FqIjINKumi/eHMpmCwi', '2018-09-26 15:41:54', NULL),
+(43, 'hayts', '$2y$10$JcGM9gyaHgqTCSL7elM97e9RQRTR6mqQqQc//DVmE8230iqEJwl.K', '2018-09-26 21:10:54', NULL),
+(44, 'sawakas', '$2y$10$4vvjaN3UC1jUIR29qP.cXeuHVsk5aXa.hfsO1lR8bjGO1dVFrQb36', '2018-09-26 21:19:19', NULL),
+(45, 'joshua', '$2y$10$8hovWWv2g0PmWeRHwA.a7OKD/GVtHwebPfa4MeZPJVlmYlGMM/HM2', '2018-09-26 21:40:10', NULL),
+(46, 'albert', '$2y$10$auWbjxhv57Tq8Vzy0GtdUul1VgXkm/WnkEnxqA.7pnQbs.WPUFtuK', '2018-09-26 21:56:57', NULL),
+(47, 'wengz', '$2y$10$B6IzcdMUrjI4KAncSrein.sPtuU6EMvI8w3BjGcuvWgOZvfsQT1j.', '2018-09-27 13:36:59', NULL),
+(48, 'windee', '$2y$10$J1Kif.866jSGY5o7YElkvOHlVk5h8vecm20kMFK0PBGHqK7CGR3bS', '2018-09-27 13:38:50', NULL),
+(49, 'jellybee', '$2y$10$rd1P/i5IL5T0cageTuYBz.G8vm0ik1syeFZGJLpZ6wLQ9OtjQlLv.', '2018-09-27 13:53:13', NULL),
+(54, '123', '$2y$10$5LVdIgpZwaP8x2.Ut4YM5OW0qClq0VIlg4KlXmTGmTvjv/lGvqgBi', '2018-10-02 00:55:44', NULL),
+(55, 'jellybeef', '$2y$10$a3EWcg1FwEiGw8d5bq08YOzSGcSHOzm0Stc8yOd39QfKuJftQVazO', '2018-10-02 00:56:55', NULL),
+(56, 'aa222', '$2y$10$ejPNP9aHzL8GIdv1RnAcpeKpWEGGA75og7xWCUe6utVdRsysfr2Yy', '2018-10-02 00:59:25', NULL),
+(57, 'ddddd', '$2y$10$gp7WZnkp.mKjJoQv2l1C6.xMQSGrdvNXUDR4Z7jA7xBntdH7/JqUS', '2018-10-02 01:00:21', NULL),
+(58, 'queen', 'f9677754bc6f99407c8b87f4150229a2', '2018-10-03 12:44:00', NULL),
+(59, 'angelica', '$2y$10$mGimxaQ7zuMFrdLUr1iESuRp.fOD6vExmZKK2EK6.KlxWICNGADb6', '2018-10-03 15:01:19', NULL),
+(60, 'ivy1998', '$2y$10$H7Y/RRe5uQoq4A1k.m7owesbUbl3DVPaomYuXArLPDdB/u5W86VK6', '2018-10-03 15:48:37', NULL),
+(61, 'lacap22', '$2y$10$DPLFNks35QMc8lmppfmDOOW9uYXP63Tlwv1SsljtsMUXL5nswpqI6', '2018-10-03 16:34:25', NULL),
+(63, 'aybiaybi', '$2y$10$SRC4dYoPKgEEP8oUlIyHBeFEIy1.PMXCLInYTvl53C1AY1M1bOiEq', '2018-10-05 12:22:13', NULL),
+(64, 'albert22', '$2y$10$5lXxj4vkgRXJwpBEB77qfuyjZ5LXTcX2vu/QlH6rPjhUZaR7tpWQC', '2018-11-11 18:23:48', NULL),
+(65, 'jellybeebee', '$2y$10$URXiZpC8qvM9hDfsMIEqN.3p9C.RMWvAKRcviRU0oY05j4O62I4c.', '2018-11-12 16:17:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -385,8 +478,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `created`, `modified`, `statu
 -- Table structure for table `vehicles`
 --
 
-CREATE TABLE `vehicles` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `vehicles`;
+CREATE TABLE IF NOT EXISTS `vehicles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `personalId` int(11) NOT NULL,
   `plateNumber` varchar(255) NOT NULL,
   `bodyType` varchar(255) DEFAULT NULL,
@@ -403,166 +497,24 @@ CREATE TABLE `vehicles` (
   `engineDisplacement` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'Active',
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `personalId2` (`personalId`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
 --
 
 INSERT INTO `vehicles` (`id`, `personalId`, `plateNumber`, `bodyType`, `yearModel`, `chasisNumber`, `engineClassification`, `numberOfCylinders`, `typeOfDriveTrain`, `make`, `series`, `color`, `engineNumber`, `typeOfEngine`, `engineDisplacement`, `status`, `created`, `modified`) VALUES
-(1, 3, 'ABC-123', 'Cedan', '1997', '0', '', '0', '', 'Honda', 'Civic', 'Red', '0', '', '', 'active', '2018-09-24 00:24:57', '2018-11-19 02:25:43'),
-(2, 36, 'ayb-123', NULL, '2008', NULL, NULL, NULL, NULL, 'toyota', 'civic', 'maroon', NULL, NULL, NULL, 'Active', '2018-11-24 15:24:27', NULL),
-(3, 36, 'HEL-626', NULL, '2019', NULL, NULL, NULL, NULL, 'Honda', 'Jazz', 'Black', NULL, NULL, NULL, 'Active', '2018-11-24 17:33:50', NULL);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `appointments`
---
-ALTER TABLE `appointments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `personalId3` (`personalId`),
-  ADD KEY `serviceId` (`serviceId`),
-  ADD KEY `vehicleId` (`vehicleId`);
-
---
--- Indexes for table `chargeinvoice`
---
-ALTER TABLE `chargeinvoice`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `personal` (`vehicleId`),
-  ADD KEY `personal2` (`personalId`),
-  ADD KEY `scope` (`scopeId`),
-  ADD KEY `sparepart` (`sparePartsId`);
-
---
--- Indexes for table `daterestricted`
---
-ALTER TABLE `daterestricted`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `feedback`
---
-ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `personalinfo`
---
-ALTER TABLE `personalinfo`
-  ADD PRIMARY KEY (`personalId`),
-  ADD KEY `userId` (`user_id`);
-
---
--- Indexes for table `scope`
---
-ALTER TABLE `scope`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `services`
---
-ALTER TABLE `services`
-  ADD PRIMARY KEY (`serviceId`);
-
---
--- Indexes for table `spareparts`
---
-ALTER TABLE `spareparts`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `vehicles`
---
-ALTER TABLE `vehicles`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `personalId2` (`personalId`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `appointments`
---
-ALTER TABLE `appointments`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `chargeinvoice`
---
-ALTER TABLE `chargeinvoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `daterestricted`
---
-ALTER TABLE `daterestricted`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `feedback`
---
-ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `personalinfo`
---
-ALTER TABLE `personalinfo`
-  MODIFY `personalId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
-
---
--- AUTO_INCREMENT for table `scope`
---
-ALTER TABLE `scope`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
-
---
--- AUTO_INCREMENT for table `services`
---
-ALTER TABLE `services`
-  MODIFY `serviceId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `spareparts`
---
-ALTER TABLE `spareparts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
-
---
--- AUTO_INCREMENT for table `vehicles`
---
-ALTER TABLE `vehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+(8, 36, 'ALB-234', NULL, '2010', NULL, NULL, NULL, NULL, 'Mitsubishi', '2010', 'Black', NULL, NULL, NULL, 'Active', '2018-11-23 00:47:44', NULL),
+(9, 36, 'ARR-333', NULL, '2007', NULL, NULL, NULL, NULL, 'Subaru', 'Impreza', 'Black', NULL, NULL, NULL, 'Active', '2018-11-24 00:50:58', NULL),
+(18, 36, 'ART-123', NULL, '2010', NULL, NULL, NULL, NULL, '', '', 'Black', NULL, NULL, NULL, 'Active', '2018-11-27 23:34:54', NULL),
+(19, 36, 'AAA-333', NULL, '2010', NULL, NULL, NULL, NULL, 'mitsubishi', 'lancer', 'Black', NULL, NULL, NULL, 'Active', '2018-11-27 23:35:54', NULL),
+(20, 36, 'RRR-123', NULL, '2020', NULL, NULL, NULL, NULL, '', '', 'BLack', NULL, NULL, NULL, 'Active', '2018-11-27 23:38:19', NULL),
+(21, 36, 'ADR-123', NULL, '2010', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'Black', NULL, NULL, NULL, 'Active', '2018-11-27 23:44:24', NULL),
+(22, 36, 'ART-123', NULL, '2010', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'Black', NULL, NULL, NULL, 'Active', '2018-11-28 00:07:44', NULL),
+(23, 36, 'ART-123', NULL, '2010', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'BLak', NULL, NULL, NULL, 'Active', '2018-11-28 00:11:30', NULL);
 
 --
 -- Constraints for dumped tables
@@ -572,15 +524,14 @@ ALTER TABLE `vehicles`
 -- Constraints for table `appointments`
 --
 ALTER TABLE `appointments`
-  ADD CONSTRAINT `personalId3` FOREIGN KEY (`personalId`) REFERENCES `personalinfo` (`personalId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `vehicleId` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`personalId`) REFERENCES `personalinfo` (`personalId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`);
 
 --
 -- Constraints for table `chargeinvoice`
 --
 ALTER TABLE `chargeinvoice`
   ADD CONSTRAINT `personal` FOREIGN KEY (`personalId`) REFERENCES `personalinfo` (`personalId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `scope` FOREIGN KEY (`scopeId`) REFERENCES `scope` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `sparepart` FOREIGN KEY (`sparePartsId`) REFERENCES `spareparts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `vehicle` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
