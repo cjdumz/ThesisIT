@@ -286,155 +286,47 @@
                             Progress
                           </th>
                           <th>
-                            Amount
+                            Plate Number
                           </th>
                           <th>
-                            Sales
+                            Start Date
                           </th>
                           <th>
-                            Deadline
+                            Target End Date
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="font-weight-medium">
-                            1
-                          </td>
-                          <td>
-                            Herman Beck
-                          </td>
-                          <td>
-                            <div class="progress">
-                              <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td>
-                            $ 77.99
-                          </td>
-                          <td class="text-danger"> 53.64%
-                            <i class="mdi mdi-arrow-down"></i>
-                          </td>
-                          <td>
-                            May 15, 2015
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="font-weight-medium">
-                            2
-                          </td>
-                          <td>
-                            Messsy Adam
-                          </td>
-                          <td>
-                            <div class="progress">
-                              <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td>
-                            $245.30
-                          </td>
-                          <td class="text-success"> 24.56%
-                            <i class="mdi mdi-arrow-up"></i>
-                          </td>
-                          <td>
-                            July 1, 2015
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="font-weight-medium">
-                            3
-                          </td>
-                          <td>
-                            John Richards
-                          </td>
-                          <td>
-                            <div class="progress">
-                              <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td>
-                            $138.00
-                          </td>
-                          <td class="text-danger"> 28.76%
-                            <i class="mdi mdi-arrow-down"></i>
-                          </td>
-                          <td>
-                            Apr 12, 2015
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="font-weight-medium">
-                            4
-                          </td>
-                          <td>
-                            Peter Meggik
-                          </td>
-                          <td>
-                            <div class="progress">
-                              <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td>
-                            $ 77.99
-                          </td>
-                          <td class="text-danger"> 53.45%
-                            <i class="mdi mdi-arrow-down"></i>
-                          </td>
-                          <td>
-                            May 15, 2015
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="font-weight-medium">
-                            5
-                          </td>
-                          <td>
-                            Edward
-                          </td>
-                          <td>
-                            <div class="progress">
-                              <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td>
-                            $ 160.25
-                          </td>
-                          <td class="text-success"> 18.32%
-                            <i class="mdi mdi-arrow-up"></i>
-                          </td>
-                          <td>
-                            May 03, 2015
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="font-weight-medium">
-                            6
-                          </td>
-                          <td>
-                            Henry Tom
-                          </td>
-                          <td>
-                            <div class="progress">
-                              <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-                                aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td>
-                            $ 150.00
-                          </td>
-                          <td class="text-danger"> 24.67%
-                            <i class="mdi mdi-arrow-down"></i>
-                          </td>
-                          <td>
-                            June 16, 2015
-                          </td>
-                        </tr>
+                        <?php $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'In-progress'"); 
+                            if ($query->execute()){
+                                $result=$query->get_result();
+                                while($appinprogress = $result->fetch_assoc()){
+                               ?>             
+                                <tr>
+                                  <td class="font-weight-medium">
+                                    <?php echo $appinprogress['id']?>
+                                  </td>
+                                  <td>
+                                   <?php echo $appinprogress['FullName']?>
+                                  </td>
+                                  <td>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                   <?php echo $appinprogress['plateNumber']?>
+                                  </td>
+                                  <td class="text-success"> <?php echo  date('F j, Y',strtotime($appinprogress['date']))?>
+                                  </td>
+                                  <td class="text-danger">
+                                    <?php echo  date('F j, Y',strtotime($appinprogress['targetEndDate']))?>
+                                  </td>
+                                </tr>
+                         <?php }
+                            }
+                          ?>
                       </tbody>
                     </table>
                   </div>
@@ -447,6 +339,13 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title mb-4">Feedbacks</h5>
+                   <?php $feedback = $connection->prepare("SELECT * FROM feedback ORDER BY date DESC");
+                            if ($feedback->execute()){
+                                 $result=$feedback->get_result();
+                                while($feed =$result->fetch_assoc()){
+                                }
+                              }?>
+                            
                   <div class="fluid-container">
                     <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
                       <div class="col-md-1">
