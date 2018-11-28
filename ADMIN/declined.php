@@ -128,6 +128,7 @@
                             <th style="font-size:15px;">Status</th>
                             <th style="font-size:15px;">Date of Appointment</th>
                             <th style="font-size:15px;" class="text-center">Message</th>
+                            <th style="font-size:15px;" class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
@@ -150,6 +151,7 @@
                                 <td>'.$row['status'].'</td>
                                 <td>'; echo date('M d, Y',strtotime($date)); echo '</td>
                                 <td>'.$row['Message'].'</td>
+                                <td></td>
 
                                 </tr>
 

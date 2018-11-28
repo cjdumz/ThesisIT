@@ -223,23 +223,41 @@ if(!isset($_GET['id'])){
                               </div>
 
                               <form action="process/server.php" method="POST">
+                                <input type="hidden" value="'.$id.'" name="personal-id">
                                 <button type="submit" name="generate" class="btn btn-success" style="float:right" >
                                   <i class="menu-icon mdi mdi-account-settings-variant"></i> Generate Account
                                 </button>
                               </form>
                         ';
                       }else{
-                        echo '
+                        $user = $row['user_id'];
+                        $query = $connection->prepare("SELECT * FROM `users` WHERE `id` = '$user';");
+                        if($query->execute()){
+                          $values = $query->get_result();
+                          $row = $values->fetch_assoc();
+                          echo '
                               <div class="row">
                                 <div class="offset-1 col-md-2"><p >Status </p></div>
                                 <div class="col-md-9">
-                                  <p style="margin-top: -1%" class="card-title"> 
-                                    <button type="submit" name="generate" class="btn btn-success" style="float:left" >Activate</button> 
-                                    &nbsp
-                                    <button type="submit" name="generate" class="btn btn-danger" style="float:left" >Deactivate</button>
-                                    
-                                    
+                                  <form action="process/server.php" method="POST">
+                                  <input type="hidden" value="'.$id.'" name="per-id">
+                                  <input type="hidden" value="'.$user.'" name="user-id">
+                                  <input type="hidden" value="'.$row['status'].'" name="status">
+                                  <p style="margin-top: -8%" class="card-title">
+
+                                  ';
+                                  if($row['status'] == 'Active'){
+                                    echo ' 
+                                          <button type="submit" name="change-status" class="btn btn-success" style="float:left" >'.$row['status'].'</button>
+                                        ';
+                                  }else{
+                                    echo ' <button type="submit" name="change-status" class="btn btn-danger" style="float:left" >'.$row['status'].'</button> ';
+                                  }
+                                   
+                                    echo'
+
                                   </p>
+                                  </form>
                                 </div>
                               </div>
 
@@ -247,7 +265,7 @@ if(!isset($_GET['id'])){
                                 <div class="offset-1 col-md-2"><p >Username</p></div>
                                 <div class="col-md-9">
                                   <p style="margin-top: -1%" class="card-title">: 
-                                    Sample
+                                  '.$row['username'].'
                                   </p>
                                 </div>
                               </div>
@@ -261,6 +279,7 @@ if(!isset($_GET['id'])){
                                 </div>
                               </div>
                           ';
+                        }
                       }
                     ?>
 

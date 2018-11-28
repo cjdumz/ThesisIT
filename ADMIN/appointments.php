@@ -132,9 +132,11 @@
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                       <?php
-                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,appointments.created as 'created', appointments.serviceId as 'service', appointments.otherService as 'others',
-                        yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message' from appointments join personalinfo on appointments.personalId
-                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Pending' OR appointments.status = 'Rescheduled' AND (NOW() = date OR NOW() < date )");
+                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 
+                        'Name',make,series,appointments.created as 'created', appointments.serviceId as 'service', appointments.otherService as 
+                        'others', yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message', adminDate
+                         from appointments join personalinfo on appointments.personalId
+                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where (appointments.status = 'Pending' OR appointments.status = 'Rescheduled') AND (NOW() = date OR NOW() < date )");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {
@@ -155,14 +157,15 @@
                                 <td class="text-center">
                                 
                                   <div class="row">';
-                                if($row['status'] != 'Rescheduled'){
-                                echo '<div class="col-12">
-                                        <input type="hidden" name="command1" value="accept">
-                                        <input type="hidden" name="id1" value="'.$row['ID'].'">
-                                        <button class="btn btn-success" name="commands1" style="margin-top: 5px; width: 145px; color:white;"  data-toggle="modal" data-target="#appointmentModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
-                                        Accept</button>
-                                      </div>';
+                                if($row['adminDate'] != 'admin'){
+                                  echo '<div class="col-12">
+                                  <input type="hidden" name="command1" value="accept">
+                                  <input type="hidden" name="id1" value="'.$row['ID'].'">
+                                  <button class="btn btn-success" name="commands1" style="margin-top: 5px; width: 145px; color:white;"  data-toggle="modal" data-target="#appointmentModalCenter'.$row['ID'].'"><i class="menu-icon mdi mdi-checkbox-marked-outline"></i>
+                                  Accept</button>
+                                </div>';
                                 }
+
                                 echo '
                                       <div class="col-12">
                                         <input type="hidden" name="command2" value="deny">
@@ -179,8 +182,12 @@
                                     </div>';
                                     
                                     if($row['status'] == 'Rescheduled'){
-                                      echo '<p style="margin-top: 10px; color: red;">Note: Appointment date is <br> waiting for Client approval</p>';
+                                      if($row['adminDate'] == 'admin'){
+                                        echo '<p style="margin-top: 10px; color: red;">Note: Appointment date is <br> waiting for Client approval</p>';
+                                      }else{
+                                        echo '<p style="margin-top: 10px; color: red;">Note: Appointment date was <br> approved by the Client</p>';
                                       }
+                                    }
                                       echo '
                                     
                                 </td>
