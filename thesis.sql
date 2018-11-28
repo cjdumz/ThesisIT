@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 27, 2018 at 10:14 PM
+-- Generation Time: Nov 28, 2018 at 07:46 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -63,34 +63,28 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `otherService` varchar(255) DEFAULT NULL,
   `additionalMessage` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL,
-  `date` varchar(255) NOT NULL,
-  `adminDate` varchar(255) DEFAULT NULL,
+  `date` date NOT NULL,
+  `adminDate` date DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
-  `notification` int(1) NOT NULL DEFAULT '1',
-  `targetEndDate` datetime DEFAULT NULL,
+  `notification` varchar(255) DEFAULT NULL,
+  `targetEndDate` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `personalId3` (`personalId`),
   KEY `serviceId` (`serviceId`),
   KEY `vehicleId` (`vehicleId`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
 --
 
 INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `adminDate`, `created`, `modified`, `notification`, `targetEndDate`) VALUES
-(73, 'Change Oil,Check headlights', 8, 36, 'Check my Headlights please', NULL, 'Done', '2018-11-28', '2018-11-30', '2018-11-26 22:26:08', '2018-11-27 21:41:47', 1, '2018-11-29 00:00:00'),
-(74, 'Change Oil,Check headlights', 8, 36, 'Check My Wheels please\r\n', 'Not Enough Time', 'Done', '2018-11-29', '1977', '2018-11-26 22:41:46', '2018-11-27 21:58:10', 1, '0000-00-00 00:00:00'),
-(75, 'Change Oil,Check brakes', 9, 36, 'Kewl', NULL, 'In-Progress', '2018-11-29', '', '2018-11-24 00:56:21', '2018-11-27 20:36:47', 1, '2018-11-30 00:00:00'),
-(78, 'Change Oil,Check fuel filter', 8, 36, 'Whahaha', 'y6srdytfugyihkjnl', 'In-Progress', '2018-11-28', NULL, '2018-11-30 02:51:38', '2018-11-27 22:25:37', 1, '0000-00-00 00:00:00'),
-(79, 'Check headlights,Check tail lights', 9, 36, 'Whahahah', 'Maximum Limit', 'Done', '2018-11-29', NULL, '2018-11-26 02:54:32', '2018-11-27 22:01:37', 1, '0000-00-00 00:00:00'),
-(80, 'Change Oil,Check brakes', 8, 36, 'wahaha', 'r45t6y7uiop', 'Overdue', '2018-11-26', NULL, '2018-11-26 20:01:40', NULL, 1, '0000-00-00 00:00:00'),
-(81, 'Change Oil', 9, 36, 'Ngaoyn', NULL, 'In-Progress', '2018-11-28', NULL, '2018-11-26 21:30:33', '2018-11-27 22:36:55', 1, '0000-00-00 00:00:00'),
-(82, 'Check Lights', 9, 35, NULL, NULL, 'In-Progress', '2018-12-12', NULL, '2018-11-27 11:39:28', '2018-11-27 21:09:41', 1, '0000-00-00 00:00:00'),
-(84, 'Change Breaks', 10, 1, NULL, 'due to unforeseen circumstances\r\n', 'Accepted', '2018-11-30', NULL, '2018-11-27 11:48:12', '2018-11-27 20:14:11', 1, '2018-11-30 00:00:00'),
-(85, 'Change Oil', 9, 35, NULL, NULL, 'Done', '2018-12-25', NULL, '2018-11-27 20:02:09', '2018-11-27 22:05:35', 1, '2018-12-26 00:00:00'),
-(86, 'Change Front Lights', 8, 36, NULL, 'wala lang', 'Accepted', '2018-12-08', NULL, '2018-11-27 22:08:35', '2018-11-27 22:33:48', 1, NULL);
+(1, 'Change Oil,Check fuel filter', 1, 1, 'Please Also See My Tire', NULL, 'Pending', '2018-11-30', NULL, '2018-11-29 00:24:28', NULL, '1', NULL),
+(2, 'simple retouch,Body Repair', 3, 2, 'Please Make My Vehicle Beautiful', NULL, 'Accepted', '2018-12-05', NULL, '2018-11-29 00:33:02', NULL, '1', NULL),
+(3, 'check battery', 4, 3, 'Can\'t start the engine too', NULL, 'Done', '2018-12-24', NULL, '2018-11-29 00:37:46', NULL, '1', NULL),
+(4, 'Check brakes', 7, 6, 'How much will it cost me ? ', NULL, 'In-progress', '2019-01-26', NULL, '2018-11-29 00:52:40', NULL, '1', NULL),
+(5, 'Body Repair,Customize', 6, 5, 'Make it vintage', NULL, 'Declined', '2018-12-15', NULL, '2018-11-29 00:55:04', NULL, '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,8 +97,8 @@ CREATE TABLE IF NOT EXISTS `chargeinvoice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `vehicleId` int(11) NOT NULL,
   `personalId` int(11) NOT NULL,
-  `scopeId` int(11) DEFAULT NULL,
-  `sparePartsId` int(11) DEFAULT NULL,
+  `scopeId` varchar(255) DEFAULT NULL,
+  `sparePartsId` varchar(255) DEFAULT NULL,
   `date` date NOT NULL,
   `TotalPrice` int(11) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -112,17 +106,20 @@ CREATE TABLE IF NOT EXISTS `chargeinvoice` (
   PRIMARY KEY (`id`),
   KEY `personal` (`vehicleId`),
   KEY `personal2` (`personalId`),
-  KEY `scope` (`scopeId`),
   KEY `sparepart` (`sparePartsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `chargeinvoice`
 --
 
 INSERT INTO `chargeinvoice` (`id`, `vehicleId`, `personalId`, `scopeId`, `sparePartsId`, `date`, `TotalPrice`, `created`, `modified`) VALUES
-(1, 3, 36, 145, 1, '2018-11-24', 1500, '2018-11-24 17:36:56', NULL),
-(2, 2, 36, 6, 1, '2018-11-22', 2000, '2018-11-24 18:02:43', NULL);
+(1, 6, 5, 'Recondition accelerator mechanism - Replace Assorted Bushings,Replace Stud Bolts,Replace Fan Belt', 'Exhaust', '2018-11-30', 10000, '2018-11-29 01:02:04', NULL),
+(2, 1, 1, 'Repaint whole vehicle,Buff the whole vehicle', NULL, '2018-11-29', 15000, '2018-11-29 01:03:25', NULL),
+(3, 7, 6, 'Check Seat belts', NULL, '2018-11-30', 850, '2018-11-29 01:07:43', NULL),
+(4, 4, 3, 'Replace Tail Light(Right),Install Antenna', 'Exhaust', '2018-11-29', 20000, '2018-11-29 01:08:22', NULL),
+(5, 1, 1, 'Recondition Brake System - Replace Brake Master Repair Kit,Repaint whole vehicle', NULL, '2018-11-29', 20000, '2018-11-29 01:14:43', NULL),
+(6, 8, 7, 'New upholstery, new chair upholstery, new inside carpet', NULL, '2018-12-07', 10000, '2018-11-29 01:15:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -150,44 +147,6 @@ INSERT INTO `daterestricted` (`id`, `date`, `status`, `modified`, `created`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `events`
---
-
-DROP TABLE IF EXISTS `events`;
-CREATE TABLE IF NOT EXISTS `events` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `start_date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `end_date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=Active, 0=Block'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `events`
---
-
-INSERT INTO `events` (`id`, `title`, `description`, `start_date`, `end_date`, `created`, `status`) VALUES
-(1, 'This is a special events about web development', '', '2018-02-12 00:00:00', '2018-02-16 00:00:00', '2018-02-10 00:00:00', 1),
-(2, 'PHP Seminar 2018', '', '2018-02-11 00:00:00', '2018-02-17 00:00:00', '2018-02-10 00:00:00', 1),
-(3, 'Bootstrap events 2018', '', '2018-02-4 00:00:00', '2018-02-4 00:00:00', '2018-02-01 00:00:00', 1),
-(4, 'Developers events', '', '2018-02-04 00:00:00', '2018-02-04 00:00:00', '2018-02-01 00:00:00', 1),
-(5, 'Annual Conference 2018', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
-(6, 'Bootstrap Annual events 2018', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
-(7, 'HTML5 events', '', '2018-02-05 00:00:00', '2018-02-05 00:00:00', '2018-02-01 00:00:00', 1),
-(8, 'PHP conference events 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-02 00:00:00', 1),
-(9, 'Web World events', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-01 00:00:00', 1),
-(10, 'Wave PHP 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-02 00:00:00', 1),
-(11, 'Dev PHP 2018', '', '2018-02-08 00:00:00', '2018-02-08 00:00:00', '2018-02-01 00:00:00', 1),
-(12, 'Seminar ', '', '2018-11-13 00:00:00', '2018-11-13 00:00:00', '2018-11-13 00:00:00', 1),
-(13, 'fieldtrip', '', '2018-11-14 00:00:00', '2018-11-14 00:00:00', '2018-11-13 00:00:00', 0),
-(15, 'Divisoria', '', '2018-11-16 00:00:00', '2018-11-16 00:00:00', '2018-11-13 00:00:00', 1),
-(16, 'Byahe', '', '2018-11-14 00:00:00', '2018-11-15 00:00:00', '2018-11-14 00:00:00', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `feedback`
 --
 
@@ -200,16 +159,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   `message` varchar(250) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `feedback`
---
-
-INSERT INTO `feedback` (`id`, `name`, `email`, `phoneNumber`, `message`, `date`) VALUES
-(1, 'Albert Lacap Jr.', 'lacapalbert22@gmail.com', '09872345678', 'PAWER!', '2018-11-28 00:58:21'),
-(2, '', '', '', 'hello', '2018-11-28 01:11:14'),
-(3, '', '', '', 'try', '2018-11-28 01:11:29');
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -263,40 +213,20 @@ CREATE TABLE IF NOT EXISTS `personalinfo` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`personalId`),
   KEY `userId` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `personalinfo`
 --
 
 INSERT INTO `personalinfo` (`personalId`, `user_id`, `firstName`, `lastName`, `middleName`, `suffix`, `address`, `mobileNumber`, `telephoneNumber`, `email`, `created`, `modified`) VALUES
-(1, NULL, 'Weng', 'Palpallatoc', 'Ignacio', NULL, '#4 St.Ruth Petersville Subdivision Camp 7 Baguio', '09260023544', NULL, 'weng.great@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
-(2, NULL, 'Jelly', 'Grabanzor', 'Llanes', NULL, 'New Lucban Baguio', '09123456789', NULL, 'jellygrabanzor@gmail.com', '2018-09-24 00:14:00', '2018-09-24 00:00:00'),
-(3, 17, 'jeli', 'llanes', 'g', '', 'Seoul, south korea', '09177771390', '', 'jellyllanes@yahoo.com', '2018-09-24 03:44:08', '2018-11-19 02:25:17'),
-(7, NULL, 'flower', 'flower', 'flower', NULL, 'garden', '09999999999', NULL, 'flower@gmail.com', '2018-09-26 14:49:12', NULL),
-(8, NULL, 'tutubi', 'tutubi', 'tutubi', NULL, 'Tutubi, La Union', '09000000000', NULL, 'tutubi@yahoo.com', '2018-09-26 14:55:33', NULL),
-(9, NULL, 'aybee', 'aybeee', 'aybee', NULL, 'aybe', '09177770001', NULL, 'aybe@gmail.com', '2018-09-26 15:37:56', NULL),
-(10, NULL, 'aybee', 'aybeee', 'aybee', NULL, 'aybe', '09177770001', NULL, 'aybe@gmail.com', '2018-09-26 15:40:29', NULL),
-(11, NULL, 'bobo', 'bobo', 'bobo', NULL, 'Texas, La Union', '09177771397', NULL, 'bobo@gmail.com', '2018-09-26 15:48:05', NULL),
-(12, NULL, 'kurtz', 'kurtz', 'k', NULL, 'Texas, La Union', '09177770003', NULL, 'kurtz@gmail.com', '2018-09-26 15:53:01', NULL),
-(13, 43, 'hayts', 'hayts', 'hayts', NULL, 'san nicolas', '09177771378', NULL, 'hayts@yahoo.com', '2018-09-26 21:10:54', NULL),
-(14, 44, 'sawakas', 'sawakas', 'sawakas', NULL, 'Seoul, south korea', '09999999988', NULL, 'sawakas@gmail.com', '2018-09-26 21:19:19', NULL),
-(15, 45, 'joshua', 'abubo', 'lacap', NULL, 'New orleans, pangasinan', '09177771256', NULL, 'joshua@yahoo.com', '2018-09-26 21:40:10', NULL),
-(16, 46, 'albert', 'lacap', 'imuan', NULL, 'New orleans, pangasinan', '09000000024', NULL, 'albert@yahoo.com', '2018-09-26 21:56:57', NULL),
-(17, 47, 'windee', 'palpallatoc', 'ignacio', NULL, 'Texas, La Union', '09177770088', NULL, 'windee@gmail.com', '2018-09-27 13:36:59', NULL),
-(19, 48, 'windee', 'palpallatoc', 'ignacio', NULL, 'garden', '09000000044', NULL, 'windee@yahoo.com', '2018-09-27 13:38:50', NULL),
-(20, 49, 'Angelica', 'Grabanzor', 'Llanes', NULL, 'Seoul, Ilocos sur', '09171550423', NULL, 'jellybee@yahoo.com', '2018-09-27 13:53:13', NULL),
-(29, 54, 'Janella', 'hoya', 'ignacio', NULL, 'san nicolas', 'aaaaaa', NULL, 'jellygrabaor8@gmail.com', '2018-10-02 00:55:44', NULL),
-(30, 55, 'jeli', 'Agpaoa', 'ignacio', NULL, 'New orleans, pangasinan', '0917', NULL, 'jellygracsdfbanzor@yahoo.com', '2018-10-02 00:56:55', NULL),
-(31, 56, 'jeli', 'llanes', 'Middleton', NULL, 'Seoul, south korea', '09177771322', NULL, 'jellygrabanzor@tanga.com', '2018-10-02 00:59:25', NULL),
-(32, 57, 'a', 'a', 'a', NULL, 'garden', '09177771390', NULL, 'jellygrabanzor@yahoo.com', '2018-10-02 01:00:21', NULL),
-(33, 58, 'Kate', 'Middleton', 'Lacap', NULL, 'Texas, La Union', '09177771311', NULL, 'katemiddleton@gmail.com', '2018-10-03 12:44:00', NULL),
-(34, 59, 'Angelica', 'Grabanzor', 'Llanes', NULL, 'Texas, La Union', '09177771390', NULL, 'angelica@yahoo.com', '2018-10-03 15:01:19', NULL),
-(35, 60, 'ivy', 'palma', 'mae', NULL, 'san nicolas', '0919419860', NULL, 'ivymaepalma14@gmail.com', '2018-10-03 15:48:37', NULL),
-(36, 61, 'albert', 'lacap', 'imaun', '', 'gibraltar', '09012334123', '0746669999', 'lacapalbert22@gmail.com', '2018-10-03 16:34:25', '2018-11-28 01:15:53'),
-(41, 63, ' ivy mae', ' palma', ' johnson', NULL, '  Tuding, Itogon, benguet', ' 09268148276', NULL, ' ivymaepalma1234@gmail.com', '2018-10-05 12:22:13', NULL),
-(42, NULL, 'green', 'sad', '', '', 'asdsd', '09157862754', '', '', '2018-11-27 17:41:00', NULL),
-(43, NULL, 'eddard ', 'stark', 'targaryan', 'iii', 'winterfell, nort pole ', '09265485444', '0743334444', 'nedstark@gmail.com', '2018-11-27 22:38:21', '2018-11-28 03:33:03');
+(1, 1, 'Juan', 'Dela Cruz', 'Carlos', NULL, 'new', '09260023544', NULL, 'juandelacruz@gmail.com', '2018-11-29 00:21:37', NULL),
+(2, 2, 'Maria', 'Makiling', 'Gretta', NULL, 'Petersville, Subdivision, Camp7', '09560669020', NULL, 'mariamakiling@gmail.com', '2018-11-29 00:31:11', NULL),
+(3, 3, 'Fernando', 'Delfino', 'Carpio', NULL, 'Tuding, Itogon', '09123456789', NULL, 'fernando@gmail.com', '2018-11-29 00:35:49', NULL),
+(4, 4, 'Sarah', 'Cruz', 'Reyes', NULL, 'La Trinindad, Benguet', '09789456123', NULL, 'sarahcruz@gmail.com', '2018-11-29 00:45:21', NULL),
+(5, 5, 'John', 'Bautista', 'Ocampo', NULL, 'Binalonan, Pangasinan', '09147258369', NULL, 'johnbautista@gmail.com', '2018-11-29 00:48:02', NULL),
+(6, 6, 'Mary Joy', 'Torres', 'Mendoza', NULL, 'Aurora Hill, Baguio City', '09369258147', NULL, 'maryjoy@gmail.com', '2018-11-29 00:50:41', NULL),
+(7, NULL, 'Nicole', 'Villanueva', 'Andrada', '', 'Petersville Subdivision, Camp7, Baguio', '09268415397', '0743334444', 'itsmenicole@gmail.com', '2018-11-29 01:12:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -309,7 +239,6 @@ CREATE TABLE IF NOT EXISTS `scope` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `scopeWork` varchar(255) NOT NULL,
   `subScope` varchar(255) DEFAULT NULL,
-  `subsubscope` varchar(255) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
@@ -320,49 +249,49 @@ CREATE TABLE IF NOT EXISTS `scope` (
 -- Dumping data for table `scope`
 --
 
-INSERT INTO `scope` (`id`, `scopeWork`, `subScope`, `subsubscope`, `price`, `created`, `modified`) VALUES
-(1, 'Mechanical Job', 'Recondition Brake System', 'Replace brake master repair kit', NULL, '2018-11-24 16:39:20', NULL),
-(2, 'Mechanical Job', 'Recondition Brake System', 'Flush down and bleed fluid system', NULL, '2018-11-24 16:43:31', NULL),
-(3, 'Mechanical Job', 'Recondition Brake System', 'Clean drum brakes and calipers', NULL, '2018-11-24 16:43:31', NULL),
-(4, 'Mechanical Job', 'Recondition Brake System', 'Replace brake shoe', NULL, '2018-11-24 16:46:47', NULL),
-(5, 'Mechanical Job', 'Recondition Brake System', 'Replace brake pads', NULL, '2018-11-24 16:46:47', NULL),
-(6, 'Mechanical Job', 'Recondition accelerator mechanism', 'Replace Assorted Bushings', NULL, '2018-11-24 16:48:38', NULL),
-(115, 'Mechanical job', 'Replace all bulbs', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(116, 'Mechanical job', 'Wiper Blades', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(117, 'Mechanical job', 'Overhaul', 'Change Nozzle tips', NULL, '2018-11-24 17:14:08', NULL),
-(118, 'Mechanical job', 'Overhaul', 'Change oil', NULL, '2018-11-24 17:14:08', NULL),
-(119, 'Mechanical job', 'Overhaul', 'Change oil filter', NULL, '2018-11-24 17:14:08', NULL),
-(120, 'Mechanical job', 'Overhaul', 'Change transmission oil', NULL, '2018-11-24 17:14:08', NULL),
-(121, 'Mechanical job', 'Overhaul', 'Change Air Filter', NULL, '2018-11-24 17:14:08', NULL),
-(122, 'Mechanical job', 'Wheel balance', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(123, 'Mechanical job', 'Replace Stud Bolts', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(124, 'Mechanical job', 'Replace Side Mirror', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(125, 'Mechanical job', 'Replace Engine fan blade', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(126, 'Mechanical job', 'Replace Fan Belt', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(127, 'Mechanical job', 'Replace brake, accelerator, clutch pads', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(128, 'Mechanical job', 'Replace battery', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(129, 'Mechanical job', 'Replace radiator', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(130, 'Painting and Body Repair Job', 'Panel Beat', 'Right sliding door', NULL, '2018-11-24 17:14:08', NULL),
-(131, 'Painting and Body Repair Job', 'Panel Beat', 'Right quarter panel', NULL, '2018-11-24 17:14:08', NULL),
-(132, 'Painting and Body Repair Job', 'Panel Beat', 'Front Bumper', NULL, '2018-11-24 17:14:08', NULL),
-(133, 'Painting and Body Repair Job', 'Panel Beat', 'Right front door', NULL, '2018-11-24 17:14:08', NULL),
-(134, 'Painting and Body Repair Job', 'Panel Beat', 'Front facia', NULL, '2018-11-24 17:14:08', NULL),
-(135, 'Painting and Body Repair Job', 'Panel Beat', 'Rear Bumper', NULL, '2018-11-24 17:14:08', NULL),
-(136, 'Painting and Body Repair Job', 'Fix sliding Door mechanism', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(137, 'Painting and Body Repair Job', 'Repaint whole vehicle', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(138, 'Painting and Body Repair Job', 'Buff the whole vehicle', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(139, 'Painting and Body Repair Job', 'Buff the rear bumper', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(140, 'Painting and Body Repair Job', 'Paint the grill with black', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(141, 'Painting and Body Repair Job', 'Paint the rims with black', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(142, 'Painting and Body Repair Job', 'Wax and polish the whole vehicle', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(143, 'Electrical Job', 'Replace Tail Light(Right)', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(144, 'Electrical Job', 'Install new stereo/radio', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(145, 'Electrical Job', 'Install dashboard lights, speedo meter ', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(146, 'Electrical Job', 'Install Antenna', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(147, 'Others', 'Refill Aircon Freon', NULL, NULL, '2018-11-24 17:14:08', NULL),
-(148, 'Others', 'New upholstery, new chair upholstery, new inside carpet', NULL, 17000, '2018-11-24 17:14:08', NULL),
-(149, 'Others', 'Replace Tint', NULL, 3500, '2018-11-24 17:14:08', NULL),
-(150, 'Others', 'Check Seat belts', NULL, NULL, '2018-11-24 17:14:08', NULL);
+INSERT INTO `scope` (`id`, `scopeWork`, `subScope`, `price`, `created`, `modified`) VALUES
+(1, 'Mechanical Job', 'Recondition Brake System - Replace Brake Master Repair Kit', NULL, '2018-11-24 16:39:20', NULL),
+(2, 'Mechanical Job', 'Recondition Brake System - Flush Down and Bleed Fluid System', NULL, '2018-11-24 16:43:31', NULL),
+(3, 'Mechanical Job', 'Recondition Brake System - Clean Drum Brakes and Calipers', NULL, '2018-11-24 16:43:31', NULL),
+(4, 'Mechanical Job', 'Recondition Brake System - Replace Brake Shoe', NULL, '2018-11-24 16:46:47', NULL),
+(5, 'Mechanical Job', 'Recondition Brake System - Replace Brake Pads', NULL, '2018-11-24 16:46:47', NULL),
+(6, 'Mechanical Job', 'Recondition accelerator mechanism - Replace Assorted Bushings', NULL, '2018-11-24 16:48:38', NULL),
+(115, 'Mechanical job', 'Replace all bulbs', NULL, '2018-11-24 17:14:08', NULL),
+(116, 'Mechanical job', 'Wiper Blades', NULL, '2018-11-24 17:14:08', NULL),
+(117, 'Mechanical job', 'Overhaul - Change Nozzle Tips', NULL, '2018-11-24 17:14:08', NULL),
+(118, 'Mechanical job', 'Overhaul - Change oil', NULL, '2018-11-24 17:14:08', NULL),
+(119, 'Mechanical job', 'Overhaul - Change Oil Filter', NULL, '2018-11-24 17:14:08', NULL),
+(120, 'Mechanical job', 'Overhaul - Change Transmission Oil', NULL, '2018-11-24 17:14:08', NULL),
+(121, 'Mechanical job', 'Overhaul - Change Air Filter', NULL, '2018-11-24 17:14:08', NULL),
+(122, 'Mechanical job', 'Wheel balance', NULL, '2018-11-24 17:14:08', NULL),
+(123, 'Mechanical job', 'Replace Stud Bolts', NULL, '2018-11-24 17:14:08', NULL),
+(124, 'Mechanical job', 'Replace Side Mirror', NULL, '2018-11-24 17:14:08', NULL),
+(125, 'Mechanical job', 'Replace Engine fan blade', NULL, '2018-11-24 17:14:08', NULL),
+(126, 'Mechanical job', 'Replace Fan Belt', NULL, '2018-11-24 17:14:08', NULL),
+(127, 'Mechanical job', 'Replace brake, accelerator, clutch pads', NULL, '2018-11-24 17:14:08', NULL),
+(128, 'Mechanical job', 'Replace battery', NULL, '2018-11-24 17:14:08', NULL),
+(129, 'Mechanical job', 'Replace radiator', NULL, '2018-11-24 17:14:08', NULL),
+(130, 'Painting and Body Repair Job', 'Panel Beat - Right Sliding Door', NULL, '2018-11-24 17:14:08', NULL),
+(131, 'Painting and Body Repair Job', 'Panel Beat - Right Quarter Panel', NULL, '2018-11-24 17:14:08', NULL),
+(132, 'Painting and Body Repair Job', 'Panel Beat - Front Bumper', NULL, '2018-11-24 17:14:08', NULL),
+(133, 'Painting and Body Repair Job', 'Panel Beat - Right Front Door', NULL, '2018-11-24 17:14:08', NULL),
+(134, 'Painting and Body Repair Job', 'Panel Beat - Front Facia', NULL, '2018-11-24 17:14:08', NULL),
+(135, 'Painting and Body Repair Job', 'Panel Beat - Rear Bumper', NULL, '2018-11-24 17:14:08', NULL),
+(136, 'Painting and Body Repair Job', 'Fix sliding Door mechanism', NULL, '2018-11-24 17:14:08', NULL),
+(137, 'Painting and Body Repair Job', 'Repaint whole vehicle', NULL, '2018-11-24 17:14:08', NULL),
+(138, 'Painting and Body Repair Job', 'Buff the whole vehicle', NULL, '2018-11-24 17:14:08', NULL),
+(139, 'Painting and Body Repair Job', 'Buff the rear bumper', NULL, '2018-11-24 17:14:08', NULL),
+(140, 'Painting and Body Repair Job', 'Paint the grill with black', NULL, '2018-11-24 17:14:08', NULL),
+(141, 'Painting and Body Repair Job', 'Paint the rims with black', NULL, '2018-11-24 17:14:08', NULL),
+(142, 'Painting and Body Repair Job', 'Wax and polish the whole vehicle', NULL, '2018-11-24 17:14:08', NULL),
+(143, 'Electrical Job', 'Replace Tail Light(Right)', NULL, '2018-11-24 17:14:08', NULL),
+(144, 'Electrical Job', 'Install new stereo/radio', NULL, '2018-11-24 17:14:08', NULL),
+(145, 'Electrical Job', 'Install dashboard lights, speedo meter ', NULL, '2018-11-24 17:14:08', NULL),
+(146, 'Electrical Job', 'Install Antenna', NULL, '2018-11-24 17:14:08', NULL),
+(147, 'Others', 'Refill Aircon Freon', NULL, '2018-11-24 17:14:08', NULL),
+(148, 'Others', 'New upholstery, new chair upholstery, new inside carpet', 17000, '2018-11-24 17:14:08', NULL),
+(149, 'Others', 'Replace Tint', 3500, '2018-11-24 17:14:08', NULL),
+(150, 'Others', 'Check Seat belts', NULL, '2018-11-24 17:14:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -434,47 +363,6 @@ INSERT INTO `spareparts` (`id`, `name`, `price`, `created`, `modified`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `task`
---
-
-DROP TABLE IF EXISTS `task`;
-CREATE TABLE IF NOT EXISTS `task` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
-  `appointmentID` int(255) NOT NULL,
-  `service` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL DEFAULT 'In-progress',
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` datetime NOT NULL,
-  `dateStart` date DEFAULT NULL,
-  `dateEnd` date DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `appointmentID` (`appointmentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `task`
---
-
-INSERT INTO `task` (`id`, `appointmentID`, `service`, `status`, `created`, `modified`, `dateStart`, `dateEnd`) VALUES
-(98, 75, 'Change Oil', 'Done', '2018-11-27 20:36:47', '2018-11-27 20:36:47', '2018-11-28', '2018-11-28'),
-(99, 75, 'Check brakes', 'In-progress', '2018-11-27 20:36:47', '2018-11-27 20:36:47', NULL, NULL),
-(100, 79, 'Check headlights', 'Done', '2018-11-27 20:43:54', '2018-11-27 20:43:54', '2018-11-27', '2018-11-27'),
-(101, 79, 'Check tail lights', 'Done', '2018-11-27 20:43:54', '2018-11-27 20:43:54', '2018-11-27', '2018-11-27'),
-(102, 82, 'Check Lights', 'Done', '2018-11-27 21:09:41', '2018-11-27 21:09:41', '2018-11-27', '2018-11-27'),
-(103, 73, 'Change Oil', 'Done', '2018-11-27 21:41:48', '2018-11-27 21:41:48', '2018-11-27', '2018-11-27'),
-(104, 73, 'Check headlights', 'Done', '2018-11-27 21:41:48', '2018-11-27 21:41:48', '2018-11-27', '2018-11-27'),
-(105, 74, 'Change Oil', 'Done', '2018-11-27 21:58:10', '2018-11-27 21:58:10', '2018-11-27', '2018-11-27'),
-(106, 74, 'Check headlights', 'Done', '2018-11-27 21:58:11', '2018-11-27 21:58:11', '2018-11-27', '2018-11-27'),
-(107, 79, 'Check headlights', 'Done', '2018-11-27 22:01:37', '2018-11-27 22:01:37', '2018-11-27', '2018-11-27'),
-(108, 79, 'Check tail lights', 'Done', '2018-11-27 22:01:37', '2018-11-27 22:01:37', '2018-11-27', '2018-11-27'),
-(109, 85, 'Change Oil', 'Done', '2018-11-27 22:05:36', '2018-11-27 22:05:36', '2018-11-27', NULL),
-(110, 78, 'Change Oil', 'Done', '2018-11-27 22:25:38', '2018-11-27 22:25:38', '2018-11-27', '2018-11-27'),
-(111, 78, 'Check fuel filter', 'In-progress', '2018-11-27 22:25:38', '2018-11-27 22:25:38', NULL, NULL),
-(112, 81, 'Change Oil', 'In-progress', '2018-11-27 22:36:55', '2018-11-27 22:36:55', NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -486,38 +374,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `created`, `modified`) VALUES
-(1, 'wengweng03', 'wengweng', '2018-09-24 00:21:11', NULL),
-(2, 'jelly', 'jelly', '2018-09-24 00:21:11', NULL),
-(17, 'jeli', '$2y$10$WygNZITR4WU/KYP./CX3iOG2dts33j4Hbi1YXJvQ8IAzuTz./z4Oy', '2018-09-24 03:44:08', NULL),
-(20, 'flower', '$2y$10$Nfm4KbkvdFYjc5A8LQKvO.Vkc8db44C2Fw19RswxQ2tvWkWGrod2K', '2018-09-26 14:49:12', NULL),
-(21, 'tutubi', '$2y$10$mu7jSfX6JUDvL83pfbf8uefRkHm5UfWloedRVrbpfXwdMq.dJbMTW', '2018-09-26 14:55:33', NULL),
-(23, 'bumblebee', '$2y$10$WOjuyho7B7xa3MJWB6SKOub.v8CTYss/YxxJvuD1/EKeXM3gs65Ie', '2018-09-26 15:26:35', NULL),
-(24, 'hehe', '$2y$10$Rd4Qa2U0Ka0gRQ0jm.Ohwu3IU54a9gGHz/FqIjINKumi/eHMpmCwi', '2018-09-26 15:41:54', NULL),
-(43, 'hayts', '$2y$10$JcGM9gyaHgqTCSL7elM97e9RQRTR6mqQqQc//DVmE8230iqEJwl.K', '2018-09-26 21:10:54', NULL),
-(44, 'sawakas', '$2y$10$4vvjaN3UC1jUIR29qP.cXeuHVsk5aXa.hfsO1lR8bjGO1dVFrQb36', '2018-09-26 21:19:19', NULL),
-(45, 'joshua', '$2y$10$8hovWWv2g0PmWeRHwA.a7OKD/GVtHwebPfa4MeZPJVlmYlGMM/HM2', '2018-09-26 21:40:10', NULL),
-(46, 'albert', '$2y$10$auWbjxhv57Tq8Vzy0GtdUul1VgXkm/WnkEnxqA.7pnQbs.WPUFtuK', '2018-09-26 21:56:57', NULL),
-(47, 'wengz', '$2y$10$B6IzcdMUrjI4KAncSrein.sPtuU6EMvI8w3BjGcuvWgOZvfsQT1j.', '2018-09-27 13:36:59', NULL),
-(48, 'windee', '$2y$10$J1Kif.866jSGY5o7YElkvOHlVk5h8vecm20kMFK0PBGHqK7CGR3bS', '2018-09-27 13:38:50', NULL),
-(49, 'jellybee', '$2y$10$rd1P/i5IL5T0cageTuYBz.G8vm0ik1syeFZGJLpZ6wLQ9OtjQlLv.', '2018-09-27 13:53:13', NULL),
-(54, '123', '$2y$10$5LVdIgpZwaP8x2.Ut4YM5OW0qClq0VIlg4KlXmTGmTvjv/lGvqgBi', '2018-10-02 00:55:44', NULL),
-(55, 'jellybeef', '$2y$10$a3EWcg1FwEiGw8d5bq08YOzSGcSHOzm0Stc8yOd39QfKuJftQVazO', '2018-10-02 00:56:55', NULL),
-(56, 'aa222', '$2y$10$ejPNP9aHzL8GIdv1RnAcpeKpWEGGA75og7xWCUe6utVdRsysfr2Yy', '2018-10-02 00:59:25', NULL),
-(57, 'ddddd', '$2y$10$gp7WZnkp.mKjJoQv2l1C6.xMQSGrdvNXUDR4Z7jA7xBntdH7/JqUS', '2018-10-02 01:00:21', NULL),
-(58, 'queen', 'f9677754bc6f99407c8b87f4150229a2', '2018-10-03 12:44:00', NULL),
-(59, 'angelica', '$2y$10$mGimxaQ7zuMFrdLUr1iESuRp.fOD6vExmZKK2EK6.KlxWICNGADb6', '2018-10-03 15:01:19', NULL),
-(60, 'ivy1998', '$2y$10$H7Y/RRe5uQoq4A1k.m7owesbUbl3DVPaomYuXArLPDdB/u5W86VK6', '2018-10-03 15:48:37', NULL),
-(61, 'lacap22', '$2y$10$DPLFNks35QMc8lmppfmDOOW9uYXP63Tlwv1SsljtsMUXL5nswpqI6', '2018-10-03 16:34:25', NULL),
-(63, 'aybiaybi', '$2y$10$SRC4dYoPKgEEP8oUlIyHBeFEIy1.PMXCLInYTvl53C1AY1M1bOiEq', '2018-10-05 12:22:13', NULL),
-(64, 'albert22', '$2y$10$5lXxj4vkgRXJwpBEB77qfuyjZ5LXTcX2vu/QlH6rPjhUZaR7tpWQC', '2018-11-11 18:23:48', NULL),
-(65, 'jellybeebee', '$2y$10$URXiZpC8qvM9hDfsMIEqN.3p9C.RMWvAKRcviRU0oY05j4O62I4c.', '2018-11-12 16:17:27', NULL);
+(1, 'juandelacruz', '$2y$10$/Ro0.1TnKBS50Mj/j52Yo.zcKtRHvwGfHyFjEHHpv9R/Hg8YvGI0K', '2018-11-29 00:21:37', NULL),
+(2, 'mariamakiling', '$2y$10$/RwNwB4XPuJ4dwEWNbANYu/VQQOhf6nar94X4ehknb.aaBp99vQ7u', '2018-11-29 00:31:11', NULL),
+(3, 'fernando', '$2y$10$g0WKURBYU4K2bMW3Wq5jF.SbbxT2JkHLgqlOaG9jpMJ7HWAV2Ok9e', '2018-11-29 00:35:49', NULL),
+(4, 'sarahcruz', '$2y$10$pDStHl/lUnEWGMQUO7RBHuuuCydhJ.k1ZJcu9s5GHPsl6or3ocee.', '2018-11-29 00:45:21', NULL),
+(5, 'johnbautista', '$2y$10$/0gl9XdzJ9PYrdMGUqMjy.p3mLB4ZLpOC6sNw.oBkbaZj0gzASb7.', '2018-11-29 00:48:02', NULL),
+(6, 'maryjoy', '$2y$10$5Q01.XMpOXQHiS7OmhcHXe9uJh/HDORIW50riZJFuMtuZ7qrS4hga', '2018-11-29 00:50:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -547,17 +416,21 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `personalId2` (`personalId`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
 --
 
 INSERT INTO `vehicles` (`id`, `personalId`, `plateNumber`, `bodyType`, `yearModel`, `chasisNumber`, `engineClassification`, `numberOfCylinders`, `typeOfDriveTrain`, `make`, `series`, `color`, `engineNumber`, `typeOfEngine`, `engineDisplacement`, `status`, `created`, `modified`) VALUES
-(8, 36, 'ALB-234', NULL, '2010', NULL, NULL, NULL, NULL, 'Mitsubishi', '2010', 'Black', NULL, NULL, NULL, 'Active', '2018-11-23 00:47:44', NULL),
-(9, 35, 'ARR-333', 'Cedan', '2007', '0', '', '0', '', 'Subaru', 'Impreza', 'Black', '0', '', '', 'Active', '2018-11-24 00:50:58', '2018-11-28 03:00:48'),
-(10, 12, 'ABC-123', 'Cedan', '2012', '3', '6', '98', 'off road', 'Mitsubishi', 'Civic', 'Black', '9', 'cleriacal', 'asdfghjkl', 'Active', '2018-11-27 11:42:39', '2018-11-28 03:08:54'),
-(11, 43, 'aiy 846', 'neck', '2020', '75', 'very nice', '25', 'tunnel', 'toyota', '2015', 'red', '123', 'very cool', 'velocity', 'Active', '2018-11-27 22:39:36', '2018-11-27 22:40:51');
+(1, 1, 'ABC-123', NULL, '2010', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'Yellow', NULL, NULL, NULL, 'Active', '2018-11-29 00:21:37', NULL),
+(2, 1, 'EFG-456', NULL, '2012', NULL, NULL, NULL, NULL, 'Toyota', 'Inova', 'Blue', NULL, NULL, NULL, 'Active', '2018-11-29 00:26:12', '2018-11-29 00:26:33'),
+(3, 2, 'HIJ-789', NULL, '2001', NULL, NULL, NULL, NULL, 'Toyota', 'Corolla', 'Red', NULL, NULL, NULL, 'Active', '2018-11-29 00:31:11', NULL),
+(4, 3, 'KLM-012', NULL, '2008', NULL, NULL, NULL, NULL, 'Mitsubishi ', 'Lancer', 'Black', NULL, NULL, NULL, 'Active', '2018-11-29 00:35:49', NULL),
+(5, 4, 'NOP-345', NULL, '2017', NULL, NULL, NULL, NULL, 'Ford', 'Ranger', 'Orange', NULL, NULL, NULL, 'Active', '2018-11-29 00:45:21', NULL),
+(6, 5, 'JOB-666', NULL, '2017', NULL, NULL, NULL, NULL, 'Toyota', 'Wigo', 'Yellow', NULL, NULL, NULL, 'Active', '2018-11-29 00:48:02', NULL),
+(7, 6, 'MJT-098', NULL, '2016', NULL, NULL, NULL, NULL, 'Hyundai', 'Eon', 'Pink', NULL, NULL, NULL, 'Active', '2018-11-29 00:50:41', NULL),
+(8, 7, 'TER-567', '', '2010', '', '', '', '', 'Ford', 'Muztang', 'White/Blue', '', '', '', 'Active', '2018-11-29 01:13:35', NULL);
 
 --
 -- Constraints for dumped tables
@@ -571,16 +444,17 @@ ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`);
 
 --
+-- Constraints for table `chargeinvoice`
+--
+ALTER TABLE `chargeinvoice`
+  ADD CONSTRAINT `chargeinvoice_ibfk_1` FOREIGN KEY (`personalId`) REFERENCES `personalinfo` (`personalId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `chargeinvoice_ibfk_2` FOREIGN KEY (`vehicleId`) REFERENCES `vehicles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `personalinfo`
 --
 ALTER TABLE `personalinfo`
   ADD CONSTRAINT `userId` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `task`
---
-ALTER TABLE `task`
-  ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`appointmentID`) REFERENCES `appointments` (`id`);
 
 --
 -- Constraints for table `vehicles`
