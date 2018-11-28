@@ -213,7 +213,9 @@
                                     
                                           </div>
                                           <div class="modal-footer">
+                                          
                                             <button type="submit" name="send-sms" class="btn btn-darkblue"><i class="menu-icon mdi mdi-send"></i>Send</button>
+                                            
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                           </div>
                                           </form>

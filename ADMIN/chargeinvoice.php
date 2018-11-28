@@ -125,7 +125,7 @@ $ci = $stmt->fetchAll();
                             <br>
                         </div>
                         <div class="col-1">
-                            <a href ="addci.php"><button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#addUser"><i class="menu-icon mdi mdi-receipt"></i>
+                            <a href ="addcibutton.php"><button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#addUser"><i class="menu-icon mdi mdi-receipt"></i>
                                 Add CI
                             </button></a>
                         </div>
