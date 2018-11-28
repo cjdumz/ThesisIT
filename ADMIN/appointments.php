@@ -239,7 +239,7 @@
                                         </div>
                                        
                                           <div class="form-group row">
-                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Proposed Date</label>
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Date</label>
                                             <div class="col-sm-9">
                                               <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
                                             </div>
@@ -331,7 +331,7 @@
                                             </div>
                                           </div>
                                           <div class="form-group row">
-                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Proposed Date</label>
+                                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label card-title">Date</label>
                                             <div class="col-sm-9">
                                               <input type="date" class="form-control" id="exampleInputPassword2" name="update" placeholder="" required>
                                             </div>
@@ -412,7 +412,7 @@
                                         </div>
                                        
                                           <div class="form-group row">
-                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Proposed Date</label>
+                                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Date</label>
                                             <div class="col-sm-9">
                                               <input type="text" class="form-control" id="exampleInputEmail2" disabled value="'; echo date('M d, Y',strtotime($date)); echo ' ">
                                             </div>
