@@ -276,24 +276,48 @@ if(isset($_POST["generate"])){
 
 }
 
-if(isset($_POST["change-status"])){
-  $id = $connection->real_escape_string($_POST["user-id"]);
+
+if(isset($_POST["changeStatus"])){
   $per = $connection->real_escape_string($_POST["per-id"]);
-  $status = $connection->real_escape_string($_POST["status"]);
-  echo $id,'<br>';
-  echo $per,'<br>';
-  echo $status;
-  if($status == 'Active'){
-    $update = $connection->prepare("UPDATE `users` SET `status` = 'Deactivate' WHERE `users`.`id` = .$id.;");
+  $user = $connection->real_escape_string($_POST["user-id"]);
+  $stat = $connection->real_escape_string($_POST["status"]);
+  if($stat == 'Active'){
+    $query = $connection->prepare("UPDATE `users` SET `status` = 'Deactivate' WHERE `users`.`id` = $user;");
   }else{
-    $update = $connection->prepare("UPDATE `users` SET `status` = 'Activate' WHERE `users`.`id` = .$id.;");
+    $query = $connection->prepare("UPDATE `users` SET `status` = 'Active' WHERE `users`.`id` = $user;");
   }
-  if($update->execute()){
-    //header("Location: ../user.php?id=$per");
+
+  if($query->execute()){
+    header("Location: ../user.php?id=$per");
+    
   }else{
     header("Location: ../error.php");
   }
 
 }
 
+if(isset($_POST["changePass"])){
+  $per = $connection->real_escape_string($_POST["per-id"]);
+  $user = $connection->real_escape_string($_POST["user-id"]);
+  $p1 = $connection->real_escape_string($_POST["p1"]);
+  $p2 = $connection->real_escape_string($_POST["p2"]);
+
+  if($p1 != $p2){
+    header("Location: ../error.php");
+  }
+
+  echo $per;
+  echo $user;
+  $password = password_hash($p1, PASSWORD_DEFAULT);
+  echo $password;
+
+  $query = $connection->prepare("UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = '$user';");
+  if($query->execute()){
+    header("Location: ../user.php?id=$per");
+    
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
 ?>
