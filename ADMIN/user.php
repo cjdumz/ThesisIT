@@ -224,7 +224,7 @@ if(!isset($_GET['id'])){
 
                               <form action="process/server.php" method="POST">
                                 <button type="submit" name="generate" class="btn btn-success" style="float:right" >
-                                  <i class="menu-icon mdi mdi-account-convert"></i> Generate Account
+                                  <i class="menu-icon mdi mdi-account-settings-variant"></i> Generate Account
                                 </button>
                               </form>
                         ';
@@ -233,8 +233,12 @@ if(!isset($_GET['id'])){
                               <div class="row">
                                 <div class="offset-1 col-md-2"><p >Status </p></div>
                                 <div class="col-md-9">
-                                  <p style="margin-top: -1%" class="card-title">: 
-                                    Activate/Deactivate
+                                  <p style="margin-top: -1%" class="card-title"> 
+                                    <button type="submit" name="generate" class="btn btn-success" style="float:left" >Activate</button> 
+                                    &nbsp
+                                    <button type="submit" name="generate" class="btn btn-danger" style="float:left" >Deactivate</button>
+                                    
+                                    
                                   </p>
                                 </div>
                               </div>
@@ -252,7 +256,7 @@ if(!isset($_GET['id'])){
                                 <div class="offset-1 col-md-2"><p >Password</p></div>
                                 <div class="col-md-9">
                                   <p style="margin-top: -1%" class="card-title"> 
-                                    <button class="btn btn-success"><i class="menu-icon mdi mdi-lock-reset"></i> Change Password</button>
+                                    <button class="btn btn-primary"><i class="menu-icon mdi mdi-lock-reset"></i> Change Password</button>
                                   </p>
                                 </div>
                               </div>

@@ -233,14 +233,14 @@
                               <form action="process/server.php" method="POST">
                                 <input type="hidden" name="app_id" value="'.$row['ID'].'">
                                 <button type="submit" class="btn btn-success" name="start" style="float:right">
-                                  <i class="menu-icon mdi mdi-account-convert"></i> Start
+                                  <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start
                                 </button>
                               </form>
                               
                               
                                 <input type="hidden" name="app_id" value="'.$row['ID'].'">
                                 <button type="submit" class="btn btn-warning" style="float:right; margin-right: 10px;"  data-toggle="modal"  data-target="#reschedule">
-                                  <i class="menu-icon mdi mdi-account-convert"></i> Reschedule
+                                  <i class="menu-icon mdi mdi-calendar-clock"></i> Reschedule
                                 </button>
 
 
@@ -379,7 +379,7 @@
                                           echo '<form action="process/server.php" method="POST">
                                                   <input type="hidden" name="task_id" value="'.$rows['id'].'">
                                                   <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                                  <button class="btn btn-success" type="submit" name="startTask">Start Task</button>
+                                                  <button class="btn btn-success" type="submit" name="startTask"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start Task</button>
                                                 </form>
                                                 ';
                                         }else{
@@ -389,7 +389,7 @@
                                         </td>
                                         <td>';
                                         if(empty($rows['dateStart'])){
-                                          echo '<button class="btn btn-success" disabled>Finish Task</button>';
+                                          echo '<button class="btn btn-success" disabled><i class="menu-icon mdi mdi-arrow-right-drop-circle"></i> Finish Task</button>';
                                         }elseif(empty($rows['dateEnd'])){
                                           echo '
                                                 <form action="process/server.php" method="POST">

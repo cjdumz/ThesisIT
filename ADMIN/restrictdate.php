@@ -125,7 +125,7 @@
                       <div class="card-body">    
                       <div class="container">
                         <form method = "post" action="rDate.php"> 
-                            <p class="card-title" style="font-size:20px; float:right;" >Select Date : <input type ="date" name="rdate" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2"> <button class="btn btn-primary" type="submit" name="submit"><i class="menu-icon mdi mdi-calendar-remove"></i> Restrict</button></p>
+                            <p class="card-title" style="font-size:20px; float:right;" >Select Date : <input type ="date" name="rdate" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2" required> <button class="btn btn-primary" type="submit" name="submit"><i class="menu-icon mdi mdi-calendar-remove"></i> Restrict</button></p>
                           </form>
                           
                       </div>
