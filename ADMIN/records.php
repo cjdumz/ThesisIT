@@ -51,6 +51,8 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+
+  
 </head>
 
 <body>
@@ -405,37 +407,32 @@
                                         </td>
                                         <td>
                                           <!-- Button trigger modal -->
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
-                                            Edit
+                                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
+                                            Delete
                                           </button>
                                         </td>
                                       </tr>
 
-                                      <!-- Add Modal -->
+                                      <!-- delete Modal -->
                                       <div class="modal fade" id="exampleModalCenter'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                           <div class="modal-content">
-                                            <div class="modal-header" style="background-color: #308ee0; color: white; border: 3px solid #308ee0;">
-                                              <h5 class="modal-title" id="exampleModalLabel">Add Task '.$rows['id'].'</h5>
+                                            <div class="modal-header"  style="background-color: #F44336; color: white; border: 3px solid #F44336;">
+                                              <h5 class="modal-title" id="exampleModalLabel">Delete Task</h5>
                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                               </button>
                                             </div>
                                             <div class="modal-body">
-                                              <form>
-                                                <div class="form-group">
-                                                  <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                                  <input type="text" class="form-control" id="recipient-name">
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="message-text" class="col-form-label">Message:</label>
-                                                  <textarea class="form-control" id="message-text"></textarea>
-                                                </div>
-                                              </form>
+                                              Are You sure you want to delete task ('.$rows['service'].')?
                                             </div>
                                             <div class="modal-footer">
-                                              <button type="button" class="btn btn-primary"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
+                                            <form action="process/server.php" method="POST">
+                                              <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                              <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                              <button type="submit" name="delete-task" class="btn btn-danger"><i class="menu-icon mdi mdi-trash-text"></i>Delete</button>
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                            </form>
                                             </div>
                                           </div>
                                         </div>
@@ -465,12 +462,12 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  <form>
+                                  <form action="process/server.php" method="POST">
                                     <div class="form-group">
 
                                       <div class="form-group">
                                         <label for="exampleFormControlSelect2">Select Service</label>
-                                        <select name="service" type="text" class="form-control  chzn-select" name="owner" tabindex="2">
+                                        <select name="service" type="text" class="form-control  chzn-select" name="owner" tabindex="2" required> 
                                           <option hidden selected name="service">Select Service</option>
                                           ';
                                             $data = $connection->prepare("SELECT * FROM services;");
@@ -484,23 +481,14 @@
                                           echo'
                                         </select>
                                       </div>
-                                      <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Password:</label>
-                                        <input type="password" class="form-control" name="p1"  id="password" placeholder="Password"  onkeyup="check();" required>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Confirm Password:</label>
-                                        <input type="password" class="form-control" name="p2"  id="confirm_password" placeholder="Confirm Password" onkeyup="check();" required>
-                                        <span id="message">
-                                      </div>';?>
-
-                                      <?php echo'
                                     </div>
                             
-                                  </form>
+
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-darkred"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
+                                  <input type="hidden" name="app_id" value="'.$id.'">
+                                  <button type="submit"  name="add-task" class="btn btn-darkred"><i class="menu-icon mdi mdi-clipboard-text"></i>Add</button>
+                                  </form>
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                 </div>
                               </div>
