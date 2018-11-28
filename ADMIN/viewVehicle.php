@@ -1,26 +1,25 @@
-<?php require 'process/require/auth.php';?>
-<?php require "process/require/dataconf.php";
-
-if(isset($_GET['plate'])){
-    $plate = $connection->real_escape_string($_GET["plate"]);
-    $data = $connection->prepare("SELECT *, concat(personalinfo.firstName, ' ', personalinfo.middleName, ' ', personalinfo.lastName) as 
-    'Name', personalinfo.personalId as 'ID' FROM vehicles join personalinfo where plateNumber = '$plate' AND vehicles.personalId = personalinfo.personalId");
-    if($data->execute()){
-        $values = $data->get_result();
-        $row = $values->fetch_assoc();
-        $vehicleID = $row['id'];
+<?php require 'process/require/auth.php';
+      require "process/require/dataconf.php";
+      if(isset($_GET['plate'])){
+        $plate = $connection->real_escape_string($_GET["plate"]);
+        $data = $connection->prepare("SELECT *, concat(personalinfo.firstName, ' ', personalinfo.middleName, ' ', personalinfo.lastName) as 
+        'Name', personalinfo.personalId as 'ID' FROM vehicles join personalinfo where plateNumber = '$plate' AND vehicles.personalId = personalinfo.personalId");
+        if($data->execute()){
+            $values = $data->get_result();
+            $row = $values->fetch_assoc();
+            $vehicleID = $row['id'];
+        }else{
+            header("Location: error.php");
+        }
     }else{
         header("Location: error.php");
     }
-   
-
-}else{
-    header("Location: error.php");
-}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Required meta tags -->
@@ -33,22 +32,17 @@ if(isset($_GET['plate'])){
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
   <!-- endinject -->
-
-  <link rel="stylesheet" href="vendor/chosen/chosen.css">
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
-
-  <link rel="stylesheet" href="css/chosen.css" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
 </head>
-    
-    
-    
 
 <body>
-
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <?php include "includes/navbar.php";?>
@@ -56,12 +50,12 @@ if(isset($_GET['plate'])){
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_sidebar.html -->
         
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
-            <a class="nav-link" id="active" href="dashboard.php">
+            <a class="nav-link" href="dashboard.php">
               <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
@@ -79,7 +73,7 @@ if(isset($_GET['plate'])){
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -94,29 +88,35 @@ if(isset($_GET['plate'])){
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
-            
+         
          <li class="nav-item">
             <a class="nav-link" href="dailytaskform.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
           </li>
-            
+
           <li class="nav-item">
-            <a class="nav-link" href="accountmanagement.php">
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
+            </a>
+          </li>
+            
+          <li class="nav-item active">
+            <a class="nav-link " href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
           </li>
             
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
               <i class="menu-icon mdi mdi-car-side"></i>
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
             </a>
           </li>
-            
-            
+    
         </ul>
       </nav>
       <!-- partial -->
@@ -128,286 +128,208 @@ if(isset($_GET['plate'])){
               <div class="card">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="vehicle.php" style="font-size:18px;">Vehicles</a></li>
+                    <li class="breadcrumb-item"><a href="accountmanagement.php" style="font-size:18px;">Account Management</a></li>
                     <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;"><?php echo $plate ?></li>
                   </ol>
                 </nav>
               </div>
             </div>
           </div>
-          
-          <div class="row">
-            <!-- start -->
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                    <p class="card-title" style="font-size:20px;">Vehicle Information</p>
-                    <form action="process/updateVehicle.php" method="POST"> 
-                        <div class="row">
-                        <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Owner</label>
-                                    <input type="hidden" name="altowner" value="<?php echo $row['personalId']; ?>">
-                                    <select 
-                                    <?php 
-                                        if($row['status'] == 'active'){
-                                            echo 'disabled';
-                                        }
-                                    ?>
-                                    type="text" class="form-control  chzn-select" name="owner" tabindex="2">
-                                      <option selected value="<?php echo $row['personalId']; ?>"><?php echo $row['Name']; ?></option>
-                                    <?php 
-                                      $otherOwner = $connection->prepare("SELECT concat(personalinfo.firstName, ' ', personalinfo.middleName, ' ', personalinfo.lastName) as 
-                                      'Name', personalinfo.personalId as 'ID' FROM  personalinfo");
-                                      if($otherOwner->execute()){
-                                          $values = $otherOwner->get_result();
-                                          while($rows = $values->fetch_assoc()) {
-                                          echo '
-                                              <option value="'.$rows['ID'].'">'.$rows['Name'].'</td>';
-                                          }
-                                        }
-          
 
-                                    ?>
-                                    </select>
-                                </div>
+          <div class="row">
+            
+            <!-- start -->
+
+             <?php
+              if(isset($_GET['plate'])){
+                $plate = $_GET['plate'];
+                $getVehicle = $connection->prepare("SELECT *, concat(firstName, ' ',middleName, ' ',lastName)as 'Name', personalInfo.personalId as 'personalId'
+                                                  FROM vehicles inner join personalinfo on 
+                                                       vehicles.personalId = personalinfo.personalId
+                                                  WHERE plateNumber = '$plate';");
+                $getVehicle->execute();
+                $value = $getVehicle->get_result();
+                $roww = $value->fetch_assoc();
+              }
+              ?>
+
+            <!-- end -->
+
+            <!-- start -->
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                <p class="card-title" style="font-size:20px;"><i class="fa fa-caret-square-o-left"></i><?php echo $plate ?></p>
+                <!-- start -->
+                <form class="form-sample" action="process/server.php" method="POST">
+                  <p class="card-description">
+                    Vehicle information
+                  </p>
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p >Current Owner </p></div>
+                      <div class="col-md-3">
+
+                      <button type="button" class="btn btn-success"  <?php if($roww['status'] == 'Active'){ echo 'disabled';} ?> data-toggle="modal" data-target="#changeOwner">
+                        <?php echo $roww['Name'] ?>
+                      </button>
+
+                      <div class="modal fade" id="changeOwner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Change Owner</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
                             </div>
-                            <input type="hidden" name="userID" value="<?php echo $row['ID']; ?>">
-                            <input type="hidden" name="vehicleID" value="<?php echo $row['id']; ?>">
-                            <div class="col-4">
-                                    <div class="form-group">
-                                    <label class="bmd-label-floating">Plate Number</label>
-                                    <input type="text" class="form-control" name="plate" value="<?php echo $plate; ?>">
-                                </div>
+                            <div class="modal-body">
+                              <form action="process/server.php" method="POST">
+                              <input type="hidden" name="plate" value="<?php echo $plate; ?>">
+                              <select class="form-control" name="group">
+                                <option selected disabled hidden value=""><?php echo $roww['Name'] , '(', $roww['id'],')'?></option>
+                                <?php
+
+                                $query = "SELECT *,concat(firstName,' ',middleName,' ',lastName) as 'Name' FROM `personalinfo`";
+                                $result = mysqli_query($connection, $query);
+                                if(mysqli_num_rows($result) > 0){
+                                  while($row = mysqli_fetch_array($result)){
+                                    extract($row);
+                                    echo '<option value="'.$row['personalId'].'">'.$row['Name'].' ('.$row ['personalId'].')</option>';
+                                  }
+                                }else{
+                                    echo '<option>No Result</option>';
+                                }
+
+                                ?>
+                              </select>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Status</label>
-                                    <select type="text" class="form-control" name="status">
-                                    <?php
-                                        echo '<option selected hidden value="'.$row['status'].'">'.$row['status'].'</option>';
-                                    ?>
-                                        <option value="active">active</option>
-                                        <option value="deactivated">deactivate</option>
-                                    </select>
-                                </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              <button type="submit" name="changeUser" class="btn btn-success">Change user</button>
+                              </form>
                             </div>
+                          </div>
                         </div>
-                        <div class="row">
-                        <div class="col-md-4 ">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Body Type</label>
-                            <input type="text" class="form-control" name="btype" value="<?php echo $row['bodyType']; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Year Model</label>
-                            <input type="text" class="form-control" name="ymodel" value="<?php echo $row['yearModel']; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Chassis Number</label>
-                            <input type="text" class="form-control" name="chassis" value="<?php echo $row['chasisNumber']; ?>">
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Engine Classification</label>
-                            <input type="text" class="form-control" name="engineClass" value="<?php echo $row['engineClassification']; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Number of Cylinders</label>
-                            <input type="text" class="form-control" name="cylinderNum" value="<?php echo $row['numberOfCylinders']; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Type of Drive Terrain</label>
-                            <input type="text" class="form-control" name="terain" value="<?php echo $row['typeOfDriveTrain']; ?>">
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Make</label>
-                            <input type="text" class="form-control" name="make" value="<?php echo $row['make']; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Series</label>
-                            <input type="text" class="form-control" name="series" value="<?php echo $row['series']; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Color</label>
-                            <input type="text" class="form-control" name="color" value="<?php echo $row['color']; ?>">
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Engine Number</label>
-                            <input type="text" class="form-control" name="engineNum" value="<?php echo $row['engineNumber']; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Type of Engine</label>
-                            <input type="text" class="form-control" name="engineType" value="<?php echo $row['typeOfEngine']; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                            <label class="bmd-label-floating">Engine Displacement</label>
-                            <input type="text" class="form-control" name="displacement" value="<?php echo $row['engineDisplacement']; ?>">
-                            </div>
-                        </div>
-                        </div>
-                        <button type="submit" class="btn btn-success" name="updateVehicle" style="float:right"><i class="menu-icon mdi mdi-car-side"></i> Update Vehicle</button>
-                        <div class="clearfix"></div>
-                    </form>
+                      </div>
                     </div>
+                    
+                  <div class="col-md-2"><p >Status </p></div>
+                    <div class="col-md-3">
+                      <p style="margin-top: -1%" class="card-title">
+                          <input type="hidden" name="plate" value="<?php echo $plate ?>">
+                          <input type="hidden" name="stat" value="<?php echo $roww['status'] ?>">
+                          <button class="btn btn-success" type="submit" name="toggle"><?php echo $roww['status'] ?></button>
+                        </form>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p >Body Type </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['bodyType'] ?></p></div>
+                    <div class="col-md-2"><p >Year Model </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['yearModel'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p >Chasis Number </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['chasisNumber'] ?></p></div>
+                    <div class="col-md-2"><p >Number of Cylinders </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['numberOfCylinders'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p >Make </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['make'] ?></p></div>
+                    <div class="col-md-2"><p >Series </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['series'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p >Color </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['color'] ?></p></div>
+                    <div class="col-md-2"><p >Type of drive terrain </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['typeOfDriveTrain'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p >Type of Engine </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['typeOfEngine'] ?></p></div>
+                    <div class="col-md-2"><p >Engine Classification </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['engineClassification'] ?></p></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-1 col-md-2"><p >Engine Displacement </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['engineDisplacement'] ?></p></div>
+                    <div class="col-md-2"><p >Engine Number </p></div>
+                    <div class="col-md-3"><p style="margin-top: -1%" class="card-title">: <?php echo $roww['engineNumber'] ?></p></div>
+                  </div>
+
+              <!-- end -->
+                  <button type="submit" class="btn btn-success" style="float:right"  data-toggle="modal"  data-target="#updateprofilemodal">
+                    <i class="menu-icon mdi mdi-account-convert"></i> Update Information
+                  </button>
                 </div>
+              </div>
             </div>
             <!-- end -->
 
-           <!-- start -->
-            <div class="col-12 grid-margin stretch-card" id="view">
+            <!-- start -->
+            <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
-                    <p class="card-title" style="font-size:20px;">Vehicle History</p>
-                    <!-- start -->
-                    <div class="table-responsive">
-                    <table class="table table-bordered table-dark" id="doctables">
+                  <h4 class="card-title">Records</h4>
+                  
+                  <!-- start -->
+                  <div class="table-responsive">
+                    <table class="table table-borderless table-dark" id="doctables2">
                       <thead>
-                        <tr class="grid">
-                          <th style="font-size:15px;">
-                            ID
-                          </th>
-                          <th style="font-size:15px;">
-                            Owner
-                          </th>
-                          <th style="font-size:15px;">
-                            Date
-                          </th>
-                          <th style="font-size:15px;">
-                            Progress
-                          </th>
-                          <th style="font-size:15px;">
-                            Status
-                          </th>
-                          <th style="font-size:15px;">
-                            Action
-                          </th>
+                        <tr class="text-center">
+                          <th>Owner</th>
+                          <th>Date Started</th>
+                          <th>Date End</th>
+                          <th>Status</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                         <?php
-                            $data = $connection->prepare("SELECT appointments.id as 'ID', concat(firstName, ' ',middleName, ' ',lastName)as 
-                            'Name', plateNumber, appointments.status as 'stat', appointments.date, appointments.modified, appointments.created from 
-                            appointments inner join personalinfo on appointments.personalId = personalinfo.personalId inner join vehicles 
-                            on personalinfo.personalId = vehicles.personalId where appointments.status = 'Accepted' OR appointments.status = 'Done'
-                            OR appointments.status = 'In-Progress' AND plateNumber = '$plate' group by 1;");
-                            if($data->execute()){
-                                $values = $data->get_result();
-                                while($row = $values->fetch_assoc()) {
+                          $getHistory = $connection->prepare("SELECT *, concat(firstName,' ',middleName,' ',lastName) as 'Name', appointments.date as 'Time',
+                          appointments.targetEndDate FROM
+                          `appointments` inner join personalinfo on
+                          appointments.personalId = personalinfo.personalId
+                          where vehicleID = $vehicleID  AND (status = 'Accepted' OR status = 'Done' OR status = 'In-progress') limit 10");
+                          if($getHistory->execute()){
+                              $dates = $getHistory->get_result();
+                              while($rows = $dates->fetch_assoc()) {
+                                
                                 echo '
                                     <tr>
-                                        <td>'.$row['ID'].'</td>
-                                        <td>'.$row['Name'].'</td>
-                                        <td>'.$row['date'].'</td>
-                                        <td>
-                                          <div class="progress">
-                                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
-                                              aria-valuemax="100">
-                                            </div>
-                                           </div>
-                                        </td>
-                                        <td>'.$row['stat'].'</td>';
-                                        if($row['stat'] != "Accepted"){
-                                          echo '  <td class="text-center"><a href="records.php?id='.$row['ID'].'"><button class="btn btn-primary" disabled><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>';
-                                        }else{
-                                          echo '<td class="text-center"><a href="records.php?id='.$row['ID'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></td>';
-                                        }
-                                        echo'
+                                        <td>'.$rows['Name'].'</td>
+                                        <td>'.date('F j, Y',strtotime ($row['Time'])).'</td>
+                                        <td> '.date('F j, Y',strtotime ($row['targetEndDate'])).'</td>
+                                        <td>'.$rows['status'].'</td>
+                                        <th><a href="records.php?id='.$rows['id'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a></th>
                                     </tr>
+   
 
+                                  ';
 
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                      <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                          <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Reschedule</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                            </button>
-                                          </div>
-                                          <div class="modal-body">
-                                            <!-- start -->
-                                            
-                                            <form class="forms-sample">
-                                              <div class="form-group row">
-                                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Previous Date</label>
-                                                <div class="col-sm-9">
-                                                  <input type="date" class="form-control" id="exampleInputEmail2" disabled value="">
-                                                </div>
-                                              </div>
-                                              <div class="form-group row">
-                                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Proposed Date</label>
-                                                <div class="col-sm-9">
-                                                  <input type="date" class="form-control" id="exampleInputPassword2" placeholder="">
-                                                </div>
-                                              </div>
-                                            <!-- end -->
-                                          </div>
-                                          <div class="modal-footer" >
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-danger">Dismiss</button>
-                                            <button type="button" class="btn btn-success">Reschedule</button>
-                                            </form>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                ';
-                                }
-                            }else{
-                                echo "<tr>
-                                        <td colspan='7'>No Available Data</td>
-                                    </tr>";
+                              }
                             }
                         ?>
                       </tbody>
                     </table>
-                    </div>
-                    <!-- end -->
-                    
+                  </div>
+                  <!-- end -->
+
                 </div>
               </div>
             </div>
+            <!-- end -->
 
-
-
-           <!-- end -->
-
-          
           </div>
         </div>
-
-
-        
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <?php include "includes/footer.php";?>
@@ -419,8 +341,120 @@ if(isset($_GET['plate'])){
   </div>
   <!-- container-scroller -->
 
+  <!-- modal start -->
+  <div class="modal fade" id="updateprofilemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header" style="background-color: #4caf50; color: white; border: 3px solid #4caf50;">
+        <h5 class="modal-title" id="exampleModalLabel">Update Vehicle</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <!-- start -->
+      <p class="card-title" style="font-size:20px;">Vehicle Information</p>
+      <form action="process/server.php" method="POST">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Body Type</label>
+              <input type="text" class="form-control" name="bodyType" value="<?php echo $roww['bodyType'] ?>" placeholder="<?php echo $roww['bodyType'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Year Model</label>
+              <input type="text" class="form-control" name="yearModel" value="<?php echo $roww['yearModel'] ?>" placeholder="<?php echo $roww['yearModel'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Chasis Number</label>
+              <input type="text" class="form-control" name="chasisNumber" value="<?php echo $roww['chasisNumber'] ?>" placeholder="<?php echo $roww['chasisNumber'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Number of Cylinders</label>
+              <input type="text" class="form-control" name="numberOfCylinders" value="<?php echo $roww['numberOfCylinders'] ?>" placeholder="<?php echo $roww['numberOfCylinders'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Make</label>
+              <input type="text" class="form-control" name="make" value="<?php echo $roww['make'] ?>" placeholder="<?php echo $roww['make'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Series</label>
+              <input type="text" class="form-control" name="series" value="<?php echo $roww['series'] ?>" placeholder="<?php echo $roww['series'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Color</label>
+              <input type="text" class="form-control" name="color" value="<?php echo $roww['color'] ?>" placeholder="<?php echo $roww['color'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Type of drive terrain</label>
+              <input type="text" class="form-control" name="typeOfDriveTrain" value="<?php echo $roww['typeOfDriveTrain'] ?>" placeholder="<?php echo $roww['typeOfDriveTrain'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Type of Engine</label>
+              <input type="text" class="form-control" name="typeOfEngine" value="<?php echo $roww['typeOfEngine'] ?>" placeholder="<?php echo $roww['typeOfEngine'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Engine Classification</label>
+              <input type="text" class="form-control" name="engineClassification" value="<?php echo $roww['engineClassification'] ?>" placeholder="<?php echo $roww['engineClassification'] ?>">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Engine Displacement</label>
+              <input type="text" class="form-control" name="engineDisplacement" value="<?php echo $roww['engineDisplacement'] ?>" placeholder="<?php echo $roww['engineDisplacement'] ?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Engine Number</label>
+              <input type="text" class="form-control" name="engineNumber" value="<?php echo $roww['engineNumber'] ?>" placeholder="<?php echo $roww['engineNumber'] ?>">
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="plate" value="<?php echo $plate; ?>">
+        <!-- end -->
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success" name="submit-vehicle" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update Profile</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Close</button>
+          <div class="clearfix"></div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
   <!-- plugins:js -->
-  <!-- <script src="vendors/js/vendor.bundle.base.js"></script> -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
   <script src="vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
@@ -431,18 +465,11 @@ if(isset($_GET['plate'])){
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
-  <!-- End custom js for this page -->
+  <!-- End custom js for this page-->
 
-
-	<script src="js/mootools-yui-compressed.js"></script>
-	<script src="js/mootools-more-1.4.0.1.js"></script>
-  <script src="js/chosen.js"></script>
-  <script> $$(".chzn-select").chosen(); $$(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
-  <script src="js/jquery.min.js"></script>
   <script src="js/jquery.dataTables.js"></script>
   <script src="js/dataTables.bootstrap4.js"></script>
   <script src="js/sb-admin-datatables.min.js"></script>
-  
 </body>
 
 </html>
@@ -450,7 +477,17 @@ if(isset($_GET['plate'])){
 <script>
   var table = $('#doctables').DataTable({
     // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 
 });
 </script>
+
+<script>
+  var table = $('#doctables2').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
+
+});
+</script>
+
+

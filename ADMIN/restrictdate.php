@@ -1,6 +1,5 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require 'process/process.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +9,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Client Records</title>
+  <title>Dashboard</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
@@ -40,7 +39,7 @@
         <hr class="style2">
             
           <li class="nav-item">
-            <a class="nav-link" id="active" href="dashboard.php">
+            <a class="nav-link" href="dashboard.php">
               <i class="menu-icon mdi mdi-view-dashboard"></i>
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
@@ -104,53 +103,62 @@
             
         </ul>
       </nav>
-        
-      <!-- partial -->
-      <div class="main-panel">
+      
+        <div class="main-panel">
         <div class="content-wrapper">
+         
+        <div class="row">
+            <div class="col-lg-12 grid-margin  stretch-card">
+              <div class="card">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="restrictdate.php" style="font-size:18px;">Date Restrict</a></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        <!--  Start Calendar  -->
           <div class="row">
-            
-            <div class="col-lg-12 stretch-card">
+               <div class="col-lg-6 grid-margin stretch-card">
+                  <div class="card">
+                      <div class="card-body">    
+                      <div class="container">
+                        <form method = "post" action="rDate.php"> 
+                            <p class="card-title" style="font-size:20px; float:right;" >Select Date : <input type ="date" name="rdate" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2" required> <button class="btn btn-primary" type="submit" name="submit"><i class="menu-icon mdi mdi-calendar-remove"></i> Restrict</button></p>
+                          </form>
+                          
+                      </div>
+
+                      </div>
+                   </div>
+               </div> 
+             
+            <!-- start -->
+            <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
 
-                    <div class="row">
-                        <div class="col-11">
-                            <p class="card-title" style="font-size:20px;">Client Records</p>
-                            <p class="card-description">
-                                List of Accepted Request
-                            </p>
-                        </div>
-                    </div>
-                    
-                  <div class="table-responsive">
-                  <!-- start -->
-                  <table class="table table-bordered table-dark" id="doctables">
+                <!-- start -->
+                <p class="card-title" style="font-size:20px;">Restricted Dates</p>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-dark" id="doctables">
                       <thead>
-                        <tr class="grid">
-                            <th style="font-size:15px;">Customer Name</th>
+                        <tr class="text-center">
+                          <th>Date Restricted</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
-                      <?php
-                        $data = $connection->prepare("select  personalinfo.personalId as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name' , count(vehicles.personalId) as 'Vehicles', plateNumber from vehicles join personalinfo 
-                        where vehicles.personalId = personalinfo.personalId
-                        group by 1");
-                        if($data->execute()){
-                            $values = $data->get_result();
-                            while($row = $values->fetch_assoc()) {
-                            // $dateTime = $row['date'];
-                            // $dateTimeSplit = explode(" ",$dateTime);
-                            // $date = $dateTimeSplit[0];
+                    <?php
+                        $datas = $connection->prepare("Select id,date from `daterestricted`;");
+                        if($datas->execute()){
+                            $valuess = $datas->get_result();
+                            while($row = $valuess->fetch_assoc()) {
                             echo '
                                 <tr>
-                                <td><a href="client.php?id='.$row['ID'].'">'.$row['Name'].'</a></td>
-                                
-                          
-                                
-
-   
-
+                                  <td>'.$row['date'].'</td>
+                                  <td class="text-center"><a href="unrestrict.php?id='.$row['id'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-calendar-check"></i> Unrestrict</td>
                                 </tr>
                             ';
                             }
@@ -159,31 +167,28 @@
                                     <td colspan='7'>No Available Data</td>
                                 </tr>";
                         }
-                        ?>
+                        ?>  
+                          
                       </tbody>
                     </table>
-                  <!-- end -->
                   </div>
+                <!-- end -->
+                 
                 </div>
               </div>
-            </div>
-
+            </div>    
           </div>
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <?php include "includes/footer.php";?>
-        <!-- partial -->
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <?php include "includes/footer.php";?>
+                <!-- partial -->
+           </div>
       </div>
-      <!-- main-panel ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-
-  <!-- Modal -->
-  
+        
+    
   <!-- container-scroller -->
-
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <script src="vendors/js/vendor.bundle.addons.js"></script>
@@ -197,51 +202,7 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
-
-  <script src="js/jquery.dataTables.js"></script>
-  <script src="js/dataTables.bootstrap4.js"></script>
-  <script src="js/sb-admin-datatables.min.js"></script>
-   <script src="js/script.js"></script>
-  <!-- AJAX Link -->
- <script>
-$(document).ready(function(){
-  $("#submit").click(function(){
-    var exampleInputName1 = $("#exampleInputName1").val();
-    var exampleInputName2 = $("#exampleInputName2").val();
-    var exampleInputName3 = $("#exampleInputName3").val();
-    var exampleInputPlate = $("#exampleInputPlate").val();
-    var exampleInputEmail = $("#exampleInputEmail").val();
-    var exampleInputMobile = $("#exampleInputMobile").val();
-    var exampleInputTel = $("#exampleInputTel").val();
-    var exampleInputAddress = $("#exampleInputAddress").val();
-    var dataString = 'exampleInputName1=' + exampleInputName1 + '&exampleInputName2=' + exampleInputName2;
-    if(exampleInputName1=='' || exampleInputName2=='' || exampleInputName3=='' || exampleInputNPlate=='' || exampleInputEmail==''
-      || exampleInputMobile=='' || exampleInputTel=='' || exampleInputAddress==''){
-      alert('Fill all fields')
-      $("#display").html("");
-    } else {
-    $.ajax({
-      type: "POST",
-      cache: false,
-      success: function(result){
-       $("#display").html(result);
-      }
-    });
-    }
-    return false;
-  }); 
-});
-</script>
-
-<script>
-  var table = $('#doctables').DataTable({
-    // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
-
-});
-</script>
+       
 </body>
 
-
->>>>>>> 59108eff68da1b1a5f3f6f52e44accea984566e7
 </html>

@@ -6,30 +6,21 @@
 
 <head>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Dashboard</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
-  <link rel="shortcut icon" href="images/favicon.png" />
-  <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
-    
-    
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/calendar.css">
+  <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -66,7 +57,7 @@
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -82,10 +73,17 @@
             </a>
           </li>
             
-        <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
+          <li class="nav-item">
+            <a class="nav-link"  href="dailytaskform.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
             </a>
           </li>
             
@@ -105,23 +103,74 @@
             
         </ul>
       </nav>
-        
-      <!-- partial -->
-      <div class="main-panel">
+      
+            <div class="main-panel">
+               <div class="content-wrapper">
+                   <div class="row">
+                       
+                       
+                       <div class="col-lg-12 stretch-card">
+                          <div class="card">
+                              <div class="card-body">
+                                <p class="card-title" style="font-size:20px;">Daily Task Form</p>
+                                <p class="card-description">List of Daily Tasks</p>
+                               
+                                <div class="table-responsive">
+                                   <table class="table table-bordered table-dark" id="doctables">
+                                      <thead>
+                                          <tr class="grid">
+                                              <th>Job to do</th>
+                                              <th>Person</th>
+                                              <th>No. of person/s</th>
+                                              <th>Targeted start date</th>
+                                              <th>Target finish date</th>
+                                              <th>Date Started</th>
+                                              <th>Time Started</th>
+                                              <th>Time Finished</th>
+                                              <th>Date Finished</th>
+                                              <th>Man Hour</th>
+                                          </tr>
+                                       </thead> 
+                                       <tbody class="table-primary" style="color:black;">
+                                        <?php
+                                           $data = $connection->prepare("SELECT")
+                                       
+                                       
+                                        ?>
+                                       </tbody>
 
-        <!-- content-wrapper ends -->
-          
-        <!-- partial:partials/_footer.html -->
-        <?php include "includes/footer.php";?>
-        <!-- partial -->
-          
+                                       
+                                        
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                 
+                                    </table>
+                                </div>
+                                 
+                              </div>
+                           </div>
+                       </div>   
+                   </div>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <?php include "includes/footer.php";?>
+                <!-- partial -->
+           </div>
       </div>
-      <!-- main-panel ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
+        
+    
   <!-- container-scroller -->
-
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <script src="vendors/js/vendor.bundle.addons.js"></script>
@@ -135,15 +184,7 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
-    
-  <script src="js/jquery.dataTables.js"></script>
-  <script src="js/dataTables.bootstrap4.js"></script>
-  <script src="js/sb-admin-datatables.min.js"></script>
-  <script src="js/script.js"></script>  
-    
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script type="text/javascript" src="js/calendar.js"></script>
-<script type="text/javascript" src="js/events.js"></script>    
+       
 </body>
 
 </html>

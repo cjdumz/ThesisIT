@@ -80,6 +80,13 @@
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
+            </a>
+          </li>
             
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
@@ -125,7 +132,7 @@
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                       <?php
-                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,appointments.created as 'created',
+                        $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,appointments.created as 'created', appointments.serviceId as 'service', appointments.otherService as 'others',
                         yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message' from appointments join personalinfo on appointments.personalId
                         = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Pending' OR appointments.status = 'Rescheduled' AND (NOW() = date OR NOW() < date )");
                         if($data->execute()){
@@ -221,7 +228,13 @@
                                             <h4 class="card-title">Services:</h4>                                            
                                           </div>
                                           <div class="col-6">
-                                            <h4 class="card-title"></h4>
+                                            <h4 class="card-title">'.$row['service'].'&nbsp
+                                            ';
+                                              if(!empty($row['otherService'])){
+                                                echo ', ',$row['otherService'];
+                                              }
+                                            echo'
+                                            </h4>
                                           </div>
                                         </div>
                                        
@@ -290,7 +303,13 @@
                                             <h4 class="card-title">Services:</h4>                                            
                                           </div>
                                           <div class="col-8">
-                                            <h4 class="card-title"></h4>
+                                            <h4 class="card-title">'.$row['service'].'&nbsp
+                                            ';
+                                              if(!empty($row['otherService'])){
+                                                echo ', ',$row['otherService'];
+                                              }
+                                            echo'
+                                            </h4>
                                           </div>
                                         </div>';
                                         if($row['status'] == 'Rescheduled'){
@@ -378,11 +397,17 @@
                                           </div>
                                         </div>
                                         <div class="row">
-                                          <div class="col-12">
+                                          <div class="col-6">
                                             <h4 class="card-title">Services:</h4>                                            
                                           </div>
-                                          <div class="col-12">
-                                            <h4 class="card-title"></h4>
+                                          <div class="col-6">
+                                            <h4 class="card-title">'.$row['service'].'&nbsp
+                                            ';
+                                              if($row['otherService'] = ""){
+                                                echo ', ',$row['otherService'];
+                                              }
+                                            echo'
+                                            </h4>
                                           </div>
                                         </div>
                                        
@@ -471,7 +496,7 @@
 <script>
   var table = $('#doctables').DataTable({
     // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 
 });
 </script>

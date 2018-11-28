@@ -78,6 +78,13 @@
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
+            </a>
+          </li>
             
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
@@ -189,7 +196,7 @@
                                             $getHistory = $connection->prepare("SELECT *, concat(firstName,' ',middleName,' ',lastName) as 'Name', appointments.date as 'Time' FROM
                                             `appointments` inner join personalinfo on
                                            appointments.personalId = personalinfo.personalId
-                                           where vehicleID = $vehicleID  AND status = 'Accepted' OR status = 'Done' OR status = 'In-progress' limit 10");
+                                           where vehicleID = $vehicleID  AND (status = 'Accepted' OR status = 'Done' OR status = 'In-progress') limit 10");
                                             if($getHistory->execute()){
                                                 $dates = $getHistory->get_result();
                                                 while($rows = $dates->fetch_assoc()) {

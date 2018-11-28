@@ -25,7 +25,7 @@
         </ul>
             
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                 <i class="mdi mdi-bell"></i>
                 <span class="count">4</span>
@@ -79,7 +79,7 @@
                 </div>
                 </a>
             </div>
-            </li>
+            </li> -->
             <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <span class="profile-text" style="font-size:14px; font-weight:bold;">Hello, Admin
@@ -87,9 +87,9 @@
                 <img class="img-xs rounded-circle" src="images/faces-clipart/pic-2.png" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                <a class="dropdown-item mt-2"><i class="menu-icon mdi mdi-account-settings-variant"></i>
+                <!-- <a class="dropdown-item mt-2"><i class="menu-icon mdi mdi-account-settings-variant"></i>
                 Account Settings
-                </a>
+                </a> -->
                 <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal"><i class="menu-icon mdi mdi-logout-variant"></i>Logout
                 </a>
             </div>

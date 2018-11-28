@@ -1,7 +1,7 @@
 <?php
 include_once("process/require/dataconf.php");
 $calendar = array();
-$sqlEvents = $connection->prepare("SELECT appointments.id, appointments.personalId, appointments.serviceId, vehicles.plateNumber, appointments.date, appointments.vehicleId FROM appointments INNER JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted'");
+$sqlEvents = $connection->prepare("SELECT appointments.id, appointments.personalId, appointments.serviceId, vehicles.plateNumber, appointments.date, appointments.vehicleId FROM appointments INNER JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' OR  appointments.status = 'In-Progress'");
 if ($sqlEvents->execute()){
     $resultset = $sqlEvents->get_result();
     while( $rows = $resultset->fetch_assoc() ) {	
@@ -10,7 +10,7 @@ if ($sqlEvents->execute()){
         $calendar[] = array(
             'id' =>$rows['id'],
             'title' => $rows['plateNumber'],
-            'url' => "appointmentdetails.php?id=".$rows['personalId']."&amp;appid=".$rows['id']."&amp;serviceid=".$rows['serviceId']."",
+            'url' => "records.php?id=".$rows['id']."",
             "class" => 'event-important',
             'start' => "$start",
         );

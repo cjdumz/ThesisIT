@@ -79,6 +79,13 @@
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
+            </a>
+          </li>
             
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
@@ -112,13 +119,13 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Plate Number</label>
-                                                  <input type="text" class="form-control" name="plateNumber" required>
+                                                  <input type="text" class="form-control" name="plateNumber" pattern="[A-Z]{3}-[0-9]{3}" required>
                                                 </div>
                                               </div>
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Body Type</label>
-                                                  <input type="text" class="form-control" name="bodyType" required>
+                                                  <input type="text" class="form-control" name="bodyType">
                                                 </div>
                                               </div>
                                             </div>
@@ -140,7 +147,7 @@
                                               <div class="col-md-12">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Engine Classification</label>
-                                                  <input type="text" class="form-control" name="engineClassification" required>
+                                                  <input type="text" class="form-control" name="engineClassification">
                                                 </div>
                                               </div>
                                             </div>
@@ -148,7 +155,7 @@
                                               <div class="col-md-12">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Number of Cylinders</label>
-                                                  <input type="text" class="form-control" name="numberOfCylinders" required>
+                                                  <input type="text" class="form-control" name="numberOfCylinders">
                                                 </div>
                                               </div>
                                             </div>
@@ -156,7 +163,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Type of Drive Train</label>
-                                                  <input type="text" class="form-control" name="typeOfDriveTrain" required>
+                                                  <input type="text" class="form-control" name="typeOfDriveTrain">
                                                 </div>
                                               </div>
                                               <div class="col-md-6">
@@ -176,7 +183,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Color</label>
-                                                  <input type="text" class="form-control" name="color">
+                                                  <input type="text" class="form-control" name="color" required>
                                                 </div>
                                               </div>
                                             </div>
@@ -184,7 +191,7 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Engine Number</label>
-                                                  <input type="text" class="form-control" name="engineNumber" required>
+                                                  <input type="text" class="form-control" name="engineNumber">
                                                 </div>
                                               </div>
                                               <div class="col-md-6">
@@ -198,14 +205,14 @@
                                               <div class="col-md-6">
                                                 <div class="form-group">
                                                   <label class="bmd-label-floating">Engine Displacement</label>
-                                                  <input type="text" class="form-control" name="engineDisplacement" required>
+                                                  <input type="text" class="form-control" name="engineDisplacement">
                                                 </div>
                                               </div>
                                             </div>
                                             <br><br>
                                             <button type="submit" class="btn btn-primary" name="submit-vehicle" style="float:right"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button>
                                              
-                                            <button onclick="location.href='adduser.php'" type="submit" class="btn btn-primary" style="float:left"><i class="menu-icon mdi mdi-chevron-left"></i> Previous</button>
+                                            <!-- <button onclick="location.href='adduser.php'" name="previous" type="submit" class="btn btn-primary" style="float:left"><i class="menu-icon mdi mdi-chevron-left"></i> Previous</button> -->
                                             <div class="clearfix"></div>      
                                       </form>
                               </div>

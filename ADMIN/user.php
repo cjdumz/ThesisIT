@@ -75,7 +75,7 @@ if(!isset($_GET['id'])){
                   <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointments</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="reschedule.php" style="font-size:14px;">Overdue</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
@@ -95,6 +95,13 @@ if(!isset($_GET['id'])){
             <a class="nav-link" href="dailytaskform.php">
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
             </a>
           </li>
             
@@ -123,7 +130,7 @@ if(!isset($_GET['id'])){
               <div class="card">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="clientrecords.php" style="font-size:18px;">Account Management</a></li>
+                    <li class="breadcrumb-item"><a href="accountmanagement.php" style="font-size:18px;">Account Management</a></li>
                     <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;"><?php echo $Name ?></li>
                   </ol>
                 </nav>
@@ -217,7 +224,7 @@ if(!isset($_GET['id'])){
 
                               <form action="process/server.php" method="POST">
                                 <button type="submit" name="generate" class="btn btn-success" style="float:right" >
-                                  <i class="menu-icon mdi mdi-account-convert"></i> Generate Account
+                                  <i class="menu-icon mdi mdi-account-settings-variant"></i> Generate Account
                                 </button>
                               </form>
                         ';
@@ -226,8 +233,12 @@ if(!isset($_GET['id'])){
                               <div class="row">
                                 <div class="offset-1 col-md-2"><p >Status </p></div>
                                 <div class="col-md-9">
-                                  <p style="margin-top: -1%" class="card-title">: 
-                                    Activate/Deactivate
+                                  <p style="margin-top: -1%" class="card-title"> 
+                                    <button type="submit" name="generate" class="btn btn-success" style="float:left" >Activate</button> 
+                                    &nbsp
+                                    <button type="submit" name="generate" class="btn btn-danger" style="float:left" >Deactivate</button>
+                                    
+                                    
                                   </p>
                                 </div>
                               </div>
@@ -245,7 +256,7 @@ if(!isset($_GET['id'])){
                                 <div class="offset-1 col-md-2"><p >Password</p></div>
                                 <div class="col-md-9">
                                   <p style="margin-top: -1%" class="card-title"> 
-                                    <button class="btn btn-success">Change Password</button>
+                                    <button class="btn btn-primary"><i class="menu-icon mdi mdi-lock-reset"></i> Change Password</button>
                                   </p>
                                 </div>
                               </div>
@@ -314,7 +325,7 @@ if(!isset($_GET['id'])){
                   
                   <!-- start -->
                   <div class="table-responsive">
-                    <table class="table table-bordered table-dark" id="doctables2">
+                    <table class="table table-borderless table-dark" id="doctables2">
                       <thead>
                         <tr class="text-center">
                           <th>Plate Number</th>
@@ -327,9 +338,9 @@ if(!isset($_GET['id'])){
                       <tbody class="table-primary" style="color:black;">
                         
                       <?php
-                        $data = $connection->prepare("SELECT appointments.id as 'id', appointments.date as 'date', concat(firstName,' ',middleName,' ',lastName) as 'Name', vehicles.plateNumber, appointments.status as 'stats'  FROM `appointments` join `personalinfo` join vehicles
-                        where personalinfo.personalId = $id and appointments.status = 'Accepted' and personalinfo.personalId = appointments.personalId group by 1");
-
+                        $data = $connection->prepare("SELECT appointments.id as 'id', vehicles.plateNumber 'plateNumber', appointments.date as 'date', appointments.status as 'stats', appointments.personalId
+                        as 'client' from appointments inner join vehicles on appointments.vehicleId = vehicles.id where appointments.personalId = '$id' AND(appointments.status = 'Done' OR appointments.status
+                         = 'In-Progress' OR appointments.status = 'Accepted')");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {
@@ -432,6 +443,7 @@ if(!isset($_GET['id'])){
             <div class="form-group">
               <label class="bmd-label-floating">Suffix</label>
               <input type="text" class="form-control" name="suffix" value="<?php echo $contentx['suffix'] ?>" placeholder="<?php echo $contentx['suffix'] ?>">
+              <span style="font-size: 10px">(Ex. II)</span>
             </div>
           </div>
         </div>
@@ -455,13 +467,15 @@ if(!isset($_GET['id'])){
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Mobile Number</label>
-              <input type="text" class="form-control" name="mobile" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
+              <input type="text" class="form-control" name="mobile" pattern="[0-9]{4}[0-9]{3}[0-9]{4}" value="<?php echo $contentx['mobileNumber'] ?>" placeholder="<?php echo $contentx['mobileNumber'] ?>">
+              <span style="font-size: 10px">(Ex. 09*********)</span>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Telephone Number</label>
-              <input type="text" class="form-control" name="telephone" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
+              <input type="text" class="form-control" name="telephone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" value="<?php echo $contentx['telephoneNumber'] ?>" placeholder="<?php echo $contentx['telephoneNumber'] ?>">
+              <span style="font-size: 10px">(Ex. 074 *** ****)</span>
             </div>
           </div>
         </div>
@@ -503,7 +517,7 @@ if(!isset($_GET['id'])){
 <script>
   var table = $('#doctables').DataTable({
     // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 
 });
 </script>
@@ -511,7 +525,7 @@ if(!isset($_GET['id'])){
 <script>
   var table = $('#doctables2').DataTable({
     // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 
 });
 </script>
