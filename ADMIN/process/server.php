@@ -122,7 +122,7 @@ if(isset($_POST["start"])){
           $services = $row['serviceId'];
           $id = $row['id'];
 
-          if($row['otherServices'] != ""){
+          if($row['otherService'] != ""){
             $other = $row['otherService'];
             $query2 = $connection->prepare("INSERT INTO `task`(`service`, `appointmentID`, `modified`)
             VALUES ('$other', $id, now() )");
