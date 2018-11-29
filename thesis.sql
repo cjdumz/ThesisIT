@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 28, 2018 at 07:46 PM
+-- Generation Time: Nov 29, 2018 at 12:25 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -63,28 +63,27 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `otherService` varchar(255) DEFAULT NULL,
   `additionalMessage` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL,
-  `date` date NOT NULL,
-  `adminDate` date DEFAULT NULL,
+  `date` varchar(255) NOT NULL,
+  `adminDate` varchar(255) DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime DEFAULT NULL,
-  `notification` varchar(255) DEFAULT NULL,
-  `targetEndDate` date DEFAULT NULL,
+  `notification` int(1) NOT NULL DEFAULT '1',
+  `targetEndDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `personalId3` (`personalId`),
   KEY `serviceId` (`serviceId`),
   KEY `vehicleId` (`vehicleId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
 --
 
 INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `adminDate`, `created`, `modified`, `notification`, `targetEndDate`) VALUES
-(1, 'Change Oil,Check fuel filter', 1, 1, 'Please Also See My Tire', NULL, 'Pending', '2018-11-30', NULL, '2018-11-29 00:24:28', NULL, '1', NULL),
-(2, 'simple retouch,Body Repair', 3, 2, 'Please Make My Vehicle Beautiful', NULL, 'Accepted', '2018-12-05', NULL, '2018-11-29 00:33:02', NULL, '1', NULL),
-(3, 'check battery', 4, 3, 'Can\'t start the engine too', NULL, 'Done', '2018-12-24', NULL, '2018-11-29 00:37:46', NULL, '1', NULL),
-(4, 'Check brakes', 7, 6, 'How much will it cost me ? ', NULL, 'In-progress', '2019-01-26', NULL, '2018-11-29 00:52:40', NULL, '1', NULL),
-(5, 'Body Repair,Customize', 6, 5, 'Make it vintage', NULL, 'Declined', '2018-12-15', NULL, '2018-11-29 00:55:04', NULL, '1', NULL);
+(1, 'Change Oil,Check fuel filter,Change Brake Pads', 1, 1, 'Please handle with care', NULL, 'In-Progress', '2018-12-06', NULL, '2018-11-29 07:54:06', '2018-11-29 08:22:06', 0, NULL),
+(2, 'check horn,check battery', 6, 1, 'Howmuch will it cost me ? ', NULL, 'Pending', '2018-12-14', NULL, '2018-11-29 07:55:54', NULL, 0, NULL),
+(3, 'Body Repair', 3, 2, 'Need it dine in 3 days', NULL, 'Pending', '2018-12-01', NULL, '2018-11-29 07:56:45', NULL, 0, NULL),
+(4, 'Customize', 2, 5, 'Make it vintage', NULL, 'Accepted', '2018-12-29', NULL, '2018-11-29 07:57:57', '2018-11-29 08:20:51', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -114,12 +113,12 @@ CREATE TABLE IF NOT EXISTS `chargeinvoice` (
 --
 
 INSERT INTO `chargeinvoice` (`id`, `vehicleId`, `personalId`, `scopeId`, `sparePartsId`, `date`, `TotalPrice`, `created`, `modified`) VALUES
-(1, 6, 5, 'Recondition accelerator mechanism - Replace Assorted Bushings,Replace Stud Bolts,Replace Fan Belt', 'Exhaust', '2018-11-30', 10000, '2018-11-29 01:02:04', NULL),
-(2, 1, 1, 'Repaint whole vehicle,Buff the whole vehicle', NULL, '2018-11-29', 15000, '2018-11-29 01:03:25', NULL),
-(3, 7, 6, 'Check Seat belts', NULL, '2018-11-30', 850, '2018-11-29 01:07:43', NULL),
-(4, 4, 3, 'Replace Tail Light(Right),Install Antenna', 'Exhaust', '2018-11-29', 20000, '2018-11-29 01:08:22', NULL),
-(5, 1, 1, 'Recondition Brake System - Replace Brake Master Repair Kit,Repaint whole vehicle', NULL, '2018-11-29', 20000, '2018-11-29 01:14:43', NULL),
-(6, 8, 7, 'New upholstery, new chair upholstery, new inside carpet', NULL, '2018-12-07', 10000, '2018-11-29 01:15:33', NULL);
+(1, 1, 1, 'Panel Beat - Front Facia,Panel Beat - Rear Bumper', NULL, '2018-11-29', 500, '2018-11-29 08:13:21', NULL),
+(2, 3, 2, 'Replace Tail Light(Right),Install dashboard lights, speedo meter ', NULL, '2018-11-30', 5000, '2018-11-29 08:13:50', NULL),
+(3, 5, 1, 'New upholstery, new chair upholstery, new inside carpet,Check Seat belts', NULL, '2018-11-30', 10000, '2018-11-29 08:14:16', NULL),
+(4, 3, 2, 'Panel Beat - Rear Bumper,Fix sliding Door mechanism,Buff the whole vehicle', NULL, '2018-11-30', 5000, '2018-11-29 08:14:50', NULL),
+(5, 4, 4, 'Buff the rear bumper', NULL, '2018-11-30', 1000, '2018-11-29 08:15:22', NULL),
+(6, 1, 1, 'Recondition accelerator mechanism - Replace Assorted Bushings,Wheel balance,Panel Beat - Rear Bumper', NULL, '2018-11-07', 1000, '2018-11-29 08:20:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -213,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `personalinfo` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`personalId`),
   KEY `userId` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `personalinfo`
@@ -225,8 +224,7 @@ INSERT INTO `personalinfo` (`personalId`, `user_id`, `firstName`, `lastName`, `m
 (3, 3, 'Fernando', 'Delfino', 'Carpio', NULL, 'Tuding, Itogon', '09123456789', NULL, 'fernando@gmail.com', '2018-11-29 00:35:49', NULL),
 (4, 4, 'Sarah', 'Cruz', 'Reyes', NULL, 'La Trinindad, Benguet', '09789456123', NULL, 'sarahcruz@gmail.com', '2018-11-29 00:45:21', NULL),
 (5, 5, 'John', 'Bautista', 'Ocampo', NULL, 'Binalonan, Pangasinan', '09147258369', NULL, 'johnbautista@gmail.com', '2018-11-29 00:48:02', NULL),
-(6, 6, 'Mary Joy', 'Torres', 'Mendoza', NULL, 'Aurora Hill, Baguio City', '09369258147', NULL, 'maryjoy@gmail.com', '2018-11-29 00:50:41', NULL),
-(7, NULL, 'Nicole', 'Villanueva', 'Andrada', '', 'Petersville Subdivision, Camp7, Baguio', '09268415397', '0743334444', 'itsmenicole@gmail.com', '2018-11-29 01:12:30', NULL);
+(6, 6, 'Mary Joy', 'Torres', 'Mendoza', NULL, 'Aurora Hill, Baguio City', '09369258147', NULL, 'maryjoy@gmail.com', '2018-11-29 00:50:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -363,6 +361,36 @@ INSERT INTO `spareparts` (`id`, `name`, `price`, `created`, `modified`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `task`
+--
+
+DROP TABLE IF EXISTS `task`;
+CREATE TABLE IF NOT EXISTS `task` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `appointmentID` int(255) NOT NULL,
+  `service` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'In-progress',
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL,
+  `dateStart` date DEFAULT NULL,
+  `dateEnd` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `appointmentID` (`appointmentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `task`
+--
+
+INSERT INTO `task` (`id`, `appointmentID`, `service`, `status`, `created`, `modified`, `dateStart`, `dateEnd`) VALUES
+(1, 1, 'Please handle with care', 'In-progress', '2018-11-29 08:22:06', '2018-11-29 08:22:06', NULL, NULL),
+(2, 1, 'Change Oil', 'In-progress', '2018-11-29 08:22:06', '2018-11-29 08:22:06', NULL, NULL),
+(3, 1, 'Check fuel filter', 'In-progress', '2018-11-29 08:22:06', '2018-11-29 08:22:06', NULL, NULL),
+(4, 1, 'Change Brake Pads', 'In-progress', '2018-11-29 08:22:06', '2018-11-29 08:22:06', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -416,21 +444,20 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `personalId2` (`personalId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
 --
 
 INSERT INTO `vehicles` (`id`, `personalId`, `plateNumber`, `bodyType`, `yearModel`, `chasisNumber`, `engineClassification`, `numberOfCylinders`, `typeOfDriveTrain`, `make`, `series`, `color`, `engineNumber`, `typeOfEngine`, `engineDisplacement`, `status`, `created`, `modified`) VALUES
-(1, 1, 'ABC-123', NULL, '2010', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'Yellow', NULL, NULL, NULL, 'Active', '2018-11-29 00:21:37', NULL),
-(2, 1, 'EFG-456', NULL, '2012', NULL, NULL, NULL, NULL, 'Toyota', 'Inova', 'Blue', NULL, NULL, NULL, 'Active', '2018-11-29 00:26:12', '2018-11-29 00:26:33'),
-(3, 2, 'HIJ-789', NULL, '2001', NULL, NULL, NULL, NULL, 'Toyota', 'Corolla', 'Red', NULL, NULL, NULL, 'Active', '2018-11-29 00:31:11', NULL),
-(4, 3, 'KLM-012', NULL, '2008', NULL, NULL, NULL, NULL, 'Mitsubishi ', 'Lancer', 'Black', NULL, NULL, NULL, 'Active', '2018-11-29 00:35:49', NULL),
-(5, 4, 'NOP-345', NULL, '2017', NULL, NULL, NULL, NULL, 'Ford', 'Ranger', 'Orange', NULL, NULL, NULL, 'Active', '2018-11-29 00:45:21', NULL),
-(6, 5, 'JOB-666', NULL, '2017', NULL, NULL, NULL, NULL, 'Toyota', 'Wigo', 'Yellow', NULL, NULL, NULL, 'Active', '2018-11-29 00:48:02', NULL),
-(7, 6, 'MJT-098', NULL, '2016', NULL, NULL, NULL, NULL, 'Hyundai', 'Eon', 'Pink', NULL, NULL, NULL, 'Active', '2018-11-29 00:50:41', NULL),
-(8, 7, 'TER-567', '', '2010', '', '', '', '', 'Ford', 'Muztang', 'White/Blue', '', '', '', 'Active', '2018-11-29 01:13:35', NULL);
+(1, 1, 'ABC-123', NULL, '2010', NULL, NULL, NULL, NULL, 'Honda', 'Civic', 'Red', NULL, NULL, NULL, 'Active', '2018-11-29 07:21:20', NULL),
+(2, 5, 'EFG-354', NULL, '2017', NULL, NULL, NULL, NULL, 'Toyota', 'Corolla', 'Black', NULL, NULL, NULL, 'Active', '2018-11-29 07:21:20', NULL),
+(3, 2, 'LJK-354', NULL, '2010', NULL, NULL, NULL, NULL, 'Toyota', 'Innova', 'Yellow', NULL, NULL, NULL, 'Active', '2018-11-29 07:24:44', NULL),
+(4, 4, 'RTY-347', NULL, '2018', NULL, NULL, NULL, NULL, 'Honda', 'Jazz', 'Blue', NULL, NULL, NULL, 'Active', '2018-11-29 07:24:44', NULL),
+(5, 1, 'GHB-965', NULL, '2012', NULL, NULL, NULL, NULL, 'Ford', 'Muztang', 'white/blue', NULL, NULL, NULL, 'Active', '2018-11-29 07:26:19', NULL),
+(6, 1, 'FAT-888', '', '2016', '0', '', '0', '', 'Ford', 'Ranger', 'Orange', '0', '', '', 'Active', '2018-11-29 07:27:40', '2018-11-29 08:17:02'),
+(7, 1, 'FTG-765', '', '2016', '0', '', '0', '', 'Toyota', 'Lancer', 'Orange', '0', '', '', 'Active', '2018-11-29 07:27:49', '2018-11-29 08:17:02');
 
 --
 -- Constraints for dumped tables
