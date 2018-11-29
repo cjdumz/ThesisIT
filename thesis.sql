@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 29, 2018 at 03:41 AM
+-- Generation Time: Nov 29, 2018 at 03:32 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -80,10 +80,10 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `serviceId`, `vehicleId`, `personalId`, `otherService`, `additionalMessage`, `status`, `date`, `adminDate`, `created`, `modified`, `notification`, `targetEndDate`) VALUES
-(1, 'Change Oil,Check fuel filter,Change Brake Pads', 1, 1, 'Please handle with care', NULL, 'In-Progress', '2018-12-06', NULL, '2018-11-29 07:54:06', '2018-11-29 08:22:06', 0, NULL),
-(2, 'check horn,check battery', 6, 1, 'Howmuch will it cost me ? ', NULL, 'Pending', '2018-12-14', NULL, '2018-11-29 07:55:54', NULL, 0, NULL),
-(3, 'Body Repair', 3, 2, 'Need it dine in 3 days', NULL, 'Pending', '2018-12-01', NULL, '2018-11-29 07:56:45', NULL, 0, NULL),
-(4, 'Customize', 2, 5, 'Make it vintage', NULL, 'Accepted', '2018-12-29', NULL, '2018-11-29 07:57:57', '2018-11-29 08:20:51', 0, NULL);
+(1, 'Change Oil,Check fuel filter,Change Brake Pads', 1, 1, 'Please handle with care', NULL, 'In-Progress', '2018-12-06', NULL, '2018-11-29 07:54:06', '2018-11-29 08:22:06', 1, NULL),
+(2, 'check horn,check battery', 6, 1, 'Howmuch will it cost me ? ', NULL, 'Pending', '2018-12-14', NULL, '2018-11-29 07:55:54', NULL, 1, NULL),
+(3, 'Body Repair', 3, 2, 'Need it dine in 3 days', NULL, 'Pending', '2018-12-01', NULL, '2018-11-29 07:56:45', NULL, 1, NULL),
+(4, 'Customize', 2, 5, 'Make it vintage', NULL, 'Accepted', '2018-12-29', NULL, '2018-11-29 07:57:57', '2018-11-29 08:20:51', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -134,14 +134,17 @@ CREATE TABLE IF NOT EXISTS `daterestricted` (
   `modified` datetime DEFAULT NULL,
   `created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `daterestricted`
 --
 
 INSERT INTO `daterestricted` (`id`, `date`, `status`, `modified`, `created`) VALUES
-(1, '2018-12-12', 'Accepted', NULL, '2018-11-25 00:57:30');
+(1, '2018-12-12', 'Accepted', NULL, '2018-11-25 00:57:30'),
+(2, '2018-11-25', 'Accepted', NULL, '2018-11-29 11:19:59'),
+(3, '2018-11-26', 'Accepted', NULL, '2018-11-29 11:20:15'),
+(4, '2018-12-01', 'Accepted', NULL, '2018-11-29 11:20:23');
 
 -- --------------------------------------------------------
 
@@ -158,7 +161,15 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   `message` varchar(250) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `name`, `email`, `phoneNumber`, `message`, `date`) VALUES
+(2, 'Jane Doe', 'jane8@gmail.com', '09187723489', 'The shop replies fast. Easy communication', '2018-11-29 00:00:00'),
+(3, NULL, NULL, NULL, 'The service is good! Approachableemployees', '2018-11-29 00:00:00');
 
 -- --------------------------------------------------------
 
