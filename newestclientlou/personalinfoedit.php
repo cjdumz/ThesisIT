@@ -184,7 +184,7 @@
       </div>
       <br>
      <div class="pull-right">
-      <button type="submit" class="btn btn-success btn-sm" name="account_edit" style="background-color: #4caf50;color: white;"><i class="fas fa-user-edit"></i> Edit</button>
+      <button type="submit" class="btn btn-success btn-sm" name="account_edit" style="background-color: #4caf50;color: white;"><i class="fas fa-user-edit"></i> Save</button>
         <a href="accountsettings.php" class="btn btn-default btn-sm"><i class="fas fa-times-circle"></i> Cancel</a>     
       </div>
     </form>
