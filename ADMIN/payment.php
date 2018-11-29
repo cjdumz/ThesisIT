@@ -8,7 +8,7 @@
             $query = $connection->prepare("Update chargeinvoice set totalPrice = ? where id = ?");
             $query->bind_param('ii', $newTotal, $id);
             $query->execute();
-            header('Location: viewCi.php');
+            header('Location: chargeinvoice.php');
     }else{
         exit();
     }

@@ -165,8 +165,7 @@ $ci = $stmt->fetchAll();
                                 <td><?= $chargeInvoice['totalPrice']; ?></td>
                                   <td>
                                       <form action='payment.php?id=<?= $chargeInvoice['id']; ?>&totalPrice=<?= $chargeInvoice['totalPrice']; ?>' method = 'POST' > Payment = <input type = 'text' name = 'payment' style="border-style: groove; border-radius: 5px; border-color:#f2f2f2">
-                                          <button type='button' name='submit' class="btn btn-primary"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button>
-                                           </form>
+                                      <input type='submit' name='submit' class="btn btn-primary"></form>
                                   </td>
                               </tr>
                         <?php endforeach; ?>

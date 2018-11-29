@@ -223,23 +223,41 @@ if(!isset($_GET['id'])){
                               </div>
 
                               <form action="process/server.php" method="POST">
+                                <input type="hidden" value="'.$id.'" name="personal-id">
                                 <button type="submit" name="generate" class="btn btn-success" style="float:right" >
                                   <i class="menu-icon mdi mdi-account-settings-variant"></i> Generate Account
                                 </button>
                               </form>
                         ';
                       }else{
-                        echo '
+                        $user = $row['user_id'];
+                        $query = $connection->prepare("SELECT * FROM `users` WHERE `id` = '$user';");
+                        if($query->execute()){
+                          $values = $query->get_result();
+                          $row = $values->fetch_assoc();
+                          echo '
                               <div class="row">
                                 <div class="offset-1 col-md-2"><p >Status </p></div>
                                 <div class="col-md-9">
-                                  <p style="margin-top: -1%" class="card-title"> 
-                                    <button type="submit" name="generate" class="btn btn-success" style="float:left" >Activate</button> 
-                                    &nbsp
-                                    <button type="submit" name="generate" class="btn btn-danger" style="float:left" >Deactivate</button>
-                                    
-                                    
+                                  <form action="process/server.php" method="POST">
+                                  <input type="hidden" value="'.$id.'" name="per-id">
+                                  <input type="hidden" value="'.$user.'" name="user-id">
+                                  <input type="hidden" value="'.$row['status'].'" name="status">
+                                  <p style="margin-top: -8%" class="card-title">
+
+                                  ';
+                                  if($row['status'] == 'Active'){
+                                    echo ' 
+                                          <button type="submit" name="changeStatus" class="btn btn-success" style="float:left" >'.$row['status'].'</button>
+                                        ';
+                                  }else{
+                                    echo ' <button type="submit" name="changeStatus" class="btn btn-danger" style="float:left" >'.$row['status'].'</button> ';
+                                  }
+                                   
+                                    echo'
+
                                   </p>
+                                  </form>
                                 </div>
                               </div>
 
@@ -247,7 +265,7 @@ if(!isset($_GET['id'])){
                                 <div class="offset-1 col-md-2"><p >Username</p></div>
                                 <div class="col-md-9">
                                   <p style="margin-top: -1%" class="card-title">: 
-                                    Sample
+                                  '.$row['username'].'
                                   </p>
                                 </div>
                               </div>
@@ -256,11 +274,47 @@ if(!isset($_GET['id'])){
                                 <div class="offset-1 col-md-2"><p >Password</p></div>
                                 <div class="col-md-9">
                                   <p style="margin-top: -1%" class="card-title"> 
-                                    <button class="btn btn-primary"><i class="menu-icon mdi mdi-lock-reset"></i> Change Password</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePassword">
+                                      <i class="menu-icon mdi mdi-lock-reset"></i>Change Password
+                                    </button>
                                   </p>
                                 </div>
                               </div>
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="process/server.php" method="POST">
+                                      <div>
+                                        <label for="message-text" class="col-form-label">Password:</label>
+                                        <input type="password" class="form-control" name="p1"  id="password" placeholder="Password"  onkeyup="check();" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Confirm Password:</label>
+                                        <input type="password" class="form-control" name="p2"  id="confirm_password" placeholder="Confirm Password" onkeyup="check();" required>
+                                        <span id="message">
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <input type="hidden" value="'.$id.'" name="per-id">
+                                      <input type="hidden" value="'.$user.'" name="user-id">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="submit" name="changePass" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
                           ';
+                        }
                       }
                     ?>
 
@@ -528,6 +582,20 @@ if(!isset($_GET['id'])){
     "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 
 });
+</script>
+<script>
+  var check = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('confirm_password').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'matching';
+    $('#Submit').prop('disabled',false);
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'not matching';
+    $('#Submit').prop('disabled',true);
+    }
+  }
 </script>
 
 

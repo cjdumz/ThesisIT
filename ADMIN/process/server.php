@@ -36,7 +36,7 @@ if(isset($_POST['resubmit'])){
   $id = $connection->real_escape_string($_POST["id"]);
   $message = $connection->real_escape_string($_POST["message"]);
   $location = $connection->real_escape_string($_POST["location"]);
-  $actions_command = $connection->prepare("UPDATE `appointments` SET `date` = '$update' , `status`= 'Rescheduled', `additionalMessage` = '$message' WHERE `appointments`.`id` = $id;");
+  $actions_command = $connection->prepare("UPDATE `appointments` SET `date` = '$update' , `status`= 'Rescheduled', `additionalMessage` = '$message', `adminDate` = 'admin' WHERE `appointments`.`id` = $id;");
   if($actions_command ->execute()){
     if($location == 'appointment'){
       $MSG = "succesully approved appointment";
@@ -122,7 +122,7 @@ if(isset($_POST["start"])){
           $services = $row['serviceId'];
           $id = $row['id'];
 
-          if($row['otherServices'] != ""){
+          if($row['otherService'] != ""){
             $other = $row['otherService'];
             $query2 = $connection->prepare("INSERT INTO `task`(`service`, `appointmentID`, `modified`)
             VALUES ('$other', $id, now() )");
@@ -199,6 +199,122 @@ if(isset($_POST["changeUser"])){
   $start_task = $connection->prepare("UPDATE `vehicles` SET `personalId` = '$user' WHERE `vehicles`.`plateNumber` = '$plate';");
   if($start_task->execute()){
     header("Location: ../viewVehicle.php?plate=$plate");
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+if(isset($_POST["add-task"])){
+  $app_id = $connection->real_escape_string($_POST["app_id"]);
+  $service = $connection->real_escape_string($_POST["service"]);
+  $p1 = $connection->real_escape_string($_POST["p1"]);
+  $p2 = $connection->real_escape_string($_POST["p2"]);
+  $addTask = $connection->prepare("INSERT INTO `task`(`appointmentID`, `service`, `modified`) VALUES ($app_id, '$service', now());");
+  if($addTask->execute()){
+    header("Location: ../records.php?id=$app_id");
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+if(isset($_POST["delete-task"])){
+  $task_id = $connection->real_escape_string($_POST["task_id"]);
+  $app_id = $connection->real_escape_string($_POST["app_id"]);
+  echo $service;
+  $deleteTask = $connection->prepare("DELETE FROM `task` WHERE task.id = $task_id");
+  if($deleteTask->execute()){
+    header("Location: ../records.php?id=$app_id");
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+if(isset($_POST["generate"])){
+  $id = $connection->real_escape_string($_POST["personal-id"]);
+  $query = $connection->prepare("SELECT * FROM `personalinfo` WHERE `personalId` = $id");
+
+  if($query->execute()){
+
+    $values = $query->get_result();
+    $row = $values->fetch_assoc();
+
+    $str = $row['lastName'];
+    $rest = substr($str, 0, 1);
+    $second = substr($str, 1);
+    $first = strtoupper($rest);
+    $username = $first.$second;
+    $str2 = $row['mobileNumber'];
+    $last = substr($str2, -3,3 );
+    $final = $username.$last;
+
+    $password = password_hash($final, PASSWORD_DEFAULT);
+    echo $final;
+    echo '<br>';
+    echo $password;
+
+    $generate = $connection->prepare("INSERT INTO `users` (`id`, `username`, `password`, `created`, `modified`, `status`) 
+                                      VALUES (NULL, '$final', '$password', CURRENT_TIMESTAMP, NULL, 'Active');");
+    if($generate->execute()){
+      $getId = $connection->prepare("SELECT * FROM `users` WHERE `username` = '$final' AND `password` = '$password' LIMIT 1");
+      if($getId->execute()){
+        $temp = $getId->get_result();
+        $rows = $temp->fetch_assoc();
+  
+        $user_id = $rows['id'];
+        $connect = $connection->prepare("UPDATE `personalinfo` SET `user_id`= $user_id WHERE `personalId` = $id");
+        if($connect->execute()){
+          header("Location: ../user.php?id=$id");
+        }
+      }
+    }
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+
+if(isset($_POST["changeStatus"])){
+  $per = $connection->real_escape_string($_POST["per-id"]);
+  $user = $connection->real_escape_string($_POST["user-id"]);
+  $stat = $connection->real_escape_string($_POST["status"]);
+  if($stat == 'Active'){
+    $query = $connection->prepare("UPDATE `users` SET `status` = 'Deactivate' WHERE `users`.`id` = $user;");
+  }else{
+    $query = $connection->prepare("UPDATE `users` SET `status` = 'Active' WHERE `users`.`id` = $user;");
+  }
+
+  if($query->execute()){
+    header("Location: ../user.php?id=$per");
+    
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+if(isset($_POST["changePass"])){
+  $per = $connection->real_escape_string($_POST["per-id"]);
+  $user = $connection->real_escape_string($_POST["user-id"]);
+  $p1 = $connection->real_escape_string($_POST["p1"]);
+  $p2 = $connection->real_escape_string($_POST["p2"]);
+
+  if($p1 != $p2){
+    header("Location: ../error.php");
+  }
+
+  echo $per;
+  echo $user;
+  $password = password_hash($p1, PASSWORD_DEFAULT);
+  echo $password;
+
+  $query = $connection->prepare("UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = '$user';");
+  if($query->execute()){
+    header("Location: ../user.php?id=$per");
+    
   }else{
     header("Location: ../error.php");
   }
