@@ -7,7 +7,7 @@
       }else{
         $id = $connection->real_escape_string($_GET["id"]);
         $data = $connection->prepare("SELECT `appointments`.`id` as 'ID', `serviceId`, `vehicleId`, `appointments`.`personalId`, `otherService`, concat(firstName,
-        ' ',middleName, ' ',lastName)as 'Name', `appointments`.`serviceId` as 'service',`appointments`.`otherService` as 'others', `vehicles`.`plateNumber`, 
+        ' ',middleName, ' ',lastName)as 'Name', `appointments`.`serviceId` as 'service',`appointments`.`otherService` as 'others', `vehicles`.`plateNumber`, targetEndDate,
         `additionalMessage`, `appointments`.`status` as 'stat', `date`, `adminDate`, `appointments`.`created`, `appointments`.`modified`, `notification`,
          `targetEndDate` FROM `personalinfo` inner join  `appointments` on `appointments`.`personalId` = `personalinfo`.`personalId` inner join `vehicles` on
          `appointments`.`vehicleId` = `vehicles`.`id`
@@ -231,15 +231,27 @@
                   
                     <?php 
                       if($row['stat'] == 'Accepted'){
-                        echo '  
-                              <form action="process/server.php" method="POST">
-                                <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                <button type="submit" class="btn btn-success" name="start" style="float:right">
-                                  <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start
-                                </button>
-                              </form>
+                          if(empty($row['targetEndDate'])){
+                              echo '  
+                                  <form action="process/server.php" method="POST">
+                                    <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                    <button type="submit" disabled class="btn btn-success" name="start" style="float:right">
+                                      <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start
+                                    </button>
+                                  </form>';
+                          }else{
+                                  echo '  
+                                  <form action="process/server.php" method="POST">
+                                    <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                    <button type="submit" class="btn btn-success" name="start" style="float:right">
+                                      <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start
+                                    </button>
+                                  </form>';
+                          }
                               
-                              
+                        
+                          
+                        echo'
                                 <input type="hidden" name="app_id" value="'.$row['ID'].'">
                                 <button type="submit" class="btn btn-warning" style="float:right; margin-right: 10px;"  data-toggle="modal"  data-target="#reschedule">
                                   <i class="menu-icon mdi mdi-calendar-clock"></i> Reschedule

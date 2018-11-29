@@ -1,5 +1,5 @@
 <?php
-    $connection = new mysqli("localhost","root","","thesis");//make database connection
+    $connection = new mysqli("localhost","thesis","","thesis");//make database connection
 
 //Updating Overdue Appointment Request
 $checkAppointmentStatus = $connection->prepare("SELECT * FROM `appointments` WHERE (appointments.status = 'Pending' OR appointments.status = 'Rescheduled') AND appointments.date < now()");

@@ -36,7 +36,7 @@ if(isset($_POST['resubmit'])){
   $id = $connection->real_escape_string($_POST["id"]);
   $message = $connection->real_escape_string($_POST["message"]);
   $location = $connection->real_escape_string($_POST["location"]);
-  $actions_command = $connection->prepare("UPDATE `appointments` SET `date` = '$update' , `status`= 'Rescheduled', `additionalMessage` = '$message', `adminDate` = 'admin' WHERE `appointments`.`id` = $id;");
+  $actions_command = $connection->prepare("UPDATE `appointments` SET `date` = '$update' , `status`= 'Rescheduled', `additionalMessage` = '$message', `adminDate` = 'admin', `notification` = 0 WHERE `appointments`.`id` = $id;");
   if($actions_command ->execute()){
     if($location == 'appointment'){
       $MSG = "succesully approved appointment";
