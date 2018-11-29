@@ -10,7 +10,7 @@ $contactNumber = "";
 $address = "";
 $errors = array(); 
 // connect to the database
-$db = mysqli_connect('localhost', 'root1', '', 'thesislatest');
+$db = mysqli_connect('localhost', 'root', '', 'thesis');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
