@@ -11,6 +11,8 @@
         admin where username='$username' and password='$password';
         ");
 
+        print_r($data);die();
+
         if($data->num_rows == 1){
 
           $sql = "SELECT * FROM admin where username='$username' and password ='$password'";
