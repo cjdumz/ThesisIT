@@ -1,6 +1,6 @@
 <?php
-   $connection = new mysqli("localhost","dev","","thesis");//make database connection
- // require "../require/dataconf.php";
+  $connection = new mysqli("localhost","eas","","thesis");//make database connectio><n
+// <?php require "../require/dataconf.php";>
 //Updating Overdue Appointment Request
 $checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointments` WHERE status = 'Pending' AND date = CURDATE()");
 if($checkDashboard->execute()){

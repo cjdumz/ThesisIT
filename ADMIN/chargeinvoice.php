@@ -1,7 +1,7 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
 <?php
-    $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+    $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'eas', '');
 $sql = "SELECT chargeinvoice.id as id, vehicles.plateNumber as platenumber, vehicles.make as make, vehicles.series as series, personalInfo.firstName,personalInfo.lastName, chargeinvoice.scopeId as scopeWork, chargeinvoice.sparepartsId as spareParts, chargeinvoice.date, chargeinvoice.totalPrice FROM chargeinvoice join vehicles on chargeinvoice.vehicleId = vehicles.id join personalInfo on chargeinvoice.personalId = personalInfo.personalId;";
 $stmt = $pdo->prepare($sql); 
 $stmt->execute(); 

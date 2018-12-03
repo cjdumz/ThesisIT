@@ -1,11 +1,11 @@
 
 <?php
     
-    $connection = new mysqli("localhost","dev","","thesis");//make database connection
+    $connection = new mysqli("localhost","eas","","thesis");//make database connection
     
 //trial
     $DB_host = "localhost";
-    $DB_user = "dev";
+    $DB_user = "eas";
     $DB_pass = "";
     $DB_name = "thesis";
     try
