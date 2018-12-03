@@ -1,7 +1,7 @@
 <?php
 class database{
 	public $host="localhost";
-	public $username="root";
+	public $username="eas";
 	public $pass="";
 	public $db_name="thesis";
 	public $conn;
@@ -128,7 +128,7 @@ class database{
 }
 
 
-	 $db = mysqli_connect('localhost', 'root', '', 'thesislatest');
+	 $db = mysqli_connect('localhost', 'eas', '', 'thesis');
     //Personal Info
     $query = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
     $res = mysqli_query($db,$query);
@@ -160,7 +160,7 @@ class database{
 	}
     
     
-	$db = mysqli_connect('localhost', 'root', '', 'thesislatest');
+	$db = mysqli_connect('localhost', 'eas', '', 'thesis');
 	$query = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
 	$res = mysqli_query($db,$query);
 	$row = mysqli_fetch_assoc($res);

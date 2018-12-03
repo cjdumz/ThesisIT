@@ -10,7 +10,7 @@ $contactNumber = "";
 $address = "";
 $errors = array(); 
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'thesis');
+$db = mysqli_connect('localhost', 'eas', '', 'thesis');
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
@@ -86,7 +86,6 @@ if (isset($_POST['reg_user'])) {
     header('location: home.php');
   }
 }
-
 // ...
 
 if (isset($_POST['login_user'])) {
@@ -144,7 +143,7 @@ if (isset($_POST['login_user'])) {
 }
 
 if (isset($_POST['account_edit'])) { 
-  $db = mysqli_connect('localhost', 'root', '', 'thesislatest');
+  $db = mysqli_connect('localhost', 'eas', '', 'thesis');
   $firstName = mysqli_real_escape_string($db, $_POST['firstName']);
   $lastName = mysqli_real_escape_string($db, $_POST['lastName']);
   $middleName = mysqli_real_escape_string($db, $_POST['middleName']);
@@ -163,7 +162,7 @@ if (isset($_POST['account_edit'])) {
   }
 
   if (isset($_POST['vehiclesinfo_edit'])) { 
-  $db = mysqli_connect('localhost', 'root', '', 'thesislatest');
+  $db = mysqli_connect('localhost', 'eas', '', 'thesis');
   $plateNumber = mysqli_real_escape_string($db, $_POST['plateNumber']);
   $make = mysqli_real_escape_string($db, $_POST['make']);
   $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
@@ -184,7 +183,7 @@ if (isset($_POST['account_edit'])) {
   }
 
   if (isset($_POST['vehicle_add'])) { 
-  $db = mysqli_connect('localhost', 'root', '', 'thesislatest');
+  $db = mysqli_connect('localhost', 'eas', '', 'thesis');
   $plateNumber1 = mysqli_real_escape_string($db, $_POST['plateNumber1']);
   $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
   $make = mysqli_real_escape_string($db, $_POST['make']);
