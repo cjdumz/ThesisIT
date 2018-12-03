@@ -30,7 +30,7 @@ $personalinfo = new database ;
 $personalinfo -> personal_info();
 
 $id = $_SESSION['id'];
-$pdo = new PDO('mysql:host=localhost;dbname=thesislatest', 'root1', '');
+$pdo = new PDO('mysql:host=localhost;dbname=thesis', 'eas', '');
 $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn(); 
 $sql = "SELECT * FROM vehicles where personalId = '$result'";
 $stmt = $pdo->prepare($sql); 

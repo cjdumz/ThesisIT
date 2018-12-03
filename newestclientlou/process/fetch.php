@@ -3,7 +3,7 @@ session_start();
 if(isset($_POST["view"]))
 {
  $personalId = $_SESSION['personalId'];
- $db = mysqli_connect('localhost', 'root', '','thesis');
+ $db = mysqli_connect('localhost', 'eas', '','thesis');
  if($_POST["view"] != '')
  {
   $update_query = "UPDATE appointments SET notification=1 WHERE notification=0";

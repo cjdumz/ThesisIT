@@ -1,7 +1,7 @@
 <?php
 // Change this to your connection info.
 $DB_HOST = 'localhost';
-$DB_USER = 'root';
+$DB_USER = 'eas';
 $DB_PASS = '';
 $DB_NAME = 'thesis';
 // Try and connect using the info above.

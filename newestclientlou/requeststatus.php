@@ -6,7 +6,7 @@
     $profile->user_profile($username);
     $username=$_SESSION['username'];
      $id = $_SESSION['id'];
-     $pdo = new PDO('mysql:host=localhost;dbname=thesislatest', 'root1', '');
+     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'eas', '');
      $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
      $_SESSION['personalId'] = $result;
 

@@ -1,7 +1,7 @@
 <?php 
   extract($_POST);
  
-  $db = mysqli_connect('localhost', 'root', '','thesis');
+  $db = mysqli_connect('localhost', 'eas', '','thesis');
   if (isset($_POST['username_check'])) {
     $username = $_POST['username'];
     $sql = "SELECT * FROM users WHERE username='$username'";
