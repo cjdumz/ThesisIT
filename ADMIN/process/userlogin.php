@@ -11,7 +11,7 @@
         admin where username='$username' and password='$password';
         ");
 
-        print_r($data);die();
+        print_r($_POST);die();
 
         if($data->num_rows == 1){
 
