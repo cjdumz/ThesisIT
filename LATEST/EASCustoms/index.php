@@ -1,10 +1,6 @@
 <?php
 session_start();
-
-if (isset($_SESSION['username'])) 
-     {            
-      header('location: home.php');    
-     }
+include 'process/authhome.php';
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +23,7 @@ http://www.tooplate.com/view/2098-health
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
      <link rel="icon" href="images/Logo.png">
+     <link rel="stylesheet" href="css/all.css">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
@@ -477,9 +474,9 @@ http://www.tooplate.com/view/2098-health
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fab fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fas fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="far fa-envelope"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fab fa-facebook-square"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>

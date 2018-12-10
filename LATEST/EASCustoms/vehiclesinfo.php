@@ -1,23 +1,16 @@
 <?php
     session_start();
+    include 'process/auth.php';
     include 'process/database.php';
     include 'process/server.php';
-     $username=$_SESSION['username'];
-     $id = $_SESSION['id'];
-     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
-     $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
-     $_SESSION['personalId'] = $result;
-     $profile =new database;
-     $profile->user_profile($username);
-     $personalinfo =new database;
-     $personalinfo->personal_info(); 
-    if (!isset($_SESSION['username'])) {
-    $_SESSION['unauthorized_user'] = '<div class="alert alert-warning fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Warning</strong>  Unauthorized user please login.
-    </div>';
-        header('location: login.php');
-      }
+    include 'process/info.php';
+    $username=$_SESSION['username'];
+    $id = $_SESSION['id'];
+    $profile =new database;
+    $profile->user_profile($username);
+    $personalinfo =new database;
+    $personalinfo->personal_info();
+    
 
 ?>
 <!DOCTYPE html>
@@ -34,7 +27,6 @@
      <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <!-- Font Awesome Version 5.0 -->
-     <link rel="stylesheet" href="css/all.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
@@ -115,7 +107,8 @@
                     
                     <ul class="nav navbar-nav navbar-right">
                           
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History <span class="label label-pill label-danger count" style="border-radius:10px;"></span></a></li>
+                        <li><a href="vehicleshistory.php" class="smoothScroll" id="invoicenotification"><i class="fas fa-history"></i> Vehicle History <span class="label label-pill label-danger count1" style="border-radius:10px;padding:6px;"></span></a></li>
+
                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
@@ -154,32 +147,10 @@
      
   <div class="row">
     <div class="container" >  
-   <script>
-$(document).ready(function(){
- $('.action').change(function(){
-  if($(this).val() != '')
-  {
-   var action = $(this).attr("id");
-   var query = $(this).val();
-   var result = '';
-   if(action == "make")
-   {
-    result = 'series';
-   }
-   $.ajax({
-    url:"fetch.php",
-    method:"POST",
-    data:{action:action, query:query},
-    success:function(data){
-     $('#'+result).html(data);
-    }
-   })
-  }
- });
-});
-</script>
+    <!-- Fetchmakeseries.js here -->
 
-    <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#addVehicle" style="background-color: #B80011;color: white"><i class="fa fa-car" aria-hidden="true"></i>Add Vehicle</button>
+
+    <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#addVehicle" style="background-color: #B80011;color: white"><i class="fa fa-car" aria-hidden="true"></i> Add Vehicle</button>
   </br>
   <!--MODAL ADD VEHICLES-->
   <div class="modal fade" id="addVehicle" role="dialog">
@@ -207,8 +178,9 @@ $(document).ready(function(){
           <label for="plateNumber">Plate Number</label>
           <input type="text" class="form-control input-xs" id="plateNumber1"  placeholder="Enter Plate Number" name="plateNumber1"
           required="" oninvalid="this.setCustomValidity('Plate Number Invalid or Empty.')" oninput="setCustomValidity('')" pattern="[A-Za-z]{3}-[0-9]{3,}">
+          <small id="plateNumberEx" class="form-text text-muted">Eg. AYT 321, AAAA 334</small>
         </div>
-        <div class="form-group">
+      <div class="form-group">
        <select name="make" id="make" class="form-control action" onclick="myFunction()">
         <option value="">Select Make</option>
         <?php echo $make; ?>
@@ -217,8 +189,8 @@ $(document).ready(function(){
         <option value="">Select Series</option>
        </select>
        <input type="checkbox" name="otherMake" id="otherMake"> Other Specific Make <br>
-       <input type="text" class="form-control" name="othermake" id="others" placeholder="Enter Make"><br>
-       <input type="text" class="form-control" name="otherseries" id="otherseries" placeholder="Enter Series" >
+       <input type="text" class="form-control" name="othermake" id="others" placeholder="Enter Make" style="display: none;"><br>
+       <input type="text" class="form-control" name="otherseries" id="otherseries" placeholder="Enter Series" style="display: none;">
       </div>
         <div class="form-group">
           <label for="yearModel">Year Model</label><span style="color:red;"> *</span>
@@ -235,37 +207,7 @@ $(document).ready(function(){
         </div>
       </div>
       </form>
-      <script>
-        function myFunction() {
-        var x = document.getElementById("others"); 
-        var result = $('input[name="otherMake"]');
-        $("#make").click(function(){
-        if($('#make').val() !== '' ){
-        $("#others").fadeOut();
-        $("#otherseries").fadeOut();
-        return; 
-        };
 
-        });
-
-        $("#otherMake").click(function(){
-        if ($('#otherMake').is(':checked')) {
-        $("#others").fadeIn();
-        $("#otherseries").fadeIn();
-        $('#series').val('');
-        $('#make').val('');
-        return;
-        };
-        if(!$(this).is(':checked')){
-        $("#others").fadeOut();
-        $("#otherseries").fadeOut();
-        $('#others').val('');
-        $('#otherseries').val('');  
-        };
-        });
-
-        } 
-      </script>
       
     </div>
   </div>
@@ -531,9 +473,9 @@ $(document).ready(function(){
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fas fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="far fa-envelope"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fab fa-facebook-square"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>
@@ -576,7 +518,8 @@ $(document).ready(function(){
      </footer>
   
      <!-- SCRIPTS -->
-
+     <script src="js/notifinvoice.js"></script>
+     <script src="js/makeseries.js"></script>
      <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>

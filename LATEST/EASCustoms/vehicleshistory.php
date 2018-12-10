@@ -2,18 +2,13 @@
     session_start();
     include 'process/database.php';
     include 'process/server.php';
+    include 'process/auth.php';
      $username=$_SESSION['username'];
      $profile =new database;
      $profile->user_profile($username);
      $personalinfo =new database;
      $personalinfo->personal_info(); 
-    if (!isset($_SESSION['username'])) {
-    $_SESSION['unauthorized_user'] = '<div class="alert alert-warning fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Warning</strong>  Unauthorized user please login.
-    </div>';
-        header('location: login.php');
-      }
+
 
 ?>
 <!DOCTYPE html>
@@ -110,8 +105,8 @@
                     
                     <ul class="nav navbar-nav navbar-right">
                           
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fa fa-credit-card" aria-hidden="true"></i> Vehicle History</a></li>
-                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fa fa-truck" aria-hidden="true"></i> Your Vehicles</a></li>  
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History  <span class="label label-pill label-danger count1" style="border-radius:10px;padding:6px;"></span></a></li>
+                        <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
                         <li class="dropdown">
@@ -221,63 +216,6 @@
       </div>
     </div>
 
-  <script>
-  $(document).ready(function(){
-   
-   function load_unseen_notification(view = '')
-   {
-    $.ajax({
-     url:"process/fetch.php",
-     method:"POST",
-     data:{view:view},
-     dataType:"json",
-     success:function(data)
-     {
-      $('#dropdownnotif').html(data.notification);
-      if(data.unseen_notification > 0)
-      {
-       $('.count').html(data.unseen_notification);
-      }
-     }
-    });
-   }
-   
-   load_unseen_notification();
-   
-   $('#appointment_form').on('submit', function(event){
-    event.preventDefault();
-    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '')
-    {
-     var form_data = $(this).serialize();
-     $.ajax({
-      url:"process/insert.php",
-      method:"POST",
-      data:form_data,
-      success:function(data)
-      {
-       $('#appointment_form')[0].reset();
-       load_unseen_notification();
-      }
-     });
-    }
-    else
-    {
-     alert("Both Fields are Required");
-    }
-   });
-   
-   $(document).on('click', '.dropdown-toggle', function(){
-    $('.count').html('');
-    load_unseen_notification('yes');
-   });
-   
-   setInterval(function(){ 
-    load_unseen_notification();; 
-   }, 5000);
-   
-  });
-  </script>
-
      <!-- FOOTER -->
 <footer data-stellar-background-ratio="5">
           <div class="container">
@@ -288,9 +226,9 @@
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fab fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fas fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="far fa-envelope"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fab fa-facebook-square"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>
@@ -333,7 +271,8 @@
      </footer>
   
      <!-- SCRIPTS -->
-     
+     <script src="js/notif.js"></script>
+     <script src="js/notifinvoice.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>

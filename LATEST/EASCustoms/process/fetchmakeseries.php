@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST["action"]))
 {
- $connect = mysqli_connect("localhost", "eas", "", "thesis");
+ $connect = mysqli_connect("localhost", "root", "", "thesis");
  $output = '';
  if($_POST["action"] == "make")
  {

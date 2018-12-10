@@ -10,6 +10,7 @@
      <meta name="keywords" content="">
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <link rel="stylesheet" href="css/all.css">
      <link rel="icon" href="images/Logo.png">
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -20,6 +21,7 @@
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
+
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -110,9 +112,9 @@
     </div>
     <div class="form-group">
     <input type="text" class="form-control" name="username" placeholder="Username" id="username" pattern=".{8,}" title='must contain 6 or more characters'>
-    <small id="username" class="form-text text-muted"> Must contain 8-12 characters.</small><br>
+    <small id="username" class="form-text text-muted"> Must contain 8-12 characters</small><br>
     <div id="username_msg" style="display: none; color: red;font-size: 0.9em">Username is empty</div>
-    <div id="usernamepat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
+    <div id="usernamepat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter</div>
     <span style="font-size: 0.9em"></span>
     </div>
     <div class="form-group">
@@ -120,19 +122,24 @@
     <div id="address_msg" style="display: none; color: red;font-size: 0.9em">Address is empty</div>
     </div>
     <div class="form-group">
-    <input type="text" class="form-control" name="contactNumber" placeholder="Contact Number" id="contactNumber">
+    <div class="input-group input-group-md">
+    <span class="input-group-addon" id="sizing-addon3">+63</span>
+    <input type="text" class="form-control" name="contactNumber" placeholder="Contact Number" id="contactNumber" aria-describedby="sizing-addon3">
+    </div>
+    <small id="Ex" class="form-text text-muted">10 Digits Eg. 95xxxxxxxx</small><br>
+    <div id="contactNumberpat_msg" style="display: none; color: red;font-size: 0.9em">Not more than 10 digits</div>
     <div id="contactNumber_msg" style="display: none; color: red;font-size: 0.9em">Contact Number is empty</div>
-    <span style="font-size: 0.9em"></span>
+    <span id="contact" style="font-size: 0.9em"></span>
     </div>
     <div class="form-group">
     <input type="email" class="form-control" name="Email" placeholder="Email" id="email">
     <div id="email_msg" style="display: none; color: red;font-size: 0.9em">email is empty</div>
     <span style="font-size: 0.9em"></span>
-    <div id="emailpat_msg" style="display: none; color: red;font-size: 0.9em"> Invalid Email.</div>
+    <div id="emailpat_msg" style="display: none; color: red;font-size: 0.9em"> Invalid Email</div>
     </div>
     <div class="form-group">
     <input type="password" class="form-control" name="password" placeholder="Password" id="password" title="must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter">
-    <div id="passwordpat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
+    <div id="passwordpat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter</div>
     <div id="password_msg" style="display: none; color: red;font-size: 0.9em">password is empty</div>
     <span style="font-size: 0.9em"></span>
     </div>
@@ -151,6 +158,7 @@
       <div class="panel-body" style="overflow-y: auto;height: auto;">      
         <div class="form-group">
           <input type="text" class="form-control" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber">
+          <small id="plateNumberEx" class="form-text text-muted">Eg. AYT 321, AAAA 334</small><br>
           <div id="plateNumber_msg" style="display: none; color: red;font-size: 0.9em;">Plate Number is empty</div>
           <div id="plateNumberpat_msg" style="display: none; color: red;font-size: 0.9em"> Wrong Plate Number format.</div>
           <span style="font-size: 0.9em;"></span>
@@ -173,7 +181,7 @@
           <div id="color_msg" style="display: none; color: red;font-size: 0.9em;">Color is empty</div>
         </div>
         <div class="pull-right">
-        <button type="button" class="btn btn-danger btn-sm" name="register" id="reg_btn" style="background-color: #b80011;">Register</button>
+        <a href="#" class="btn btn-danger btn-sm disabled" id="reg_btn" style="background-color: #b80011;color: white;"><i class="fas fa-user-alt"></i> Register</a>
         </div>
         </div>
         </div>  
@@ -196,9 +204,9 @@
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fas fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="far fa-envelope"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fab fa-facebook-square"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>
@@ -250,6 +258,7 @@
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
      <script src="js/script.js"></script>
+     
 
 </body>
 </html>

@@ -1,25 +1,14 @@
 <?php 
     session_start();
     include 'process/database.php';
+    include 'process/info.php';
+    include 'process/auth.php';
     $username=$_SESSION['username'];
     $profile =new database;
     $profile->user_profile($username);
-    $username=$_SESSION['username'];
-     $id = $_SESSION['id'];
-     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
-     $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
-     $_SESSION['personalId'] = $result;
 
-    if (!isset($_SESSION['username'])) {
-    $_SESSION['unauthorized_user'] = '<div class="alert alert-danger fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Error</strong>  Unauthorized user please login.
-    </div>';
-        header('location: login.php');
-      }
-  if (isset($_SESSION['username'])) {
-  header("Refresh: 1800; url=process/logout.php?timeout=yes");
-  }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +110,7 @@
                     
                     <ul class="nav navbar-nav navbar-right">
                           
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History  <span class="label label-pill label-danger count1" style="border-radius:10px;padding:6px;"></span></a></li>
                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
@@ -153,45 +142,6 @@
           ?>
       <?php endif ?>
       </div>
-
-  <?php
-   if(isset($_REQUEST['status'])=="Active")
-   {
-    echo '<script type="text/javascript">
-      $("document").ready(function(){
-      $("#activeContent").show();
-        });
-        </script>';
-   }
-   elseif (isset($_REQUEST['status'])== "Pending") 
-   {
-    
-    echo '<script type="text/javascript">
-      $("document").ready(function(){
-      $("#pendingContent").show();
-        });
-        </script>'; 
-   }
-   elseif (isset($_REQUEST['status'])== "Rescheduled") 
-   {
-    
-    echo '<script type="text/javascript">
-      $("document").ready(function(){
-      $("#rescheduleContent").show();
-        });
-        </script>'; 
-   }
-   else
-   {
-    
-    echo '<script type="text/javascript">
-      $("document").ready(function(){
-      $("#pendingContent").show();
-        });
-        </script>'; 
-   }
-
-    ?>
     
     <div class="container">
     <?php if (isset($_SESSION['appointment_delete'])) : ?>
@@ -228,10 +178,10 @@
         <div class="row">
        <div class="col-sm-6 col-md-6">
        <br>
-       <label for="desiredDate">Date:</label>
-       <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
-       <label for="created">Created:</label>
-       <?= date('F d, Y h:i A', strtotime($appointmentpending['created'])); ?><hr style="padding: 0px;margin: 0px;">
+       <label for="desiredDate">Date:</label><br>
+       <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><br>
+       <label for="created">Created:</label><br>
+       <?= date('F d, Y h:i A', strtotime($appointmentpending['created'])); ?>
       </div>
 
       <div class="col-md-6 col-sm-6">
@@ -248,12 +198,18 @@
               <h5 class="modal-title"><i class="fas fa-concierge-bell"></i> Service Request</h5>
             </div>
             <div class="modal-body">
-                <label for="created">Date Requested:</label>
-                <?= date("F d, Y h:i A",strtotime($appointmentpending['created'])); ?><hr style="padding: 0px;margin: 0px;">
-                <label for="services">Services Requested:</label><br>
-                <?= preg_replace("/[,]/" , "<br>",$appointmentpending['services']); ?><hr style="padding: 0px;margin: 0px;">   
-               <label for="otherServices">Other Services:</label>
-                <?= $appointmentpending['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                <label for="created">Date Requested:</label><br>
+                <?= date("F d, Y h:i A",strtotime($appointmentpending['created'])); ?>   
+               <label for="otherServices">Other Services:</label><br>
+                <?= $appointmentpending['otherServices']; ?>
+                </div>
+                <div class="col-md-6 col-sm-6">
+               <label for="services">Services Requested:</label><br>
+               <?= preg_replace("/[,]/" , "<br>",$appointmentpending['services']); ?>
+                </div>
+               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i> Close</button>
@@ -515,8 +471,8 @@
     <!-- END OF JUMBOTRON -->
  
 
-     <!-- FOOTER -->
-<footer data-stellar-background-ratio="5">
+         <!-- FOOTER -->
+ <footer data-stellar-background-ratio="5">
           <div class="container">
                <div class="row">
 
@@ -525,9 +481,9 @@
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fab fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fas fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="far fa-envelope"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fab fa-facebook-square"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>
@@ -573,6 +529,7 @@
      
 
      <!-- SCRIPTS -->
+     <script src="js/notifinvoice.js"></script>
      <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>

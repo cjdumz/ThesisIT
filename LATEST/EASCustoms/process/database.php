@@ -1,4 +1,5 @@
 <?php
+	$db = mysqli_connect('localhost', 'root', '', 'thesis');
 class database{
 	public $host="localhost";
 	public $username="root";
@@ -128,7 +129,7 @@ class database{
 }
 
 
-	$db = mysqli_connect('localhost', 'root', '', 'thesis');
+
     //Personal Info
     $query = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
     $res = mysqli_query($db,$query);

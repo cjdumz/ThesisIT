@@ -68,8 +68,8 @@
       echo "exists";  
       exit();
     }else{
-     $query = "INSERT INTO users (username, password) 
-            VALUES ('$username','".password_hash($_POST['password'], PASSWORD_DEFAULT)."')";
+     $query = "INSERT INTO users (username, password , status , type) 
+            VALUES ('$username','".password_hash($_POST['password'], PASSWORD_DEFAULT).",'active', 'client'')";
      $result1 = mysqli_query($db, $query);
      $query2 = "INSERT INTO personalinfo (user_id, firstName, middleName, lastName, address, email, mobileNumber) VALUES (LAST_INSERT_ID(),'$firstName', '$middleName', '$lastName', '$address', '$email', '$contactNumber')";
      $result2 = mysqli_query($db, $query2);

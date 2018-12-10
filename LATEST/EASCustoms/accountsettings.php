@@ -2,26 +2,19 @@
      session_start();
     include 'process/database.php';
     include 'process/server.php';
+    include 'process/info.php';
+    include 'process/auth.php';
      $username=$_SESSION['username'];
      $profile =new database;
      $profile->user_profile($username);
      $id = $_SESSION['id'];
-     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'eas', '');
+     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
      $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
      $_SESSION['personalId'] = $result;
      $personalinfo =new database;
      $personalinfo->personal_info();
      $vehicleinfo =new database;
      $vehicleinfo->vehicle_info();
-
-     if (!isset($_SESSION['username'])) {
-    $_SESSION['unauthorized_user'] = '<div class="alert alert-warning fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong>  Unauthorized user please login.
-    </div>';
-        header('location: login.php');
-      }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,7 +113,7 @@
                     
                     <ul class="nav navbar-nav navbar-right">
                           
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i>  Vehicle History</a></li>
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i>  Vehicle History  <span class="label label-pill label-danger count1" style="border-radius:10px;padding:6px;"></span></a></li>
                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
@@ -138,12 +131,19 @@
           </div>
      </section>
 
+
 <div class="jumbotron">    
 <div class="container">
    <?php if (isset($_SESSION['success'])) : ?>
           <?php 
             echo $_SESSION['success']; 
             unset($_SESSION['success']);
+          ?>
+    <?php endif ?>
+    <?php if (isset($_SESSION['changepassword'])) : ?>
+          <?php 
+            echo $_SESSION['changepassword']; 
+            unset($_SESSION['changepassword']);
           ?>
     <?php endif ?>
    </div>
@@ -153,7 +153,7 @@
    <div class="panel panel-default" id="headings">
   <div class="panel-heading" style="background-color: #b80011;color: white;"><i class="fas fa-user"> </i>  User Profile</div>
   <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: ;">
-  <form action="personalinfoedit.php" >
+ 
   <div class="row">
   <div class="col-sm-6 col-md-6">
   <h4>General Information</h4>
@@ -165,6 +165,50 @@
    ?>
       <label for="username">Account Name:</label>
       <?php echo ucfirst($personalinfo['firstName']).' '.ucfirst($personalinfo['middleName'][0]).'. '.ucfirst($personalinfo['lastName']); ?><hr style="padding: 0px;margin: 0px;">
+  <br>
+    <div class="pull-right">
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changepassword"><i class="fas fa-user-shield"></i> Change Password</button>
+  
+<div id="changepassword" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" >
+      <div class="modal-header" style="background-color:#337AB7; color: #ffffff;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h5 class="modal-title" style="color: white;"> <i class="fas fa-users-cog"></i> Change Password</h5>
+      </div>
+      <div class="modal-body" style="margin:0;">
+      <form action="accountsettings.php" method="POST">
+      <input type="hidden" name="personalId" value='<?php echo $personalinfo['personalId']; ?>'>
+      <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" name="accountpassword" id="accountpassword" title="must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter">
+      
+      <div id="passwordpat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
+      <div id="password_msg" style="display: none; color: red;font-size: 0.9em">password is empty</div>
+      <span style="font-size: 0.9em"></span>
+      </div>
+      
+      <div class="form-group">
+      <label for="accountconfirm_password">Confirm Password:</label>
+      <input type="password" class="form-control" name="accountconfirm_password" id="accountconfirm_password">
+      <span id="message" style="font-size: 0.9em"></span>
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="changepassbutton" name="changepassword" class="btn btn-primary btn-sm disabled"><i class="fas fa-check-square"></i> Save</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i> Close</button>
+      </form>
+      </div>
+      </div>
+     
+
+  </div>
+</div>
+      
+    </div>
   
   </div>
     <div class="vl"></div>
@@ -175,14 +219,14 @@
       <label for="email">Email:</label>
       <?php echo $personalinfo['email']; ?><hr style="padding: 0px;margin: 0px;">
       <label for="phone">Contact Number:</label>
-      <?php echo $personalinfo['mobileNumber']; ?><hr style="padding: 0px;margin: 0px;">
+      <?php echo '+63'.$personalinfo['mobileNumber']; ?><hr style="padding: 0px;margin: 0px;">
       <label for="address">Address:</label>
       <?php echo ucfirst($personalinfo['address']); ?><hr style="padding: 0px;margin: 0px;">
       <label for="modified">Date Created:</label>
-      <?php echo $personalinfo['created']; ?><hr style="padding: 0px;margin: 0px;">
+      <?php echo date("m/d/y h:i A",strtotime($personalinfo['created'])); ?><hr style="padding: 0px;margin: 0px;">
       <label for="modified">Date Modified:</label>
       <?php if (isset($personalinfo['modified'])){
-             echo $personalinfo['modified']; 
+             echo date("m/d/y h:i A",strtotime($personalinfo['modified'])); 
             }else {
              echo "-----";
              }?>
@@ -192,8 +236,10 @@
   <div class="form-group">
     <br>
   <div class="pull-right">
+  <form action="personalinfoedit.php" >
   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#viewVehicle" style="background-color: #b80011;"><i class="fas fa-car"></i> My Vehicle</button>
   <button type="submit" class="btn btn-success btn-sm" style="background-color: #4caf50; "><i class="fas fa-user-edit"></i> Edit </button>
+  </form>
   </div>
 
 <!-- Modal -->
@@ -228,7 +274,6 @@
 </div>
 
   </div>
-</form>
 
 <?php
    
@@ -248,7 +293,7 @@
      </section>
 
      <!-- FOOTER -->
-<footer data-stellar-background-ratio="5">
+ <footer data-stellar-background-ratio="5">
           <div class="container">
                <div class="row">
 
@@ -257,9 +302,9 @@
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fab fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fas fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="far fa-envelope"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fab fa-facebook-square"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>
@@ -300,66 +345,10 @@
                </div>
           </div>
      </footer>
-
-      <script>
-  $(document).ready(function(){
-   
-   function load_unseen_notification(view = '')
-   {
-    $.ajax({
-     url:"process/fetch.php",
-     method:"POST",
-     data:{view:view},
-     dataType:"json",
-     success:function(data)
-     {
-      $('#dropdownnotif').html(data.notification);
-      if(data.unseen_notification > 0)
-      {
-       $('.count').html(data.unseen_notification);
-      }
-     }
-    });
-   }
-   
-   load_unseen_notification();
-   
-   $('#appointment_form').on('submit', function(event){
-    event.preventDefault();
-    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '')
-    {
-     var form_data = $(this).serialize();
-     $.ajax({
-      url:"process/insert.php",
-      method:"POST",
-      data:form_data,
-      success:function(data)
-      {
-       $('#appointment_form')[0].reset();
-       load_unseen_notification();
-      }
-     });
-    }
-    else
-    {
-     alert("Both Fields are Required");
-    }
-   });
-   
-   $(document).on('click', '.dropdown-toggle', function(){
-    $('.count').html('');
-    load_unseen_notification('yes');
-   });
-   
-   setInterval(function(){ 
-    load_unseen_notification();; 
-   }, 5000);
-   
-  });
-  </script>
-
      <!-- SCRIPTS -->
-     
+     <script src="js/script.js"></script>
+     <script src="js/notifinvoice.js"></script>
+     <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>

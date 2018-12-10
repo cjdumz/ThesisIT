@@ -1,9 +1,9 @@
 <?php
 session_start();
+$db = mysqli_connect('localhost', 'root', '','thesis');
 if(isset($_POST["view"]))
 {
  $personalId = $_SESSION['personalId'];
- $db = mysqli_connect('localhost', 'root', '','thesis');
  if($_POST["view"] != '')
  {
   $update_query = "UPDATE appointments SET notification=1 WHERE notification=0";
@@ -44,5 +44,26 @@ if(isset($_POST["view"]))
   'unseen_notification' => $count
  );
  echo json_encode($data);
+}
+
+
+if(isset($_POST['view1'])){
+if($_POST["view1"] != '')
+{
+    $update_query = "UPDATE chargeinvoice SET notification = 1 WHERE notification=0";
+    mysqli_query($db, $update_query);
+}
+$query = "SELECT * FROM chargeinvoice ORDER BY id DESC LIMIT 5";
+$result = mysqli_query($db, $query);
+$output = '';
+
+$status_query = "SELECT * FROM chargeinvoice WHERE notification=0";
+$result_query = mysqli_query($db, $status_query);
+$count = mysqli_num_rows($result_query);
+$data = array(
+    'notification1' => $output,
+    'unseen_notification1'  => $count
+);
+echo json_encode($data);
 }
 ?>

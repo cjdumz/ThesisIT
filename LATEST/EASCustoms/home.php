@@ -1,20 +1,13 @@
 <?php
     session_start();
     include 'process/database.php';
+    include 'process/info.php';
+    include 'process/auth.php';
     $username=$_SESSION['username'];
     $profile =new database;
     $profile->user_profile($username);
 
-    if (!isset($_SESSION['username'])) {
-    $_SESSION['unauthorized_user'] = '<div class="alert alert-danger fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <strong>Error</strong>  Unauthorized user please login.
-    </div>';
-        header('location: login.php');
-      }
-  if (isset($_SESSION['username'])) {
-  header("Refresh: 1800; url=process/logout.php?timeout=yes");
-  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,7 +106,7 @@
                     
                     <ul class="nav navbar-nav navbar-right">
                           
-                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History</a></li>
+                        <li><a href="vehicleshistory.php" class="smoothScroll"><i class="fas fa-history"></i> Vehicle History  <span class="label label-pill label-danger count1" style="border-radius:10px;padding:6px;"></span></a></li>
                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                         <li><a href="requeststatus.php" class="smoothScroll"><i class="far fa-calendar-check"></i>  Request Status</a></li>  
@@ -211,6 +204,7 @@
      </footer>
 
      <!-- SCRIPTS -->
+     <script src="js/notifinvoice.js"></script>
      <script src="js/script.js"></script>
      <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>

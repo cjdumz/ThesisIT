@@ -139,10 +139,6 @@ if (isset($_POST['login_user'])) {
           $_SESSION['username'] = $row['username'];
           $_SESSION['id'] = $row['id'];
           $_SESSION['last_login_timestamp'] = time();  
-          //$_SESSION['success'] = '<div class="alert alert-success fade in" align="center">
-          //<a href="#" class="close" data-dismiss="alert">&times;</a>
-          //<i class="fa fa-check-circle" aria-hidden="true"></i> <strong>Notice</strong> Login Successfully.
-          //</div>';
           header('location: vehiclesinfo.php');
           exit();
             }
@@ -153,7 +149,6 @@ if (isset($_POST['login_user'])) {
 }
 
 if (isset($_POST['account_edit'])) { 
-  $db = mysqli_connect('localhost', 'eas', '', 'thesis');
   $firstName = mysqli_real_escape_string($db, $_POST['firstName']);
   $lastName = mysqli_real_escape_string($db, $_POST['lastName']);
   $middleName = mysqli_real_escape_string($db, $_POST['middleName']);
@@ -171,8 +166,9 @@ if (isset($_POST['account_edit'])) {
      exit();
   }
 
+
+
   if (isset($_POST['vehiclesinfo_edit'])) { 
-  $db = mysqli_connect('localhost', 'eas', '', 'thesis');
   $plateNumber = mysqli_real_escape_string($db, $_POST['plateNumber']);
   $make = mysqli_real_escape_string($db, $_POST['make']);
   $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
@@ -192,8 +188,27 @@ if (isset($_POST['account_edit'])) {
     }
   }
 
+
+  if (isset($_POST['changepassword'])) { 
+  $personalId = mysqli_real_escape_string($db, $_POST['personalId']);
+  $password = mysqli_real_escape_string($db, $_POST['accountpassword']);
+  $confirmpassword = mysqli_real_escape_string($db, $_POST['accountconfirm_password']);
+   $query  = "UPDATE users SET password = '".password_hash($_POST['accountpassword'], PASSWORD_DEFAULT)."' WHERE id = '$personalId'";
+    if (mysqli_query($db, $query) == true) {
+    $_SESSION['changepassword'] = '<div class="alert alert-success fade in" align="center">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong> Notice</strong> Password changed Successfully.
+    </div>';
+
+     header('location: accountsettings.php');
+     exit();
+    }
+  }
+
+
+
+
   if (isset($_POST['vehicle_add'])) { 
-  $db = mysqli_connect('localhost', 'eas', '', 'thesis');
   $plateNumber1 = mysqli_real_escape_string($db, $_POST['plateNumber1']);
   $yearModel = mysqli_real_escape_string($db, $_POST['yearModel']);
   $make = mysqli_real_escape_string($db, $_POST['make']);
@@ -228,6 +243,8 @@ if (isset($_POST['account_edit'])) {
   }
     $db->close();     
   }
+
+
 
   //Insert Appointment
   if(isset($_POST["vehicle"]))
